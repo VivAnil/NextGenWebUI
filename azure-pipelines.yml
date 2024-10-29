@@ -69,7 +69,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy App Service'
             inputs:
-              azureSubscription: 'c12a76ed-2c03-4a1b-a7c1-aab2bebe2b53'
+              azureSubscription: 'AzureDevOpsSubscription'
               appType: 'webAppLinux'
               appName: 'NextGenWebUI'
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
