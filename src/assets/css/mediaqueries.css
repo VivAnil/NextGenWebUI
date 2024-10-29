@@ -1,0 +1,315 @@
+﻿/* ----------- iPhone 4 and 4S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 5 and 5S ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 568px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) {
+
+}
+
+/* ----------- iPhone 6 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: landscape) { 
+
+}
+
+/* ----------- iPhone 6+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+
+}
+
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: landscape) { 
+
+}
+
+/* ----------- Galaxy S3 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 2) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Galaxy S4 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 320px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Galaxy S5 ----------- */
+
+/* Portrait and Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) {
+
+}
+
+/* Portrait */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen 
+  and (device-width: 360px) 
+  and (device-height: 640px) 
+  and (-webkit-device-pixel-ratio: 3) 
+  and (orientation: landscape) {
+
+}
+
+/* ----------- Galaxy Tab 10.1 ----------- */
+
+/* Portrait and Landscape */
+@media 
+  (min-device-width: 800px) 
+  and (max-device-width: 1280px) {
+
+  
+  .small-header{display:block;}
+  
+}
+
+/* Portrait */
+@media 
+  (max-device-width: 800px) 
+  and (orientation: portrait) { 
+
+}
+
+/* Landscape */
+@media 
+  (max-device-width: 1280px) 
+  and (orientation: landscape) { 
+
+}
+
+
+
+/* ----------- Retina Screens ----------- */
+@media screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1280px) 
+   { 
+  .container{width:100%;}
+  .inner {width:50%!important;}
+  
+}
+
+@media screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 900px) 
+   { 
+ 
+  .search-menu{display:none;}
+}
+
+@media screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 1000px) 
+   { 
+  body {/*font-size:3vw;*/
+  }
+  .nowrap{white-space:normal!important;}
+  .inline-block {display:block!important; width:auto!important;;margin:0!important;;}
+  .wrap-text{width:auto!important;}
+
+    .footer {
+        border-left: 0px solid #e3e2df!important;       
+         border-right: 0px solid #e3e2df!important; 
+         border-top: 0px solid #e3e2df!important; 
+    }
+
+    .display-flex{
+        display:block!important;
+    }
+
+    .sidebar-icon-home{
+        display:none;
+    }
+
+    .main-container{
+        display:block!important;
+    }
+    #img_user_sidebar, #ctl00_img_user_sidebar {
+        max-width: 50%;
+    }
+
+    .back-main-container{
+        margin-bottom:20px;
+    }
+  
+}
+
+@media screen 
+  and (min-device-width: 1366px) 
+   
+   { 
+  
+  .inner {width:30%!important;}
+  .container{width:100%;}
+  .small-header{display:none;}
+}
+@media screen 
+  and (max-device-width: 768px) 
+   
+   { 
+   .left-sidebar1{
+	  display:none;
+  }
+  #accordion {display:block!important;}
+  .list-group, .bhoechie-tab, .upcoming-birthday{display:none!important;}
+  
+  .big-header{display:none;}
+    .small-header, .logout-btn {
+        display: block!important;
+    }
+
+    .sidebar-home, .profile-box-div, .sidebar, #left-menu {
+        display: none;
+    }
+    .navbar-inverse {
+        background-color: #e3e2df!important;
+    }
+    #left-menu {
+        padding-left: 15px!important;
+        padding-right: 15px!important;
+    }
+   }
+
+
+

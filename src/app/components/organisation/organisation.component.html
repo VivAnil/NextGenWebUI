@@ -1,0 +1,473 @@
+<link rel="Stylesheet" href="../../../assets/css/mediaqueries.css" />
+<!-- <link rel="Stylesheet" href="css/bootstrap.min.css" /> -->
+<!-- <link rel="stylesheet" href="../../../assets/css/fontawesome.css" /> -->
+<link rel="Stylesheet" href="../../../assets/css/all.css" />
+<link rel="Stylesheet" href="../../../assets/css/common.css"/>
+<link rel="Stylesheet" href="../../../assets/css/header.css"/>
+<link rel="Stylesheet" href="../../../assets/css/left_menu.css"/>
+<link rel="Stylesheet" href="../../../assets/css/top_menu.css"/>
+<link rel="Stylesheet" href="../../../assets/css/footer.css"/>
+<script type="text/javascript" src="js/external/Grid/jsgrid.min.js"></script>
+
+<link rel="Stylesheet" href="../../../assets/css/jsgrid.css"/>
+<link rel="Stylesheet" href="../../../assets/css/jsgrid-theme.min.css"/>
+<link rel="Stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" /> 
+
+<div class="container-fluid header back-header" style="background: #311c1b; margin-bottom: 20px;">
+    <div class="row">
+        <div style="width:50%; float:left;"><a href="#"><img style="max-width:100%;" src="../../../assets/images/logowhite.png"
+                    alt="" /></a></div>
+
+        <div style="width:50%; float:left; position:relative;text-align:right;">
+
+            <div  style="width:100%; float:left;" class="profile-box-div">
+                <div class="text-overflow letter-spacing-0 font-color-white" style="float:left; width:82%;">Welcome !
+                    <span class="span-color emp-name-color"><span>Azeem Khan</span></span></div>
+                <div (click)="openProfile()" style="float: left; width: 16%; margin-top: 2vw; text-align: left; margin-left: 2%;"><img
+                        class="profile-img" src="../../../assets/images/profile-pic.png" style="border-width:0px;" /></div>
+            </div>
+            <div *ngIf="isProfileOpen" class="profile-box" style="display:{{displayProfile}}">
+                <div class="col-md-12 font-color-black" style="font-size: 17px;"><span>Azeem Khan</span></div>
+                <div class="col-md-12 emp-email-color"><span>{{email}}</span></div>
+
+                <div class="col-md-12">
+
+                    <div class="col-md-6 padding-zero">
+                        <button type="button" class="btn-blck" data-toggle="modal"
+                            data-target="#dv_resetSuperAdmin">Reset Password</button>
+
+                    </div>
+
+                    <div class="col-md-2">&nbsp;</div>
+
+                    <div class="col-md-4"  (click)="logout()">
+                        <a class="btn-blck">Logout</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="container-fluid">
+    <div class="row display-flex">
+        <div class="col-md-12" style="height:100%; background:#eee;">
+            <div class="width100">
+                <div class="clear-both-20"></div>
+                <div class="float-right">
+                    <div class="display-inline">
+                        <button type="button" class="btn-orange"   (click)="openDialog()">Add New
+                            Company</button>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+                <div>
+                    <div class="container mt-5 mb-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card p-3 mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="icon"> <img src="../../../assets/images/Inomy_logowhite.png" /> </div>
+                                            <div class="ms-2 c-details">
+                                                <h6 class="mb-0">{{email}}</h6> <span>9654625373</span>
+                                                <div class="badge"> <span><a href="editadmindetails.html"
+                                                            class="color-black font-weight-bold">Edit Admin</a></span> </div>
+                                            </div>
+                                        </div>
+
+                                        <div><label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label></div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h3 class="heading"><span>Inomy Media Pvt Ltd.</span> <span
+                                                class="float-right"><a href="organisationadmin.html"><i
+                                                        class='fa fa-eye color-black'
+                                                        title='Edit Company Details'></i></a></span> </h3>
+                                        <div class="badge"> <button type="button" class="btn-blck" data-toggle="modal"
+                                                data-target="#dv_resetCompanyAdmin">Reset Admin Password</button> </div>
+
+                                        <div class="mt-5">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 100%"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="mt-3"> <span class="text1">1000 Beneficiaries, <span
+                                                        class="text2"> 36 Projects</span></span> </div>
+                                        </div>
+                                            <!-- Dropdown to select chart type -->
+    <div class="form-group">
+        <label class="text1" for="chartType">Select Chart Type</label>
+        <select #chartTypeSelect (change)="changeChartType(chartTypeSelect.value)" style="margin-left: 12px;">
+            <option *ngFor="let chart of chartTypes" [value]="chart.value">{{ chart.label }}</option>
+          </select>
+          
+    </div>
+                                        <div class="mt-5">
+                                            <div id="chartGlance" style="height: 300px; width: 100%;">
+                                                <canvas style="height: 280px; width: 340px;" baseChart [data]="chartData" [type]="chartType" [options]="chartOptions">
+                                                </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card p-3 mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="icon"> <img src="../../../assets/images/def-logo.png" /> </div>
+                                            <div class="ms-2 c-details">
+                                                <h6 class="mb-0">{{email}}</h6> <span>9654625373</span>
+                                                <div class="badge"> <span><a href="editadmindetails.html"
+                                                            class="color-black font-weight-bold">Edit Admin</a></span> </div>
+                                            </div>
+                                        </div>
+                                        <div><label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label></div>
+                                    </div>
+
+                                    <div class="mt-5">
+                                        <h3 class="heading"><span>Digital Empowerment Foundation</span> <span
+                                                class="float-right"><i class="fa fa-eye" 
+                                                    title='Edit Company Details'></i></span> </h3>
+                                        <div class="badge"> <button type="button" class="btn-blck" data-toggle="modal"
+                                                data-target="#dv_resetCompanyAdmin">Reset Admin Password</button> </div>
+                                        <div class="mt-5">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 100%"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="mt-3"> <span class="text1">1000 Beneficiaries, <span
+                                                        class="text2"> 36 Projects</span></span> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text1" for="chartType">Select Chart Type</label>
+                                            <select #chartTypeSelect (change)="changeChartType(chartTypeSelect.value)" style="margin-left: 12px;">
+                                                <option *ngFor="let chart of chartTypes" [value]="chart.value">{{ chart.label }}</option>
+                                              </select>
+                                              
+                                        </div>
+                                    
+                                        <div class="mt-5">
+                                            <div id="chartGlance" style="height: 300px; width: 100%;">
+                                                <canvas style="height: 280px; width: 340px;" baseChart [data]="chartData" [type]="chartType" [options]="chartOptions">
+                                                </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card p-3 mb-2">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div class="icon"> <img src="../../../assets/images/digikargha-logo.png" /> </div>
+                                            <div class="ms-2 c-details">
+                                                <h6 class="mb-0">{{email}}</h6> <span>9654625373</span>
+                                                <div class="badge"> <span><a href="editadmindetails.html"
+                                                            class="color-black font-weight-bold">Edit Admin</a></span> </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="switch">
+                                                <input type="checkbox">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h3 class="heading"><span>Digikargha Foundation North</span> <span
+                                                class="float-right"><i class='fa fa-eye'
+                                                    title='Edit Company Details'></i></span> </h3>
+                                        <div class="badge"> <button type="button" class="btn-blck" data-toggle="modal"
+                                                data-target="#dv_resetCompanyAdmin">Reset Admin Password</button> </div>
+                                        <div class="mt-5">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 100%"
+                                                    aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="mt-3"> <span class="text1">1000 Beneficiaries, <span
+                                                        class="text2"> 36 Projects</span></span> </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text1" for="chartType">Select Chart Type</label>
+                                            <select #chartTypeSelect (change)="changeChartType(chartTypeSelect.value)" style="margin-left: 12px;">
+                                                <option *ngFor="let chart of chartTypes" [value]="chart.value">{{ chart.label }}</option>
+                                              </select>
+                                              
+                                        </div>
+                                        <div class="mt-5">
+                                        <div id="chartGlance" style="height: 300px; width: 100%;">
+                                            <canvas style="height: 280px; width: 340px;" baseChart [data]="chartData" [type]="chartType" [options]="chartOptions">
+                                            </canvas>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+            </div>
+            <div class="clear-both"></div>
+        </div>
+    </div>
+</div>
+<!-- <div *ngIf="isDialogOpen" role="dialog" aria-modal="true" class="dialog-box">
+    <h2>Dialog Title</h2>
+    <p>This is a dialog content.</p>
+     <button (click)="closeDialog()">Close Dialog</button> 
+  </div> -->
+<div *ngIf="isDialogOpen" class="modal fade" id="dv_addOrg" role="dialog" aria-modal="true">
+    <!-- <div *ngIf="isDialogOpen" role="dialog" aria-modal="true" class="dialog-box"></div> -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add New Company</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-condensed ">
+                            <colgroup>
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td class="section-heading" colspan="4">Company Details</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Company Name <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                    <td>
+                                        Logo of the company <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="file" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        Company Website URL
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+
+                                    <td>
+                                        Contact Email <span>*</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Contact Person <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+
+                                    <td>
+                                        Mobile No. <span>*</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Address <span>*</span>
+
+                                    </td>
+                                    <td colspan="3">
+                                        <input class="input-box-3 width100 " />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="section-heading" colspan="4">Company Admin Login Details</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Username<span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+
+                                    <td>
+                                        Password <span>*</span>
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Confirm Password <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+
+                                    <td colspan="2">
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" align="center" class="back-white"><input type="button"
+                                            value="Update" class="btn-blck1" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dv_resetSuperAdmin" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reset Password - Super Admin</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-condensed ">
+                            <colgroup>
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        New Password <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="password" id="" class="input-box-3 width100 " />
+                                    </td>
+                                    <td>
+                                        Confirm New Password <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="password" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="4" class="text-align-center back-white" align="center">
+                                        <input type="button" value="Update" class="btn-blck1" />
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dv_resetCompanyAdmin" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Reset Inomy Media Admin Password</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-condensed ">
+                            <colgroup>
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                            </colgroup>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        New Password <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="password" id="" class="input-box-3 width100 " />
+                                    </td>
+                                    <td>
+                                        Confirm New Password <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="password" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="4" class="text-align-center back-white" align="center">
+                                        <input type="button" value="Update" class="btn-blck1" />
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+    </div>
+</div>
+
+<div class="clear-both-15">&nbsp;</div>
+<div class="" align="center"><span class="font-weight-bold">Powered and Supported by</span>: <a
+        href="https://defindia.org/" target="_blank" class="color-black">Digital Empowerment Foundation</a></div>
+<div class="clear-both-15">&nbsp;</div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>

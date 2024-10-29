@@ -1,0 +1,45 @@
+<body>
+    <section class="ftco-section">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-lg-10">
+                    <div class="wrap d-md-flex">
+                        <div class="img"><img src="../../../assets/images/def-logo.png" class="div_logo" /></div>
+                        <div class="login-wrap p-4 p-md-5">
+                            <form [formGroup]="loginForm" class="signin-form">
+                                <div class="form-group pt-3">
+                                    <div class="input-field" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">
+                                    <label class="label" for="name">Username <span>*</span></label>
+                                    <span class="fa fa-user p-2"></span>
+                                    <input type="text" class="form-control" placeholder="Username" formControlName="username">
+                                </div>
+                                </div>
+                                <small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')" class="text-danger">
+                                    User name is required
+                                </small>
+                                <div class="form-group mb-3" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">
+                                    <label class="label" for="password">Password <span>*</span></label>
+                                    <span class="fa fa-lock p-2"></span>
+                                    <input [type]="type"                      class="form-control" placeholder="Password" formControlName="password">
+                                    <span (click) ="hideShowPass()" class="fa {{eyeIcon}}"></span>  
+                                </div>
+                                <small class="text-danger" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">Password is required</small>
+                                <div class="form-group">
+                                    <!-- <a href="organisation.html" style="color:#fff!important;"> -->
+                                        <button style="color:#fff!important;background:#f58634!important;width:100%; padding:0.375rem 0.75rem"
+                                            align="center" class="btn btn-primary" (click)="onLogin()">Sign In</button>
+                                    <!-- </a> -->
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear:both; height:25px;"></div>
+        <div align="center">Powered by: Digital Empowerment Foundation</div>
+    </section>
+</body>
