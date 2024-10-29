@@ -36,7 +36,7 @@ stages:
          # ng build --prod
          # displayName: 'npm install and build'
          #  workingDirectory: '$(Build.SourcesDirectory)'
-      - 
+      
       - task: ArchiveFiles@2
         displayName: 'Archive files'
         inputs:
