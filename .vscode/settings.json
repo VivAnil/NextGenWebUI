@@ -1,0 +1,4 @@
+{
+    "appService.showBuildDuringDeployPrompt": false,
+    "appService.defaultWebAppToDeploy": "/subscriptions/c12a76ed-2c03-4a1b-a7c1-aab2bebe2b53/resourceGroups/DEF-RESOURCE-SPONSORSHIP/providers/Microsoft.Web/sites/NextGenMeraAppUI"    
+}
