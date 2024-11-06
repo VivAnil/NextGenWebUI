@@ -3,6 +3,7 @@ import { faL } from '@fortawesome/free-solid-svg-icons';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-organisation',
   templateUrl: './organisation.component.html',

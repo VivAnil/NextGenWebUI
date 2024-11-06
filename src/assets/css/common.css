@@ -707,9 +707,12 @@ input[type=checkbox], input[type=radio] {
     font-size: 15px;
 }
 .close{
-    opacity:1;
+   /* opacity:1;
     color:#fff;
-    text-shadow:none;
+    text-shadow:none;*/
+}
+.modal-header{
+    display:block;
 }
 
 .display-inline {
