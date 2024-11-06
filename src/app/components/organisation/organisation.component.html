@@ -240,6 +240,7 @@
             <div class="modal-body">
                 <div class="">
                     <div class="no-more-tables">
+                        <form [formGroup]="companyForm" class="signin-form">
                         <table class="col-sm-12 table-bordered table-condensed" cellpadding="5">
                             <colgroup>
                                 <col style="background-color: rgb(243,243,243); width: 20%;" />
@@ -254,10 +255,14 @@
                                 <tr>
                                     <td>
                                         Company Name <span>*</span>
-
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['companyname'].dirty && companyForm.hasError('required', 'companyname')">
+                                            <input type="text" formControlName="companyname" class="input-box-3 width100 " placeholder="Company Name"/>
+                                        </div>
+                                        <small *ngIf="companyForm.controls['companyname'].dirty 	&& companyForm.hasError('required', 'companyname')" class="text-danger">
+                                            Company name is required
+                                        </small>
                                     </td>
                                     <td>
                                         Logo of the company <span>*</span>
@@ -281,7 +286,16 @@
                                         Contact Email <span>*</span>
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['email'].dirty && companyForm.hasError('required', 'email')">
+                                            <input type="email" formControlName="email" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['email'].dirty && companyForm.hasError('required', 'email')" class="text-danger">
+                                            Company email is required
+                                        </small>
+                                        <div *ngIf="companyForm.get('email')?.invalid && companyForm.get('email')?.touched"> 
+                                        
+                                            <small *ngIf="companyForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small> 
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -290,14 +304,29 @@
 
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['contactperson'].dirty && companyForm.hasError('required', 'contactperson')">
+                                            <input type="text" formControlName="contactperson" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['contactperson'].dirty && companyForm.hasError('required', 'contactperson')" class="text-danger">
+                                            Contact Person is required
+                                        </small>
+                                        
                                     </td>
 
                                     <td>
                                         Mobile No. <span>*</span>
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['mobile'].dirty && companyForm.hasError('required', 'mobile')">
+                                            <input type="text" formControlName="mobile" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['mobile'].dirty && companyForm.hasError('required', 'mobile')" class="text-danger">
+                                            Phone number is required
+                                        </small>
+                                        <div *ngIf="companyForm.get('mobile')?.invalid && companyForm.get('mobile')?.touched"> 
+                                        
+                                            <small *ngIf="companyForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid mobile format.</small> 
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -306,7 +335,12 @@
 
                                     </td>
                                     <td colspan="3">
-                                        <input class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['address'].dirty && companyForm.hasError('required', 'address')">
+                                            <input type="text" formControlName="address" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['address'].dirty && companyForm.hasError('required', 'address')" class="text-danger">
+                                            Address is required
+                                        </small>
                                     </td>
 
                                 </tr>
@@ -319,14 +353,24 @@
 
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['username'].dirty && companyForm.hasError('required', 'username')">
+                                            <input type="text" formControlName="username" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['username'].dirty && companyForm.hasError('required', 'username')" class="text-danger">
+                                            Username is required
+                                        </small>
                                     </td>
 
                                     <td>
                                         Password <span>*</span>
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['password'].dirty && companyForm.hasError('required', 'password')">
+                                            <input type="text" formControlName="password" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['password'].dirty && companyForm.hasError('required', 'password')" class="text-danger">
+                                            Password is required
+                                        </small>
                                     </td>
                                 </tr>
                                 <tr>
@@ -335,7 +379,15 @@
 
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <div class="input-field" [class.error]="companyForm.controls['confirmpassword'].dirty && companyForm.hasError('required', 'confirmpassword')">
+                                            <input type="text" formControlName="confirmpassword" class="input-box-3 width100 " />
+                                        </div>
+                                        <small *ngIf="companyForm.controls['confirmpassword'].dirty && companyForm.hasError('required', 'confirmpassword')" class="text-danger">
+                                            confirm Password is required
+                                        </small>
+                                        <small class="text-danger" style="display:{{passwordError}}">
+                                            Passwords do not match.
+                                        </small>
                                     </td>
 
                                     <td colspan="2">
@@ -343,11 +395,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" align="center" class="back-white"><input type="button"
-                                            value="Update" class="btn-blck1" /></td>
+                                    <td colspan="4" align="center" class="back-white">
+                                        <button type="button" (click)="onUpdate()"  class="btn-blck1">Update</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
+                        </form>
                     </div>
                 </div>
 

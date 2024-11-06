@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import ValidateForm from 'src/app/helpers/validateForm';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,12 +13,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./organisation.component.css']
 })
 export class OrganisationComponent implements OnInit {
-
+  
   public chartType: ChartType = 'bar';  // Default chart type
   isDialogOpen: boolean = false;
   isProfileOpen: boolean=false;
   displayProfile: string='none';
+  passwordError: string='none';
   email:string ='abc@defindia.org';
+  companyForm!: FormGroup;
+  constructor(
+    private router: Router,
+    private authService: AuthService, 
+    private fb: FormBuilder
+  ) { }
+  
+  
   // Hardcoded labels and data
   public chartData: ChartConfiguration['data'] = {
     labels: ['Projects', 'Project Officers', 'District Coordinators', 'Block Coordinators', 'SoochnaPreneurs', 'States', 'Services'], // Hardcoded labels
@@ -63,10 +75,22 @@ export class OrganisationComponent implements OnInit {
     { label: 'Doughnut Chart', value: 'doughnut' }
 
   ];
-  constructor( private router: Router) { }
+ 
 
   ngOnInit(): void {
+    this.companyForm= this.fb.group({
+      companyname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      contactperson: ['', Validators.required],
+      mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+      address: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      confirmpassword: ['', Validators.required]
+    })
   }
+
+ 
   changeChartType(chartType: string): void {
     const selectedChartType = chartType as ChartType
     this.chartType = selectedChartType;
@@ -117,5 +141,51 @@ export class OrganisationComponent implements OnInit {
   }
   logout(){
     this.router.navigate(['login']);
+  }
+
+  onUpdate(){
+    console.log(this.companyForm.value);
+    if(this.companyForm.valid)
+      {
+        var pass = this.companyForm.controls['password'].value;
+        var cpass = this.companyForm.controls['confirmpassword'].value;
+        if (pass != cpass) 
+        {
+          this.passwordError='block';
+        }
+        else{
+            this.passwordError='none';
+        }
+        //call service
+        
+        this.authService.login(this.companyForm.value).subscribe(isAuthenticated => {
+          if (isAuthenticated) {
+            // Navigate to a different route on successful login
+            this.router.navigate(['organisation']); 
+          } else {
+            // Show an error message if login fails
+            ValidateForm.validateForm(this.companyForm);
+          }
+        });
+      }
+      else {
+        // Show an error message if login fails
+        ValidateForm.validateForm(this.companyForm);
+      }
+      //   this.authService.login(this.loginForm.value)
+      //   .subscribe(
+      //     {
+      //       next: (res) => {
+      //         this.loginForm.reset();
+      //         console.log(res);
+      //       }
+      //     }
+      //   )
+   
+      // }
+      // else{
+      //   //throw the error
+      //   ValidateForm.validateForm(this.loginForm);
+      // }
   }
 }
