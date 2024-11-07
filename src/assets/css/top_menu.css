@@ -1,0 +1,55 @@
+﻿
+/*----------------------------------Menu style----------------------------*/
+
+.menu {
+    background: #000;
+    border: none;
+    box-shadow: 0px 0px 25px #939393;
+    border-radius: 0px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    width:100%;
+    display:block!important;
+}
+
+a:link, a:hover, a:active, a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+/*----- menu style overwrite to bootstrap------*/
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background: #f00;
+    color: #fff;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+    background: #f00;
+    color: #fff;
+}
+
+
+.navbar-nav > li > .dropdown-menu {
+    min-width: 120%;
+}
+
+.open > .dropdown-menu {
+    box-shadow: 2px 2px 13px #000000;
+}
+
+.dropdown-menu {
+    background: #f00;
+    font-size: inherit !important;
+}
+
+    .dropdown-menu > li > a {
+        color: #fff;
+        padding: 10px 20px;
+    }
+
+        .dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+            background: #f00!important;
+            color: #000;
+        }
+/*---------------------------------------------------------------------------------*/

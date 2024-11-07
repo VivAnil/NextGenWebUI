@@ -1,0 +1,1024 @@
+
+.padding0{
+    padding:0;
+}
+
+.font-weight-b{
+    font-weight:bold;
+}
+
+.attendance-open {
+    position: absolute;
+    top: 4em;
+    width: 12em;
+    z-index: 2;
+    background: #fff;
+    padding: 1px;
+    vertical-align: top;
+    line-height: 2vw;
+    font-size: 13px;
+    letter-spacing: 0;
+    box-shadow: 0px 0px 20px #ccc;
+    border: 1px solid #fff;
+    display: none;
+    color: #000;
+}
+
+    .attendance-open:before {
+        content: "";
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        top: -13px;
+        left: 5px;
+        border-width: 6px;
+        border-color: transparent transparent white transparent;
+        border-style: solid;
+    }
+
+.max-width20{
+    max-width:20%;
+}
+/*=================================legend CSS Start===============================*/
+.atten-legend-box {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+input[type=checkbox]{
+    margin:3px 0 0!important;
+}
+
+.display-inline {
+    display: inline-block;
+}
+
+.padding10b14px {
+    padding: 10px 14px;
+}
+
+.legend-weekly {
+    background-color: #96989a;
+}
+
+.legend-OD {
+    background-color: #a8cf45;
+}
+
+.legend-Latecome {
+    background-color: #fff000;
+}
+
+.legend-LOP {
+    background-color: #ed3237;
+}
+
+.legend-Compensatory {
+    background-color: #7bcdcf;
+}
+
+.legend-Casual-Leave {
+    background-color: #1b5d7c;
+}
+
+.legend-Maternity {
+    background-color: #d42c90;
+}
+
+.Lsp {
+    /*margin-left: 200px;*/
+}
+
+.legend-Sick-Leave {
+    background-color: #0b72b1;
+}
+
+.Casual-Leave {
+    width: 118px;
+}
+
+.legend-leave {
+    padding: 1px 0px 1px 0px;
+    margin-left: 7px;
+    background-color: #6d6d6d;
+    width: 32px;
+}
+
+.legend-Paternity {
+    background-color: #804d9d;
+}
+
+.legend-Special-Disability {
+    background-color: #abbdd4;
+}
+
+.legend-Abortion {
+    background-color: #f177ad;
+}
+
+.legend-no-data {
+    background-color: #f48432;
+}
+
+.legend-Abortion-leave {
+    background-color: #c894c2;
+}
+
+.legend-Optional-Holiday {
+    background-color: #73c1eb;
+}
+
+.Optional-Holiday {
+    width: 150px;
+}
+
+.Abortion-Miscarriage {
+    width: 17.666667%;
+}
+
+.Paternity-leve {
+    width: 130px;
+}
+
+.legend {
+    margin: 10px 0px 25px 0px;
+    display: inline;
+    list-style: none;
+    width: 100%;
+}
+
+.legend-holiday {
+    background-color: #3e00ff;
+}
+
+.legend-Present {
+    background-color: rgb(99, 97, 88);
+}
+
+.legend-Earned {
+    background-color: #69a1d6;
+}
+
+.search-btn {
+    background-color: #403E33;
+    padding: 4px 10px 4px 10px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+.legend-Casual {
+    width: 9.333333%;
+}
+
+ul.pagination li a.active {
+    background-color: #403E33;
+    color: white;
+    border: 1px solid #403E33;
+}
+
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 1px 10px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #000;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination-div {
+    width: 103px;
+    padding: 22px 0px 0px 8px;
+}
+
+.weeklyoff {
+    background-color: #f48432;
+}
+
+.empcode {
+    width: 127px;
+    padding: 10px 10px 10px 0px;
+    margin-left: -5px;
+}
+
+.company {
+    width: 62px;
+    padding: 10px 0px 7px 13px;
+}
+
+.branch {
+    width: 85px;
+    padding: 10px 0px 7px 43px;
+}
+
+.dept {
+    width: 137px;
+    padding: 10px 10px 1px 50px;
+}
+
+.OD {
+    background-color: #129E12;
+}
+
+.leave {
+    background-color: #6d6d6d;
+}
+
+.LOP {
+    background-color: #ff0000;
+}
+
+.weekly {
+    background-color: #f48432;
+}
+
+.close {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #000000;
+    text-shadow: 0 1px 0 #ffffff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    text-decoration: none;
+}
+
+.holiday {
+    background-color: #206FB3;
+}
+
+.year-main-div {
+    margin: 40px 20px 40px 20px;
+    text-align: center;
+}
+
+.search-div1 {
+    display: inline;
+    list-style: none;
+    background-color: #fff;
+    width: 99%;
+    padding: 10px;
+}
+
+    .search-div1.ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.search-div1-ul-li {
+    list-style: none;
+    display: inline !important;
+    padding-left: 1%;
+}
+
+.legend-div1 {
+    display: inline;
+    list-style: none;
+    background-color: #fff;
+    width: 99%;
+    padding: 10px;
+}
+
+    .legend-div1.ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.legend-div1-ul-li {
+    list-style: none;
+    display: inline !important;
+    padding-left: 1%;
+}
+
+.well {
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    display: none;
+    margin: 1em;
+}
+
+
+pre.prettyprint {
+    padding: 9px 14px;
+}
+
+.fulltable {
+    max-width: 100%;
+    overflow: auto;
+}
+
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.lineheight {
+    line-height: 3em;
+}
+
+.padding5{
+    padding:5px;
+}
+
+.table-cell {
+    width: 20%;
+    border-right: 1px solid #ddd;
+    text-align: center;
+    background: #efefef;
+    padding: 5px;
+}
+
+.width40{
+    width:40%;
+}
+
+
+
+
+
+<style type="text/css" >
+/*body {
+  overflow: auto;
+}*/
+/*.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px 0;
+    overflow: auto;
+    z-index: 1010;
+}
+
+.modal-content {
+    display: none;
+    width: 90%;
+    background-color: #FFF;
+    margin: auto;
+    border-radius: 4px;
+    z-index: 1050;
+}
+
+@media (min-width: 768px) {
+    .modal-content {
+        width: 85%;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-content {
+        width: 80%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-content {
+        width: 75%;
+        max-width: 1000px;
+    }
+}
+
+.modal .modal-header:after,
+.modal .modal-body:after {
+    display: table;
+    content: " ";
+    clear: both;
+}
+
+.modal .modal-header:before,
+.modal .modal-body:before {
+    display: table;
+    content: " ";
+}
+
+.modal .modal-header,
+.modal .modal-body {
+    padding: 15px;
+}
+
+.modal :first-child {
+    margin-top: 0;
+}
+
+.modal :last-child {
+    margin-bottom: 0;
+}
+
+.modal .modal-header {
+    background-color: #FF6600;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    /*border-bottom: 1px solid #EEE;
+    border-radius: 4px 4px 0 0;
+}
+
+.modal .modal-body {
+    border-radius: 0 0 4px 4px;
+}
+
+    .modal .modal-body:first-child {
+        border-radius: 4px;
+    }
+
+.modal-content.fixed {
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 12px;
+    border-radius: 0 4px 4px 0;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background-color: #EEE;
+    border-radius: 0 4px 4px 0;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #CCC;
+    border: 1px solid #EEE;
+    border-radius: 0 4px 4px 0;
+}*/
+
+
+/*table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 0px 20px 0px 20px;
+    background-color: #FFFFFF;
+}*/
+
+.twotdcolor {
+    background: linear-gradient(to top, blue 50%, red 50%);
+    padding: 6px;
+}
+
+
+.bg-table {
+    padding: 0px 13px 0px 19px;
+}
+
+.viewsspace {
+    margin: 30px 0px 30px 0px;
+}
+
+.viewadvance {
+    background-image: url(../images/Attendance.jpg);
+    padding: 6px;
+    font-family: Arial;
+    font-size: 20px;
+    color: #fff;
+    padding-left: 50px;
+}
+
+.yearly-views {
+    width: 110px;
+    background-color: #403e33;
+    color: #fff;
+    padding: 8px 10px 7px 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-right: 15px;
+    text-align: -webkit-center;
+}
+
+    .yearly-views:hover {
+        background-color: #f58534;
+        color: #fff;
+        text-decoration: none;
+        text-align: -webkit-center;
+        padding: 8px 10px 7px 10px;
+    }
+
+.Monthly-View {
+    width: 140px;
+    background-color: #f58534;
+    color: #fff !important;
+    padding: 8px 10px 7px 10px;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-right: 15px;
+}
+
+.View-by-Check {
+    width: 210px;
+    background-color: #403e33;
+    color: #fff !important;
+    padding: 8px 10px 7px 10px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+/*=================================Search CSS Start===============================*/
+
+.search-left-side {
+    background-color: #403e33;
+    padding: 4px 7px 4px 20px;
+    color: #fff;
+    line-height: 22px;
+}
+
+.search-left-bottom {
+    background-color: #fefefe;
+    margin-bottom: 30px;
+}
+
+.leagend-maindiv {
+    padding: 3px;
+    color: #000;
+    /* margin-left: 20px; */
+    margin-right: 20px;
+    padding: 10px;
+    width: 97.9%;
+    margin-bottom: 50px;
+}
+
+.search-empname {
+    width: 137px;
+    padding: 10px;
+}
+
+.search-empname-input {
+    width: 200px;
+    padding: 6px 6px 0px 0px;
+    height: 10px;
+}
+
+
+.search-empproject {
+    width: 61px;
+    padding: 10px 10px 10px 10px;
+    padding-left: 30px;
+}
+
+.search-project-input {
+    width: 200px;
+    padding: 6px 6px 0px 0px;
+    margin-top: 6px;
+}
+
+.search-date {
+    width: 106px;
+    padding: 10px 8px 10px 1px;
+    padding-left: 49px;
+}
+
+.search-date-year {
+    padding: 5px 0px 4px 1px;
+    width: 93px;
+}
+
+.search-date-Month {
+    padding: 3px 0px 1px 10px;
+    width: 70px;
+    margin-left: 13px;
+}
+
+.search-emp-status {
+    width: 167px;
+    padding: 10px 10px 1px 50px;
+}
+
+.search-emp-input {
+    padding-top: 6px;
+}
+
+.search-status-width {
+    width: 186px;
+    margin: 6px 0px 0px 0px;
+}
+
+.search-inputbox {
+    padding: 3px 0px 1px 5px;
+    width: 70px;
+    margin-left: 11px;
+}
+
+.search-box {
+    width: 186px;
+}
+
+.input-box {
+    border: 1px solid #ccc !important;
+    padding: 3px;
+    width: 150px;
+    margin-bottom: 15px;
+}
+
+/*=================================legend CSS Start===============================*/
+
+.legend-maindiv {
+    background-color: #403e33;
+    padding: 4px 7px 4px 0px;
+    color: #fff;
+    height: 53;
+    margin-left: 1px;
+    width: 100%;
+    float: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+    color: #fff;
+    line-height: 22px;
+    
+}
+
+.display-inline {
+    display: inline-block;
+}
+
+.padding10b14px {
+    padding: 10px 14px;
+}
+
+.legend-weekly {
+    background-color: #96989a;
+}
+
+.legend-OD {
+    background-color: #a8cf45;
+}
+
+.legend-Latecome {
+    background-color: #fff000;
+}
+
+.legend-LOP {
+    background-color: #ed3237;
+}
+
+.legend-Compensatory {
+    background-color: #7bcdcf;
+}
+
+.legend-Casual-Leave {
+    background-color: #1b5d7c;
+}
+
+.legend-Maternity {
+    background-color: #d42c90;
+}
+
+.Lsp {
+    /*margin-left: 200px;*/
+}
+
+.legend-Sick-Leave {
+    background-color: #0b72b1;
+}
+
+.Casual-Leave {
+    width: 118px;
+}
+
+.legend-leave {
+    padding: 1px 0px 1px 0px;
+    margin-left: 7px;
+    background-color: #6d6d6d;
+    width: 32px;
+}
+
+.legend-Paternity {
+    background-color: #804d9d;
+}
+
+.legend-Special-Disability {
+    background-color: #abbdd4;
+}
+
+.legend-Abortion {
+    background-color: #f177ad;
+}
+
+.legend-no-data {
+    background-color: #f48432;
+}
+
+.legend-Abortion-leave {
+    background-color: #c894c2;
+}
+
+.legend-Optional-Holiday {
+    background-color: #73c1eb;
+}
+
+.Optional-Holiday {
+    width: 150px;
+}
+
+.Abortion-Miscarriage {
+    width: 17.666667%;
+}
+
+.Paternity-leve {
+    width: 130px;
+}
+
+.legend {
+    margin: 10px 0px 25px 0px;
+    display: inline;
+    list-style: none;
+    width: 100%;
+}
+
+.legend-holiday {
+    background-color: #3e00ff;
+}
+
+.legend-Present {
+    background-color: rgb(99, 97, 88);
+}
+
+.legend-Earned {
+    background-color: #69a1d6;
+}
+
+.search-btn {
+    background-color: #403E33;
+    padding: 4px 10px 4px 10px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+.legend-Casual {
+    width: 9.333333%;
+}
+
+ul.pagination li a.active {
+    background-color: #403E33;
+    color: white;
+    border: 1px solid #403E33;
+}
+
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 1px 10px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #000;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.pagination-div {
+    width: 103px;
+    padding: 22px 0px 0px 8px;
+}
+
+.weeklyoff {
+    background-color: #f48432;
+}
+
+.empcode {
+    width: 127px;
+    padding: 10px 10px 10px 0px;
+    margin-left: -5px;
+}
+
+.company {
+    width: 62px;
+    padding: 10px 0px 7px 13px;
+}
+
+.branch {
+    width: 85px;
+    padding: 10px 0px 7px 43px;
+}
+
+.dept {
+    width: 137px;
+    padding: 10px 10px 1px 50px;
+}
+
+.OD {
+    background-color: #129E12;
+}
+
+.leave {
+    background-color: #6d6d6d;
+}
+
+.lop {
+    background-color: #ff0000;
+    color:#fff;
+}
+
+.weekly {
+    background-color: #f48432;
+}
+
+.close {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 18px;
+    color: #000000;
+    text-shadow: 0 1px 0 #ffffff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    text-decoration: none;
+}
+
+.holiday {
+    background-color: #206FB3;
+}
+
+.year-main-div {
+    margin: 40px 20px 40px 20px;
+    text-align: center;
+}
+
+.search-div1 {
+    display: inline;
+    list-style: none;
+    background-color: #fff;
+    width: 99%;
+    padding: 10px;
+}
+
+    .search-div1.ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.search-div1-ul-li {
+    list-style: none;
+    display: inline !important;
+    padding-left: 1%;
+}
+
+.legend-div1 {
+    display: inline;
+    list-style: none;
+    background-color: #fff;
+    width: 99%;
+    padding: 10px;
+}
+
+    .legend-div1.ul {
+        margin: 0px;
+        padding: 0px;
+    }
+
+.legend-div1-ul-li {
+    list-style: none;
+    display: inline !important;
+    padding-left: 1%;
+}
+
+
+.panel-body {
+    margin-left: 0px;
+}
+
+#dv_grdData th {
+    background:#403e33;
+    padding: 5px;
+    /*line-height: 30px;
+    color:#fff;*/
+}
+.font-size12{
+    font-size:12px;
+}
+
+.td-width {
+}
+
+.p {
+    background: #636158;
+}
+
+.cell-div {
+    
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    line-height: 56px;    
+    position: relative;
+}
+
+.cell-half {
+    line-height: 28px;
+}
+
+.od {
+    background: #a8cf45;
+}
+
+.cl {
+    background: #1b5d7c;
+}
+
+.absent {
+    background: #ed3237;
+}
+
+.sl {
+    background: #0b72b1;
+}
+
+.el {
+    background: #69a1d6;
+}
+
+.wo {
+    background: #96989a;
+}
+
+.half-cell-mobile {
+    max-width: 36%;
+    cursor: pointer;
+    -ms-transform: rotate(50deg); /* IE 9 */
+    -webkit-transform: rotate(50deg); /* Safari 3-8 */
+    transform: rotate(50deg);
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+
+.half-cell-mobile1 {
+    top: 16px;
+}
+
+.emp-name-col {
+    position: relative;
+    display: flex;
+    height: 56px;
+    line-height: 56px;
+    border-left: 5px solid #f00;
+    padding-left: 5px;
+    cursor: pointer;
+    font-size:12px;
+    
+}
+.close-attendance {
+    position: absolute;
+    right: -15em;
+    top: 2em;
+    z-index: 10000;
+    max-width: 70%;
+    display: none;
+}
+.emp-name-overflow {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    width: 100%;
+}
+
+.profile-box1 {
+    display: none;
+    position: absolute;
+    background: #fff;
+    padding: 1em;
+    width: 363px;
+    border: 1px solid #fff;
+    z-index: 2;
+    box-shadow: 4px 4px 38px #000;
+    top: 4em;
+    left: 0;
+    line-height: 2em;
+}
+
+    .profile-box1:before {
+        content: "";
+        position: absolute;
+        height: 0px;
+        width: 0px;
+        top: -13px;
+        left: 5px;
+        border-width: 6px;
+        border-color: transparent transparent white transparent;
+        border-style: solid;
+    }
+
+.profile-name{
+    color:#0b72b1;
+    cursor:pointer;
+}
+
+.profile-name:hover {
+    color: #000;
+    cursor: pointer;
+}
+
+.emp-camera-img {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;    
+}
+
+    .emp-camera-img:hover {
+        transform: scale(5.5);
+        
+    }

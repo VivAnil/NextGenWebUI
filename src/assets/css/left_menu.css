@@ -1,0 +1,48 @@
+﻿/*----------------Internal pages sidebar css-----------------*/
+.max-width25 {
+    max-width: 3em;
+}
+
+.panel-title {
+    font-size: 1em;
+    color: white !important;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.panel {
+    border: none;
+    border-radius: 0px !important;
+    margin: 0;
+}
+
+.panel-default > .panel-heading {
+    background-color: #717171!important;
+}
+
+.panel-heading {
+    border-radius: 0px !important;
+}
+
+.panel-body a {
+    color: #000;
+}
+
+.table > tbody > tr > td {
+    border-top: none !important;
+    border-bottom: 1px solid #ddd;
+}
+
+.panel-body table tr td {
+    letter-spacing: 0px;
+}
+
+.panel-body .table {
+    margin-bottom: 0px;
+}
+
+.panel-body {
+    padding: 0px;
+    font-size: 1em;
+}
