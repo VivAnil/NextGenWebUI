@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { OrganisationComponent } from './components/organisation/organisation.component';
 import { NgChartsModule } from 'ng2-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    OrganisationComponent
+    OrganisationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
