@@ -13,7 +13,44 @@
 <link rel="Stylesheet" href="../../../assets/css/jsgrid-theme.min.css"/>
 <link rel="Stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" /> 
 
-<app-header></app-header>
+<!-- <div class="container-fluid header back-header" style="background: #311c1b; margin-bottom: 20px;">
+    <div class="row">
+        <div style="width:50%; float:left;"><a href="#"><img style="max-width:100%;" src="../../../assets/images/logowhite.png"
+                    alt="" /></a></div>
+
+        <div style="width:50%; float:left; position:relative;text-align:right;">
+
+            <div  style="width:100%; float:left;" class="profile-box-div">
+                <div class="text-overflow letter-spacing-0 font-color-white" style="float:left; width:82%;">Welcome !
+                    <span class="span-color emp-name-color"><span>Azeem Khan</span></span></div>
+                <div (click)="openProfile()" style="float: left; width: 16%; margin-top: 2vw; text-align: left; margin-left: 2%;"><img
+                        class="profile-img" src="../../../assets/images/profile-pic.png" style="border-width:0px;" /></div>
+            </div>
+            <div *ngIf="isProfileOpen" class="profile-box" style="display:{{displayProfile}}">
+                <div class="col-md-12 font-color-black" style="font-size: 17px;"><span>Azeem Khan</span></div>
+                <div class="col-md-12 emp-email-color"><span>{{email}}</span></div>
+
+                <div class="col-md-12">
+
+                    <div class="col-md-6 padding-zero">
+                        <button type="button" class="btn-blck" data-bs-toggle="modal"
+                            data-bs-target="#dv_resetSuperAdmin">Reset Password</button>
+
+                    </div>
+
+                    <div class="col-md-2">&nbsp;</div>
+
+                    <div class="col-md-4"  (click)="logout()">
+                        <a class="btn-blck">Logout</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div> -->
 <div class="container-fluid">
     <div class="row display-flex">
         <div class="col-md-12" style="height:100%; background:#eee;">
@@ -482,9 +519,6 @@
     </div>
 </div>
 
-<div class="clear-both-15">&nbsp;</div>
-<div class="" align="center"><span class="font-weight-bold">Powered and Supported by</span>: <a
-        href="https://defindia.org/" target="_blank" class="color-black">Digital Empowerment Foundation</a></div>
-<div class="clear-both-15">&nbsp;</div>
+
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>

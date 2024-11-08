@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "./header/header.component";
-import { SideNavComponent } from "./side-nav/side-nav.component";
-import { FooterComponent } from "./footer/footer.component";
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.css'],
-  imports: [HeaderComponent, SideNavComponent, FooterComponent]
+  styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
 
