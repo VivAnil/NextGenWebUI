@@ -5,12 +5,15 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { AuthService } from 'src/app/services/auth.service';
+import { HeaderComponent } from "../layout/header/header.component";
+import { FooterComponent } from "../layout/footer/footer.component";
 
 
 @Component({
   selector: 'app-organisation',
   templateUrl: './organisation.component.html',
-  styleUrls: ['./organisation.component.css']
+  styleUrls: ['./organisation.component.css'],
+  imports: [HeaderComponent, FooterComponent]
 })
 export class OrganisationComponent implements OnInit {
   
