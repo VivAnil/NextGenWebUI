@@ -1,0 +1,10 @@
+/* Style jsGrid header cells */
+.jsgrid-header-cell {
+    color:black !important;
+  }
+  
+  /* Optional: Set background color for header row */
+  .jsgrid-header-row {
+    background-color: #0a0a0ae7 !important;
+    background: black;
+  }

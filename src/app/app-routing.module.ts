@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { OrganisationComponent } from './components/organisation/organisation.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { ProjectComponent } from './components/project/project.component';
 
 const routes: Routes = [
-
+  
   {
     path: 'login',
     component:LoginComponent
@@ -14,13 +15,18 @@ const routes: Routes = [
     path: '',
     component:LayoutComponent,
     children:[
-      {path: 'organisation', component: OrganisationComponent}
+      {path: 'project', component: ProjectComponent}
     ]
+  },
+  {
+    path: 'organisation',
+    component: OrganisationComponent
   },
   {
     path: '**',
     redirectTo: 'login'
   }
+  
 ];
 
 @NgModule({
