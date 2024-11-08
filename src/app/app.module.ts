@@ -14,6 +14,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProjectComponent } from './components/project/project.component';
+import { ServicesComponent } from './components/services/services.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProjectComponent } from './components/project/project.component';
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    ProjectComponent
+    ProjectComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
