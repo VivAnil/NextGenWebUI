@@ -1,0 +1,109 @@
+/*--------------------Header---------------------------*/
+.header {
+    background: url(../../../assets/images/background.jpg);
+    background-size: cover;
+    line-height: 8.1vw;
+    vertical-align: middle;
+    padding-top: 1vw;
+    padding-bottom: 1vw;
+    width:100%;
+    
+}
+.profile-box {
+    position: absolute;
+    right: 1.7vw;
+    top: 7vw;
+    width: 25vw;
+    z-index: 2;
+    background: #fff;
+    padding: 1vw;
+    vertical-align: top;
+    line-height: 2vw;
+    font-size: 12px;
+    letter-spacing: 0;
+    box-shadow: 0px 0px 20px #ccc;
+    border: 1px solid #fff;
+    text-align:left;
+    display: none;
+}
+a.canvasjs-chart-credit{display:none;}
+.profile-box:before{
+	content: "";
+    position: absolute;
+    height: 0px;
+    width: 0px;
+    top: -20px;
+    right: 4vw;
+    border-width: 10px;
+    border-color: transparent transparent white transparent;
+    border-style: solid;
+}
+
+.profile-img {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    position: absolute;
+    top: 2vw;
+}
+
+.logout-btn {
+    display: none;
+    float: right;
+    margin: 20px;
+    background: #1b1b1a;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    text-transform: uppercase;
+}
+/*-----------------font color and other style -------------------------*/
+.emp-email-color {
+    color: #00f;
+}
+.emp-name-color {
+    color: #FEE523;
+}
+.font-color-black{
+    color:#000!important;
+}
+.font-color-white{
+    color:#fff;
+}
+.font-weight-bold{
+    font-weight:bold;
+}
+
+.font-color-gray {
+    color: #ccc;
+}
+
+
+/*---------------------Text style---------------------*/
+
+.text-align-right{
+    text-align:right;
+}
+.text-align-left{
+    text-align:left;
+}
+.text-align-center{
+    text-align:center;
+}
+.text-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+.text-transform-uppercase {
+    text-transform: uppercase;
+}
+.letter-spacing-0{
+    letter-spacing:0;
+}
+
+
+
+
