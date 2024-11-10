@@ -5,6 +5,7 @@ import { OrganisationComponent } from './components/organisation/organisation.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ServicesComponent } from './components/services/services.component';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   
@@ -19,6 +20,10 @@ const routes: Routes = [
       {path: 'project', component: ProjectComponent},
       {path: 'services', component: ServicesComponent}
     ]
+  },
+  {
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: 'organisation',

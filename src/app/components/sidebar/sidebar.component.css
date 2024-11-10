@@ -1,606 +1,76 @@
-.checkbox-wrapper-19 {
-    box-sizing: border-box;
-    --background-color: #fff;
-    --checkbox-height: 19px;
-	margin-right: 10px;
-    
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
 }
-  
 
-  @-moz-keyframes dothabottomcheck-19 {
-    0% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) / 2);
-    }
-  }
+.accordion-section {
+  margin-bottom: 10px;
+}
 
-  @-webkit-keyframes dothabottomcheck-19 {
-    0% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) / 2);
-    }
-  }
+.accordion-header {
+  width: 100%;
+  background-color: #444;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
 
-  @keyframes dothabottomcheck-19 {
-    0% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) / 2);
-    }
-  }
+.accordion-header:hover {
+  background-color: #555;
+}
 
-  @keyframes dothatopcheck-19 {
-    0% {
-      height: 0;
-    }
-    50% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) * 1.2);
-    }
-  }
+.accordion-content {
+  background-color: #555;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+  padding: 0 10px;
+}
 
-  @-webkit-keyframes dothatopcheck-19 {
-    0% {
-      height: 0;
-    }
-    50% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) * 1.2);
-    }
-  }
+.accordion-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  @-moz-keyframes dothatopcheck-19 {
-    0% {
-      height: 0;
-    }
-    50% {
-      height: 0;
-    }
-    100% {
-      height: calc(var(--checkbox-height) * 1.2);
-    }
-  }
+.accordion-content li {
+  padding: 5px 0;
+}
 
-  .checkbox-wrapper-19 input[type=checkbox] {
-    display: none;
-  }
+.accordion-content a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
 
-  .checkbox-wrapper-19 .check-box {
-    height: var(--checkbox-height);
-    width: var(--checkbox-height);
-    background-color: transparent;
-    border: calc(var(--checkbox-height) * .1) solid #000;
-    border-radius: 5px;
-    position: relative;
-    display: inline-block;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    -moz-transition: border-color ease 0.2s;
-    -o-transition: border-color ease 0.2s;
-    -webkit-transition: border-color ease 0.2s;
-    transition: border-color ease 0.2s;
-    cursor: pointer;
-  }
-  .checkbox-wrapper-19 .check-box::before,
-  .checkbox-wrapper-19 .check-box::after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    position: absolute;
-    height: 0;
-    width: calc(var(--checkbox-height) * .2);
-    background-color: #34b93d;
-    display: inline-block;
-    -moz-transform-origin: left top;
-    -ms-transform-origin: left top;
-    -o-transform-origin: left top;
-    -webkit-transform-origin: left top;
-    transform-origin: left top;
-    border-radius: 5px;
-    content: " ";
-    -webkit-transition: opacity ease 0.5;
-    -moz-transition: opacity ease 0.5;
-    transition: opacity ease 0.5;
-  }
-  .checkbox-wrapper-19 .check-box::before {
-    top: calc(var(--checkbox-height) * .72);
-    left: calc(var(--checkbox-height) * .41);
-    box-shadow: 0 0 0 calc(var(--checkbox-height) * .05) var(--background-color);
-    -moz-transform: rotate(-135deg);
-    -ms-transform: rotate(-135deg);
-    -o-transform: rotate(-135deg);
-    -webkit-transform: rotate(-135deg);
-    transform: rotate(-135deg);
-  }
-  .checkbox-wrapper-19 .check-box::after {
-    top: calc(var(--checkbox-height) * .37);
-    left: calc(var(--checkbox-height) * .05);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-  }
+.accordion-content a:hover {
+  text-decoration: underline;
+}
+.accordion-header {
+  background-color: #444;
+  color: #fff;
+  text-transform: uppercase; /* Makes the title all CAPS */
+}
+.accordion-content {
+  background-color: #fff;   /* White background */
+  color: #000;              /* Black text */
+  text-transform: uppercase;
+  border: none;
+}
 
-  .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box,
-  .checkbox-wrapper-19 .check-box.checked {
-    border-color: #34b93d;
-  }
-  .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::after,
-  .checkbox-wrapper-19 .check-box.checked::after {
-    height: calc(var(--checkbox-height) / 2);
-    -moz-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-    -o-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-    -webkit-animation: dothabottomcheck-19 0.2s ease 0s forwards;
-    animation: dothabottomcheck-19 0.2s ease 0s forwards;
-  }
-  .checkbox-wrapper-19 input[type=checkbox]:checked + .check-box::before,
-  .checkbox-wrapper-19 .check-box.checked::before {
-    height: calc(var(--checkbox-height) * 1.2);
-    -moz-animation: dothatopcheck-19 0.4s ease 0s forwards;
-    -o-animation: dothatopcheck-19 0.4s ease 0s forwards;
-    -webkit-animation: dothatopcheck-19 0.4s ease 0s forwards;
-    animation: dothatopcheck-19 0.4s ease 0s forwards;
-  }
-
-  .listBlock {
-    
-  }
-  #sortable1, #sortable2 {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      margin-right: 100px;
-      background: #eee;
-      padding: 5px;
-      width: 100%;
-      min-height:123px;
-      max-height:300px;
-      overflow:auto;
-      border: 1px solid black;
-      
-  }
-  #sortable1 li, #sortable2 li {
-      color:black;
-      cursor: move;
-      margin: 5px;
-      padding: 5px;
-      font-size: 1.2em;
-      
-      background: none;
-      background-color: white;
-  }
-  .selected {
-      background:red !important;
-  }
-  .hidden {
-      display:none !important;
-  }
-  ul {
-      list-style-type: none;
-  }
-  
-          .jsgrid-pager {
-              right: 150px;
-              top: 19px;
-          }
-  
-          .jsgrid-pager-container {
-              display: block !important;
-          }
-  
-          .jsgrid {
-              position: static !important;
-          }
-  
-          #dv_fcfiltercolumns, #lbl_filtercolumnscount1, #lnk_resetcolumnfilter1, #btn_clear_filter {
-              display: none;
-          }
-  
-          a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicator {
-              display: none;
-          }
-          
-          .app {
-    
-    margin: 0 auto;
-  }
-  
-  .app i {
-    font-size: 80px;
-    
-    animation-duration: 3s;
-    animation-name: slidein;
-    animation-iteration-count: 1;
-  }
-  
-  article {
-    position: relative;
-    width: 140px;
-    height: 45px;
-    margin: 5px;
-    float: left;
-    border: 2px solid #f58634;
-    box-sizing: border-box;
-  }
-  
-  article div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 25px;
-    transition: .5s ease;
-  }
-  
-  article input {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 140px;
-    height: 36px;
-    opacity: 0;
-    cursor: pointer;
-  }
-  
-  input[type=checkbox]:checked ~ div {
-    /*background-color: #f58634!important;*/
-  }
-  
-  
-  
-  .blue-color {
-    color: #50bcf2;
-  }
-  
-  .gray-color {
-    color: #555;
-  }
-  
-  .social i:before {
-    width: 14px;
-    height: 14px;
-    position: fixed;
-    color: #fff;
-    background: #0077B5;
-    padding: 10px;
-    border-radius: 50%;
-    top:5px;
-    right:5px;
-  }
-  
-  @keyframes slidein {
-    from {
-      margin-top: 100%;
-      width: 300%;
-    }
-  
-    to {
-      margin: 0%;
-      width: 100%;
-    }
-  }
-  
-  
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 48px;
-    height: 18px;
-  }
-  
-  .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 14px;
-    width: 14px;
-    left: 4px;
-    bottom: 2px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #f58634;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-  .show-service{display:none;}
-  .drop {
-    position: relative;
-    -webkit-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
-  }
-  .drop.open {
-    z-index: 100;
-  }
-  .drop.open .drop-screen {
-    z-index: 100;
-    display: block;
-  }
-  .drop.open .drop-options {
-    z-index: 200;
-    max-height: 200px;
-  }
-  .drop.open .drop-display {
-    z-index: 200;
-    border-color: #465;
-  }
-  .drop select {
-    display: none;
-  }
-  .drop .drop-screen {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    top: 0px;
-    left: 0px;
-    opacity: 0;
-    display: none;
-    z-index: 1;
-  }
-  
-  .link {
-    text-align: center;
-    margin: 20px 0px;
-    color:#8CACD7;
-  }
-  
-  
-  .drop .drop-display {
-    position: relative;
-    padding: 0px 20px 5px 5px;
-    
-    width: 100%;
-    background: #FFF;
-    z-index: 1;
-    margin: 0px;
-   
-    min-height: 58px;
-  }
-  .drop .drop-display:hover:after {
-    opacity: 0.75;
-  }
-  .drop .drop-display:after {
-    font-family: 'Material Icons';
-    content: "\e5c6";
-    position: absolute;
-    right: 10px;
-    top: 12px;
-    font-size: 24px;
-    color: #444;
-  }
-  .drop .drop-display .item {
-    position: relative;
-    display: inline-block;
-    border: 2px solid #f58634;
-    margin: 5px 5px -4px 0px;
-    padding: 0px 25px 0px 10px;
-    overflow: hidden;
-    height: 40px;
-    line-height: 36px;
-  }
-  .drop .drop-display .item .btnclose {
-    color: #444;
-    position: absolute;
-    font-size: 16px;
-    right: 5px;
-    top: 10px;
-    cursor: pointer;
-  }
-  .drop .drop-display .item .btnclose:hover {
-    opacity: 0.75;
-  }
-  .drop .drop-display .item.remove {
-    -webkit-animation: removeSelected 0.2s, hide 1s infinite;
-            animation: removeSelected 0.2s, hide 1s infinite;
-    -webkit-animation-delay: 0s, 0.2s;
-            animation-delay: 0s, 0.2s;
-  }
-  .drop .drop-display .item.add {
-    -webkit-animation: addSelected 0.2s;
-            animation: addSelected 0.2s;
-  }
-  .drop .drop-display .item.hide {
-    display: none;
-  }
-  .drop .drop-options {
-    background: #311c1b;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-    position: absolute;
-    width: 100%;
-    max-height: 0px;
-    overflow-y: auto;
-    transition: all 0.25s linear;
-    z-index: 1;
-  }
-  .drop .drop-options a {
-    display: block;
-    height: 40px;
-    line-height: 40px;
-    padding: 0px 20px;
-    color: white;
-    position: relative;
-    max-height: 40px;
-    transition: all 1s;
-    overflow: hidden;
-  }
-  .drop .drop-options a:hover {
-    background: #f58634;
-    cursor: pointer;
-  }
-  .drop .drop-options a.remove {
-    -webkit-animation: removeOption 0.2s;
-            animation: removeOption 0.2s;
-    max-height: 0px;
-  }
-  .drop .drop-options a.add {
-    -webkit-animation: addOption 0.2s;
-            animation: addOption 0.2s;
-  }
-  .drop .drop-options a.hide {
-    display: none;
-  }
-  
-  @-webkit-keyframes pop {
-    from {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-    to {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-  }
-  
-  @keyframes pop {
-    from {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-    to {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-  }
-  @-webkit-keyframes removeOption {
-    from {
-      max-height: 40px;
-    }
-    to {
-      max-height: 0px;
-    }
-  }
-  @keyframes removeOption {
-    from {
-      max-height: 40px;
-    }
-    to {
-      max-height: 0px;
-    }
-  }
-  @-webkit-keyframes addOption {
-    from {
-      max-height: 0px;
-    }
-    to {
-      max-height: 40px;
-    }
-  }
-  @keyframes addOption {
-    from {
-      max-height: 0px;
-    }
-    to {
-      max-height: 40px;
-    }
-  }
-  @-webkit-keyframes removeSelected {
-    from {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-    to {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-  }
-  @keyframes removeSelected {
-    from {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-    to {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-  }
-  @-webkit-keyframes addSelected {
-    from {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-    to {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-  }
-  @keyframes addSelected {
-    from {
-      -webkit-transform: scale(0);
-              transform: scale(0);
-    }
-    to {
-      -webkit-transform: scale(1);
-              transform: scale(1);
-    }
-  }
-  @-webkit-keyframes hide {
-    from, to {
-      max-height: 0px;
-      max-width: 0px;
-      padding: 0px;
-      margin: 0px;
-      border-width: 0px;
-    }
-  }
-  @keyframes hide {
-    from, to {
-      max-height: 0px;
-      max-width: 0px;
-      padding: 0px;
-      margin: 0px;
-      border-width: 0px;
-    }
-  }
-  
+.accordion-content:not(.collapsed) {
+  background-color: #e9ecef; /* Slightly darker for expanded item */
+  color: #000;
+}
+.accordion-content > li {
+  background-color: #fff;   /* White background */
+  color: #000;              /* Black text */
+  text-transform: uppercase;
+  border: none;
+}
