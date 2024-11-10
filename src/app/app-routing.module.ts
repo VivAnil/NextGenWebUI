@@ -18,12 +18,9 @@ const routes: Routes = [
     component:LayoutComponent,
     children:[
       {path: 'project', component: ProjectComponent},
-      {path: 'services', component: ServicesComponent}
+      {path: 'services', component: ServicesComponent},
+      {path: 'home', component: HomeComponent}
     ]
-  },
-  {
-    path: 'home',
-    component: HomeComponent
   },
   {
     path: 'organisation',
