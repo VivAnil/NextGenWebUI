@@ -54,6 +54,7 @@ import { ServicesComponent } from './components/services/services.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
 import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 const routes: Routes = [
   
