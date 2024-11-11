@@ -6,6 +6,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ServicesComponent } from './components/services/services.component';
 import { HomeComponent } from './components/home/home.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 const routes: Routes = [
   
@@ -18,7 +19,8 @@ const routes: Routes = [
     component:LayoutComponent,
     children:[
       {path: 'project', component: ProjectComponent},
-      {path: 'services', component: ServicesComponent}
+      {path: 'services', component: ServicesComponent},
+      {path: 'processpayment', component: PaymentComponent}
     ]
   },
   {
