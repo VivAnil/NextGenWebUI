@@ -62,7 +62,7 @@ export class OrganisationComponent implements OnInit {
       //   position: 'bottom'  // Title at the bottom
       // },
       legend: {
-        display: true,
+        display: false,
         position: 'bottom'  // Legend (dataset label) at the bottom
       }
     }

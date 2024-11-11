@@ -16,6 +16,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProjectComponent } from './components/project/project.component';
 import { ServicesComponent } from './components/services/services.component';
 import { HomeComponent } from './components/home/home.component';
+import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
+import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
 import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
@@ -29,6 +31,9 @@ import { PaymentComponent } from './components/payment/payment.component';
     SidebarComponent,
     ProjectComponent,
     ServicesComponent,
+    HomeComponent,
+    UsermanagementComponent,
+    OrganisationadminComponent
     HomeComponent,
     PaymentComponent
   ],
