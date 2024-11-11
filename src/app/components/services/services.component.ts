@@ -53,6 +53,7 @@ export class ServicesComponent implements OnInit {
         // }
       ]
     });
+
     $('#MappedGrid2').jsGrid({
       width: "100%",
       padding: "1%",
