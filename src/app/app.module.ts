@@ -33,7 +33,7 @@ import { PaymentComponent } from './components/payment/payment.component';
     ServicesComponent,
     HomeComponent,
     UsermanagementComponent,
-    OrganisationadminComponent
+    OrganisationadminComponent,
     HomeComponent,
     PaymentComponent
   ],
