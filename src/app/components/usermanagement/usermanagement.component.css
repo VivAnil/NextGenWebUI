@@ -18,3 +18,10 @@
 a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicator {
   display: none;
 }
+.tabs-active{
+margin-bottom: -1px;
+padding-bottom: 1px;
+border-top-width: 5px;
+border-top-style: solid;
+border-top-color: red;
+}

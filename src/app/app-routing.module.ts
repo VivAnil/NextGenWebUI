@@ -7,12 +7,18 @@ import { ProjectComponent } from './components/project/project.component';
 import { ServicesComponent } from './components/services/services.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
+import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 const routes: Routes = [
   
   {
     path: 'login',
     component:LoginComponent
+  },
+  {
+    path: 'organisation',
+    component: OrganisationComponent
   },
   {
     path: '',
@@ -22,14 +28,12 @@ const routes: Routes = [
       {path: 'services', component: ServicesComponent},
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
-      {path: 'usermanagement',component: UsermanagementComponent
-      }
+      {path: 'usermanagement',component: UsermanagementComponent},
+      {path: 'organisationadmin',component: OrganisationadminComponent},
+      {path: 'processpayment', component: PaymentComponent}
     ]
   },
-  {
-    path: 'organisation',
-    component: OrganisationComponent
-  },
+  {path: 'organisationadmin',component: OrganisationadminComponent},
   {
     path: '**',
     redirectTo: 'login'

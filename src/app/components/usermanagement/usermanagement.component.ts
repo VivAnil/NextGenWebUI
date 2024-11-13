@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 declare var $: any; // Import jQuery
 
 @Component({
@@ -9,7 +10,8 @@ declare var $: any; // Import jQuery
 export class UsermanagementComponent implements OnInit {
   displayTab: string = 'block';
   displayTab1: string = 'none';
-
+  tab1active:boolean=true;
+  tab2active:boolean=false;
   constructor() { }
 
   ngAfterViewInit(): void {
@@ -204,9 +206,25 @@ export class UsermanagementComponent implements OnInit {
   }
 
   toggleTab() {
-    if (this.displayTab == 'none') this.displayTab = 'block';
-    else this.displayTab = 'none';
-    if (this.displayTab1 == 'none') this.displayTab1 = 'block';
-    else this.displayTab1 = 'none';
+    if (this.displayTab == 'none') 
+      {
+        this.displayTab = 'block';
+        this.tab1active=true;
+      }
+    else 
+    {
+      this.displayTab = 'none';
+      this.tab1active=false;
+    }
+    if (this.displayTab1 == 'none') 
+      {
+        this.displayTab1 = 'block';
+        this.tab2active=true;
+      }
+    else 
+    {
+      this.displayTab1 = 'none';
+      this.tab2active=false;
+    }
   }
 }
