@@ -156,8 +156,8 @@ input:checked + .slider:before {
 }
 .col-reset-btn {
     text-decoration: none;
-    color: #1e9ae2!important;
-    font-size: 1.3em;
+    color: #f00!important;
+    font-size: 1em;
 }
 
 .lop-reason {
@@ -200,13 +200,12 @@ input:checked + .slider:before {
     }
 .column-tab-box {
     position: absolute;
-    z-index: 100;
-    right: 0;
-    margin-top: 0.5em;
+    z-index: 99;
+    right: 0;    
     background-color: #fff;
-    border: 1px solid rgb(175, 175, 175);
-    border-top: 0;
+    border: 1px solid rgb(175, 175, 175);    
     transition: all .15s ease;
+    top:3.95em;
 }
 .filter-tab-box {
     box-shadow: 10px 10px 10px #ccc;
@@ -216,7 +215,7 @@ input:checked + .slider:before {
     position: absolute;
     background: #fff;
     z-index: 3;
-    top: 4.6em;
+    top: 4em;
 }
 #report_tab_filter{display:none;}
 
@@ -468,23 +467,12 @@ body {
     margin: 0px 15px;
     cursor: pointer;*/
     cursor: pointer;
-    position: absolute;    
+    /*position: absolute;   */ 
     color: #514943;
-    padding:15px 30px;
+    padding:10px 15px;
+    
 }
-.filter-link {
-    top: -7px;
-    right: 60%;
-    z-index: 5;
-}
-.default-link {
-    top: -8px;
-    right: 27%;
-}
-.column-link {
-    top: -8px;
-    right: 0;
-}
+
 .column-tab1 {
     border-top: 1px solid #d4d4d4;
     border-bottom: 1px solid #d4d4d4;
@@ -517,6 +505,14 @@ body {
     border-right: 1px solid#afafaf;
     /*border-bottom: 5px solid#fff;
     padding:12px 18px;*/
+    position: relative;
+    z-index: 100;
+}
+
+.default-tab-btn {
+    background-color: #fff;
+    border-top: 5px solid #ff0000;
+    
 }
 
 .input-type-button {
@@ -761,7 +757,7 @@ input[type=checkbox], input[type=radio] {
 }
 .col-cancel-btn {
     text-decoration: none;
-    color: #1e9ae2!important;
+    color: #e21e1e!important;
     font-size: 1.3em;
 }
 

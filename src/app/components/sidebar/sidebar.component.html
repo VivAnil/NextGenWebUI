@@ -1,6 +1,5 @@
-<div class="container-fluid">
-    <div class="row display-flex">
-           <div class="col-md-2 font-color-white padding-zero navbar-inverse align-item" id="left-menu">
+
+           <div class="col-md-2 font-color-white padding-zero navbar-inverse align-item float-left" id="left-menu">
             <div class="sidebar">
                 <div *ngFor="let item of menuItems; let i = index" class="accordion-section">
                   <button (click)="toggleSection(i)" class="accordion-header">
@@ -16,5 +15,4 @@
                 </div>
               </div>
             </div>
-    </div>
-</div>
+    

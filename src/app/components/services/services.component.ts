@@ -8,6 +8,15 @@ declare var $: any; // Import jQuery
 export class ServicesComponent implements OnInit {
   displayTab: string='block';
   displayTab1: string='none';
+  displayFilter: string='none';
+  activeFilter: string='filter-link';
+  isFilterOpen: boolean=false;
+  displayColumn: string='none';
+  activeColumn: string='column-link';
+  activeDefault: string='default-link';
+  activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
+  activeTab1: string='ui-tab ';
+  isColumnOpen: boolean=false;
   constructor() { }
   ngAfterViewInit(): void {
     this.initJsGrid();
@@ -16,7 +25,7 @@ export class ServicesComponent implements OnInit {
     $('#MappedGrid').jsGrid({
       width: "100%",
       padding: "1%",
-      inserting: true,
+      inserting: false,
       height: "auto",
       filtering: false,
       autoload: false,
@@ -44,8 +53,8 @@ export class ServicesComponent implements OnInit {
         { title: "Sevice Rate", name: "rate", type: "text", css: "text-align-center" },
         { title: "Service Worth", name: "value", type: "text", css: "text-align-center" },
         { title: "Status", name: "status", type: "text", css: "text-align-center" },
-        { title: "Single Time / Multiple Times", name: "time", type: "text", css: "text-align-center" },
-        { title: "Only Through SP", name: "throughSP", type: "text", css: "text-align-center" },
+        { title: "Single Time / Multiple Times", name: "time", type: "text", css: "text-align-center width14em" },
+        { title: "Only Through SP", name: "throughSP", type: "text", css: "text-align-center width14em" },
         // {
         //   title: "Action", itemTemplate: function (value, item) {
         //     return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addService'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
@@ -173,12 +182,74 @@ export class ServicesComponent implements OnInit {
     ];
   }
   toggleTab(){
-    if(this.displayTab=='none') this.displayTab='block';
-    else this.displayTab='none';
-    if(this.displayTab1=='none') this.displayTab1='block';
-    else this.displayTab1='none';
+    if(this.displayTab=='none') 
+      {
+        this.displayTab='block';
+        this.activeTab = 'ui-tab ui-tabs-active ui-state-active';
+      }
+    else 
+      {
+        this.displayTab='none';
+        this.activeTab = 'ui-tab';
+      }
+    if(this.displayTab1=='none') 
+      {
+        this.displayTab1='block';
+        this.activeTab1 = 'ui-tab ui-tabs-active ui-state-active';
+      }
+    else 
+      {
+        this.displayTab1='none';
+        this.activeTab1 = 'ui-tab';
+      }
   }
   ngOnInit(): void {
+  }
+
+  openFilter() {
+    this.isFilterOpen = !this.isFilterOpen;    
+    if(this.displayFilter=='none') 
+      {
+        this.displayFilter='block';
+        this.activeFilter = 'filter-link filter-tab-btn';
+        
+    }
+    else 
+    {
+    this.displayFilter='none';
+    this.activeFilter = 'filter-link';
+    }
+  }
+  openColumn() {
+    this.isColumnOpen = !this.isColumnOpen;
+    
+    if(this.displayColumn=='none') 
+      {
+        this.displayColumn ='block';
+        this.activeColumn = 'column-link filter-tab-btn';
+       
+    }
+    else 
+    {
+    this.displayColumn ='none';
+    this.activeColumn = 'column-link';
+    }
+  }
+
+  openDefault(){
+
+    if(this.activeDefault=='default-link') 
+      {
+        
+        this.activeDefault = 'default-link default-tab-btn';
+       
+    }
+    else 
+    {
+    
+    this.activeDefault = 'default-link';
+    }
+
   }
 
 }

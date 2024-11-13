@@ -1,8 +1,8 @@
 .sidebar {
-  width: 250px;
+ /* width: 250px;*/
   background-color: #333;
   color: #fff;
-  padding: 10px;
+  padding: 0;
 }
 
 .accordion-section {
@@ -18,7 +18,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
+ /* font-size: 16px;*/
   transition: background-color 0.2s ease;
 }
 
@@ -41,16 +41,18 @@
 
 .accordion-content li {
   padding: 5px 0;
+  border-bottom: 1px solid #c7c7c7;
 }
 
 .accordion-content a {
-  color: #fff;
+  color: #000;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
+  text-transform: capitalize;
 }
 
 .accordion-content a:hover {
-  text-decoration: underline;
+  
 }
 .accordion-header {
   background-color: #444;
@@ -61,16 +63,17 @@
   background-color: #fff;   /* White background */
   color: #000;              /* Black text */
   text-transform: uppercase;
-  border: none;
+  border:none;
+  
 }
 
 .accordion-content:not(.collapsed) {
-  background-color: #e9ecef; /* Slightly darker for expanded item */
+  /* Slightly darker for expanded item */
   color: #000;
 }
 .accordion-content > li {
   background-color: #fff;   /* White background */
   color: #000;              /* Black text */
-  text-transform: uppercase;
+  
   border: none;
 }
