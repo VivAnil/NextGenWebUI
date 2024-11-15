@@ -9,7 +9,7 @@ export class SidebarComponent implements OnInit {
   menuItems = [
     { title: 'User Configuration', 
 	  links: 
-		[{ label: 'Application User Master', path: '/usermanagement' }, 
+		[{ label: 'Application User Master', path: '/companyusermaster' }, 
 		 { label: 'Edit Administrator Details', path: '/editadmindetails' }] 
 	},
      { title: 'User Details', 

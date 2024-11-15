@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
 import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { CompanyusermasterComponent } from './components/companyusermaster/companyusermaster.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { PaymentComponent } from './components/payment/payment.component';
     UsermanagementComponent,
     OrganisationadminComponent,
     HomeComponent,
-    PaymentComponent
+    PaymentComponent,
+    CompanyusermasterComponent
   ],
   imports: [
     BrowserModule,

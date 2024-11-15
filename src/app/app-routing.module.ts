@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
 import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { CompanyusermasterComponent } from './components/companyusermaster/companyusermaster.component';
 
 const routes: Routes = [
   
@@ -30,7 +31,8 @@ const routes: Routes = [
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
       {path: 'organisationadmin',component: OrganisationadminComponent},
-      {path: 'processpayment', component: PaymentComponent}
+      {path: 'processpayment', component: PaymentComponent},
+      {path: 'companyusermaster', component: CompanyusermasterComponent}
     ]
   },
   {path: 'organisationadmin',component: OrganisationadminComponent},
