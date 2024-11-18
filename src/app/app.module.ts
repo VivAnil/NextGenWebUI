@@ -21,6 +21,8 @@ import { OrganisationadminComponent } from './components/organisationadmin/organ
 import { PaymentComponent } from './components/payment/payment.component';
 import { CompanyusermasterComponent } from './components/companyusermaster/companyusermaster.component';
 import { EditadminComponent } from './components/editadmin/editadmin.component';
+import { PaymentreportComponent } from './components/paymentreport/paymentreport.component';
+import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { EditadminComponent } from './components/editadmin/editadmin.component';
     HomeComponent,
     PaymentComponent,
     CompanyusermasterComponent,
-    EditadminComponent
+    EditadminComponent,
+    PaymentreportComponent,
+    EditcompanyComponent
   ],
   imports: [
     BrowserModule,

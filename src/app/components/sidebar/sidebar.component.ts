@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
 	},
 	{ title: 'Company Details', 
 	  links: 
-		[{ label: 'Edit Company Details', path: '/editcompanydetails' }, 
+		[{ label: 'Edit Company Details', path: '/editcompany' }, 
 		 { label: 'Project Master', path: '/project' }
 		 
 		  ] 
