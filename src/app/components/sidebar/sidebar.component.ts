@@ -10,7 +10,7 @@ export class SidebarComponent implements OnInit {
     { title: 'User Configuration', 
 	  links: 
 		[{ label: 'Application User Master', path: '/companyusermaster' }, 
-		 { label: 'Edit Administrator Details', path: '/editadmindetails' }] 
+		 { label: 'Edit Administrator Details', path: '/editadmin' }] 
 	},
      { title: 'User Details', 
 	  links: 
