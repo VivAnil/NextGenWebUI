@@ -10,6 +10,7 @@ import { UsermanagementComponent } from './components/usermanagement/usermanagem
 import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CompanyusermasterComponent } from './components/companyusermaster/companyusermaster.component';
+import { EditadminComponent } from './components/editadmin/editadmin.component';
 
 const routes: Routes = [
   
@@ -32,10 +33,12 @@ const routes: Routes = [
       {path: 'usermanagement',component: UsermanagementComponent},
       {path: 'organisationadmin',component: OrganisationadminComponent},
       {path: 'processpayment', component: PaymentComponent},
-      {path: 'companyusermaster', component: CompanyusermasterComponent}
+      {path: 'companyusermaster', component: CompanyusermasterComponent},
+      {path: 'editadmin', component: EditadminComponent},
     ]
   },
   {path: 'organisationadmin',component: OrganisationadminComponent},
+  {path: 'editadmin',component: EditadminComponent},
   {
     path: '**',
     redirectTo: 'login'

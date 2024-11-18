@@ -20,6 +20,7 @@ import { UsermanagementComponent } from './components/usermanagement/usermanagem
 import { OrganisationadminComponent } from './components/organisationadmin/organisationadmin.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { CompanyusermasterComponent } from './components/companyusermaster/companyusermaster.component';
+import { EditadminComponent } from './components/editadmin/editadmin.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CompanyusermasterComponent } from './components/companyusermaster/compa
     OrganisationadminComponent,
     HomeComponent,
     PaymentComponent,
-    CompanyusermasterComponent
+    CompanyusermasterComponent,
+    EditadminComponent
   ],
   imports: [
     BrowserModule,
