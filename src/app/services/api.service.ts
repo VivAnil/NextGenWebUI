@@ -4,13 +4,15 @@ import { environment } from 'src/environments/environment';
 import { Service } from '../models/service.model';
 import { catchError, Observable, of } from 'rxjs';
 import { map } from 'jquery';
+import { ServicePillar } from '../models/servicePillar.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
  // private baseUrl : string = 'https://localhost:7052/api/Service/Get';//environment.baseServiceurl;
- private baseUrl : string = environment.baseServiceurl;
+ private baseUrl : string = environment.baseServiceUrl;
+ private baseSPurl: string = environment.baseSPUrl;
   constructor(private http: HttpClient) { }
   private services: Service[] = [
   
@@ -31,6 +33,16 @@ export class ApiService {
     );
   }
 
+  getSerPillarData(): Observable<any[]> {
+    return this.http.get<any[]>(this.baseSPurl).pipe(
+      catchError((error) => {
+        console.error('API call failed:', error);
+        // Return hardcoded fallback data
+        console.log("Exception in calling service. Endpoint " + this.baseUrl);
+        return of();
+      })
+    );
+  }
   private getFallbackData(): any[] {
     return [
       {

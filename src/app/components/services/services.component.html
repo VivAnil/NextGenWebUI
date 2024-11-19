@@ -4,7 +4,7 @@
     <link rel="Stylesheet" href="../../../assets/css/jquery-ui-1.12.1.css" />
     <script type="text/javascript" src="../../../assets/js/grid/jsgrid.min.js"></script>
     <link type="text/css" rel="Stylesheet" href="../../../assets/css/jsgrid.min.css" />
-    <p>TEST</p>
+<p>TEST</p>
     <div class="back-internal-page width100">
         <div class="heading-title">Services Master</div>
         <div class="clear-both-20"></div>
@@ -16,10 +16,12 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addService"
-                    id="btn_service">+ New Service</button> <button type="button" class="btn-orange"
-                    data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">+ New Service
-                    Pillar</button>
+                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addService" id="btn_service" (click)="newService();">
+                    + New Service
+                </button> 
+                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">
+                    + New Service Pillar
+                </button>
             </div>
 
 
@@ -331,14 +333,11 @@
 
                                         </td>
                                         <td>
-                                            <select class="select-box-3 padding8 width100">
-                                                <option value="10">Digital Services</option>
-                                                <option value="25">Financial Services</option>
-                                                <option value="50">Government Compliance</option>
-                                                F <option value="200">Facilitation Scheme</option>
-
-
-                                            </select>
+                                            <select class="select-box-3 padding8 width100" id="serPillarDropdown" (change)="onSelectionChange($event)">
+                                                <option *ngFor="let item of serPillarData" [value]="item.id">
+                                                  {{ item.name }}
+                                                </option>
+                                              </select>
                                         </td>
                                     </tr>
 

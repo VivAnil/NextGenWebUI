@@ -18,6 +18,10 @@ export class ServicesComponent implements OnInit {
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
+
+  serPillarData: any[] = [];
+  selectedOption: any; // Holds the selected value
+
   constructor(private serviceApi: ApiService) { }
   ngAfterViewInit(): void {
     this.initJsGrid();
@@ -259,6 +263,28 @@ export class ServicesComponent implements OnInit {
     this.activeDefault = 'default-link';
     }
 
+  }
+
+  onSelectionChange(event: Event): void {
+    const selectedId = (event.target as HTMLSelectElement).value;
+    console.log('Selected Option ID:', selectedId);
+    this.selectedOption = selectedId;
+
+  }
+
+  private loadSPData(): void {
+    this.serviceApi.getSerPillarData().subscribe(
+      (data) => {
+        this.serPillarData = data;
+      },
+      (error) => {
+        console.error('Error loading dropdown data:', error);
+      }
+    );
+  }
+
+   newService(){
+    this.loadSPData();
   }
 
 }
