@@ -1,19 +1,19 @@
 .sidebar {
  /* width: 250px;*/
-  background-color: #333;
+ 
   color: #fff;
   padding: 0;
 }
 
 .accordion-section {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .accordion-header {
   width: 100%;
   background-color: #444;
   color: #fff;
-  padding: 10px;
+  padding: 15px;
   text-align: left;
   border: none;
   outline: none;
@@ -30,7 +30,7 @@
   background-color: #555;
   overflow: hidden;
   transition: max-height 0.2s ease;
-  padding: 0 10px;
+  
 }
 
 .accordion-content ul {
@@ -40,7 +40,7 @@
 }
 
 .accordion-content li {
-  padding: 5px 0;
+  padding: 10px;
   border-bottom: 1px solid #c7c7c7;
 }
 
@@ -55,9 +55,11 @@
   
 }
 .accordion-header {
-  background-color: #444;
-  color: #fff;
-  text-transform: uppercase; /* Makes the title all CAPS */
+  background-color: #717171 !important;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px; 
 }
 .accordion-content {
   background-color: #fff;   /* White background */
@@ -76,4 +78,8 @@
   color: #000;              /* Black text */
   
   border: none;
+}
+
+.arrow-link-li{
+  margin-right:5px;
 }
