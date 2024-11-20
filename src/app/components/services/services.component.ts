@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { ApiServicepillar } from 'src/app/services/api.servicepillar';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-services',
@@ -22,7 +23,7 @@ export class ServicesComponent implements OnInit {
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
 
-  constructor(private serviceApi: ApiService) { }
+  constructor(private serviceApi: ApiService, private servicePillarApi: ApiServicepillar) { }
   ngAfterViewInit(): void {
     this.initJsGrid();
   }
@@ -81,7 +82,7 @@ export class ServicesComponent implements OnInit {
       padding: "1%",
       height: "auto",
       filtering: false,
-      autoload: false,
+      //autoload: false,
       loadIndication: false,
       sorting: true,
       paging: true,
@@ -97,11 +98,17 @@ export class ServicesComponent implements OnInit {
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-      data: this.getDummyData2(),
+      //data: this.getDummyData2(),
+	   autoload: true,
 
+     controller: {
+       loadData: () => {
+         return this.servicePillarApi.getData().toPromise();
+       },
+      },
       fields: [
-        { title: "Service Type Name", name: "type", type: "text", validate: "required", css: "width14em" },
-        { title: "Description", name: "desc", type: "text", css: "width14em" },
+        { title: "Service Type Name", name: "name", type: "text", validate: "required", css: "width14em" },
+        { title: "Description", name: "description", type: "text", css: "width14em" },
         { title: "Status", name: "status", type: "text", css: "text-align-center" },
         // {
         //   title: "Action", itemTemplate: function (value, item) {
