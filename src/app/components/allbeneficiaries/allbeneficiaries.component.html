@@ -6,24 +6,18 @@
     <link type="text/css" rel="Stylesheet" href="../../../assets/css/jsgrid.min.css" />
 
     <div class="back-internal-page width100">
-        <div class="heading-title">All Projects</div>
+        <div class="heading-title">All Beneficiaries Report</div>
         <div class="clear-both-20"></div>
         <div class="float-right">
             <div class="float-left" style="margin-top: 5px;">
                 <button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none">
                     <i class="fa fa-file-excel-o file-icon" style="font-size: 30px;" aria-hidden="true"></i>
                 </button>
-
             </div>
-    
-
 
         </div>
         <div class="clear-both-20"></div>
-
         <div>
-
-
             <div>
                 <div class="position-relative padding-10-0">
                     <div class="col-md-6 padding-zero float-left">
@@ -73,7 +67,7 @@
                                         <input type="date" id="" class="input-box-3 width100">
                                     </div>
                                 </div>
-                           
+
                             </div>
                             <div class="row text-align-center">
                                 <div class="col-md-6 float-left text-align-right"><input type="button" class="btn-blck1"
@@ -82,9 +76,6 @@
                                         value="Cancel"></div>
                             </div>
                         </div>
-
-
-
                     </div>
 
                     <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">
@@ -94,7 +85,6 @@
                             <label id="lbl_filtercolumnscount1">5 out of 13</label>
                             <div class="float-right"><a href="#" class="col-reset-btn"
                                     id="lnk_resetcolumnfilter1">Reset</a></div>
-
                         </div>
                         <div class="column-tab1">
                             <div id="dv_nfcfiltercolumns">
@@ -106,25 +96,31 @@
                                         for="1" class="cursor-pointer">Project Name</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="2" onclick="checkGridColumn(2,this)" id="2" checked="checked"
-                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Total Unique Beneficiaries</label></div>
+                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Total Unique
+                                        Beneficiaries</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="3" onclick="checkGridColumn(3,this)" id="3" checked="checked"
-                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Total No. of SPs</label>
+                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Total No. of
+                                        SPs</label>
                                 </div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="4" onclick="checkGridColumn(4,this)" id="4"
-                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Total No. of Services</label></div>
+                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Total No. of
+                                        Services</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="5" onclick="checkGridColumn(5,this)" id="5"
-                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Revenue By Services (A)</label>
+                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Revenue By Services
+                                        (A)</label>
                                 </div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="6" onclick="checkGridColumn(6,this)" id="6"
-                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Revenue By Incentives (B)</label></div>
+                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Revenue By
+                                        Incentives (B)</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="7" onclick="checkGridColumn(7,this)" id="7"
-                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Total Services Worth</label></div>
-                                
+                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Total Services
+                                        Worth</label></div>
+
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
                                         for="14" class="cursor-pointer">Action</label></div>
@@ -138,35 +134,37 @@
                                         for="1" class="cursor-pointer">Project Name</label></div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="2" onclick="checkGridColumn1(2,this)" id="2" checked="checked"
-                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Total Unique Beneficiaries</label></div>
+                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Total Unique
+                                        Beneficiaries</label></div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="3" onclick="checkGridColumn1(3,this)" id="3" checked="checked"
-                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Total No. of SPs</label>
+                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Total No. of
+                                        SPs</label>
                                 </div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="4" onclick="checkGridColumn1(4,this)" id="4"
-                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Total No. of Services</label></div>
+                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Total No. of
+                                        Services</label></div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="5" onclick="checkGridColumn1(5,this)" id="5"
-                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Revenue By Services (A)</label>
+                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Revenue By Services
+                                        (A)</label>
                                 </div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="6" onclick="checkGridColumn1(6,this)" id="6"
-                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Revenue By Incentives (B)</label></div>
+                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Revenue By
+                                        Incentives (B)</label></div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="7" onclick="checkGridColumn1(7,this)" id="7"
-                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Total Services Worth</label></div>
-                               
+                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Total Services
+                                        Worth</label></div>
+
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="12" class="cursor-pointer"><label
                                         for="12" class="cursor-pointer">Action</label></div>
                             </div>
-
-
                             <div class="clear-both"></div>
                         </div>
-
-
                         <div class="clear-both"></div>
                     </div>
 
@@ -174,77 +172,70 @@
             </div>
             <div>
                 <div class="position-relative">
-                    <button type="button" id="btn_clear_filter" class="clear-filter-btn"><i class="fas fa-filter"></i>Clear Filters</button>
+                    <button type="button" id="btn_clear_filter" class="clear-filter-btn"><i
+                            class="fas fa-filter"></i>Clear Filters</button>
                     <div class="month-year-filter" style="left:31%;">
                         <div style="margin-top:-12px;">
-                            <div  class="float-left width25" style="margin-right:10px;">
+                            <div class="float-left width25" style="margin-right:10px;">
                                 <div class="font-weight-bold">Project Name</div>
                                 <div>
-                                            <select name="" id="" class="padding8 width100">
-                                                <option value="1">-All Projects--</option>
-                                                <option value="1">Smartpur Smartpur Smartpur Smartpur Smartpur Smartpur</option>
-                                                <option value="2">Digital Didi</option>
-                                                <option value="3">Krisarthak</option>
-                                                
-                                            </select>
-                                </div>  
+                                    <select name="" id="" class="padding8 width100">
+                                        <option value="1">-All Projects--</option>
+                                        <option value="1">Smartpur Smartpur Smartpur Smartpur Smartpur Smartpur</option>
+                                        <option value="2">Digital Didi</option>
+                                        <option value="3">Krisarthak</option>
+
+                                    </select>
+                                </div>
                             </div>
-                            <div  class="float-left" style="margin-right:10px;">
-                                <div class="font-weight-bold">From</div> 
+                            <div class="float-left" style="margin-right:10px;">
+                                <div class="font-weight-bold">From</div>
                                 <div><input type="date" class="input-box-3" /></div>
                             </div>
-                            <div  class="float-left" style="margin-right:10px;">
-                                <div class="font-weight-bold">To</div> 
+                            <div class="float-left" style="margin-right:10px;">
+                                <div class="font-weight-bold">To</div>
                                 <div><input type="date" class="input-box-3" /></div>
                             </div>
-                            
+
                         </div>
-                    <div class="page-filter">
-                        Page Size:
-                        <select class="select-box-3 padding8">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="1250">Select All</option>
+                        <div class="page-filter">
+                            Page Size:
+                            <select class="select-box-3 padding8">
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                                <option value="200">200</option>
+                                <option value="1250">Select All</option>
 
-                        </select>
+                            </select>
+                        </div>
                     </div>
-                </div>
 
-                <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
+                    <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
 
-                    <ul role="tablist"
-                        class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-                        <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default {{activeTab}}"
-                            aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
-                            aria-expanded="true">
-                            <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All Project Report</a>
-                        </li>
-                        
-
-
-                    </ul>
-                    <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
-                        class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display:block;">
-                        <div id="allProjectGrid"></div>
+                        <ul role="tablist"
+                            class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+                            <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default {{activeTab}}"
+                                aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
+                                aria-expanded="true">
+                                <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All Project
+                                    Report</a>
+                            </li>
+                        </ul>
+                        <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
+                            class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true"
+                            style="display:block;">
+                            <div id="allProjectGrid"></div>
+                        </div>
                     </div>
-                  
-
+                    <div class="clear-both-5"></div>
                 </div>
-
-                <div class="clear-both-5"></div>
-
-
             </div>
+            <div class="clear-both"></div>
         </div>
-
         <div class="clear-both"></div>
-
+        <div class="col-md-12">
+            <div class="clear-both-15"></div>
+        </div>
     </div>
-    <div class="clear-both"></div>
-    <div class="col-md-12">
-        <div class="clear-both-15"></div>
-    </div>
-</div>

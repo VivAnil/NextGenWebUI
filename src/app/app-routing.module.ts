@@ -14,6 +14,7 @@ import { EditadminComponent } from './components/editadmin/editadmin.component';
 import { PaymentreportComponent } from './components/paymentreport/paymentreport.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
+import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
 
 const routes: Routes = [
   
@@ -41,6 +42,7 @@ const routes: Routes = [
       {path: 'editcompany', component: EditcompanyComponent},
       {path: 'paymentreport', component: PaymentreportComponent},
       {path: 'projectreport', component: AllprojectsComponent},
+      {path: 'benReport', component: AllbeneficiariesComponent},
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -54,6 +56,7 @@ const routes: Routes = [
       {path: 'editadmin', component: EditadminComponent},
       {path: 'editcompany', component: EditcompanyComponent},
       {path: 'projectreport', component: AllprojectsComponent},
+      {path: 'benReport', component: AllbeneficiariesComponent},
   {
     path: '**',
     redirectTo: 'login'

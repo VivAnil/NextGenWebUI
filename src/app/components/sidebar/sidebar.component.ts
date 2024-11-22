@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
 	{ title: 'Report Section', 
 	  links: 
 		[{ label: 'All Project Report', path: '/projectreport' }, 
-		 { label: 'All Beneficiaries Report', path: '/beneficiaryreport' },
+		 { label: 'All Beneficiaries Report', path: '/benReport' },
 		 { label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
 		 
 		  ] 
