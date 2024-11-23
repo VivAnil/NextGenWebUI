@@ -25,6 +25,7 @@ import { PaymentreportComponent } from './components/paymentreport/paymentreport
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
 import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
+import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbene
     PaymentreportComponent,
     EditcompanyComponent,
     AllprojectsComponent,
-    AllbeneficiariesComponent
+    AllbeneficiariesComponent,
+    SpbeneficiariesComponent
   ],
   imports: [
     BrowserModule,
