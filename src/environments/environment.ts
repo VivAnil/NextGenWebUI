@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-    baseAuthApiUrl: "https://localhost:44355",
+  baseAuthApiUrl: "https://motherappauthservice.azurewebsites.net/authenticate",
   baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service/Get",
  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get"
 };

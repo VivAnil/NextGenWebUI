@@ -7,7 +7,7 @@ import { catchError, map, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl : string = environment.baseAuthApiUrl+"authenticate";
+  private baseUrl : string = environment.baseAuthApiUrl;
   constructor(private http: HttpClient) { }
   private user: User = {authenticated:true, roleid: 1};
 
