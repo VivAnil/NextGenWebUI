@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 declare var $: any; // Import jQuery
 // import * as $ from 'jquery';
 import 'jstree';
+import { RolemasterService } from '../../services/rolemaster.service';
 @Component({
   selector: 'app-companyusermaster',
   templateUrl: './companyusermaster.component.html',
@@ -19,7 +20,7 @@ export class CompanyusermasterComponent implements OnInit {
   isColumnOpen: boolean = false;
   displayTab1: string = 'none';
   displayTab: string = 'block';
-  constructor() { }
+  constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
     
   }
@@ -116,7 +117,7 @@ export class CompanyusermasterComponent implements OnInit {
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-      data: this.getDummyData(),
+      data: this.getMasterRoleData(),
 
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
@@ -131,33 +132,46 @@ export class CompanyusermasterComponent implements OnInit {
 
   }
 
-  getDummyData() {
-    return [
-      {
-        "profilename": "Project Coordinator",
-        "systemusertype": "Project Manager"
-      },
-      {
-        "profilename": "Admin",
-        "systemusertype": "Administrator"
-      },
-      {
-        "profilename": "State Coordinator",
-        "systemusertype": "State Coordinator"
-      },
-      {
-        "profilename": "District Coordinator",
-        "systemusertype": "District Coordinator"
-      },
-      {
-        "profilename": "Block Coordinator",
-        "systemusertype": "Block Coordinator"
-      },
-      {
-        "profilename": "Beneficiary",
-        "systemusertype": "Beneficiary"
+  getMasterRoleData() {
+    this.rolemasterService.getSystemRoles().subscribe(systemRoles => {
+      let roleData: Array<any> = [];
+      for (let systemRole of systemRoles) {
+        roleData.push(
+          {
+            "profilename": systemRole.DisplayName,
+            "systemusertype": systemRole.Id
+          }
+        );
       }
-    ];
+      return roleData;
+    });
+
+    //return [
+    //  {
+    //    "profilename": "Project Coordinator",
+    //    "systemusertype": "Project Manager"
+    //  },
+    //  {
+    //    "profilename": "Admin",
+    //    "systemusertype": "Administrator"
+    //  },
+    //  {
+    //    "profilename": "State Coordinator",
+    //    "systemusertype": "State Coordinator"
+    //  },
+    //  {
+    //    "profilename": "District Coordinator",
+    //    "systemusertype": "District Coordinator"
+    //  },
+    //  {
+    //    "profilename": "Block Coordinator",
+    //    "systemusertype": "Block Coordinator"
+    //  },
+    //  {
+    //    "profilename": "Beneficiary",
+    //    "systemusertype": "Beneficiary"
+    //  }
+    //];
   }
 }
 
