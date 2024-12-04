@@ -49,7 +49,11 @@ export class PaymentComponent implements OnInit {
                         data: this.getDummyData(),
 
                         fields: [
-                                { title: "ID", name: "id", type: "text", validate: "required", css: "width14em" },
+                                {
+                                        title: "SP ID", itemTemplate: function (value: any, item: any) {
+                                            return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
+                                        }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+                                },
                                 { title: "SP Name", name: "spName", type: "text", css: "width14em" },
                                 //     { title: "Project Name", name: "projectName", type: "text", css: "text-align-center" },
                                 //     { title: "Profile Pic", name: "profilePic", type: "text", css: "text-align-center" },
@@ -93,7 +97,11 @@ export class PaymentComponent implements OnInit {
                         data: this.getDummyData2(),
 
                         fields: [
-                                { title: "ID", name: "processedSpId", type: "text", validate: "required", css: "width14em" },
+                                {
+                                        title: "SP ID", itemTemplate: function (value: any, item: any) {
+                                            return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.processedSpId+" </div>";
+                                        }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+                                },
                                 { title: "SP Name", name: "processedSpName", type: "text", css: "width14em" },
                                 //     { title: "Project Name", name: "projectName", type: "text", css: "text-align-center" },
                                 //     { title: "Profile Pic", name: "profilePic", type: "text", css: "text-align-center" },
@@ -109,7 +117,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "id": "SP-2",
                                 "spName": "Anuradha Singh",
-                                "profilePic ": "",
+                                "profilepic": "sp2.jpg",
                                 "projectName": "Krisarthak",
                                 "uniqueBeneficiaries": "4",
                                 "nonIBeneficiaries": "30",
@@ -122,7 +130,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "id": "SP-3",
                                 "spName": "Amar Sirivastava",
-                                "profilePic ": "",
+                                "profilepic": "sp3.jpg",
                                 "projectName": "Krisarthak",
                                 "uniqueBeneficiaries": "4",
                                 "nonIBeneficiaries": "30",
@@ -135,7 +143,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "id": "SP-1",
                                 "spName": "Suman Kumari",
-                                "profilePic ": "",
+                                "profilepic": "sp1.jpg",
                                 "projectName": "Krisarthak",
                                 "uniqueBeneficiaries": "4",
                                 "nonIBeneficiaries": "10",
@@ -153,6 +161,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "processedSpId": "SP-1",
                                 "processedSpName": "Suman Kumari",
+                                "profilepic": "sp1.jpg",
                                 "processedTotalBeneficiaries": "4",
                                 "processedRevenueIncentives": "52.00",
                                 "paymentStatus": "Unpaid"
@@ -161,6 +170,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "processedSpId": "SP-2",
                                 "processedSpName": "Anuradha Singh",
+                                "profilepic": "sp2.jpg",
                                 "processedTotalBeneficiaries": "4",
                                 "processedRevenueIncentives": "8,000.00",
                                 "paymentStatus": "Paid"
@@ -168,6 +178,7 @@ export class PaymentComponent implements OnInit {
                         {
                                 "processedSpId": "SP-3",
                                 "processedSpName": "Amar Srivastava",
+                                "profilepic": "sp3.jpg",
                                 "processedTotalBeneficiaries": "4",
                                 "processedRevenueIncentives": "8,000.00",
                                 "paymentStatus": "Unpaid"

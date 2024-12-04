@@ -1,10 +1,5 @@
 <div class="col-md-10 float-left">
-    <script type="text/javascript" src="../../../assets/js/jquery/3.1.1-jquery.min.js"></script>
-    <script src="../../../assets/js/jquery/jquery-ui-1.12.1.js" type="text/javascript"></script>
-    <link rel="Stylesheet" href="../../../assets/css/jquery-ui-1.12.1.css" />
-    <script type="text/javascript" src="../../../assets/js/grid/jsgrid.min.js"></script>
-    <link type="text/css" rel="Stylesheet" href="../../../assets/css/jsgrid.min.css" />
-
+    
     <div class="back-internal-page width100">
         <div class="heading-title">All Beneficiaries Report</div>
         <div class="clear-both-20"></div>
@@ -174,12 +169,12 @@
                 <div class="position-relative">
                     <button type="button" id="btn_clear_filter" class="clear-filter-btn"><i
                             class="fas fa-filter"></i>Clear Filters</button>
-                    <div class="month-year-filter" style="left:31%;">
-                        <div style="margin-top:-12px;">
-                            <div class="float-left width25" style="margin-right:10px;">
+                    <div class="month-year-filter">
+                        <div>
+                            <div class="float-left width25 margin-right-10px">
                                 <div class="font-weight-bold">Project Name</div>
                                 <div>
-                                    <select name="" id="" class="padding8 width100">
+                                    <select name="" id="" class="paddingp6em width100 select-box-3">
                                         <option value="1">-All Projects--</option>
                                         <option value="1">Smartpur Smartpur Smartpur Smartpur Smartpur Smartpur</option>
                                         <option value="2">Digital Didi</option>
@@ -188,30 +183,31 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="float-left" style="margin-right:10px;">
+                            <div class="float-left margin-right-10px">
                                 <div class="font-weight-bold">From</div>
                                 <div><input type="date" class="input-box-3" /></div>
                             </div>
-                            <div class="float-left" style="margin-right:10px;">
+                            <div class="float-left margin-right-10px">
                                 <div class="font-weight-bold">To</div>
                                 <div><input type="date" class="input-box-3" /></div>
                             </div>
 
                         </div>
-                        <div class="page-filter">
-                            Page Size:
-                            <select class="select-box-3 padding8">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                                <option value="200">200</option>
-                                <option value="1250">Select All</option>
-
-                            </select>
+                        
+                    </div>
+                    <div class="page-filter text-align-right">
+                        
+                        <div>
+                        <select class="select-box-3 paddingp6em">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="1250">Select All</option>
+                        </select>
                         </div>
                     </div>
-
                     <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
 
                         <ul role="tablist"
@@ -219,8 +215,7 @@
                             <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default {{activeTab}}"
                                 aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
                                 aria-expanded="true">
-                                <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All Project
-                                    Report</a>
+                                <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All Beneficiaries</a>
                             </li>
                         </ul>
                         <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"

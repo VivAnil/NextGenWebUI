@@ -29,8 +29,7 @@ export class AllbeneficiariesComponent implements OnInit {
       padding: "1%",
       inserting: false,
       height: "auto",
-      filtering: false,
-      
+      filtering: false,      
       loadIndication: false,
       sorting: true,
       paging: true,
@@ -56,7 +55,11 @@ export class AllbeneficiariesComponent implements OnInit {
     //    },
     //  },
       fields: [
-        { title: "Beneficiary Id", name: "beneficiaryId", type: "number", validate: "required", css: "width10em text-align-center" },
+        {
+          title: "Beneficiary ID", itemTemplate: function (value: any, item: any) {
+              return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.beneficiaryId+" </div>";
+          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+        },        
         { title: "Beneficiary Name", name: "beneficiaryName", type: "text", css: "width14em text-align-center" },
         { title: "Date of Registration", name: "dor", type: "text", css: "text-align-center width14em" },
         { title: "Father's Name", name: "fathersName", type: "text", css: "width14em text-align-center" },
@@ -73,7 +76,7 @@ export class AllbeneficiariesComponent implements OnInit {
         { title: "Gram Panchayat", name: "gp", type: "text", validate: "required", css: "text-align-center width12em" },
         { title: "Pin Code", name: "pin", type: "text", validate: "required", css: "text-align-center width10em" },
         { title: "Address", name: "address", type: "text", validate: "required", css: "text-align-center width14em" },
-        { title: "Economic Status (BPL/APL)", name: "economicStatus", type: "text", validate: "required", css: "text-align-center width10em" },
+        { title: "Economic Status (BPL/APL)", name: "economicStatus", type: "text", validate: "required", css: "text-align-center width14em" },
         { title: "PAN Card", name: "pan", type: "text", validate: "required", css: "text-align-center width10em" },
         { title: "Aadhar Card", name: "aadhar", type: "text", validate: "required", css: "text-align-center width10em" },
         { title: "Total - Digital Services", name: "totalDigitalServices", type: "text", validate: "required", css: "text-align-center width14em" },
@@ -99,6 +102,7 @@ export class AllbeneficiariesComponent implements OnInit {
     return [
       {
         "beneficiaryId": "BN-0001",
+        "profilepic": "bn1.jpg",
         "beneficiaryName": "Rehana Khatoon",
         "dor": "03-10-2023",
         "fathersName": "Amir Khan",
@@ -127,7 +131,8 @@ export class AllbeneficiariesComponent implements OnInit {
         "toalGovtComp": "30"
       },
       {
-       "beneficiaryId": "BN-0002",
+        "beneficiaryId": "BN-0002",
+        "profilepic": "bn2.jpg",
         "beneficiaryName": "Manoj Kumar",
         "dor": "23-10-2023",
         "fathersName": "Somesh Kumar Singh",
@@ -157,6 +162,7 @@ export class AllbeneficiariesComponent implements OnInit {
       },
       {
           "beneficiaryId": "BN-0003",
+          "profilepic": "bn3.jpg",
            "beneficiaryName": "Bharti Kumari",
            "dor": "28-09-2024",
            "fathersName": "	Akshay Kumar",

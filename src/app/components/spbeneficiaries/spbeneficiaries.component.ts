@@ -59,7 +59,11 @@ export class SpbeneficiariesComponent implements OnInit {
     //    },
     //  },
       fields: [
-        { title: "Id", name: "spId", type: "number", validate: "required", css: "width10em text-align-center" },
+        {
+          title: "SP ID", itemTemplate: function (value: any, item: any) {
+              return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.spId+" </div>";
+          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+        },
         { title: "SP Name", name: "spName", type: "text", css: "width14em text-align-center" },
         { title: "Father's Name", name: "fathersName", type: "text", css: "width14em text-align-center" },
         { title: "Date Of Birth", name: "dob", type: "text", css: "text-align-center width14em" },
@@ -105,6 +109,7 @@ export class SpbeneficiariesComponent implements OnInit {
       {
         "spId": "SP-1",
         "spName": "Suman Kumari",
+        "profilepic": "sp1.jpg",
         "fathersName": "Somesh Singh",
         "dob": "27-05-1980",
         "age": "44",
@@ -136,6 +141,7 @@ export class SpbeneficiariesComponent implements OnInit {
       {
        "spId": "SP-2",
         "spName": "Anuradha Singh",
+        "profilepic": "sp2.jpg",
         "fathersName": "Father Singh",
         "dob": "09-11-1992",
         "age": "32",
@@ -167,6 +173,7 @@ export class SpbeneficiariesComponent implements OnInit {
       {
         "spId": "SP-3",
         "spName": "Amar Srivastava",
+        "profilepic": "sp3.jpg",
         "fathersName": "Father Srivastava",
         "dob": "07-08-1984",
         "age": "40",

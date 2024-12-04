@@ -1,6 +1,8 @@
 .jsgrid-pager {
     right: 100px;
     top: 18px;
+    position: absolute!important;
+    z-index: 100!important;
 }
 
 .jsgrid-pager-container {
