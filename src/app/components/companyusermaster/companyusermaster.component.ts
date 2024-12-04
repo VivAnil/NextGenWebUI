@@ -118,6 +118,7 @@ export class CompanyusermasterComponent implements OnInit {
       pageNavigatorPrevText: "...",
 
       data: this.getMasterRoleData(),
+      permissionData:this.getPermissionDetails(),
 
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
@@ -131,6 +132,17 @@ export class CompanyusermasterComponent implements OnInit {
     });
 
   }
+    getPermissionDetails() {
+      this.rolemasterService.getSystemPermissions().subscribe(systemPermissions => {
+        let permissionData: Array<any> = [];
+
+        let grouped = systemPermissions.reduce(
+          (result: any, currentValue: any) => {
+            (result[currentValue['ParentId']] = result[currentValue['ParentId']] || []).push(currentValue);
+            return result;
+          }, {});
+      });
+    }
 
   getMasterRoleData() {
     this.rolemasterService.getSystemRoles().subscribe(systemRoles => {
