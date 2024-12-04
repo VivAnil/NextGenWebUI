@@ -18,7 +18,7 @@ export class AuthService {
         return response && response.roleId ? true : false;
       }),
       catchError(error => {
-        console.error('Login failed', error);
+        console.error('Login failed');
         return of(false);  // Return false on error
       })
     );
