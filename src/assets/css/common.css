@@ -228,7 +228,7 @@ input:checked + .slider:before {
     right: 100px;
     top: 18px;
     position: absolute!important;
-    z-index: 100!important;
+    z-index: 2!important;
 }
 
 .jsgrid-pager-container {

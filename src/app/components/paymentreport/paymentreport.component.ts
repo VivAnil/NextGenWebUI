@@ -76,19 +76,19 @@ export class PaymentreportComponent implements OnInit {
                                 { title: "PAN", name: "pan", type: "text", css: "text-align-center width14em" },
 
                                 { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "text", css: "text-align-center width14em" },
-                                { title: "PAN Card", name: "totalPan", type: "text", css: "text-align-center width14em" },
-                                { title: "Aadhar", name: "totalAadhar", type: "text", css: "text-align-center width14em" },
-                                { title: "Digital Services Total", name: "totalds", type: "text", css: "text-align-center width14em" },
-                                { title: "Bank Loan Code", name: "bankLoan", type: "text", css: "text-align-center width14em" },
-                                { title: "Cash Withdrawl", name: "cash", type: "text", css: "text-align-center width14em" },
-                                { title: "Financial Services Total", name: "totalfs", type: "text", css: "text-align-center width14em" },
+                                { title: "PAN Card", name: "totalPan", type: "text", css: "text-align-center back-digital" },
+                                { title: "Aadhar", name: "totalAadhar", type: "text", css: "text-align-center  back-digital" },
+                                { title: "Digital Services Total", name: "totalds", type: "text", css: "text-align-center  back-digital" },
+                                { title: "Bank Loan Code", name: "bankLoan", type: "text", css: "text-align-center back-financial" },
+                                { title: "Cash Withdrawl", name: "cash", type: "text", css: "text-align-center back-financial" },
+                                { title: "Financial Services Total", name: "totalfs", type: "text", css: "text-align-center back-financial" },
 
-                                { title: "Ration Card", name: "ration", type: "text", css: "text-align-center width14em" },
-                                { title: "Pension", name: "pension", type: "text", css: "text-align-center width14em" },
-                                { title: "Government Compliances Total", name: "totalGovt", type: "text", css: "text-align-center width14em" },
-                                { title: "Revenue By Services", name: "revenueServices", type: "text", css: "text-align-center width14em" },
-                                { title: "Revenue By Incentives", name: "revenueIncentives", type: "text", css: "text-align-center width14em" },
-                                { title: "Total Services Worth", name: "totalServices", type: "text", css: "text-align-center width14em" },
+                                { title: "Ration Card", name: "ration", type: "text", css: "text-align-center back-government" },
+                                { title: "Pension", name: "pension", type: "text", css: "text-align-center back-government" },
+                                { title: "Government Compliances Total", name: "totalGovt", type: "text", css: "text-align-center back-government" },
+                                { title: "Revenue By Services", name: "revenueServices", type: "text", css: "text-align-center " },
+                                { title: "Revenue By Incentives", name: "revenueIncentives", type: "text", css: "text-align-center back-red" },
+                                { title: "Total Services Worth", name: "totalServices", type: "text", css: "text-align-center " },
 
                         ]
                 });

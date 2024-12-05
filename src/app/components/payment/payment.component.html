@@ -263,11 +263,17 @@
                                 class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true"
                                 style="display:{{displayTab}}">
                                 <div id="MappedGrid1"></div>
+                                <div class="clear-both-20"></div>
+                                <div class="text-align-center"><button type="button" value="" class="btn-blck">Process Payment</button></div>
+                                <div class="clear-both-20"></div>
                             </div>
                             <div id="tabs-2" aria-labelledby="tab_service" role="tabpanel"
                                 class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="false"
                                 style="display:{{displayTab1}}">
                                 <div id="MappedGrid2"></div>
+                                <div class="clear-both-20"></div>
+                                <div class="text-align-center"><button type="button" value="" class="btn-blck">Mark Payment</button></div>
+                                <div class="clear-both-20"></div>
                             </div>
         
                         </div>
@@ -278,17 +284,217 @@
                 </div>
                     <div class="clear-both-5"></div>
 				
-					<div id="tabs_beneficiary_details" class="display-none ">
-
-						<ul class="">
-							<li><a href="#tabs-1-details">Unique Beneficiaries Details</a></li>												               
-						   
-						</ul>
-						<div id="tabs-1-details" class="width100"></div>
-					</div>
+					
 
                 </div>
                 </div>
             </div>    
         </div>
-   
+ 
+        <div class="modal fade" id="modal_view_details" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">        
+                        <button type="button" class="btn-close float-right" data-bs-dismiss="modal"></button>
+                        <h4 class="modal-title">View Beneficiary Details</h4>
+                    </div>
+                    <div class="modal-body">
+                       <div class="no-more-tables">
+                                <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
+                                    <colgroup>
+                                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                    </colgroup>
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <td>
+                                                SP ID <span>*</span>
+        
+                                            </td>
+                                            <td>
+                                                <div id="sp_id">SP-1</div>
+                                            </td>
+                                            <td>
+                                                SP Name <span>*</span>
+        
+                                            </td>
+                                            <td>
+                                                <div id="sp_name">Anuradha Singh</div>
+                                            </td>
+                                        </tr>
+                                       <tr>
+                                            <td>
+                                                Project Name <span>*</span>
+        
+                                            </td>
+                                            <td>
+                                                <div id="projectname">Smartpur</div>
+                                            </td>
+                                            <td>
+                                                Project Location (State)
+        
+                                            </td>
+                                            <td>
+                                                West Bengal, Assam
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                From Date <span>*</span>
+        
+                                            </td>
+                                            <td>
+                                                1-09-2023
+                                            </td>
+                                            <td>
+                                                To Date
+        
+                                            </td>
+                                            <td>
+                                                20-09-2023
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="clear-both-15"></div>
+                                <div class="section-heading width100">Payment details </div>
+                                <table class="col-sm-12 table-bordered table-condensed" border="1">
+                                   
+                                    
+                                        <tr>
+                                            <th class="text-align-center">
+                                                Service Code
+        
+                                            </th>
+                                           
+                                            <th>
+                                                Service Name
+        
+                                            </th>
+                                            <th class="text-align-center">
+                                                Service Worth<br/>(A)
+        
+                                            </th>
+                                            <th class="text-align-center">
+                                               Service Rate<br/>(B)
+        
+                                            </th>
+                                            <th  class="text-align-center">
+                                                Incentive Amount <br/>(C)
+                                            </th>                                  
+                                            <th  class="text-align-center">
+                                                Total Services<br/> (D)
+        
+                                            </th>
+                                            <th  class="text-align-center">
+                                                Revenue by Services<br/> E = (BxD)
+        
+                                            </th>
+                                            <th  class="text-align-center back-red">
+                                                Revenue by Incentives<br/> F = (CxD)
+                                            </th>
+                                            <th  class="text-align-center">
+                                                Total Revenue <br/>G = (E+F)
+                                            </th>
+                                            <th class="text-align-center">
+                                                Total Service Worth<br/>H = (AxD)
+                                            </th>
+                                          
+                                            
+                                        </tr>
+                                        
+                                       <tr>
+                                            <td class="text-align-center"><div id="scode1">SN-01</div></td>
+                                            <td><div id="sname1">PANCARD</div></td>
+                                            <td class="text-align-center"><div id="sworth1">100</div></td>
+                                            <td class="text-align-center"><div id="srate1">50</div></td>
+                                            <td class="text-align-center"><div id="sincentive1">20</div></td>
+                                            <td class="text-align-center"><div id="stotal1">2</div></td>
+                                            <td class="text-align-center"><div id="searnhim1">100</div></td>
+                                            <td class="text-align-center back-red"><div id="searnI1">40</div></td>
+                                            <td class="text-align-center"><div id="">140</div></td>
+                                            <td class="text-align-center"><div id="">200</div></td>
+                                            
+                                       </tr>
+                                        <tr>
+                                            <td class="text-align-center"><div id="scode2">SN-02</div></td>
+                                            <td ><div id="sname2"></div>Aadhaar Card</td>
+                                            <td class="text-align-center"><div id="sworth2">200</div></td>
+                                            <td class="text-align-center"><div id="srate2">70</div></td>
+                                            <td class="text-align-center"><div id="sincentive2">4</div></td>
+                                            <td class="text-align-center"><div id="stotal2">3</div></td>
+                                            <td class="text-align-center"><div id="searnhim2">210</div></td>
+                                            <td class="text-align-center back-red"><div id="searnI2">12</div></td>
+                                            <td class="text-align-center"><div id="">222</div></td>
+                                            <td class="text-align-center"><div id="">600</div></td>
+                                            
+                                       </tr>
+                                        <tr>
+                                            <td class="text-align-center"><div id="scode3">SN-03</div></td>
+                                            <td><div id="sname3">Bank Loan</div></td>
+                                            <td class="text-align-center"><div id="sworth3">300</div></td>
+                                            <td class="text-align-center"><div id="srate3">100</div></td>
+                                            <td class="text-align-center"><div id="sincentive3">0</div></td>
+                                            <td class="text-align-center"><div id="stotal3">5</div></td>
+                                            <td class="text-align-center"><div id="searnhim3">500</div></td>
+                                            <td class="text-align-center back-red"><div id="searnI3">0</div></td>
+                                            <td class="text-align-center"><div id="">500</div></td>
+                                            <td class="text-align-center"><div id="">15,00</div></td>
+                                            
+                                       </tr>
+                                        <tr>
+                                            <td class="text-align-center"><div id="scode4">SN-04</div></td>
+                                            <td><div id="sname4">Ration Card</div></td>
+                                            <td class="text-align-center"><div id="sworth4">150</div></td>
+                                            <td class="text-align-center"><div id="srate4">70</div></td>
+                                            <td class="text-align-center"><div id="sincentive4">0</div></td>
+                                            <td class="text-align-center"><div id="stotal4">5</div></td>
+                                            <td class="text-align-center"><div id="searnhim4">350</div></td>
+                                            <td class="text-align-center back-red"><div id="searnI4">0</div></td>
+                                            <td class="text-align-center"><div id="">350</div></td>
+                                            <td class="text-align-center"><div id="">750</div></td>
+                                            
+                                       </tr>
+                                      
+                                       
+                                       <tr>
+                                        <td colspan="6" align="right" class="font-weight-bold" >Grand Total</td>
+                                        <td class="font-weight-bold text-align-center" ><div id="">1,160</div></td>
+                                        <td class="font-weight-bold text-align-center back-red" ><div id="">52</div></td>
+                                        <td class="font-weight-bold text-align-center" ><div id="totalearning">1212</div></td>
+                                        <td class="font-weight-bold text-align-center">3,050</td>
+                                       </tr>
+                                       
+                                    
+                                </table>
+                                
+                                
+                            </div> 
+        
+                    </div>
+                    <div class="clear-both-5"></div>
+                </div>
+            </div>
+        </div>
+
+        
+    <!--------------Unique Beneficiary Modal--------------------------->
+
+    <div class="modal fade" id="modal_view_ben_details" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">        
+                    <button type="button" class="btn-close float-right" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">View Unique Beneficiary Details</h4>
+                </div>
+                <div class="modal-body">                    
+                        <div id="allBeneficiaryGrid"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
