@@ -27,21 +27,25 @@ export class ProjectComponent implements OnInit {
       width: "100%",
       height: "400px",
      
-      inserting: true,
-      editing: true,
+      inserting: false,
+      editing: false,
       sorting: true,
       paging: true,
 
       data: this.getDummyData(),
       
       fields: [
-        { name: "id", type: "number", width: 5, title: "ID" },
-        { name: "projectName", type: "text", width: 150, title: "Project Name" },
-        { name: "logo", type: "text", width: 50, title: "logo" },
-        { name: "companyName", type: "text", width: 50, title: "companyName" },
-        { name: "tagline", type: "text", width: 100, title: "tagline" },
-        { name: "url", type: "text", width: 100, title: "url" },
-        { type: "control" }
+        { name: "id", type: "number", title: "ID", css:"text-align-center" },
+        { name: "projectName", type: "text", title: "Project Name" },
+        { name: "logo", type: "text", title: "logo" },
+        { name: "companyName", type: "text", title: "companyName" },
+        { name: "tagline", type: "text", title: "tagline" },
+        { name: "url", type: "text", title: "url" },
+        {
+          title: "Action", itemTemplate: function (value: any, item: any) {
+              return "<div class='text-align-center'><a href='#'><i class='fa fa-eye color-black' title='View Project'></i></a> <button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Project'></i></button> <button class='border-none' title='Delete Project' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Project'></i></button></div>";
+          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive"
+        }
       ]
     });
    

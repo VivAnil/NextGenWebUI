@@ -1854,7 +1854,7 @@ mark {
 
 
 .text-align-c {
-    text-align: center;
+    text-align: center!important;
 }
 
 .clearboth {

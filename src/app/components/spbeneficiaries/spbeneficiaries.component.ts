@@ -62,36 +62,36 @@ export class SpbeneficiariesComponent implements OnInit {
         {
           title: "SP ID", itemTemplate: function (value: any, item: any) {
               return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.spId+" </div>";
-          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive text-align-c"
         },
-        { title: "SP Name", name: "spName", type: "text", css: "width14em text-align-center" },
-        { title: "Father's Name", name: "fathersName", type: "text", css: "width14em text-align-center" },
-        { title: "Date Of Birth", name: "dob", type: "text", css: "text-align-center width14em" },
-        { title: "Age", name: "age", type: "number", css: "text-align-center width6em" },
-        { title: "Gender", name: "gender", type: "text", css: "text-align-center width6em" },
-        { title: "Mobile No.", name: "mobile", type: "text", css: "text-align-center width10em" },
-        { title: "Email", name: "email", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Project Name", name: "projectName", type: "text", validate: "required", css: "text-align-center width14em" },
-        { title: "State", name: "state", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "District", name: "district", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Block", name: "block", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Village", name: "village", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Gram Panchayat", name: "gp", type: "text", validate: "required", css: "text-align-center width12em" },
-        { title: "Pin Code", name: "pin", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Address", name: "address", type: "text", validate: "required", css: "text-align-center width14em" },
-        { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "PAN Card", name: "pan", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Aadhar Card", name: "aadhar", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Total - Digital Services", name: "totalDigitalServices", type: "text", validate: "required", css: "text-align-center width14em" },
-        { title: "Bank Loan", name: "bankLoan", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Cash Withdrawl", name: "cash", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Total - Financial Services", name: "totalFinServices", type: "text", validate: "required", css: "text-align-center width14em" },
-        { title: "Ration Card", name: "rationCard", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Pension", name: "village", type: "pension", validate: "required", css: "text-align-center width10em" },
-        { title: "Total - Govt Compliances", name: "toalGovtComp", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Revenue By Services (A)", name: "revenueByServices", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Revenue By Incentives (b)", name: "revenueByIncentives", type: "text", validate: "required", css: "text-align-center width10em" },
-        { title: "Total Services Worth", name: "totalServicesWorth", type: "text", validate: "required", css: "text-align-center width10em" },
+        { title: "SP Name", name: "spName", type: "text", css: "width14em" },
+        { title: "Father's Name", name: "fathersName", type: "text", css: "width14em" },
+        { title: "Date Of Birth", name: "dob", type: "text", css: "text-align-c" },
+        { title: "Age", name: "age", type: "number", css: "text-align-c" },
+        { title: "Gender", name: "gender", type: "text", css: "text-align-c" },
+        { title: "Mobile No.", name: "mobile", type: "text", css: "text-align-c" },
+        { title: "Email", name: "email", type: "text", validate: "required", css: "text-align-left" },
+        { title: "Project Name", name: "projectName", type: "text", validate: "required", css: "width14em" },
+        { title: "State", name: "state", type: "text", validate: "required", css: "text-align-c" },
+        { title: "District", name: "district", type: "text", validate: "required", css: "text-align-c" },
+        { title: "Block", name: "block", type: "text", validate: "required", css: "text-align-c" },
+        { title: "Village", name: "village", type: "text", validate: "required", css: "" },
+        { title: "Gram Panchayat", name: "gp", type: "text", validate: "required", css: "" },
+        { title: "Pin Code", name: "pin", type: "text", validate: "required", css: "text-align-c" },
+        { title: "Address", name: "address", type: "text", validate: "required", css: "width14em" },
+        { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "text", validate: "required", css: "text-align-c" },
+        { title: "PAN Card", name: "pan", type: "text", validate: "required", css: "text-align-c back-digital" },
+        { title: "Aadhar Card", name: "aadhar", type: "text", validate: "required", css: "text-align-c back-digital" },
+        { title: "Total - Digital Services", name: "totalDigitalServices", type: "text", validate: "required", css: "text-align-c back-digital" },
+        { title: "Bank Loan", name: "bankLoan", type: "text", validate: "required", css: "text-align-c back-financial" },
+        { title: "Cash Withdrawl", name: "cash", type: "text", validate: "required", css: "text-align-c back-financial" },
+        { title: "Total - Financial Services", name: "totalFinServices", type: "text", validate: "required", css: "text-align-c back-financial" },
+        { title: "Ration Card", name: "rationCard", type: "text", validate: "required", css: "text-align-c back-government" },
+        { title: "Pension", name: "village", type: "pension", validate: "required", css: "text-align-c back-government" },
+        { title: "Total - Govt Compliances", name: "toalGovtComp", type: "text", validate: "required", css: "text-align-c back-government" },
+        { title: "Revenue By Services (A)", name: "revenueByServices", type: "text", validate: "required", css: "text-align-c" },
+        { title: "Revenue By Incentives (b)", name: "revenueByIncentives", type: "text", validate: "required", css: "text-align-c back-red" },
+        { title: "Total Services Worth", name: "totalServicesWorth", type: "text", validate: "required", css: "text-align-c" },
         // {
         //   title: "Action", itemTemplate: function (value, item) {
         //     return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addService'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
@@ -208,19 +208,17 @@ export class SpbeneficiariesComponent implements OnInit {
   ngOnInit(): void {
   }
   openFilter() {
-    this.isFilterOpen = !this.isFilterOpen;    
-    if(this.displayFilter=='none') 
-      {
-        this.displayFilter='block';
-        this.activeFilter = 'filter-link filter-tab-btn';
-        
+    this.isFilterOpen = !this.isFilterOpen;
+    if (this.displayFilter == 'none') {
+            this.displayFilter = 'block';
+            this.activeFilter = 'filter-link filter-tab-btn';
+
     }
-    else 
-    {
-    this.displayFilter='none';
-    this.activeFilter = 'filter-link';
+    else {
+            this.displayFilter = 'none';
+            this.activeFilter = 'filter-link';
     }
-  }
+}
   openColumn() {
     this.isColumnOpen = !this.isColumnOpen;
     

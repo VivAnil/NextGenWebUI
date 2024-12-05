@@ -55,14 +55,14 @@ export class AllprojectsComponent implements OnInit {
     //    },
     //  },
       fields: [
-        { title: "Project Id", name: "projectId", type: "number", validate: "required", css: "width6em text-align-center" },
+        { title: "Project Id", name: "projectId", type: "number", validate: "required", css: "text-align-c" },
         { title: "Project Name", name: "projectName", type: "text", css: "width14em" },
-        { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "number", css: "width14em" },
-        { title: "Total No. Of SPs", name: "totalSP", type: "number", css: "text-align-center width6em" },
-        { title: "Total No. Of Services", name: "totalServices", type: "number", css: "text-align-center width6em" },
-        { title: "Revenue By Services (A)", name: "revenueByServices", type: "text", css: "text-align-center width6em" },
-        { title: "Revenue By Incentives (B)", name: "revenueByIncentives", type: "text", css: "text-align-center width6em" },
-        { title: "Total Services Worth", name: "totalServicesWorth", type: "text", validate: "required", css: "text-align-center" },
+        { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "number", css: "text-align-c" },
+        { title: "Total No. Of SPs", name: "totalSP", type: "number", css: "text-align-c width6em" },
+        { title: "Total No. Of Services", name: "totalServices", type: "number", css: "text-align-c width6em" },
+        { title: "Revenue By Services (A)", name: "revenueByServices", type: "text", css: "text-align-c width6em" },
+        { title: "Revenue By Incentives (B)", name: "revenueByIncentives", type: "text", css: "text-align-c width6em" },
+        { title: "Total Services Worth", name: "totalServicesWorth", type: "text", validate: "required", css: "text-align-c" },
         {
           title: "Action", name :"action", itemTemplate:"<div class='text-align-center'><a class='border-none color-black margin-right-10px' title='View Project Analytics' type='button' href='projectanalytics.html' ><i class='fa fa-area-chart'></i></a> <a class='border-none color-black' title='View Project Details' type='button' href='viewprojectdetails.html' ><i class='fa fa-eye' title='View Project Details'></i></a></div>", type: "text", sorting: false, editing: false, filtering: false, css: "inactive"
                     

@@ -1,4 +1,5 @@
 <div class="col-md-10 float-left">
+    
         <div class="back-internal-page width100">
         <div class="heading-title">SP Wise Beneficiaries Report</div>
         <div class="clear-both-20"></div>
@@ -21,8 +22,7 @@
                     <div class="col-md-6 padding-zero text-align-right font-size1-1em float-left">
                         <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
                             <i class="fa fa-filter awe-filter"></i>Filters <i
-                                class="fa fa-caret-down rotate arrow awe-arrow"></i>
-                        </div>
+                                class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
                         <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left"><i
                                 class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i
                                 class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="clear-both"></div>
                     <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}"
-                        class="width100 filter-tab-box">
+                            class="width100 filter-tab-box">
                         <div id="assigned_tab_filter">
                             <div class="row">
                                 <div class="col-sm-3 form-group">
