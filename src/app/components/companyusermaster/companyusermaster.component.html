@@ -41,19 +41,11 @@
 
                     </td>
                     <td>
-                        <select class="select-box-3 width100">
-                            <option>---Select Type---</option>
-                            <option>Administrator</option>
-                            <option>Project Incharge</option>
-                            <option>State Coordinator</option>
-                            <option>District Coordinator</option>
-                            <option>Block Coordinator</option>
-                            <option>SoochnaPreneur</option>
-                            <option>Beneficiary</option>
-                            <option>Account Person</option>
-                            <option>Auditor</option>
+                      <select name="systemRoles" id="systemRoles">
+                        <!--[(ngModel)]="selectedSystemRoleId"-->
+                        <option *ngFor="let role of masterRoleData" value="{{ role.systemusertype }}">{{ role.profilename }}</option>
+                      </select>
 
-                        </select>
                     </td>
                 </tr>
                 <tr>

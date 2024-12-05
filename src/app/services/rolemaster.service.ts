@@ -54,6 +54,7 @@ export class RolemasterService {
     return [
       {
         Id: 1,
+        ParentId:0,
         DisplayName:"Company Details"
       },
       {
@@ -85,6 +86,16 @@ export class RolemasterService {
         Id: 7,
         ParentId: 1,
         DisplayName: "Project Master"
+      },
+      {
+        Id: 8,
+        ParentId: 7,
+        DisplayName: "View"
+      },
+      {
+        Id: 9,
+        ParentId: 7,
+        DisplayName: "Add"
       }];
   }
 }
