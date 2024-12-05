@@ -1,0 +1,22 @@
+.jsgrid-pager {
+    right: 100px;
+    top: 18px;
+    position: absolute!important;
+    z-index: 100!important;
+}
+
+.jsgrid-pager-container {
+    display: block !important;
+}
+
+.jsgrid {
+    position: static !important;
+}
+
+#dv_fcfiltercolumns, #lbl_filtercolumnscount1, #lnk_resetcolumnfilter1, #btn_clear_filter {
+    display: none;
+}
+
+a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicator {
+    display: none;
+}

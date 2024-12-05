@@ -50,7 +50,11 @@ export class PaymentreportComponent implements OnInit {
                         data: this.getDummyData(),
 
                         fields: [
-                                { title: "ID", name: "id", type: "text", validate: "required", css: "width14em" },
+                                {
+                                        title: "SP ID", itemTemplate: function (value: any, item: any) {
+                                            return "<div><img src='../../assets/images/"+item.profilepic+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
+                                        }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
+                                },
                                 { title: "SP Name", name: "spName", type: "text", css: "width14em" },
                                 //     { title: "Project Name", name: "projectName", type: "text", css: "text-align-center" },
                                 //     { title: "Profile Pic", name: "profilePic", type: "text", css: "text-align-center" },
@@ -94,9 +98,9 @@ export class PaymentreportComponent implements OnInit {
         getDummyData() {
                 return [
                   {
-                    "id": "SP-2",
+                    "id": "SP-1",
                     "spName": "Anuradha Singh",
-                    "profilePic ": "",
+                    "profilepic": "sp1.jpg",
                     "mobile": "9809809800",
                     "email": "abc@defindia.org",
                     "projects": "",
@@ -127,9 +131,9 @@ export class PaymentreportComponent implements OnInit {
                     "totalServices": "26,000"	
                   },
                   {
-                    "id": "SP-1",
+                    "id": "SP-2",
                     "spName": "Suman Kumari",
-                    "profilePic ": "",
+                    "profilepic": "sp2.jpg",
                     "mobile": "8080999800",
                     "email": "sk@gmail.com",
                     "projects": "",
@@ -162,7 +166,7 @@ export class PaymentreportComponent implements OnInit {
                   {
                     "id": "SP-3",
                     "spName": "Amar Srivastava",
-                    "profilePic ": "",
+                    "profilepic": "sp3.jpg",
                     "mobile": "9880999800",
                     "email": "	Amar Srivastava@gmail.com",
                     "projects": "",

@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  baseAuthApiUrl: "https://localhost:7073/",
+  baseAuthApiUrl: "https://motherappauthservice.azurewebsites.net/authenticate",
   baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service/Get",
-  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get",
-  baseBeneficiaryUrl: "https://localhost:7067/api/Beneficiary/Get"
+ baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get"
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -1,4 +1,7 @@
-﻿
+﻿body{
+    font: normal 12px/20px Roboto, "Helvetica Neue", sans-serif!important;
+}
+
 .font-size1-1em {
     font-size: 1.1em;
 }
@@ -144,13 +147,13 @@ input:checked + .slider:before {
     .page-filter {
         position: absolute;
         z-index: 1;
-        right: 7px;
-        top: 10px;
+        right: 8px;
+        top: 20px;
     }
 .month-year-filter {
     position: absolute;
-    top: 15px;
-    left: 53%;
+    top: 0;
+    left: 28em;
     z-index: 1;
     
 }
@@ -205,7 +208,7 @@ input:checked + .slider:before {
     background-color: #fff;
     border: 1px solid rgb(175, 175, 175);    
     transition: all .15s ease;
-    top:3.95em;
+    top:4.5em;
 }
 .filter-tab-box {
     box-shadow: 10px 10px 10px #ccc;
@@ -215,11 +218,26 @@ input:checked + .slider:before {
     position: absolute;
     background: #fff;
     z-index: 3;
-    top: 4em;
+    top: 4.5em;
 }
 #report_tab_filter{display:none;}
 
 #ui-id-1{z-index:10000;}
+
+.jsgrid-pager {
+    right: 100px;
+    top: 18px;
+    position: absolute!important;
+    z-index: 100!important;
+}
+
+.jsgrid-pager-container {
+    display: block !important;
+}
+
+.jsgrid {
+    position: static !important;
+}
 
 .pick-color {
     width: 30px;
@@ -552,7 +570,7 @@ body {
 .file-icon:hover {
     color: #FF8021;
 }
-.ui-widget-content a{/*color:#fff!important;*/}
+.ui-widget-content a {/*color:#fff!important;*/}
 
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
     font-size: 13px;
@@ -583,7 +601,9 @@ body {
 .padding8 {
     padding: 8px;
 }
-
+.paddingp6em {
+    padding: 0.6em!important;
+}
 .max-height97{
     max-height:139px;
     min-height:139px;

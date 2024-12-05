@@ -11,3 +11,14 @@ export interface Service{
     AdvanceFields: string,
     // ServicePillar: string
 }
+
+export interface SystemRole {
+  Id: number,
+  DisplayName: string
+}
+
+export interface SystemPermission {
+  Id: number,
+  ParentId: number,
+  DisplayName: string
+}

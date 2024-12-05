@@ -12,14 +12,14 @@ export class AuthService {
   private user: User = {authenticated:true, roleid: 1};
 
   login(loginObj: any): Observable<boolean> {
-    return this.http.post<any>(this.baseUrl, { loginObj }).pipe(
+    return this.http.post<any>(this.baseUrl, loginObj).pipe(
       map((response: { roleId: any; }) => {
         // Assuming a roleId exists on successful authentication
         return response && response.roleId ? true : false;
       }),
       catchError(error => {
-        console.error('Login failed', error);
-        return of(true);  // Return false on error
+        console.error('Login failed');
+        return of(false);  // Return false on error
       })
     );
   }

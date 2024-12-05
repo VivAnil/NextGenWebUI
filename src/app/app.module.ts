@@ -24,7 +24,6 @@ import { EditadminComponent } from './components/editadmin/editadmin.component';
 import { PaymentreportComponent } from './components/paymentreport/paymentreport.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
-import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +45,7 @@ import { BeneficiaryComponent } from './components/beneficiary/beneficiary.compo
     EditadminComponent,
     PaymentreportComponent,
     EditcompanyComponent,
-    AllprojectsComponent,
-    BeneficiaryComponent
+    AllprojectsComponent
   ],
   imports: [
     BrowserModule,
