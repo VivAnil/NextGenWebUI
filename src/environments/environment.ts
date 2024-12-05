@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   baseAuthApiUrl: "https://localhost:7073/",
   baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service/Get",
- baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get"
+  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get",
+  baseBeneficiaryUrl: "https://localhost:7067/api/Beneficiary/Get"
 };
 
 /*
