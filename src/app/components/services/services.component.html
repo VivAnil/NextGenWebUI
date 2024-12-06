@@ -11,10 +11,10 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addService" id="btn_service" (click)="newService();">
+                <button type="button" class="btn-orange" style="display:{{displayTab}}" data-bs-toggle="modal" data-bs-target="#dv_addService" id="btn_service" (click)="newService();">
                     + New Service
                 </button> 
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">
+                <button type="button" class="btn-orange" style="display:{{displayTab1}}" data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">
                     + New Service Pillar
                 </button>
             </div>
@@ -36,9 +36,8 @@
                         <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
                             <i class="fa fa-filter awe-filter"></i>Filters <i
                                 class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
-                        <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left"><i
-                                class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i
-                                class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
+                        <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left text-align-c"><i
+                                class="fa fa-eye awe-filter margin-right-10px"></i>Default View</div>
                         <div (click)="openColumn()" class="col-md-4 filter float-left {{activeColumn}}"><i
                                 class="fa fa-gear awe-filter margin-right-10px"></i><span
                                 id="col-span-box">Columns</span>
@@ -48,10 +47,10 @@
                     <div class="clear-both"></div>
                     <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}"
                         class="width100 filter-tab-box">
-                        <div id="assigned_tab_filter">
+                        <div style="display:{{displayTab}}">
                             <div class="row">
                                 <div class="col-sm-3 form-group">
-                                    <div class="label-text">Service Plliar</div>
+                                    <div class="label-text">Service Pillar Name</div>
                                     <div>
                                         <input type="text" id="" class="input-box-3 width100">
                                     </div>
@@ -81,139 +80,81 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row text-align-center">
-                                <div class="col-md-6 float-left text-align-right"><input type="button" class="btn-blck1"
-                                        id="btn_search" value="Apply Filter"></div>
-                                <div class="col-md-6 float-left text-align-left"><input type="button" class="btn-blck1"
-                                        value="Cancel"></div>
-                            </div>
+                            
                         </div>
-
-
-
+                        <div style="display:{{displayTab1}}">
+                            <div class="row">
+                                <div class="col-sm-3 form-group">
+                                    <div class="label-text">Service Pillar Name</div>
+                                    <div>
+                                        <input type="text" id="" class="input-box-3 width100">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-group">
+                                    <div class="label-text">Status</div>
+                                    <div>
+                                        <input type="text" id="" class="input-box-3 width100">
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="clear-both-15"></div>
+                    <div class="row text-align-center">
+                        <div class="clear-both-15"></div>
+                        <div class="col-md-6 float-left text-align-right"><input type="button" class="btn-blck1"
+                                id="btn_search" value="Apply Filter"></div>
+                        <div class="col-md-6 float-left text-align-left"><input type="button" class="btn-blck1"
+                                value="Cancel"></div>
+                    </div>
                     </div>
 
                     <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">
                         <div>
-                            <label id="lbl_filtercolumnscount">6 out of 15</label> Column <div class="float-right"><a
-                                    href="#" class="col-reset-btn" id="lnk_resetcolumnfilter">Reset</a></div>
-                            <label id="lbl_filtercolumnscount1">5 out of 13</label>
-                            <div class="float-right"><a href="#" class="col-reset-btn"
-                                    id="lnk_resetcolumnfilter1">Reset</a></div>
-
+                           
+                            <div class="float-right"><a href="#" class="col-reset-btn">Reset</a></div>
+                            <div class="clear-both"></div>
                         </div>
                         <div class="column-tab1">
-                            <div id="dv_nfcfiltercolumns">
+                            <div id="dv_nfcfiltercolumns" style="display:{{displayTab}}">
                                 <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
-                                        for="0" class="cursor-pointer">Serial No.</label></div>
+                                        for="0" class="cursor-pointer">Service Id</label></div>
                                 <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="1" class="cursor-pointer"><label
-                                        for="1" class="cursor-pointer">Name of Donor</label></div>
+                                        for="1" class="cursor-pointer">Service Name</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="2" onclick="checkGridColumn(2,this)" id="2" checked="checked"
-                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Transaction
-                                        Date</label></div>
+                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Service Pillar Name</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="3" onclick="checkGridColumn(3,this)" id="3" checked="checked"
-                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Donated
-                                        Amount</label>
+                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Service Rate</label>
                                 </div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="4" onclick="checkGridColumn(4,this)" id="4"
-                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Transaction
-                                        No.</label></div>
+                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Service Worth</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="5" onclick="checkGridColumn(5,this)" id="5"
-                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Cheque No.</label>
+                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Status</label>
                                 </div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="6" onclick="checkGridColumn(6,this)" id="6"
-                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Donation
-                                        Nature</label></div>
+                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Single Time / Multiple Times</label></div>
                                 <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
                                         data-value="7" onclick="checkGridColumn(7,this)" id="7"
-                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Payment
-                                        Mode</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="8" onclick="checkGridColumn(8,this)" id="8"
-                                        class="cursor-pointer"><label for="8" class="cursor-pointer">Financial
-                                        Year</label></div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="9" onclick="checkGridColumn(9,this)" id="9"
-                                        class="cursor-pointer"><label for="9" class="cursor-pointer">Contact No</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="10" onclick="checkGridColumn(10,this)" id="10"
-                                        class="cursor-pointer"><label for="10" class="cursor-pointer">Address</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="11" onclick="checkGridColumn(11,this)" id="11"
-                                        class="cursor-pointer"><label for="11" class="cursor-pointer">Type of ID</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="12" onclick="checkGridColumn(12,this)" id="12" checked="checked"
-                                        class="cursor-pointer"><label for="12" class="cursor-pointer">PAN/Aadhaar
-                                        No.</label></div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="13" onclick="checkGridColumn(13,this)" id="13"
-                                        class="cursor-pointer"><label for="13" class="cursor-pointer">Email Id</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
-                                        for="14" class="cursor-pointer">Action</label></div>
+                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Only through SP</label></div>
+                                
                             </div>
-                            <div id="dv_fcfiltercolumns">
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
+                            <div id="dv_fcfiltercolumns" style="display:{{displayTab1}}">
+                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
-                                        for="0" class="cursor-pointer">Serial No.</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="1" class="cursor-pointer"><label
-                                        for="1" class="cursor-pointer">Name of Donor</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="2" onclick="checkGridColumn1(2,this)" id="2" checked="checked"
-                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Transaction
-                                        Date</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="3" onclick="checkGridColumn1(3,this)" id="3" checked="checked"
-                                        class="cursor-pointer"><label for="3" class="cursor-pointer">Donated
-                                        Amount</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="4" onclick="checkGridColumn1(4,this)" id="4"
-                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Transaction
-                                        No.</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="5" onclick="checkGridColumn1(5,this)" id="5"
-                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Cheque No.</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="6" onclick="checkGridColumn1(6,this)" id="6"
-                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Donation
-                                        Nature</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="7" onclick="checkGridColumn1(7,this)" id="7"
-                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Payment
-                                        Mode</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="8" onclick="checkGridColumn1(8,this)" id="8"
-                                        class="cursor-pointer"><label for="8" class="cursor-pointer">Financial
-                                        Year</label></div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="9" onclick="checkGridColumn1(9,this)" id="9"
-                                        class="cursor-pointer"><label for="9" class="cursor-pointer">Contact No</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="10" onclick="checkGridColumn1(10,this)" id="10"
-                                        class="cursor-pointer"><label for="10" class="cursor-pointer">Address</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="11" onclick="checkGridColumn1(11,this)" id="11"
-                                        class="cursor-pointer"><label for="11" class="cursor-pointer">Email Id</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="12" class="cursor-pointer"><label
-                                        for="12" class="cursor-pointer">Action</label></div>
+                                        for="0" class="cursor-pointer">Service Type Name</label></div>
+                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
+                                             checked="checked" id="1" class="cursor-pointer"><label
+                                            for="1" class="cursor-pointer">Description</label></div>
+                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
+                                        disabled="disabled" checked="checked" id="2" class="cursor-pointer"><label
+                                        for="2" class="cursor-pointer">Status</label></div>
+                                
                             </div>
 
 
@@ -233,8 +174,8 @@
                             class="fas fa-filter"></i>Clear
                         Filters</button>
                     <div class="page-filter">
-                        Page Size:
-                        <select class="select-box-3 padding8">
+                        
+                        <select class="select-box-3 paddingp6em">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>

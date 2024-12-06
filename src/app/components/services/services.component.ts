@@ -89,7 +89,7 @@ export class ServicesComponent implements OnInit {
       noDataContent: "No Data found",
       pageIndex: 1,
       //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
-      pageButtonCount: 15,
+      pageButtonCount: 10,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
@@ -127,7 +127,7 @@ export class ServicesComponent implements OnInit {
         "rate": "50",
         "value": "100",
         "status": "Enable",
-        "time": "Single",
+        "singleTimeAvailability": "Single",
         "throughSP": "Enabled"
       },
       {
@@ -136,7 +136,7 @@ export class ServicesComponent implements OnInit {
         "rate": "70",
         "value": "200",
         "status": "Enable",
-        "time": "Multiple",
+        "singleTimeAvailability": "Multiple",
         "throughSP": "Enabled"
       },
       {
@@ -145,7 +145,7 @@ export class ServicesComponent implements OnInit {
         "rate": "100",
         "value": "300",
         "status": "Enable",
-        "time": "Single",
+        "singleTimeAvailability": "Single",
         "throughSP": "Disabled"
       },
       {
@@ -154,7 +154,7 @@ export class ServicesComponent implements OnInit {
         "rate": "20",
         "value": "50",
         "status": "Enable",
-        "time": "Multiple",
+        "singleTimeAvailability": "Multiple",
         "throughSP": "Disabled"
       },
       {
@@ -163,7 +163,7 @@ export class ServicesComponent implements OnInit {
         "rate": "70",
         "value": "150",
         "status": "Enable",
-        "time": "Single",
+        "singleTimeAvailability": "Single",
         "throughSP": "Enabled"
       },
       {
@@ -172,7 +172,7 @@ export class ServicesComponent implements OnInit {
         "rate": "250",
         "value": "600",
         "status": "Enable",
-        "time": "Single",
+        "singleTimeAvailability": "Single",
         "throughSP": "Enabled"
       }
     ];

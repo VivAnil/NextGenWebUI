@@ -1,15 +1,18 @@
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+
 // import * as $ from 'jquery';
 declare var $: any; // Import jQuery
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.css'], 
+  
 })
-export class ProjectComponent implements OnInit {
 
-  displayFilter: string='none';
+export class ProjectComponent implements OnInit {
+  displayFilter: string='none';  
   activeFilter: string='filter-link';
   isFilterOpen: boolean=false;
   displayColumn: string='none';
@@ -35,12 +38,12 @@ export class ProjectComponent implements OnInit {
       data: this.getDummyData(),
       
       fields: [
-        { name: "id", type: "number", title: "ID", css:"text-align-center" },
-        { name: "projectName", type: "text", title: "Project Name" },
-        { name: "logo", type: "text", title: "logo" },
-        { name: "companyName", type: "text", title: "companyName" },
-        { name: "tagline", type: "text", title: "tagline" },
-        { name: "url", type: "text", title: "url" },
+        { name: "id", type: "number", title: "ID", css:"text-align-c" },
+        { name: "projectName", type: "text", title: "Project Name", css:"width14em" },
+        { name: "logo", type: "text", title: "logo", css:"text-align-c" },
+        { name: "companyName", type: "text", title: "companyName", css:"width14em" },
+        { name: "tagline", type: "text", title: "tagline", css:"width14em" },
+        { name: "url", type: "text", title: "url", css:"width14em" },
         {
           title: "Action", itemTemplate: function (value: any, item: any) {
               return "<div class='text-align-center'><a href='#'><i class='fa fa-eye color-black' title='View Project'></i></a> <button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Project'></i></button> <button class='border-none' title='Delete Project' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Project'></i></button></div>";
