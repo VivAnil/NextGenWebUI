@@ -41,9 +41,8 @@
 
                     </td>
                     <td>
-                      <select name="systemRoles" id="systemRoles">
-                        <!--[(ngModel)]="selectedSystemRoleId"-->
-                        <option *ngFor="let role of masterRoleData" value="{{ role.systemusertype }}">{{ role.profilename }}</option>
+                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100">
+                        <option *ngFor="let role of masterRoleData" [value]="role.systemusertype" [text]="role.profilename">{{ role.profilename }}</option>
                       </select>
 
                     </td>
@@ -55,84 +54,102 @@
 
                     </td>
                     <td colspan="3">
-                        <div id="html1">
+                      <div id="html1">
+                        <ul>
+                          <li *ngFor="let parent of companyPermissionData">
+                            <span><b>{{parent.DisplayName}}</b></span>
+                          </li>
+                        </ul>
+                        <ul>
+                          <li>
+                            <b>COMPANY DETAILS</b>
                             <ul>
-                                <li><b>COMPANY DETAILS</b>
-                                    <ul>
-                                        <li>Edit Company Details
-                                            <ul>
-                                                <li>Add </li>
-                                                <li>View </li>
-                                                <li>Edit </li>
-                                                <li>Delete </li>
-                                            </ul>
-                                        </li>
-                                        <li>Project Master
-                                            <ul>
-                                                <li>Add </li>
-                                                <li>View </li>
-                                                <li>Edit </li>
-                                                <li>Delete </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><b>REPORT SECTION</b>
-                                    <ul>
-                                        <li>All Project Report
-                                            <ul>
-                                                <li>View </li>
-                                            </ul>
-                                        </li>
-                                        <li>All Beneficiaries Report
-                                            <ul>
-                                                <li>View </li>
-                                            </ul>
-                                        </li>
-                                        <li>SP Wise Beneficiaries Report
-                                            <ul>
-                                                <li>View </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><b>SERVICE SECTION</b>
-                                    <ul>
-                                        <li>Service Pillars
-                                            <ul>
-                                                <li>Add </li>
-                                                <li>View </li>
-                                                <li>Edit </li>
-                                                <li>Delete </li>
-                                            </ul>
-                                        </li>
-                                        <li>Servcies
-                                            <ul>
-                                                <li>Add </li>
-                                                <li>View </li>
-                                                <li>Edit </li>
-                                                <li>Delete </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li><b>PAYMENT SECTION</b>
-                                    <ul>
-                                        <li>Process Payment
-                                            <ul>
-                                                <li>View </li>
-                                            </ul>
-                                        </li>
-                                        <li>Payment Report
-                                            <ul>
-                                                <li>View </li>
-                                            </ul>
-                                        </li>
-
-                                    </ul>
-                                </li>
+                              <li>
+                                Edit Company Details
+                                <ul>
+                                  <li>Add </li>
+                                  <li>View </li>
+                                  <li>Edit </li>
+                                  <li>Delete </li>
+                                </ul>
+                              </li>
+                              <li>
+                                Project Master
+                                <ul>
+                                  <li>Add </li>
+                                  <li>View </li>
+                                  <li>Edit </li>
+                                  <li>Delete </li>
+                                </ul>
+                              </li>
                             </ul>
-                        </div>
+                          </li>
+                          <li>
+                            <b>REPORT SECTION</b>
+                            <ul>
+                              <li>
+                                All Project Report
+                                <ul>
+                                  <li>View </li>
+                                </ul>
+                              </li>
+                              <li>
+                                All Beneficiaries Report
+                                <ul>
+                                  <li>View </li>
+                                </ul>
+                              </li>
+                              <li>
+                                SP Wise Beneficiaries Report
+                                <ul>
+                                  <li>View </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <b>SERVICE SECTION</b>
+                            <ul>
+                              <li>
+                                Service Pillars
+                                <ul>
+                                  <li>Add </li>
+                                  <li>View </li>
+                                  <li>Edit </li>
+                                  <li>Delete </li>
+                                </ul>
+                              </li>
+                              <li>
+                                Servcies
+                                <ul>
+                                  <li>Add </li>
+                                  <li>View </li>
+                                  <li>Edit </li>
+                                  <li>Delete </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <b>PAYMENT SECTION</b>
+                            <ul>
+                              <li>
+                                Process Payment
+                                <ul>
+                                  <li>View </li>
+                                </ul>
+                              </li>
+                              <li>
+                                Payment Report
+                                <ul>
+                                  <li>View </li>
+                                </ul>
+                              </li>
+
+                            </ul>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
 
 

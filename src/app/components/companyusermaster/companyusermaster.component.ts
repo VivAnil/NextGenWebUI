@@ -3,6 +3,7 @@ declare var $: any; // Import jQuery
 // import * as $ from 'jquery';
 import 'jstree';
 import { RolemasterService } from '../../services/rolemaster.service';
+import { group } from '@angular/animations';
 @Component({
   selector: 'app-companyusermaster',
   templateUrl: './companyusermaster.component.html',
@@ -20,12 +21,12 @@ export class CompanyusermasterComponent implements OnInit {
   isColumnOpen: boolean = false;
   displayTab1: string = 'none';
   displayTab: string = 'block';
-  public masterRoleData: any;
-  public permissionData: any;
+  masterRoleData: any;
+  companyPermissionData: any;
   constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
-    masterRoleData: this.getMasterRoleData();
-    permissionData: this.getPermissionDetails();
+    this.getMasterRoleData();
+    this.getPermissionDetails();
   }
 
   ngAfterViewInit(): void {
@@ -97,7 +98,8 @@ export class CompanyusermasterComponent implements OnInit {
     }
   }
   initJsGrid() {
-        
+
+    console.log(this.companyPermissionData);
     $('#MappedGrid').jsGrid({
       width: "100%",
       padding: "1%",
@@ -131,18 +133,51 @@ export class CompanyusermasterComponent implements OnInit {
         // }
       ]
     });
-
   }
 
   getPermissionDetails() {
     this.rolemasterService.getSystemPermissions().subscribe(systemPermissions => {
-      let permissionData: Array<any> = [];
+      let permissionData: Array<IPermissionGroup> = [];
+
+      var distinct = systemPermissions.map(item => item.ParentId)
+        .filter((value, index, self) => self.indexOf(value) === index)
 
       let grouped = systemPermissions.reduce(
         (result: any, currentValue: any) => {
           (result[currentValue['ParentId']] = result[currentValue['ParentId']] || []).push(currentValue);
           return result;
         }, {});
+      for (let i in distinct) {
+        let group = grouped[distinct[i]];
+        console.log(group);
+        if (distinct[i] === 0) {
+          for (let grp of group) {
+            let permission = <IPermissionGroup>{};
+            permission.PermissionId = grp.Id;
+            permission.DisplayName = grp.DisplayName;
+            permission.Children = [];
+            permissionData.push(permission);
+          }
+        }
+        else {
+
+          let parent = permissionData.find(p => p.PermissionId === group[0].ParentId);
+          if (parent === undefined) {
+            var childen = permissionData[0].Children;
+            parent = childen.find(p => p.PermissionId === group[0].ParentId)
+          }
+          for (let grp of group) {
+            let permission = <IPermissionGroup>{};
+            permission.PermissionId = grp.Id;
+            permission.DisplayName = grp.DisplayName
+            permission.Children = [];
+            parent?.Children.push(permission);
+          }
+        }
+      }
+
+      this.companyPermissionData = permissionData;
+      
     });
   }
 
@@ -157,7 +192,7 @@ export class CompanyusermasterComponent implements OnInit {
           }
         );
       }
-      return roleData;
+      this.masterRoleData =  roleData;
     });
 
     //return [
@@ -188,4 +223,12 @@ export class CompanyusermasterComponent implements OnInit {
     //];
   }
 }
+
+export interface IPermissionGroup {
+  PermissionId: number,
+  DisplayName: string,
+  Children: IPermissionGroup[];
+};
+
+
 
