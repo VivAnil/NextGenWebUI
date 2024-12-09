@@ -288,6 +288,38 @@
                                         <input type="file" id="" class="input-box-3 width100 " />
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td colspan="2"><div class="example-container">
+                                        <div class="font-weight-bold">State list</div>                                   
+                                        <div
+                                          cdkDropList
+                                          #todoList="cdkDropList"
+                                          [cdkDropListData]="stateName"
+                                          [cdkDropListConnectedTo]="[doneList]"
+                                          class="example-list"
+                                          (cdkDropListDropped)="drop($event)">
+                                          
+                                            <div *ngFor="let item of stateName" class="example-box" cdkDrag>{{item}}</div>
+                                          
+                                        </div>
+                                      </div></td>
+                                    <td colspan="2">
+                                          <div class="example-container">
+                                            <div class="font-weight-bold">Selected States</div>
+                                            <div
+                                              cdkDropList
+                                              #doneList="cdkDropList"
+                                              [cdkDropListData]="selectedStates"
+                                              [cdkDropListConnectedTo]="[todoList]"
+                                              class="example-list"
+                                              (cdkDropListDropped)="drop($event)">                                              
+                                                <div *ngFor="let item of selectedStates" class="example-box" cdkDrag>{{item}}</div>
+                                              
+                                            </div>
+                                          </div>
+                                    </td>
+                                </tr>
+                                
 								</tbody></table>
                                 </div>
                                 </div>
