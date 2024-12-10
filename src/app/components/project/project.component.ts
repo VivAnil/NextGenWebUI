@@ -1,11 +1,19 @@
 
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList,
+} from '@angular/cdk/drag-drop';
 // import * as $ from 'jquery';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.css'],
+ 
 })
 export class ProjectComponent implements OnInit {
 
@@ -18,7 +26,29 @@ export class ProjectComponent implements OnInit {
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
+  
   constructor() { }
+  
+  stateName = ['Assam', 'Jharkhand', 'Bihar'];
+  selectedStates = ['All States'];
+
+  districtName = ['Nagaon', 'Champaran'];
+  selectedDistrict = ['All District'];
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
+  }
+
+
   ngAfterViewInit(): void {
     this.initJsGrid();
   }
