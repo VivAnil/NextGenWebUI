@@ -47,6 +47,31 @@
 
                     </td>
                 </tr>
+              <tr>
+                <td>Test</td>
+                <td colspan="3">
+                  <div >
+                    <ul>
+                      <li *ngFor="let parent of companyPermissionData">
+                        <input type="checkbox">
+                        <span><b>{{parent.DisplayName}}</b></span>
+                        <ul>
+                          <li *ngFor="let child of parent.Children">
+                            <input type="checkbox">
+                            <span><b>{{child.DisplayName}}</b></span>
+                            <ul>
+                              <li *ngFor="let permission of child.Children">
+                                <input type="checkbox">
+                                <span><b>{{permission.DisplayName}}</b></span>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+              </tr>
                 <tr>
 
                     <td>
@@ -55,11 +80,6 @@
                     </td>
                     <td colspan="3">
                       <div id="html1">
-                        <ul>
-                          <li *ngFor="let parent of companyPermissionData">
-                            <span><b>{{parent.DisplayName}}</b></span>
-                          </li>
-                        </ul>
                         <ul>
                           <li>
                             <b>COMPANY DETAILS</b>
