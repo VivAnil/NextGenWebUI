@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['organisation']); 
           } else {
             // Show an error message if login fails
-            this.loginForm.reset();
             this.error="block";
             ValidateForm.validateForm(this.loginForm);
           }
