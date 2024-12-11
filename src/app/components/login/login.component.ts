@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   isText: boolean = false;
   eyeIcon: string = "fa-eye-slash";
   loginForm!: FormGroup;
+  error: string ="none";
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
@@ -45,10 +46,12 @@ export class LoginComponent implements OnInit {
         this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
           if (isAuthenticated) {
             // Navigate to a different route on successful login
+            this.error="none";
             this.router.navigate(['organisation']); 
           } else {
             // Show an error message if login fails
             this.loginForm.reset();
+            this.error="block";
             ValidateForm.validateForm(this.loginForm);
           }
         });
@@ -56,6 +59,7 @@ export class LoginComponent implements OnInit {
       else {
       // Show an error message if login fails
         this.loginForm.reset();
+        this.error="block";
         ValidateForm.validateForm(this.loginForm);
       }
       //   this.authService.login(this.loginForm.value)
