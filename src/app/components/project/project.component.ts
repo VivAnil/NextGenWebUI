@@ -17,6 +17,8 @@ declare var $: any; // Import jQuery
 })
 export class ProjectComponent implements OnInit {
 
+  displayTab: string='block';
+  displayTab1: string='none';
   displayFilter: string='none';
   activeFilter: string='filter-link';
   isFilterOpen: boolean=false;
@@ -28,6 +30,9 @@ export class ProjectComponent implements OnInit {
   isColumnOpen: boolean=false;
   isCheckboxChecked: boolean = false; 
   isPancardChecked: boolean = false;
+  isAdhaarChecked: boolean = false;
+  isAdhaarIncentive: boolean = false;
+  isPANIncentive: boolean = false;
   constructor() { }
   
   stateName = ['Assam', 'Jharkhand', 'Bihar'];
@@ -69,12 +74,12 @@ export class ProjectComponent implements OnInit {
       data: this.getDummyData(),
       
       fields: [
-        { name: "id", type: "number", title: "ID", css:"text-align-center" },
+        { name: "id", type: "number", title: "ID", css:"text-align-c" },
         { name: "projectName", type: "text", title: "Project Name" },
         { name: "logo", type: "text", title: "logo" },
-        { name: "companyName", type: "text", title: "companyName" },
-        { name: "tagline", type: "text", title: "tagline" },
-        { name: "url", type: "text", title: "url" },
+        { name: "companyName", type: "text", title: "Company Name" },
+        { name: "tagline", type: "text", title: "Tagline" },
+        { name: "url", type: "text", title: "Website" },
         {
           title: "Action", itemTemplate: function (value: any, item: any) {
               return "<div class='text-align-center'><a href='#'><i class='fa fa-eye color-black' title='View Project'></i></a> <button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Project'></i></button> <button class='border-none' title='Delete Project' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Project'></i></button></div>";
@@ -95,7 +100,28 @@ export class ProjectComponent implements OnInit {
     ];
   }
 
- 
+  toggleTab(){
+    if(this.displayTab=='none') 
+      {
+        this.displayTab='block';
+        
+      }
+    else 
+      {
+        this.displayTab='none';
+        
+      }
+    if(this.displayTab1=='none') 
+      {
+        this.displayTab1='block';
+        
+      }
+    else 
+      {
+        this.displayTab1='none';
+        
+      }
+  }
   
   ngOnInit(): void {
   }

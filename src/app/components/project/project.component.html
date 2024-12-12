@@ -5,22 +5,204 @@
 <div class="clear-both-20"></div>
 <div class="float-right">
 <div class="float-left" style="margin-top: 5px;">
-<button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none">
+<button type="button" title="Download Report in XLS" id="btn_exporttoexcel" style="display:{{displayTab}}" class="border-none">
     <i class="fa fa-file-excel-o file-icon" style="font-size: 30px;" aria-hidden="true"></i>
 </button>
 
 </div>
 <div class="display-inline">
-<button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addProject">+ New Project</button> 
+<button type="button" class="btn-orange" (click)="toggleTab();" style="display:{{displayTab}}">+ New Project</button> 
+<button type="button" class="btn-orange" (click)="toggleTab();" style="display:{{displayTab1}}">Back To Project Listing</button>
 </div>
 
 
 </div>
 <div class="clear-both-20"></div>
+<div style="display:{{displayTab1}}">
+    <div class="no-more-tables">
+        <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
+            <colgroup>
+                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                <col style="background-color: rgb(255,255,255); width: 25%;" />
+                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                <col style="background-color: rgb(255,255,255); width: 25%;" />
+            </colgroup>
+            <tbody>
+                <tr><td class="section-heading" colspan="4">Project Details</td></tr>
+                <tr>
+                    <td>
+                        Project Name <span>*</span>
 
-<div>
+                    </td>
+                    <td>
+                        <input type="text" id="" class="input-box-3 width100 " />
+                    </td>
+                    <td>
+                        Project Code <span>*</span>
 
+                    </td>
+                    <td>
+                        <input type="text" id="" class="input-box-3 width100 " />
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>
+                        Project Website URL
 
+                    </td>
+                    <td>
+                        <input type="text" id="" class="input-box-3 width100 " />
+                    </td>
+                    <td>
+                        Logo
+
+                    </td>
+                    <td>
+                        <input type="file" id="" class="input-box-3 width100 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="back-white"><div class="example-container">
+                        <div class="font-weight-bold">State list</div>                                   
+                        <div
+                          cdkDropList
+                          #todoList="cdkDropList"
+                          [cdkDropListData]="stateName"
+                          [cdkDropListConnectedTo]="[doneList]"
+                          class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          
+                            <div *ngFor="let item of stateName" class="example-box" cdkDrag>{{item}}</div>
+                          
+                        </div>
+                      </div></td>
+                    <td colspan="2" class="back-white">
+                          <div class="example-container">
+                            <div class="font-weight-bold">Selected States</div>
+                            <div
+                              cdkDropList
+                              #doneList="cdkDropList"
+                              [cdkDropListData]="selectedStates"
+                              [cdkDropListConnectedTo]="[todoList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">                                              
+                                <div *ngFor="let item of selectedStates" class="example-box" cdkDrag>{{item}}</div>
+                              
+                            </div>
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="back-white"><div class="example-container">
+                        <div class="font-weight-bold">District list</div>                                   
+                        <div
+                          cdkDropList
+                          #dList="cdkDropList"
+                          [cdkDropListData]="districtName"
+                          [cdkDropListConnectedTo]="[dnList]"
+                          class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          
+                            <div *ngFor="let item of districtName" class="example-box" cdkDrag>{{item}}</div>
+                          
+                        </div>
+                      </div></td>
+                    <td colspan="2" class="back-white">
+                          <div class="example-container">
+                            <div class="font-weight-bold">Selected Districts</div>
+                            <div
+                              cdkDropList
+                              #dnList="cdkDropList"
+                              [cdkDropListData]="selectedDistrict"
+                              [cdkDropListConnectedTo]="[dList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">                                              
+                                <div *ngFor="let item of selectedDistrict" class="example-box" cdkDrag>{{item}}</div>
+                              
+                            </div>
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="back-white"><div class="example-container">
+                        <div class="font-weight-bold">Block list</div>                                   
+                        <div
+                          cdkDropList
+                          #bList="cdkDropList"
+                          [cdkDropListData]="blockName"
+                          [cdkDropListConnectedTo]="[bnList]"
+                          class="example-list"
+                          (cdkDropListDropped)="drop($event)">
+                          
+                            <div *ngFor="let item of blockName" class="example-box" cdkDrag>{{item}}</div>
+                          
+                        </div>
+                      </div></td>
+                    <td colspan="2" class="back-white">
+                          <div class="example-container">
+                            <div class="font-weight-bold">Selected Blocks</div>
+                            <div
+                              cdkDropList
+                              #bnList="cdkDropList"
+                              [cdkDropListData]="selectedBlock"
+                              [cdkDropListConnectedTo]="[bList]"
+                              class="example-list"
+                              (cdkDropListDropped)="drop($event)">                                              
+                                <div *ngFor="let item of selectedBlock" class="example-box" cdkDrag>{{item}}</div>
+                              
+                            </div>
+                          </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Services</td>
+                    <td colspan="3">
+                        <mat-tab-group>
+                            <mat-tab label="Digital"> 
+                                <div class="section-heading">Digital Services 
+                                    <label class="switch float-right">
+                                        <input type="checkbox"  [(ngModel)]="isCheckboxChecked"><span class="slider round"></span>
+                                    </label>
+                                </div> 
+                                <div *ngIf="isCheckboxChecked">
+                                    <table class="col-sm-12 table-bordered table-condensed" cellpadding="5">
+                                        <tr>
+                                            <td><mat-checkbox [(ngModel)]="isPancardChecked">PANCARD</mat-checkbox></td>
+                                            <td><mat-checkbox *ngIf="isPancardChecked" [(ngModel)]="isPANIncentive">Is incentive applicable?</mat-checkbox></td>
+                                            <td><button *ngIf="isPANIncentive" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_addIncentive'>
+                                                <i class='fa fa-plus-circle file-icon' title='Add Incentive'></i>
+                                            </button> 
+                                            <button *ngIf="isPANIncentive" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_viewIncentive'>
+                                                <i class='fa fa-eye file-icon' title='View Incentive Details'></i>
+                                            </button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><mat-checkbox [(ngModel)]="isAdhaarChecked">Adhaar Card</mat-checkbox></td>
+                                            <td><mat-checkbox *ngIf="isAdhaarChecked" [(ngModel)]="isAdhaarIncentive">Is incentive applicable?</mat-checkbox></td>
+                                            <td><button *ngIf="isAdhaarIncentive" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_addIncentive'>
+                                                <i class='fa fa-plus-circle file-icon' title='Add Incentive'></i>
+                                            </button> 
+                                            <button *ngIf="isAdhaarIncentive" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_viewIncentive'>
+                                                <i class='fa fa-eye file-icon' title='View Incentive Details'></i>
+                                            </button></td>
+                                        </tr>
+                                    </table>
+                                  </div>
+                            </mat-tab>
+                            <mat-tab label="Financial">Financial Services </mat-tab>
+                            <mat-tab label="Government"> Government Services </mat-tab>
+                          </mat-tab-group>
+                    </td>
+                </tr>
+                </tbody></table>
+
+                <div class="clear-both-15"></div>
+        <div class="clear-both-15"></div>
+        <div align="center"><input type="button" value="Save" class="btn-blck1" /></div>
+                </div>
+                </div>
+<div style="display:{{displayTab}}">
 <div>
 <div class="position-relative padding-10-0">
     <div class="col-md-6 padding-zero float-left">
@@ -245,175 +427,7 @@
                 <h4 class="modal-title">Add New Project</h4>
             </div>
             <div class="modal-body">
-                <div class="">
-                    <div class="no-more-tables">
-                        <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
-                            <colgroup>
-                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-                            </colgroup>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        Project Name <span>*</span>
-
-                                    </td>
-                                    <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
-                                    </td>
-									<td>
-                                        Project Code <span>*</span>
-
-                                    </td>
-                                    <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
-                                    </td>
-                                    
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Project Website URL
-
-                                    </td>
-                                    <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
-                                    </td>
-                                    <td>
-                                        Logo
-
-                                    </td>
-                                    <td>
-                                        <input type="file" id="" class="input-box-3 width100 " />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="back-white"><div class="example-container">
-                                        <div class="font-weight-bold">State list</div>                                   
-                                        <div
-                                          cdkDropList
-                                          #todoList="cdkDropList"
-                                          [cdkDropListData]="stateName"
-                                          [cdkDropListConnectedTo]="[doneList]"
-                                          class="example-list"
-                                          (cdkDropListDropped)="drop($event)">
-                                          
-                                            <div *ngFor="let item of stateName" class="example-box" cdkDrag>{{item}}</div>
-                                          
-                                        </div>
-                                      </div></td>
-                                    <td colspan="2" class="back-white">
-                                          <div class="example-container">
-                                            <div class="font-weight-bold">Selected States</div>
-                                            <div
-                                              cdkDropList
-                                              #doneList="cdkDropList"
-                                              [cdkDropListData]="selectedStates"
-                                              [cdkDropListConnectedTo]="[todoList]"
-                                              class="example-list"
-                                              (cdkDropListDropped)="drop($event)">                                              
-                                                <div *ngFor="let item of selectedStates" class="example-box" cdkDrag>{{item}}</div>
-                                              
-                                            </div>
-                                          </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="back-white"><div class="example-container">
-                                        <div class="font-weight-bold">District list</div>                                   
-                                        <div
-                                          cdkDropList
-                                          #dList="cdkDropList"
-                                          [cdkDropListData]="districtName"
-                                          [cdkDropListConnectedTo]="[dnList]"
-                                          class="example-list"
-                                          (cdkDropListDropped)="drop($event)">
-                                          
-                                            <div *ngFor="let item of districtName" class="example-box" cdkDrag>{{item}}</div>
-                                          
-                                        </div>
-                                      </div></td>
-                                    <td colspan="2" class="back-white">
-                                          <div class="example-container">
-                                            <div class="font-weight-bold">Selected Districts</div>
-                                            <div
-                                              cdkDropList
-                                              #dnList="cdkDropList"
-                                              [cdkDropListData]="selectedDistrict"
-                                              [cdkDropListConnectedTo]="[dList]"
-                                              class="example-list"
-                                              (cdkDropListDropped)="drop($event)">                                              
-                                                <div *ngFor="let item of selectedDistrict" class="example-box" cdkDrag>{{item}}</div>
-                                              
-                                            </div>
-                                          </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="back-white"><div class="example-container">
-                                        <div class="font-weight-bold">Block list</div>                                   
-                                        <div
-                                          cdkDropList
-                                          #bList="cdkDropList"
-                                          [cdkDropListData]="blockName"
-                                          [cdkDropListConnectedTo]="[bnList]"
-                                          class="example-list"
-                                          (cdkDropListDropped)="drop($event)">
-                                          
-                                            <div *ngFor="let item of blockName" class="example-box" cdkDrag>{{item}}</div>
-                                          
-                                        </div>
-                                      </div></td>
-                                    <td colspan="2" class="back-white">
-                                          <div class="example-container">
-                                            <div class="font-weight-bold">Selected Blocks</div>
-                                            <div
-                                              cdkDropList
-                                              #bnList="cdkDropList"
-                                              [cdkDropListData]="selectedBlock"
-                                              [cdkDropListConnectedTo]="[bList]"
-                                              class="example-list"
-                                              (cdkDropListDropped)="drop($event)">                                              
-                                                <div *ngFor="let item of selectedBlock" class="example-box" cdkDrag>{{item}}</div>
-                                              
-                                            </div>
-                                          </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Services</td>
-                                    <td colspan="3">
-                                        <mat-tab-group>
-                                            <mat-tab label="Digital"> 
-                                                <div class="section-heading">Digital Services 
-                                                    <label class="switch float-right">
-                                                        <input type="checkbox"  [(ngModel)]="isCheckboxChecked"><span class="slider round"></span>
-                                                    </label>
-                                                </div> 
-                                                <div *ngIf="isCheckboxChecked">
-                                                    <table class="col-sm-12 table-bordered table-condensed">
-                                                        <tr>
-                                                            <td><mat-checkbox [(ngModel)]="isPancardChecked">PANCARD</mat-checkbox></td>
-                                                            <td><mat-checkbox *ngIf="isPancardChecked">Is incentive applicable?</mat-checkbox></td>
-                                                            <td><button *ngIf="isPancardChecked" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_addIncentive'>
-                                                                <i class='fa fa-plus-circle file-icon' title='Add Incentive'></i>
-                                                            </button> 
-                                                            <button *ngIf="isPancardChecked" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_viewIncentive'>
-                                                                <i class='fa fa-eye file-icon' title='View Incentive Details'></i>
-                                                            </button></td>
-                                                        </tr>
-                                                    </table>
-                                                  </div>
-                                            </mat-tab>
-                                            <mat-tab label="Financial"> Content 2 </mat-tab>
-                                            <mat-tab label="Government"> Content 3 </mat-tab>
-                                          </mat-tab-group>
-                                    </td>
-                                </tr>
-								</tbody></table>
-                                </div>
-                                </div>
+                
     </div>
     </div>
     </div>
