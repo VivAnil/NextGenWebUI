@@ -26,7 +26,8 @@ export class ProjectComponent implements OnInit {
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
-  
+  isCheckboxChecked: boolean = false; 
+  isPancardChecked: boolean = false;
   constructor() { }
   
   stateName = ['Assam', 'Jharkhand', 'Bihar'];
@@ -34,6 +35,9 @@ export class ProjectComponent implements OnInit {
 
   districtName = ['Nagaon', 'Champaran'];
   selectedDistrict = ['All District'];
+
+  blockName = ['Block 1', 'Block 2'];
+  selectedBlock = ['All Blocks'];
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -141,5 +145,7 @@ export class ProjectComponent implements OnInit {
     }
 
   }
+
+  
 
 }

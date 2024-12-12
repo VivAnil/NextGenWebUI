@@ -289,7 +289,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><div class="example-container">
+                                    <td colspan="2" class="back-white"><div class="example-container">
                                         <div class="font-weight-bold">State list</div>                                   
                                         <div
                                           cdkDropList
@@ -303,7 +303,7 @@
                                           
                                         </div>
                                       </div></td>
-                                    <td colspan="2">
+                                    <td colspan="2" class="back-white">
                                           <div class="example-container">
                                             <div class="font-weight-bold">Selected States</div>
                                             <div
@@ -319,7 +319,98 @@
                                           </div>
                                     </td>
                                 </tr>
-                                
+                                <tr>
+                                    <td colspan="2" class="back-white"><div class="example-container">
+                                        <div class="font-weight-bold">District list</div>                                   
+                                        <div
+                                          cdkDropList
+                                          #dList="cdkDropList"
+                                          [cdkDropListData]="districtName"
+                                          [cdkDropListConnectedTo]="[dnList]"
+                                          class="example-list"
+                                          (cdkDropListDropped)="drop($event)">
+                                          
+                                            <div *ngFor="let item of districtName" class="example-box" cdkDrag>{{item}}</div>
+                                          
+                                        </div>
+                                      </div></td>
+                                    <td colspan="2" class="back-white">
+                                          <div class="example-container">
+                                            <div class="font-weight-bold">Selected Districts</div>
+                                            <div
+                                              cdkDropList
+                                              #dnList="cdkDropList"
+                                              [cdkDropListData]="selectedDistrict"
+                                              [cdkDropListConnectedTo]="[dList]"
+                                              class="example-list"
+                                              (cdkDropListDropped)="drop($event)">                                              
+                                                <div *ngFor="let item of selectedDistrict" class="example-box" cdkDrag>{{item}}</div>
+                                              
+                                            </div>
+                                          </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="back-white"><div class="example-container">
+                                        <div class="font-weight-bold">Block list</div>                                   
+                                        <div
+                                          cdkDropList
+                                          #bList="cdkDropList"
+                                          [cdkDropListData]="blockName"
+                                          [cdkDropListConnectedTo]="[bnList]"
+                                          class="example-list"
+                                          (cdkDropListDropped)="drop($event)">
+                                          
+                                            <div *ngFor="let item of blockName" class="example-box" cdkDrag>{{item}}</div>
+                                          
+                                        </div>
+                                      </div></td>
+                                    <td colspan="2" class="back-white">
+                                          <div class="example-container">
+                                            <div class="font-weight-bold">Selected Blocks</div>
+                                            <div
+                                              cdkDropList
+                                              #bnList="cdkDropList"
+                                              [cdkDropListData]="selectedBlock"
+                                              [cdkDropListConnectedTo]="[bList]"
+                                              class="example-list"
+                                              (cdkDropListDropped)="drop($event)">                                              
+                                                <div *ngFor="let item of selectedBlock" class="example-box" cdkDrag>{{item}}</div>
+                                              
+                                            </div>
+                                          </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Services</td>
+                                    <td colspan="3">
+                                        <mat-tab-group>
+                                            <mat-tab label="Digital"> 
+                                                <div class="section-heading">Digital Services 
+                                                    <label class="switch float-right">
+                                                        <input type="checkbox"  [(ngModel)]="isCheckboxChecked"><span class="slider round"></span>
+                                                    </label>
+                                                </div> 
+                                                <div *ngIf="isCheckboxChecked">
+                                                    <table class="col-sm-12 table-bordered table-condensed">
+                                                        <tr>
+                                                            <td><mat-checkbox [(ngModel)]="isPancardChecked">PANCARD</mat-checkbox></td>
+                                                            <td><mat-checkbox *ngIf="isPancardChecked">Is incentive applicable?</mat-checkbox></td>
+                                                            <td><button *ngIf="isPancardChecked" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_addIncentive'>
+                                                                <i class='fa fa-plus-circle file-icon' title='Add Incentive'></i>
+                                                            </button> 
+                                                            <button *ngIf="isPancardChecked" class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_viewIncentive'>
+                                                                <i class='fa fa-eye file-icon' title='View Incentive Details'></i>
+                                                            </button></td>
+                                                        </tr>
+                                                    </table>
+                                                  </div>
+                                            </mat-tab>
+                                            <mat-tab label="Financial"> Content 2 </mat-tab>
+                                            <mat-tab label="Government"> Content 3 </mat-tab>
+                                          </mat-tab-group>
+                                    </td>
+                                </tr>
 								</tbody></table>
                                 </div>
                                 </div>
@@ -329,3 +420,165 @@
     </div>
 
 </div>
+<div class="modal fade" id="dv_addIncentive" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Add/Edit Incentive</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="no-more-tables">
+                        <table class="col-sm-12 table-bordered table-condensed ">
+                            <colgroup>
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                            </colgroup>
+                            <tbody>
+                                
+                                <tr>
+									<td>
+                                        From Date <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="date" id="" class="input-box-3 width100 " />
+                                    </td>
+									<td>
+                                        To Date <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="date" id="" class="input-box-3 width100 " />
+                                    </td>
+								</tr>
+                               <tr>
+                                    <td>
+                                        Amount <span>*</span>
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                    <td>
+                                        Remarks
+
+                                    </td>
+                                    <td>
+                                        <input type="text" id="" class="input-box-3 width100 " />
+                                    </td>
+                                </tr>
+                                <tr>
+									
+                                    <td colspan="4" class="text-align-center back-white" align="center">
+                                        <input type="button" value="Save" class="btn-blck1" />
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+						<div class="clear-both-15"></div>
+						<div class="section-heading width100">Incentive details</div>
+						<table class="col-sm-12 table-bordered table-condensed ">
+                           
+                            
+                                <tr>
+									<th>
+                                        From Date
+
+                                    </th>
+                                   
+									<th>
+                                        To Date
+
+                                    </th>
+									<th>
+                                        Amount
+
+                                    </th>
+									<th>
+                                        Remarks
+
+                                    </th>
+                                   
+                                    
+                                </tr>
+								<tr>
+									<td>1-Sep-2023</td>
+									<td>1-sep-2024</td>
+									<td>20</td>
+									<td></td>
+								</tr>
+                               
+                            
+                        </table>
+						
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dv_viewIncentive" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Incentive details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="no-more-tables">
+						<div></div>
+                        <table class="col-sm-12 table-bordered table-condensed ">
+                           
+								
+                                <tr>
+									<th>
+                                        From Date
+
+                                    </th>
+                                   
+									<th>
+                                        To Date
+
+                                    </th>
+									<th>
+                                        Amount
+
+                                    </th>
+									<th>
+                                        Remarks
+
+                                    </th>
+                                   
+                                    
+                                </tr>
+								<tr>
+									<td>1-Sep-2023</td>
+									<td>1-sep-2024</td>
+									<td>20</td>
+									<td></td>
+								</tr>
+                               
+                            
+                        </table>
+						
+                    </div>
+                </div>
+
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+    </div>
+</div>
+
+
