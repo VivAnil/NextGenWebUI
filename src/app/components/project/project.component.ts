@@ -82,7 +82,7 @@ export class ProjectComponent implements OnInit {
         { name: "url", type: "text", title: "Website" },
         {
           title: "Action", itemTemplate: function (value: any, item: any) {
-              return "<div class='text-align-center'><a href='#'><i class='fa fa-eye color-black' title='View Project'></i></a> <button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Project'></i></button> <button class='border-none' title='Delete Project' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Project'></i></button></div>";
+              return "<div class='text-align-center'><a href='#'><i class='fa fa-eye color-black' title='View Project'></i></a> <button class='border-none' title='' type='button' (click)='toggleTab();'  ><i class='fa fa-edit' title='Edit Project'></i></button> <button class='border-none' title='Delete Project' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Project'></i></button></div>";
           }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive"
         }
       ]
