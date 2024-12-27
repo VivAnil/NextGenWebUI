@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { faL } from '@fortawesome/free-solid-svg-icons';
-import { ChartConfiguration, ChartType } from 'chart.js';
+import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { AuthService } from 'src/app/services/auth.service';
+import { CompanyService, CompanyDashboard } from 'src/app/services/company.service';  
 
 
 @Component({
@@ -12,8 +13,8 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './organisation.component.html',
   styleUrls: ['./organisation.component.css']
 })
-export class OrganisationComponent implements OnInit {
-  
+export class OrganisationComponent implements OnInit, AfterViewInit {
+  companies: CompanyDashboard[] = [];
   public chartType: ChartType = 'bar';  // Default chart type
   isDialogOpen: boolean = false;
   isProfileOpen: boolean=false;
@@ -24,12 +25,13 @@ export class OrganisationComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private companyService: CompanyService
   ) { }
   
   
-  // Hardcoded labels and data
-  public chartData: ChartConfiguration['data'] = {
+  // // Hardcoded labels and data  
+  public chartData: ChartConfiguration['data']   = {
     labels: ['Projects', 'Project Officers', 'District Coordinators', 'Block Coordinators', 'SoochnaPreneurs', 'States', 'Services'], // Hardcoded labels
     datasets: [
       {
@@ -87,47 +89,80 @@ export class OrganisationComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required]
-    })
+    });
+    this.companyService.getCompanyStatistics().subscribe((data) => {
+      this.companies = data;
+      //this.createCharts();
+    });
   }
+  createCharts(): void {
+    this.companies.forEach((company) => {
+      var chartId=`chart-${company.companyId}`;
+      const ctx = document.getElementById(
+        `chart-${company.companyId}`
+      ) as HTMLCanvasElement;
 
+      new Chart(ctx, {
+        type: 'bar',
+       // data:this.chartData,
+        data: {
+          labels: ['Projects', 'Project Managers', 'District Coordinators', 'Block Coordinators','Suchanapreneurs', 'States', 'Services'],
+          datasets: [
+            {
+              label: company.companyName,
+              data: [
+                company.projects,
+                company.projectManagers,
+                company.districtCoordinator,
+                company.blockCoordinator,
+                company.soochnapreneur,
+                company.states,
+                company.services,
+              ],
+              backgroundColor: [
+                '#5580B9',
+                '#B85750',
+                '#A0BA61',
+                '#4EBCAB',
+                '#7C659E',
+                '#5BAAC3',
+                '#EF9B51'
+              ],
+              borderColor: [
+                '#5580B9',
+                '#B85750',
+                '#A0BA61',
+                '#4EBCAB',
+                '#7C659E',
+                '#5BAAC3',
+                '#EF9B51'
+              ],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options:this.chartOptions,
+        // options: {
+        //   scales: {
+        //     y: {
+        //       beginAtZero: true,
+        //     },
+        //   },
+          
+        // },
+      });
+    });
+
+  }
  
   changeChartType(chartType: string): void {
     const selectedChartType = chartType as ChartType
     this.chartType = selectedChartType;
   }
-  // changeChartType(event: Event): void {
-  //   const selectedChartType = (event.target as HTMLSelectElement).value as ChartType;
-  //   this.chartType = selectedChartType;
-  // }
 
-  ngAfterViewInit() {
-    // var options = {
 
-    //   data: [{
-    //       type: "column",
-    //       startAngle: 45,
-    //       showInLegend: "false",
-    //       legendText: "{label}",
-    //       indexLabel: "{label} ({y})",
-    //       yValueFormatString:"#,##0.#%",
-    //       dataPoints: [
-    //         { label: "Total Projects", y: 36 },
-    //         { label: "Total Project Officers", y: 31 },
-    //         { label: "Total District Coordinators", y: 7 },
-    //         { label: "Total Block Coordinators", y: 7 },
-    //         { label: "Total SoochnaPreneurs", y: 50 },				
-    //         { label: "States", y: 3 },
-    //         { label: "Services", y: 10 }
-    //       ]
-    //   }]
-    // };
-    //  this.chartGlance = CanvasJSChart(options);
-    //  this.chartGlance2 = CanvasJSChart(options);
-    //  this.chartGlance3 = CanvasJSChart(options);
-    // // $("#chartGlance").CanvasJSChart(options);
-    // // $("#chartGlance2").CanvasJSChart(options);
-    // // $("#chartGlance3").CanvasJSChart(options);
-    // }
+  ngAfterViewInit(): void {
+    setTimeout(() => this.createCharts(), 100); // Ensure charts are created after DOM is updated
   }
 
   openDialog() {
