@@ -48,133 +48,13 @@
                     </td>
                 </tr>
               <tr>
-                <td>Test</td>
+                <td>Assign Role <span>*</span></td>
                 <td colspan="3">
-                  <div >
-                    <ul>
-                      <li *ngFor="let parent of companyPermissionData">
-                        <input type="checkbox">
-                        <span><b>{{parent.DisplayName}}</b></span>
-                        <ul>
-                          <li *ngFor="let child of parent.Children">
-                            <input type="checkbox">
-                            <span><b>{{child.DisplayName}}</b></span>
-                            <ul>
-                              <li *ngFor="let permission of child.Children">
-                                <input type="checkbox">
-                                <span><b>{{permission.DisplayName}}</b></span>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
+                  <div id="html1">
+                    
                   </div>
                 </td>
               </tr>
-                <tr>
-
-                    <td>
-                        Assign Role <span>*</span>
-
-                    </td>
-                    <td colspan="3">
-                      <div id="html1">
-                        <ul>
-                          <li>
-                            <b>COMPANY DETAILS</b>
-                            <ul>
-                              <li>
-                                Edit Company Details
-                                <ul>
-                                  <li>Add </li>
-                                  <li>View </li>
-                                  <li>Edit </li>
-                                  <li>Delete </li>
-                                </ul>
-                              </li>
-                              <li>
-                                Project Master
-                                <ul>
-                                  <li>Add </li>
-                                  <li>View </li>
-                                  <li>Edit </li>
-                                  <li>Delete </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <b>REPORT SECTION</b>
-                            <ul>
-                              <li>
-                                All Project Report
-                                <ul>
-                                  <li>View </li>
-                                </ul>
-                              </li>
-                              <li>
-                                All Beneficiaries Report
-                                <ul>
-                                  <li>View </li>
-                                </ul>
-                              </li>
-                              <li>
-                                SP Wise Beneficiaries Report
-                                <ul>
-                                  <li>View </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <b>SERVICE SECTION</b>
-                            <ul>
-                              <li>
-                                Service Pillars
-                                <ul>
-                                  <li>Add </li>
-                                  <li>View </li>
-                                  <li>Edit </li>
-                                  <li>Delete </li>
-                                </ul>
-                              </li>
-                              <li>
-                                Servcies
-                                <ul>
-                                  <li>Add </li>
-                                  <li>View </li>
-                                  <li>Edit </li>
-                                  <li>Delete </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </li>
-                          <li>
-                            <b>PAYMENT SECTION</b>
-                            <ul>
-                              <li>
-                                Process Payment
-                                <ul>
-                                  <li>View </li>
-                                </ul>
-                              </li>
-                              <li>
-                                Payment Report
-                                <ul>
-                                  <li>View </li>
-                                </ul>
-                              </li>
-
-                            </ul>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-
-
-                </tr>
-
                 <tr>
                     <td colspan="4" class="text-align-center" align="center">
                         <input type="button" value="Save" class="btn-blck1" />

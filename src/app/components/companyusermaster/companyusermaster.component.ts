@@ -31,13 +31,61 @@ export class CompanyusermasterComponent implements OnInit {
 
   ngAfterViewInit(): void {
 
-    $("#html1").jstree({
+    $('#html1').jstree({
+      'core': {
+        'data': [
+          { "id": "companysection", "parent": "#", "text": "<b>COMPANY DETAILS</b>" },
+          { "id": "companydetails", "parent": "companysection", "text": "Edit Company Details" },
+          { "id": "Permission_1", "parent": "companydetails", "text": "Add" },
+          { "id": "Permission_2", "parent": "companydetails", "text": "View" },
+          { "id": "Permission_3", "parent": "companydetails", "text": "Edit" },
+          { "id": "Permission_4", "parent": "companydetails", "text": "Delete" },
+          { "id": "projectmaster", "parent": "companysection", "text": "Project Master" },
+          { "id": "Permission_5", "parent": "projectmaster", "text": "Add" },
+          { "id": "Permission_8", "parent": "projectmaster", "text": "View" },
+          { "id": "Permission_7", "parent": "projectmaster", "text": "Edit" },
+          { "id": "Permission_9", "parent": "projectmaster", "text": "Delete" },
+          { "id": "reportsection", "parent": "#", "text": "<b>REPORT SECTION</b>" },
+          { "id": "allreports", "parent": "reportsection", "text": "All Project Reports" },
+          { "id": "Permission_10", "parent": "allreports", "text": "View" },
+          { "id": "beneficiaryreports", "parent": "reportsection", "text": "All Beneficiaries Report" },
+          { "id": "Permission_11", "parent": "beneficiaryreports", "text": "View" },
+          { "id": "spwisereports", "parent": "reportsection", "text": "SP Wise Beneficiaries Report" },
+          { "id": "Permission_12", "parent": "spwisereports", "text": "View" },
+          { "id": "servicesection", "parent": "#", "text": "<b>SERVICE SECTION</b>" },
+          { "id": "servicepillars", "parent": "servicesection", "text": "Service Pillars" },
+          { "id": "Permission_13", "parent": "servicepillars", "text": "Add" },
+          { "id": "Permission_15", "parent": "servicepillars", "text": "View" },
+          { "id": "Permission_14", "parent": "servicepillars", "text": "Edit" },
+          { "id": "Permission_16", "parent": "servicepillars", "text": "Delete" },
+          { "id": "services", "parent": "servicesection", "text": "Servcies" },
+          { "id": "Permission_17", "parent": "services", "text": "Add" },
+          { "id": "Permission_19", "parent": "services", "text": "View" },
+          { "id": "Permission_18", "parent": "services", "text": "Edit" },
+          { "id": "Permission_20", "parent": "services", "text": "Delete" },
+          { "id": "paymentsection", "parent": "#", "text": "<b>PAYMENT SECTION</b>" },
+          { "id": "processpayment", "parent": "paymentsection", "text": "Process Payment" },
+          { "id": "Permission_21", "parent": "processpayment", "text": "View" },
+          { "id": "paymentreport", "parent": "paymentsection", "text": "Payment Report" },
+          { "id": "Permission_22", "parent": "paymentreport", "text": "View" },
+        ]
+      },
       "checkbox": {
         "keep_selected_style": false
       },
-
       "plugins": ["checkbox"]
     });
+    $('#html1').on("changed.jstree", function (e: any, data: { selected: any; deselected: any; }) {
+      var selectedNodes = data.selected; // Get an array of selected node IDs
+      console.log("Selected nodes:", selectedNodes);
+
+      // You can also get the deselected nodes if needed
+      var deselectedNodes = data.deselected;
+      console.log("Deselected nodes:", deselectedNodes);
+
+      // Implement your custom logic based on selected or deselected nodes
+    });
+
     this.initJsGrid();
   }
   openFilter() {
