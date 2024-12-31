@@ -223,4 +223,9 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       //   ValidateForm.validateForm(this.loginForm);
       // }
   }
+
+  viewCompany(companyId: number): void {
+    console.log(companyId);
+    this.router.navigate(['/organisationadmin', companyId]);
+  }
 }

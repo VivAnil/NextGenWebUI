@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faWeight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -13,8 +13,9 @@ export class OrganisationadminComponent implements OnInit {
   public StateBenChartType: ChartType = 'pie';
   public GenBenChartType: ChartType = 'bar';
   public OccBenChartType: ChartType = 'pie';
-  constructor() { }
-
+  companyId!: number;
+  constructor(private route: ActivatedRoute) { }
+  
   // Hardcoded labels and data
   public chartData: ChartConfiguration['data'] = {
     labels: ['Smartpur', 'Project CIRC', 'Krisarthak', 'Digital DIDI', 'Bittiya Sakhi', 'SoochnaPreneur', 'Digital Artisans'], // Hardcoded labels
@@ -206,6 +207,15 @@ export class OrganisationadminComponent implements OnInit {
 
   ];
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.companyId = +params['id'];
+      this.loadCompanyData();
+    });
+  }
+
+  loadCompanyData(): void {
+    // Call API to load data for the selected company using this.companyId
+    console.log('Loading data for company ID:', this.companyId);
   }
   changeChartType(chartType: string): void {
     const selectedChartType = chartType as ChartType
