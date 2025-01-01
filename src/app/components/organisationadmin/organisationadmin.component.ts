@@ -111,19 +111,20 @@ export class OrganisationadminComponent implements OnInit {
 
   // Hardcoded labels and data
   public StateBenChartData: ChartConfiguration['data'] = {
-    labels: ['Rajathan', 'Assam', 'Karnataka', 'Madhya Pradesh', 'Uttar Pradesh', 'Jharkhand', 'Bihar'], // Hardcoded labels
+   // labels: ['Rajathan', 'Assam', 'Karnataka', 'Madhya Pradesh', 'Uttar Pradesh', 'Jharkhand', 'Bihar'], // Hardcoded labels
     datasets: [
       {
-        data: [36, 31, 7, 7, 6, 10, 3], label: 'Smartpur',
-        backgroundColor: [   // Different colors for each bar
-          '#5580B9',
-          '#B85750',
-          '#A0BA61',
-          '#4EBCAB',
-          '#7C659E',
-          '#5BAAC3',
-          '#EF9B51'
-        ],
+        data: [1,2], 
+        //label: 'Smartpur',
+        // backgroundColor: [   // Different colors for each bar
+        //   '#5580B9',
+        //   '#B85750',
+        //   '#A0BA61',
+        //   '#4EBCAB',
+        //   '#7C659E',
+        //   '#5BAAC3',
+        //   '#EF9B51'
+        // ],
       },  // Example dataset
       // { data: [120, 180, 140, 190, 170, 110], label: 'Sales 2022' }   // Example dataset for comparison
     ]
@@ -255,12 +256,12 @@ export class OrganisationadminComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.companyId = +params['id'];
-      
+      this.loadCompanyData();
     });
   }
   ngAfterViewInit(): void {
     //this.loadCompanyData();
-    setTimeout(() => this.loadCompanyData(), 1000); // Ensure charts are created after DOM is updated
+  // setTimeout(() => this.loadCompanyData(), 700); // Ensure charts are created after DOM is updated
   }
   loadCompanyData(): void {
     // Call API to load data for the selected company using this.companyId
@@ -275,6 +276,7 @@ export class OrganisationadminComponent implements OnInit {
       this.GenBenChartData.labels=this.genderChartLabels ;
       this.GenBenChartData.datasets[0].data=this.genderChartData;
       this.GenBenChartData.datasets[0].label='Gender';
+      
 
       // Populate Occupation Chart Data
       this.occupationChartLabels = data.occupationWiseStats.map((item: any) => item.category);
