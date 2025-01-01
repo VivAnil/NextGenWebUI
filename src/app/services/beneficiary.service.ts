@@ -8,7 +8,7 @@ import { catchError, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class BeneficiaryService {
-  private baseUrl : string = environment.baseBeneficiaryUrl;
+  private baseUrl : string = environment.baseSPUrl;
   
   constructor(private http: HttpClient) { }
   private beneficiaries: Beneficiary[] = [];

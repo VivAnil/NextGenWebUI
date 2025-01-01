@@ -6,12 +6,12 @@
 
                 <div class="back-internal-page  width100">
 
-                    <div class="heading-title">Inomy Media Pvt Ltd</div>
+                    <div class="heading-title">{{companyName}}</div>
                     <div class="clear-both-20"></div>
                     <div id="div_dashboard">
                         <div class="col-md-6 float-left">
                             <div id="divOccupBen" class="width90">
-                                <canvas baseChart [data]="OccBenChartData" [type]="OccBenChartType" [options]="OccBenChartOptions">
+                                <canvas baseChart [data]="OccBenChartData" [type]="occupationChartType" [options]="chartOptions"  [labels]="occupationChartLabels">
                                 </canvas>
                             </div>
                         </div>

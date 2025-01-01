@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface CompanyDashboard {
   companyId: number;
@@ -21,10 +22,18 @@ export interface CompanyDashboard {
   providedIn: 'root'
 })
 export class CompanyService {
-  private apiUrl = 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard';
+  // private companyDashboardApiUrl = 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard';
+  // private benStatsApiUrl = 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats';
+
+  private companyDashboardApiUrl : string = environment.companyDashboardApiUrl;
+  private benStatsApiUrl : string = environment.benStatsApiUrl;
   constructor(private http: HttpClient) { }
 
   getCompanyStatistics(): Observable<CompanyDashboard[]> {
-    return this.http.get<CompanyDashboard[]>(this.apiUrl);
+    return this.http.get<CompanyDashboard[]>(this.companyDashboardApiUrl);
+  }
+
+  getBeneficiaryStats(companyId: number): Observable<any> {
+    return this.http.get(`${this.benStatsApiUrl}/${companyId}`);
   }
 }

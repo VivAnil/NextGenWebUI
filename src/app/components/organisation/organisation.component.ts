@@ -15,6 +15,7 @@ import { CompanyService, CompanyDashboard } from 'src/app/services/company.servi
 })
 export class OrganisationComponent implements OnInit, AfterViewInit {
   companies: CompanyDashboard[] = [];
+  stats:any;
   public chartType: ChartType = 'bar';  // Default chart type
   isDialogOpen: boolean = false;
   isProfileOpen: boolean=false;
@@ -162,7 +163,7 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.createCharts(), 100); // Ensure charts are created after DOM is updated
+    setTimeout(() => this.createCharts(), 1000); // Ensure charts are created after DOM is updated
   }
 
   openDialog() {
