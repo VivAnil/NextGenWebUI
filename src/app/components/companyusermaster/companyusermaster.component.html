@@ -34,15 +34,15 @@
 
                     </td>
                     <td>
-                        <input type="text" id="" class="input-box-3 width100 " />
+                        <input type="text" id="customRoleName" [(ngModel)] ="customRoleDisplayName"  class="input-box-3 width100 " />
                     </td>
                     <td>
                         System user type <span>*</span>
 
                     </td>
                     <td>
-                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100">
-                        <option *ngFor="let role of masterRoleData" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
+                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100" (change)="onSelect($event)">
+                        <option *ngFor="let role of masterRoleData" [ngValue]="role" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
                       </select>
 
                     </td>
@@ -111,9 +111,6 @@
                             <div class="col-md-4 float-left text-align-left"><input type="button" class="btn-blck1"  value="Cancel" (click)="openFilter()"></div>
                         </div>
                     </div>
-
-
-
                 </div>
 
                 <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">

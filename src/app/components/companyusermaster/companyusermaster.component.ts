@@ -23,6 +23,9 @@ export class CompanyusermasterComponent implements OnInit {
   masterRoleData: any;
   companyPermissionData: any;
   customAssignedRoles: any;
+  customRoleDisplayName: string = "";
+  selectedSystemRole: any;
+  newCustomRolePermissions:any;
   constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
     //this.getMasterRoleData();
@@ -77,9 +80,9 @@ export class CompanyusermasterComponent implements OnInit {
       },
       "plugins": ["checkbox"]
     });
-    $('#html1').on("changed.jstree", function (e: any, data: { selected: any; deselected: any; }) {
-      var selectedNodes = data.selected; // Get an array of selected node IDs
-      console.log("Selected nodes:", selectedNodes);
+    $('#html1').on("changed.jstree",  (e: any, data: { selected: any; deselected: any; }) => {
+      this.newCustomRolePermissions = data.selected; // Get an array of selected node IDs
+      console.log("Selected nodes:", this.newCustomRolePermissions);
 
       // You can also get the deselected nodes if needed
       var deselectedNodes = data.deselected;
@@ -156,7 +159,6 @@ export class CompanyusermasterComponent implements OnInit {
       inserting: false,
       height: "auto",
       filtering: false,
-      autoload: false,
       loadIndication: false,
       sorting: true,
       paging: true,
@@ -172,8 +174,8 @@ export class CompanyusermasterComponent implements OnInit {
       // pageLastText: "Last",
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
-      data: this.customAssignedRoles,
-
+      autoload: true,
+      data: JSON.stringify(this.customAssignedRoles),
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
         { title: "System User Type", name: "systemusertype", type: "text", css: "width14em" },
@@ -186,8 +188,19 @@ export class CompanyusermasterComponent implements OnInit {
     });
   }
 
-  createRole() { }
-  
+  createRole() {
+    console.log(this.selectedSystemRole);
+    console.log(this.customRoleDisplayName);
+    console.log(this.newCustomRolePermissions);
+  }
+
+  onSelect(event: any) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value; 
+    this.selectedSystemRole = this.masterRoleData.filter((role: { systemRoleName: string; } )=> role.systemRoleName === selectedValue);// This will give you the raw value
+    // value will be the selected object
+  }
+
   getCustomeRoleDetails() {
     this.rolemasterService.getCustomeRoleForCompany(1).subscribe(customRoles => {
       this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
@@ -202,7 +215,7 @@ export class CompanyusermasterComponent implements OnInit {
           systemRoleName: item.systemRoleName
         }));
 
-      console.log(this.customAssignedRoles);
+      $("#MappedGrid").jsGrid("option", "data", this.customAssignedRoles);
     });
   }
 
