@@ -3,7 +3,6 @@ declare var $: any; // Import jQuery
 // import * as $ from 'jquery';
 import 'jstree';
 import { RolemasterService } from '../../services/rolemaster.service';
-import { group } from '@angular/animations';
 @Component({
   selector: 'app-companyusermaster',
   templateUrl: './companyusermaster.component.html',
@@ -23,10 +22,13 @@ export class CompanyusermasterComponent implements OnInit {
   displayTab: string = 'block';
   masterRoleData: any;
   companyPermissionData: any;
+  customAssignedRoles: any;
   constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
-    this.getMasterRoleData();
-    this.getPermissionDetails();
+    //this.getMasterRoleData();
+    //this.getPermissionDetails();
+
+    this.getCustomeRoleDetails();
   }
 
   ngAfterViewInit(): void {
@@ -170,6 +172,7 @@ export class CompanyusermasterComponent implements OnInit {
       // pageLastText: "Last",
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
+      data: this.customAssignedRoles,
 
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
@@ -180,6 +183,26 @@ export class CompanyusermasterComponent implements OnInit {
              }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
          }
       ]
+    });
+  }
+
+  createRole() { }
+  
+  getCustomeRoleDetails() {
+    this.rolemasterService.getCustomeRoleForCompany(1).subscribe(customRoles => {
+      this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
+        map(item => ({
+          profilename : item.companyRoleName,
+          systemusertype: item.systemRoleName
+        }));
+
+      this.masterRoleData = customRoles.filter(item => item.systemRoleName !== null)
+        .map(item => ({
+          systemRoleId: item.systemRoleId,
+          systemRoleName: item.systemRoleName
+        }));
+
+      console.log(this.customAssignedRoles);
     });
   }
 

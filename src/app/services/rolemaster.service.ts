@@ -50,6 +50,18 @@ export class RolemasterService {
     );
   }
 
+  getCustomeRoleForCompany( companyId:number): Observable<any[]> {
+    return this.http.get<any[]>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+      catchError((error) => {
+        console.error('API call failed:', error);
+        // Return hardcoded fallback data
+        console.log("Exception in calling service. Endpoint " + this.baseUrl);
+        return of(this.getDefaultPermissions());
+      })
+    );
+
+  }
+
   private getDefaultPermissions(): any[] {
     return [
       {

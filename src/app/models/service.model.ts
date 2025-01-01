@@ -22,3 +22,11 @@ export interface SystemPermission {
   ParentId: number,
   DisplayName: string
 }
+
+export interface ICustomRoleDefinition {
+  companyId: number,
+  companyRoleId: number,
+  companyRoleName: string,
+  systemRoleId: number,
+  systemRoleName: string
+}

@@ -42,7 +42,7 @@
                     </td>
                     <td>
                       <select name="systemRoles" id="systemRoles" class="select-box-3 width100">
-                        <option *ngFor="let role of masterRoleData" [value]="role.systemusertype" [text]="role.profilename">{{ role.profilename }}</option>
+                        <option *ngFor="let role of masterRoleData" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
                       </select>
 
                     </td>
@@ -57,7 +57,7 @@
               </tr>
                 <tr>
                     <td colspan="4" class="text-align-center" align="center">
-                        <input type="button" value="Save" class="btn-blck1" />
+                        <input type="button" value="Save" class="btn-blck1" (click)="createRole()" />
                     </td>
 
                 </tr>
