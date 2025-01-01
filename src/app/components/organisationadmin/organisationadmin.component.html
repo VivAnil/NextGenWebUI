@@ -1,4 +1,9 @@
 
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+  </head>
         <div class="col-md-10 float-left">
 
             <div class="col-md-12">
@@ -6,12 +11,12 @@
 
                 <div class="back-internal-page  width100">
 
-                    <div class="heading-title">Inomy Media Pvt Ltd</div>
+                    <div class="heading-title">{{companyName}}</div>
                     <div class="clear-both-20"></div>
                     <div id="div_dashboard">
                         <div class="col-md-6 float-left">
                             <div id="divOccupBen" class="width90">
-                                <canvas baseChart [data]="OccBenChartData" [type]="OccBenChartType" [options]="OccBenChartOptions">
+                                <canvas baseChart [data]="OccBenChartData" [type]="occupationChartType" [options]="OccBenChartOptions"  [labels]="occupationChartLabels">
                                 </canvas>
                             </div>
                         </div>

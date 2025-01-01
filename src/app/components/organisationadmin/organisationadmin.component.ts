@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartConfiguration, ChartType } from 'chart.js';
-import { Router } from '@angular/router';
+import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faWeight } from '@fortawesome/free-solid-svg-icons';
+import { BeneficiaryService } from 'src/app/services/beneficiary.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
   selector: 'app-organisationadmin',
@@ -13,28 +15,27 @@ export class OrganisationadminComponent implements OnInit {
   public StateBenChartType: ChartType = 'pie';
   public GenBenChartType: ChartType = 'bar';
   public OccBenChartType: ChartType = 'pie';
-  constructor() { }
+  companyId!: number;
+  public companyName:string='';
+ stats:any;
+  // Chart Data and Options
+  genderChartLabels: string[] = [];
+  genderChartData: number[] = [];
+  genderChartType: ChartType = 'bar';
 
-  // Hardcoded labels and data
-  public chartData: ChartConfiguration['data'] = {
-    labels: ['Smartpur', 'Project CIRC', 'Krisarthak', 'Digital DIDI', 'Bittiya Sakhi', 'SoochnaPreneur', 'Digital Artisans'], // Hardcoded labels
-    datasets: [
-      {
-        data: [36, 31, 7, 7, 6, 10, 3], label: 'Smartpur',
-        backgroundColor: [   // Different colors for each bar
-          '#5580B9',
-          '#B85750',
-          '#A0BA61',
-          '#4EBCAB',
-          '#7C659E',
-          '#5BAAC3',
-          '#EF9B51'
-        ],
-      },  // Example dataset
-      // { data: [120, 180, 140, 190, 170, 110], label: 'Sales 2022' }   // Example dataset for comparison
-    ]
-  };
-  public chartOptions: ChartConfiguration['options'] = {
+  occupationChartLabels: string[] = [];
+  occupationChartData: number[] = [];
+  occupationChartType: ChartType = 'pie';
+
+  stateChartLabels: string[] = [];
+  stateChartData: number[] = [];
+  stateChartType: ChartType = 'pie';
+
+  projectChartLabels: string[] = [];
+  projectChartData: number[] = [];
+  projectChartType: ChartType = 'bar';
+
+  chartOptions: ChartOptions = {
     responsive: true,
     scales: {
       x: {},
@@ -58,15 +59,16 @@ export class OrganisationadminComponent implements OnInit {
         display: true,
         position: 'bottom'  // Legend (dataset label) at the bottom
       }
-    }
+    },
   };
-
+  constructor(private route: ActivatedRoute, private companyService: CompanyService) { }
+  
   // Hardcoded labels and data
-  public StateBenChartData: ChartConfiguration['data'] = {
-    labels: ['Rajathan', 'Assam', 'Karnataka', 'Madhya Pradesh', 'Uttar Pradesh', 'Jharkhand', 'Bihar'], // Hardcoded labels
+  public chartData: ChartConfiguration['data'] = {
+    //labels: ['Smartpur', 'Project CIRC', 'Krisarthak', 'Digital DIDI', 'Bittiya Sakhi', 'SoochnaPreneur', 'Digital Artisans'], // Hardcoded labels
     datasets: [
       {
-        data: [36, 31, 7, 7, 6, 10, 3], label: 'Smartpur',
+        data: [1, 2], 
         backgroundColor: [   // Different colors for each bar
           '#5580B9',
           '#B85750',
@@ -76,6 +78,53 @@ export class OrganisationadminComponent implements OnInit {
           '#5BAAC3',
           '#EF9B51'
         ],
+      },  // Example dataset
+      // { data: [120, 180, 140, 190, 170, 110], label: 'Sales 2022' }   // Example dataset for comparison
+    ]
+  };
+  // public chartOptions: ChartConfiguration['options'] = {
+  //   responsive: true,
+  //   scales: {
+  //     x: {},
+  //     y: {
+  //       min: 0  // Ensure minimum value starts from 0
+  //     }
+  //   },
+  //   plugins: {
+  //     title: {
+  //       display: true,
+  //       text: 'Project Wise Beneficiaries',
+  //       position: 'top',  // Title at the bottom
+  //       font: {
+  //         size: 24,
+  //         weight: 'bold',
+  //         family: 'Helvetica Neue'
+  //       }
+  //     },
+
+  //     legend: {
+  //       display: true,
+  //       position: 'bottom'  // Legend (dataset label) at the bottom
+  //     }
+  //   }
+  // };
+
+  // Hardcoded labels and data
+  public StateBenChartData: ChartConfiguration['data'] = {
+   // labels: ['Rajathan', 'Assam', 'Karnataka', 'Madhya Pradesh', 'Uttar Pradesh', 'Jharkhand', 'Bihar'], // Hardcoded labels
+    datasets: [
+      {
+        data: [1,2], 
+        //label: 'Smartpur',
+        // backgroundColor: [   // Different colors for each bar
+        //   '#5580B9',
+        //   '#B85750',
+        //   '#A0BA61',
+        //   '#4EBCAB',
+        //   '#7C659E',
+        //   '#5BAAC3',
+        //   '#EF9B51'
+        // ],
       },  // Example dataset
       // { data: [120, 180, 140, 190, 170, 110], label: 'Sales 2022' }   // Example dataset for comparison
     ]
@@ -109,18 +158,17 @@ export class OrganisationadminComponent implements OnInit {
 
   // Hardcoded labels and data
   public GenBenChartData: ChartConfiguration['data'] = {
-    labels: ['Male', 'Female', 'Transgender'], // Hardcoded labels
     datasets: [
       {
-        data: [36, 31, 4], label: 'Male',
+        data: [36, 31], 
+      //   //label: 'Male',
         backgroundColor: [   // Different colors for each bar
           '#5580B9',
-          '#B85750',
+         // '#B85750',
           '#A0BA61'
 
         ],
-      },  // Example dataset
-      // { data: [120, 180, 140, 190, 170, 110], label: 'Sales 2022' }   // Example dataset for comparison
+       },   
     ]
   };
   public GenBenChartOptions: ChartConfiguration['options'] = {
@@ -152,10 +200,10 @@ export class OrganisationadminComponent implements OnInit {
 
   // Hardcoded labels and data
   public OccBenChartData: ChartConfiguration['data'] = {
-    labels: ['Private Job', 'Business', 'Artisans', 'Daily Wagers', 'Home Maker', 'Agriculture', 'Unemployed'], // Hardcoded labels
     datasets: [
       {
-        data: [36, 31, 4,7,6,10,13], label: 'Occupation',
+        data: [], 
+        label: 'Occupation',
         backgroundColor: [   // Different colors for each bar
           '#5580B9',
           '#B85750',
@@ -206,9 +254,71 @@ export class OrganisationadminComponent implements OnInit {
 
   ];
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.companyId = +params['id'];
+      this.loadCompanyData();
+    });
   }
+  ngAfterViewInit(): void {
+    //this.loadCompanyData();
+  // setTimeout(() => this.loadCompanyData(), 700); // Ensure charts are created after DOM is updated
+  }
+  loadCompanyData(): void {
+    // Call API to load data for the selected company using this.companyId
+    console.log('Loading data for company ID:', this.companyId);
+    this.companyService.getBeneficiaryStats(this.companyId).subscribe((data) => {
+      this.stats = data;
+      this.companyName=data.companyName;
+      console.log(data);
+      // Populate Gender Chart Data
+      this.genderChartLabels = data.genderWiseStats.map((item: any) => item.category);
+      this.genderChartData = data.genderWiseStats.map((item: any) => item.numberOfBeneficiaries);
+      this.GenBenChartData.labels=this.genderChartLabels ;
+      this.GenBenChartData.datasets[0].data=this.genderChartData;
+      this.GenBenChartData.datasets[0].label='Gender';
+      
+
+      // Populate Occupation Chart Data
+      this.occupationChartLabels = data.occupationWiseStats.map((item: any) => item.category);
+      this.occupationChartData = data.occupationWiseStats.map((item: any) => item.numberOfBeneficiaries);
+      this.OccBenChartData.labels=this.occupationChartLabels ;
+      this.OccBenChartData.datasets[0].data=this.occupationChartData;
+     // this.OccBenChartData.datasets[0].label='Occupation Wise Beneficiaries';
+      // Populate State Chart Data
+      this.stateChartLabels = data.stateWiseStats.map((item: any) => item.category);
+      this.stateChartData = data.stateWiseStats.map((item: any) => item.numberOfBeneficiaries);
+      this.StateBenChartData.labels=this.stateChartLabels ;
+      this.StateBenChartData.datasets[0].data=this.stateChartData;
+      // Populate Project Chart Data
+      this.projectChartLabels = data.projectWiseStats.map((item: any) => item.category);
+      this.projectChartData = data.projectWiseStats.map((item: any) => item.numberOfBeneficiaries);
+      this.chartData.labels=this.projectChartLabels ;
+      this.chartData.datasets[0].data=this.projectChartData;
+      this.chartData.datasets[0].label='Projects';
+     
+    });
+  }
+  
   changeChartType(chartType: string): void {
     const selectedChartType = chartType as ChartType
     this.chartType = selectedChartType;
+  }
+  // Method to toggle chart type
+  toggleChartType(chartType: string, chart: string) {
+    const newType = chartType as ChartType;
+    switch (chart) {
+      case 'gender':
+        this.genderChartType = newType;
+        break;
+      case 'occupation':
+        this.occupationChartType = newType;
+        break;
+      case 'state':
+        this.stateChartType = newType;
+        break;
+      case 'project':
+        this.projectChartType = newType;
+        break;
+    }
   }
 }
