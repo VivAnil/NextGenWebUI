@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
-import { SystemPermission, SystemRole } from '../models/service.model';
+import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/service.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ export class RolemasterService {
   }
 
   getCustomRoleForCompany( companyId:number): Observable<any[]> {
-    return this.http.get<any[]>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+    return this.http.get<any[]>(environment.companyUserRoleMasterBaseUrl+ "/CompanyRoles/1").pipe(
       catchError((error) => {
         console.error('API call failed:', error);
         // Return hardcoded fallback data
@@ -62,8 +62,26 @@ export class RolemasterService {
 
   }
 
-  createCustomRoleForCompany() {
+  createCustomRoleForCompany(customRoleDefinition: ICustomRoleDefinition) {
 
+    var customRole :any = {
+      SystemRoleId: customRoleDefinition.systemRoleId,
+      CustomRoleName: customRoleDefinition.companyRoleName,
+      CompanyId: customRoleDefinition.companyId,
+      PermissionsAssigned:customRoleDefinition.permisionsAssigned
+    };
+    return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/create", customRole).pipe(
+    //return this.http.post<any>("https://localhost:7047/api/CompanyUserRoleMaster/create", customRole).pipe(
+      map((response: { id: number; }) => {
+        // Assuming a roleId exists on successful authentication
+        console.log(response);
+        return response && response.id ? true : false;
+      }),
+      catchError(error => {
+        console.error('Create custom role failed');
+        return of(false);  // Return false on error
+      })
+    );
   }
 
   private getDefaultPermissions(): any[] {

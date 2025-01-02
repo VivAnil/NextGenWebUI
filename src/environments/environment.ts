@@ -9,7 +9,8 @@ export const environment = {
   baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get",  
   baseRoleMasterApiUrl: "https://motherappserviceapi.azurewebsites.net/api/RoleMaster/Get",
   companyDashboardApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard',
-  benStatsApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats'
+  benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',
+  companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster'
 };
 
 

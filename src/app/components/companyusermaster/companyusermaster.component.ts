@@ -200,6 +200,11 @@ export class CompanyusermasterComponent implements OnInit {
       systemRoleName: this.selectedSystemRole[0].systemRoleName,
       permisionsAssigned: permissions_assigned
     } as ICustomRoleDefinition;
+    this.rolemasterService.createCustomRoleForCompany(newCustomRole).subscribe(customRoles => {
+      console.log(customRoles);
+      $("#MappedGrid").jsGrid("insertItem", { profilename: this.customRoleDisplayName, systemusertype: this.selectedSystemRole[0].systemRoleName }).done(function () { console.log("insertion completed"); });
+    });
+
   }
 
   onSelect(event: any) {
