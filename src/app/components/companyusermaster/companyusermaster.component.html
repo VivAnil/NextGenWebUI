@@ -41,8 +41,8 @@
 
                     </td>
                     <td>
-                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100" (change)="onSelect($event)">
-                        <option *ngFor="let role of masterRoleData" [ngValue]="role" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
+                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100" [(ngModel)]="selectedSystemRoleId" (change)="onSelect($event)">
+                        <option *ngFor="let role of masterRoleData" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
                       </select>
 
                     </td>

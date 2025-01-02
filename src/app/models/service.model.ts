@@ -28,5 +28,10 @@ export interface ICustomRoleDefinition {
   companyRoleId: number,
   companyRoleName: string,
   systemRoleId: number,
-  systemRoleName: string
+  systemRoleName: string,
+  permisionsAssigned: number[]
 }
+
+//export interface ICustomRolePermissions extends ICustomRoleDefinition {
+//  permisionsAssigned: number[]; 
+//}

@@ -3,6 +3,7 @@ declare var $: any; // Import jQuery
 // import * as $ from 'jquery';
 import 'jstree';
 import { RolemasterService } from '../../services/rolemaster.service';
+import { ICustomRoleDefinition } from '../../models/service.model';
 @Component({
   selector: 'app-companyusermaster',
   templateUrl: './companyusermaster.component.html',
@@ -25,7 +26,8 @@ export class CompanyusermasterComponent implements OnInit {
   customAssignedRoles: any;
   customRoleDisplayName: string = "";
   selectedSystemRole: any;
-  newCustomRolePermissions:any;
+  selectedSystemRoleId: any;
+  newCustomRolePermissions:string[]=[];
   constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
     //this.getMasterRoleData();
@@ -189,20 +191,26 @@ export class CompanyusermasterComponent implements OnInit {
   }
 
   createRole() {
-    console.log(this.selectedSystemRole);
-    console.log(this.customRoleDisplayName);
-    console.log(this.newCustomRolePermissions);
+    this.newCustomRolePermissions = this.newCustomRolePermissions.filter(permission => permission.startsWith("Permission_"))
+    var permissions_assigned = this.newCustomRolePermissions.map(function (str) { return Number(str.replace("Permission_", "")) })
+    const newCustomRole = {
+      companyId : 1,
+      companyRoleName: this.customRoleDisplayName,
+      systemRoleId: this.selectedSystemRole[0].systemRoleId,
+      systemRoleName: this.selectedSystemRole[0].systemRoleName,
+      permisionsAssigned: permissions_assigned
+    } as ICustomRoleDefinition;
   }
 
   onSelect(event: any) {
     const selectElement = event.target as HTMLSelectElement;
-    const selectedValue = selectElement.value; 
-    this.selectedSystemRole = this.masterRoleData.filter((role: { systemRoleName: string; } )=> role.systemRoleName === selectedValue);// This will give you the raw value
-    // value will be the selected object
+    const selectedValue = Number( selectElement.value); 
+    this.selectedSystemRole = this.masterRoleData.filter((role: { systemRoleId: number; systemRoleName: string; }) => role.systemRoleId === selectedValue);// This will give you the raw value
+    
   }
 
   getCustomeRoleDetails() {
-    this.rolemasterService.getCustomeRoleForCompany(1).subscribe(customRoles => {
+    this.rolemasterService.getCustomRoleForCompany(1).subscribe(customRoles => {
       this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
         map(item => ({
           profilename : item.companyRoleName,
