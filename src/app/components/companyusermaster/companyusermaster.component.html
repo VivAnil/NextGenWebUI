@@ -34,7 +34,7 @@
 
                     </td>
                     <td>
-                        <input type="text" id="customRoleName" [(ngModel)] ="customRoleDisplayName"  class="input-box-3 width100 " />
+                        <input type="text" id="customRoleName" [(ngModel)] ="customRoleDisplayName" [disabled] ="disableDisplayName" class="input-box-3 width100 " />
                     </td>
                     <td>
                         System user type <span>*</span>
@@ -42,7 +42,7 @@
                     </td>
                     <td>
                       <select name="systemRoles" id="systemRoles" class="select-box-3 width100" [(ngModel)]="selectedSystemRoleId" (change)="onSelect($event)">
-                        <option *ngFor="let role of masterRoleData" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
+                        <option *ngFor="let role of masterRoleData" [disabled]="role.customRoleExists" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
                       </select>
 
                     </td>

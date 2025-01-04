@@ -73,13 +73,12 @@ export class RolemasterService {
     return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/create", customRole).pipe(
     //return this.http.post<any>("https://localhost:7047/api/CompanyUserRoleMaster/create", customRole).pipe(
       map((response: { id: number; }) => {
-        // Assuming a roleId exists on successful authentication
         console.log(response);
-        return response && response.id ? true : false;
+        return (response.id);
       }),
       catchError(error => {
         console.error('Create custom role failed');
-        return of(false);  // Return false on error
+        return of(-1);  // Return false on error
       })
     );
   }

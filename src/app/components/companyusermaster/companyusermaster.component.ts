@@ -27,13 +27,12 @@ export class CompanyusermasterComponent implements OnInit {
   customRoleDisplayName: string = "";
   selectedSystemRole: any;
   selectedSystemRoleId: any;
-  newCustomRolePermissions:string[]=[];
+  newCustomRolePermissions: string[] = [];
+  disableDisplayName: boolean = false;
   constructor(private rolemasterService : RolemasterService) { }
   ngOnInit(): void {
-    //this.getMasterRoleData();
-    //this.getPermissionDetails();
-
-    this.getCustomeRoleDetails();
+    this.getCustomRoleDetails();
+    this.initJsGrid();
   }
 
   ngAfterViewInit(): void {
@@ -93,7 +92,6 @@ export class CompanyusermasterComponent implements OnInit {
       // Implement your custom logic based on selected or deselected nodes
     });
 
-    this.initJsGrid();
   }
   openFilter() {
     this.isFilterOpen = !this.isFilterOpen;
@@ -152,9 +150,9 @@ export class CompanyusermasterComponent implements OnInit {
       this.activeTab1 = 'ui-tab';
     }
   }
+
   initJsGrid() {
 
-    console.log(this.companyPermissionData);
     $('#MappedGrid').jsGrid({
       width: "100%",
       padding: "1%",
@@ -191,41 +189,48 @@ export class CompanyusermasterComponent implements OnInit {
   }
 
   createRole() {
-    this.newCustomRolePermissions = this.newCustomRolePermissions.filter(permission => permission.startsWith("Permission_"))
-    var permissions_assigned = this.newCustomRolePermissions.map(function (str) { return Number(str.replace("Permission_", "")) })
-    const newCustomRole = {
-      companyId : 1,
-      companyRoleName: this.customRoleDisplayName,
-      systemRoleId: this.selectedSystemRole[0].systemRoleId,
-      systemRoleName: this.selectedSystemRole[0].systemRoleName,
-      permisionsAssigned: permissions_assigned
-    } as ICustomRoleDefinition;
-    this.rolemasterService.createCustomRoleForCompany(newCustomRole).subscribe(customRoles => {
-      console.log(customRoles);
-      $("#MappedGrid").jsGrid("insertItem", { profilename: this.customRoleDisplayName, systemusertype: this.selectedSystemRole[0].systemRoleName }).done(function () { console.log("insertion completed"); });
-    });
-
+    if (this.customRoleDisplayName !== "" && this.selectedSystemRole !== null && this.newCustomRolePermissions.length > 0) {
+      this.newCustomRolePermissions = this.newCustomRolePermissions.filter(permission => permission.startsWith("Permission_"))
+      var permissions_assigned = this.newCustomRolePermissions.map(function (str) { return Number(str.replace("Permission_", "")) })
+      const newCustomRole = {
+        companyId: 1,
+        companyRoleName: this.customRoleDisplayName,
+        systemRoleId: this.selectedSystemRole[0].systemRoleId,
+        systemRoleName: this.selectedSystemRole[0].systemRoleName,
+        permisionsAssigned: permissions_assigned
+      } as ICustomRoleDefinition;
+      this.rolemasterService.createCustomRoleForCompany(newCustomRole).subscribe(customRoles => {
+        console.log(customRoles);
+        if (Number(customRoles) > 0) {
+          this.customRoleDisplayName = "";
+          var newRole = this.masterRoleData.filter((role: { systemRoleId: number; systemRoleName: string; customRoleExists: boolean; }) => role.systemRoleId === this.selectedSystemRole[0].systemRoleId);// This will give you the raw value
+          newRole.customRoleExists = true;
+          $("#MappedGrid").jsGrid("insertItem", { profilename: this.customRoleDisplayName, systemusertype: this.selectedSystemRole[0].systemRoleName }).done(function () { console.log("insertion completed"); });
+        } 
+      });
+    }
   }
-
+  
   onSelect(event: any) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = Number( selectElement.value); 
-    this.selectedSystemRole = this.masterRoleData.filter((role: { systemRoleId: number; systemRoleName: string; }) => role.systemRoleId === selectedValue);// This will give you the raw value
-    
+    this.selectedSystemRole = this.masterRoleData.filter((role: { systemRoleId: number; systemRoleName: string; customRoleExists: boolean; }) => role.systemRoleId === selectedValue);// This will give you the raw value
+    this.disableDisplayName = this.selectedSystemRole[0].customRoleExists;
   }
 
-  getCustomeRoleDetails() {
+  getCustomRoleDetails() {
     this.rolemasterService.getCustomRoleForCompany(1).subscribe(customRoles => {
       this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
         map(item => ({
-          profilename : item.companyRoleName,
+          profilename: item.companyRoleName,
           systemusertype: item.systemRoleName
         }));
 
       this.masterRoleData = customRoles.filter(item => item.systemRoleName !== null)
         .map(item => ({
           systemRoleId: item.systemRoleId,
-          systemRoleName: item.systemRoleName
+          systemRoleName: item.systemRoleName,
+          customRoleExists: item.companyRoleName !== null
         }));
 
       $("#MappedGrid").jsGrid("option", "data", this.customAssignedRoles);
@@ -274,7 +279,7 @@ export class CompanyusermasterComponent implements OnInit {
       }
 
       this.companyPermissionData = permissionData;
-      
+
     });
   }
 
@@ -291,33 +296,6 @@ export class CompanyusermasterComponent implements OnInit {
       }
       this.masterRoleData =  roleData;
     });
-
-    //return [
-    //  {
-    //    "profilename": "Project Coordinator",
-    //    "systemusertype": "Project Manager"
-    //  },
-    //  {
-    //    "profilename": "Admin",
-    //    "systemusertype": "Administrator"
-    //  },
-    //  {
-    //    "profilename": "State Coordinator",
-    //    "systemusertype": "State Coordinator"
-    //  },
-    //  {
-    //    "profilename": "District Coordinator",
-    //    "systemusertype": "District Coordinator"
-    //  },
-    //  {
-    //    "profilename": "Block Coordinator",
-    //    "systemusertype": "Block Coordinator"
-    //  },
-    //  {
-    //    "profilename": "Beneficiary",
-    //    "systemusertype": "Beneficiary"
-    //  }
-    //];
   }
 }
 
