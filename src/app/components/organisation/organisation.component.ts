@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { faL } from '@fortawesome/free-solid-svg-icons';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,6 +16,7 @@ import { CompanyService, CompanyDashboard } from 'src/app/services/company.servi
 export class OrganisationComponent implements OnInit, AfterViewInit {
   companies: CompanyDashboard[] = [];
   stats:any;
+  roleId!: number;
   public chartType: ChartType = 'bar';  // Default chart type
   isDialogOpen: boolean = false;
   isProfileOpen: boolean=false;
@@ -27,7 +28,8 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     private router: Router,
     private authService: AuthService, 
     private fb: FormBuilder,
-    private companyService: CompanyService
+    private companyService: CompanyService,
+    private route: ActivatedRoute
   ) { }
   
   
@@ -81,6 +83,10 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
  
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.roleId = +params['roleid'];
+     
+    });
     this.companyForm= this.fb.group({
       companyname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
@@ -91,6 +97,7 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required]
     });
+    
     this.companyService.getCompanyStatistics().subscribe((data) => {
       this.companies = data;
       //this.createCharts();
@@ -225,8 +232,11 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       // }
   }
 
-  viewCompany(companyId: number): void {
-    console.log(companyId);
-    this.router.navigate(['/organisationadmin', companyId]);
+  viewCompany(companyId: number, roleId:number): void {
+    console.log('companyId = ' +companyId +' role id = ' + roleId);
+    this.router.navigate(['/organisationadmin', companyId, roleId]
+      //{ queryParams: { 'companyid': companyId, 'roleid': roleId } }
+    );
+
   }
 }

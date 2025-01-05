@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
 	},
      { title: 'User Details', 
 	  links: 
-		[{ label: 'Project Officer Master', path: '/projectofficer' }, 
+		[{ label: 'Project Officer Master', path: '/user/:companyid/:roleid' }, 
 		 { label: 'District Coordinator Master', path: '/dc' },
 		 { label: 'Block Coordinator Master', path: '/bc' }, 
 		 { label: 'SoochnaPreneur Master', path: '/sp' },

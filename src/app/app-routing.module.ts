@@ -24,7 +24,7 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
-    path: 'organisation',
+    path: 'organisation/:roleid',
     component: OrganisationComponent
   },
   {
@@ -36,7 +36,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin/:id',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
+      {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -45,6 +45,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
+      {path: 'user/:id', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -52,7 +53,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin',component: OrganisationadminComponent},
+       {path: 'organisationadmin/:compantid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -60,6 +61,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
+      {path: 'user/:id', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
   {
     path: '**',
     redirectTo: 'login'

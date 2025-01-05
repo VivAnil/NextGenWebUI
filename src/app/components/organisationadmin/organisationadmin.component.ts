@@ -16,6 +16,7 @@ export class OrganisationadminComponent implements OnInit {
   public GenBenChartType: ChartType = 'bar';
   public OccBenChartType: ChartType = 'pie';
   companyId!: number;
+  roleId!: number;
   public companyName:string='';
  stats:any;
   // Chart Data and Options
@@ -255,9 +256,10 @@ export class OrganisationadminComponent implements OnInit {
   ];
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.companyId = +params['id'];
-      this.loadCompanyData();
+      this.companyId = +params['companyid'];
+      this.roleId=+params['roleid'];
     });
+    this.loadCompanyData();
   }
   ngAfterViewInit(): void {
     //this.loadCompanyData();

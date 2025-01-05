@@ -30,6 +30,7 @@ import { EditadminComponent } from './components/editadmin/editadmin.component';
 import { PaymentreportComponent } from './components/paymentreport/paymentreport.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { AllprojectsComponent } from './components/allprojects/allprojects.compo
     EditadminComponent,
     PaymentreportComponent,
     EditcompanyComponent,
-    AllprojectsComponent
+    AllprojectsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
