@@ -178,7 +178,7 @@ export class CompanyusermasterComponent implements OnInit {
       data: JSON.stringify(this.customAssignedRoles),
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
-        { title: "System User Type", name: "systemusertype", type: "text", css: "width14em" },
+        { title: "System User Type", name: "systemusertype", css: "width14em" },
         {
              title: "Action", itemTemplate: function (value: any, item: any) {
                  return "<div class='text-align-center'><button class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_adduser'  ><i class='fa fa-edit' title='Edit User'></i></button> <button class='border-none' title='Delete User' type='button' data-bs-target='#' data-bs-toggle='modal' ><i class='fa fa-trash' title='Delete User'></i></button></div>";

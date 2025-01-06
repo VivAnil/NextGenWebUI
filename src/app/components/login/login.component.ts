@@ -61,20 +61,6 @@ export class LoginComponent implements OnInit {
         this.error="block";
         ValidateForm.validateForm(this.loginForm);
       }
-      //   this.authService.login(this.loginForm.value)
-      //   .subscribe(
-      //     {
-      //       next: (res) => {
-      //         this.loginForm.reset();
-      //         console.log(res);
-      //       }
-      //     }
-      //   )
-   
-      // }
-      // else{
-      //   //throw the error
-      //   ValidateForm.validateForm(this.loginForm);
-      // }
+      
   }
 }
