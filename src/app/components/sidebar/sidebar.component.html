@@ -8,7 +8,8 @@
                   <div *ngIf="activeSection === i" class="accordion-content">
                     <ul>
                       <li *ngFor="let link of item.links">
-                        <img src="../../../assets/images/links-arrow.png" class="arrow-link-li" /> <a [routerLink]="link.path">{{ link.label }}</a>
+                        <img src="../../../assets/images/links-arrow.png" class="arrow-link-li" /> 
+                        <a id="{{item.title}}" [routerLink]="link.path">{{ link.label }}</a>
                       </li>
                     </ul>
                   </div>

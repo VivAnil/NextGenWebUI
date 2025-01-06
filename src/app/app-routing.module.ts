@@ -16,6 +16,7 @@ import { EditcompanyComponent } from './components/editcompany/editcompany.compo
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
 import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
 import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   
@@ -24,7 +25,7 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
-    path: 'organisation',
+    path: 'organisation/:roleid',
     component: OrganisationComponent
   },
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin/:id',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
+      {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -45,6 +46,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
+      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -52,7 +54,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin',component: OrganisationadminComponent},
+       {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -60,6 +62,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
+      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
   {
     path: '**',
     redirectTo: 'login'

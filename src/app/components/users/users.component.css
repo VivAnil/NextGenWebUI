@@ -1,0 +1,101 @@
+#sortable1, #sortable2 {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-right: 100px;
+    background: #eee;
+    padding: 5px;
+    width: 100%;
+	min-height:123px;
+	max-height:300px;
+	overflow:auto;
+    border: 1px solid black;
+	
+}
+#sortable1 li, #sortable2 li {
+    color:black;
+    cursor: move;
+    margin: 5px;
+    padding: 5px;
+    font-size: 1.2em;
+    
+    background: none;
+    background-color: white;
+}
+.selected {
+    background:red !important;
+}
+.hidden {
+    display:none !important;
+}
+ul {
+    list-style-type: none;
+}
+
+        .jsgrid-pager {
+            right: 150px;
+            top: 19px;
+        }
+
+        .jsgrid-pager-container {
+            display: block !important;
+        }
+
+        .jsgrid {
+            position: static !important;
+        }
+
+        #dv_fcfiltercolumns, #lbl_filtercolumnscount1, #lnk_resetcolumnfilter1, #btn_clear_filter {
+            display: none;
+        }
+
+        a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicator {
+            display: none;
+        }
+		
+		.app {
+  
+  margin: 0 auto;
+}
+
+.app i {
+  font-size: 80px;
+  
+  animation-duration: 3s;
+  animation-name: slidein;
+  animation-iteration-count: 1;
+}
+
+article {
+  position: relative;
+  width: 140px;
+  height: 45px;
+  margin: 5px;
+  float: left;
+  border: 2px solid #f58634;
+  box-sizing: border-box;
+}
+
+article div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 25px;
+  transition: .5s ease;
+}
+
+article input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 36px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+input[type=checkbox]:checked ~ div {
+  background-color: #f58634!important;
+}

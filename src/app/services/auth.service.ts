@@ -15,7 +15,7 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl, loginObj).pipe(
       map((response: { roleId: any; }) => {
         // Assuming a roleId exists on successful authentication
-        return response && response.roleId ? true : false;
+        return response && response.roleId ? response.roleId : -1;
       }),
       catchError(error => {
         console.error('Login failed');
@@ -23,7 +23,18 @@ export class AuthService {
       })
     );
   }
+
+  authenticate(loginObj: any): Observable<number> {
+    //const payload = { username, password };
+
+    return this.http.post<{ roleId: number }>(this.baseUrl, loginObj).pipe(
+      map(response => response.roleId), // Extract the roleId from the response
+      catchError((error) => {
+        console.error('Error during authentication:', error);
+        return of(-1); // Return -1 in case of an error
+      })
+    );
 }
  
 
-
+}

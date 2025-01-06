@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   eyeIcon: string = "fa-eye-slash";
   loginForm!: FormGroup;
   error: string ="none";
+  roleId: number | null = null;
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.isText ? this.type = "text" : this.type = "password";
   }
 
-  onLogin(){
+  onLogin1(){
     if(this.loginForm.valid)
       {
         //call service
@@ -62,5 +63,42 @@ export class LoginComponent implements OnInit {
         ValidateForm.validateForm(this.loginForm);
       }
       
+  }
+
+  onLogin(){
+    if(this.loginForm.valid)
+      {
+        //call service
+        console.log(this.loginForm.value);
+       // this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
+          this.authService.authenticate(this.loginForm.value).subscribe({
+            next: (roleId) => {
+              this.roleId = roleId;
+              if (roleId === -1) {
+              //  alert('An error occurred during authentication.');
+                // Show an error message if login fails
+            this.error="block";
+            ValidateForm.validateForm(this.loginForm);
+              } else {
+                console.log('RoleId:', this.roleId);
+                this.error="none";
+                this.router.navigate(['organisation/'+this.roleId]); 
+              }
+         
+        },
+        error: () => {
+          this.loginForm.reset();
+        this.error="block";
+        ValidateForm.validateForm(this.loginForm);
+        }
+      });
+      }
+      else {
+      // Show an error message if login fails
+        this.loginForm.reset();
+        this.error="block";
+        ValidateForm.validateForm(this.loginForm);
+      }
+     
   }
 }
