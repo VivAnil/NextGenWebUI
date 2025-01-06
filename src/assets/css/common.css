@@ -714,6 +714,11 @@ input[type=checkbox], input[type=radio] {
 .modal-header {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    display:block;
+    background: #888686;
+}
+.modal-header .close {
+    margin-top: -2px
 }
 .modal-popup-header {
     background: #636158;
@@ -722,13 +727,23 @@ input[type=checkbox], input[type=radio] {
     border-top-right-radius: 5px;
     font-size: 15px;
 }
-.close{
-   /* opacity:1;
-    color:#fff;
-    text-shadow:none;*/
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143;
+    color: #fff;
 }
-.modal-header{
-    display:block;
+.close-button{
+    opacity:1;
+    color:#fff;
+    text-shadow:none;
+    font-size: 20px;
+    font-weight: bold;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0
 }
 
 .display-inline {

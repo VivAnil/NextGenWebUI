@@ -16,6 +16,7 @@ import { EditcompanyComponent } from './components/editcompany/editcompany.compo
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
 import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
 import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   
@@ -45,7 +46,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:companyid/:roleid', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
+      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -61,7 +62,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:companyid/:roleid', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
+      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
   {
     path: '**',
     redirectTo: 'login'
