@@ -53,7 +53,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-       {path: 'organisationadmin/:compantid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
+       {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
