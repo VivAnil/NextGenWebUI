@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { faWeight } from '@fortawesome/free-solid-svg-icons';
 import { BeneficiaryService } from 'src/app/services/beneficiary.service';
 import { CompanyService } from 'src/app/services/company.service';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-organisationadmin',
@@ -62,7 +63,7 @@ export class OrganisationadminComponent implements OnInit {
       }
     },
   };
-  constructor(private route: ActivatedRoute, private companyService: CompanyService) { }
+  constructor(private route: ActivatedRoute, private companyService: CompanyService, private menuService: MenuService) { }
   
   // Hardcoded labels and data
   public chartData: ChartConfiguration['data'] = {
@@ -259,6 +260,7 @@ export class OrganisationadminComponent implements OnInit {
       this.companyId = +params['companyid'];
       this.roleId=+params['roleid'];
     });
+    this.updatePath();
     this.loadCompanyData();
   }
   ngAfterViewInit(): void {
@@ -322,5 +324,51 @@ export class OrganisationadminComponent implements OnInit {
         this.projectChartType = newType;
         break;
     }
+  }
+
+  updatePath(): void{
+    this.menuService.updateMenuItems([
+      { title: 'User Configuration', 
+        links: 
+        [{ label: 'Application User Master', path: '/companyusermaster' }, 
+         { label: 'Edit Administrator Details', path: '/editadmin' }] 
+      },
+         { title: 'User Details', 
+        links: 
+        [{ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' }, 
+         { label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' },
+         { label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5'}, 
+         { label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3'  },
+         { label: 'Beneficiary Master', path: '/bn' }
+          ] 
+      },
+      { title: 'Company Details', 
+        links: 
+        [{ label: 'Edit Company Details', path: '/editcompany' }, 
+         { label: 'Project Master', path: '/project' }
+         
+          ] 
+      },
+      { title: 'Report Section', 
+        links: 
+        [{ label: 'All Project Report', path: '/projectreport' }, 
+         { label: 'All Beneficiaries Report', path: '/benReport' },
+         { label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
+         
+          ] 
+      },
+      { title: 'Service Section', 
+        links: 
+        [{ label: 'View All Services', path: '/services' }		 
+          ] 
+      },
+      { title: 'Payment Section', 
+        links: 
+        [{ label: 'Process Payment', path: '/processpayment' }, 
+         { label: 'Payment Report', path: '/paymentreport' }
+         ] 
+      }
+      
+    ]);
   }
 }

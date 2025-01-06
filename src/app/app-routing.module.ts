@@ -45,7 +45,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:id', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
+      {path: 'user/:companyid/:roleid', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -61,7 +61,7 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:id', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
+      {path: 'user/:companyid/:roleid', component: UsermanagementComponent,  runGuardsAndResolvers: 'always'},
   {
     path: '**',
     redirectTo: 'login'
