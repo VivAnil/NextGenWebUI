@@ -5,6 +5,7 @@ import { Service } from '../models/service.model';
 import { catchError, Observable, of } from 'rxjs';
 import { map } from 'jquery';
 import { ServicePillar } from '../models/servicePillar.model';
+import { userDetails } from '../models/userDetails.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,14 +14,11 @@ export class ApiService {
  // private baseUrl : string = 'https://localhost:7052/api/Service/Get';//environment.baseServiceurl;
  private baseUrl : string = environment.baseServiceUrl;
  private baseSPurl: string = environment.baseSPUrl;
+ private userdetailsApiUrl: string = environment.userdetailsApiUrl;
+
   constructor(private http: HttpClient) { }
-  private services: Service[] = [
-  
-  ];
-   
-  // getData(): Observable<Service[]> {
-  //   return this.http.get<Service[]>(this.baseUrl);
-  // }
+  private services: Service[] = [];
+  private userDetails: userDetails[] = [];
 
   getData(): Observable<Service[]> {
     return this.http.get<Service[]>(this.baseUrl).pipe(
@@ -70,6 +68,17 @@ export class ApiService {
       //   ServicePillar: ''
       //  }
     ];
+  }
+
+  getuserDetails(url:string): Observable<userDetails[]> {
+
+    return this.http.get<userDetails[]>(url).pipe(
+      catchError((error) => {
+        console.error('API call failed:', error);
+        console.log("Exception in calling service. Endpoint " + this.baseUrl);
+        return of (error);
+      })
+    );
   }
    
 }
