@@ -71,25 +71,25 @@ export class LoginComponent implements OnInit {
         //call service
         console.log(this.loginForm.value);
        // this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
-          this.authService.authenticate(this.loginForm.value).subscribe({
-            next: (roleId) => {
-              this.roleId = roleId;
-              if (roleId === -1) {
-              //  alert('An error occurred during authentication.');
-                // Show an error message if login fails
-            this.error="block";
+      this.authService.authenticate(this.loginForm.value).subscribe({
+        next: (roleId) => {
+          this.roleId = roleId;
+          if (roleId === -1) {
+            //  alert('An error occurred during authentication.');
+            // Show an error message if login fails
+            this.error = "block";
             ValidateForm.validateForm(this.loginForm);
-              } else {
-                console.log('RoleId:', this.roleId);
-                this.error="none";
-                this.router.navigate(['organisation/'+this.roleId]); 
-              }
-         
+          } else {
+            console.log('RoleId:', this.roleId);
+            this.error = "none";
+            this.router.navigate(['organisation/' + this.roleId]);
+          }
+
         },
         error: () => {
           this.loginForm.reset();
-        this.error="block";
-        ValidateForm.validateForm(this.loginForm);
+          this.error = "block";
+          ValidateForm.validateForm(this.loginForm);
         }
       });
       }
