@@ -1,16 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
+
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, AfterViewChecked, AfterViewInit  {
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
-  
+  private isVisible: boolean = false;
+
+
+
   companyId!: number;
   roleId!: number;
   displayTab: string='block';
@@ -27,6 +31,9 @@ export class UsersComponent implements OnInit {
 
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
+
+
+  
   constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
 
   ngOnInit(): void {
@@ -37,7 +44,21 @@ export class UsersComponent implements OnInit {
     });
   }
   ngAfterViewInit(): void {
+    console.log('AfterViewInit');
     this.inituserDetailsGrid();
+  }
+  ngAfterViewChecked(): void {
+    // viewChild is updated after the view has been checked
+    if (this.isVisible == true) {
+      console.log('isVisible switched from false to true');
+        
+      console.log('AfterViewChecked (no change)');
+    } else {
+      this.isVisible = true;
+      console.log('AfterViewChecked');
+      this.inituserDetailsGrid();
+    }
+   
   }
   inituserDetailsGrid() {
     $('#MappedGrid').jsGrid({
@@ -68,7 +89,7 @@ export class UsersComponent implements OnInit {
 
      controller: {
        loadData: () => {
-         return this.serviceApi.getuserDetails(this.userdetailsApiUrl+this.companyId+'/2').toPromise();
+         return this.serviceApi.getuserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId).toPromise();
        },
      },
      fields: [

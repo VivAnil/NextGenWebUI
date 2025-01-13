@@ -31,9 +31,9 @@ export class MenuService {
         title: 'User Details', 
         links:[
           {label:'Project Officer Master', path:'/user'},
-          {label:'District Coordinator Master', path:'/dc'},
-          {label:'Block Coordinator Master', path:'/bc'},
-          {label:'SoochnaPreneur Master', path:'/sp'},
+          {label:'District Coordinator Master', path:'/user'},
+          {label:'Block Coordinator Master', path:'/user'},
+          {label:'SoochnaPreneur Master', path:'/user'},
           {label:'Beneficiary Master', path:'/bn'},
         ]
       },
