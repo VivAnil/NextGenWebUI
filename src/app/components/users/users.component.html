@@ -1,7 +1,7 @@
 <div class="col-md-10 float-left">   
 
     <div class="back-internal-page width100">
-        <div class="heading-title">Project Officer Master</div>
+        <div class="heading-title">{{this.pageHead}}  Master</div>
         <div class="clear-both-20"></div>
         <div class="float-right">
             <div class="float-left" style="margin-top: 5px;">
@@ -12,7 +12,7 @@
             </div>
             <div class="display-inline">
                 <button type="button"  class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addSProjectOfficer" id="btn_newProjectOfficer" (click)="addProjectOficer();">
-                    + New Project Officer
+                    + New {{this.pageHead}}
                 </button> 
                 <button type="button"  class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject" id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
@@ -300,7 +300,7 @@
                         <div id="MappedGrid"></div>
                         <div class="datatable-container">
                             <p-table  #dt [value]="data" [paginator]="true"  [rows]="5" [responsiveLayout]="'scroll'" 
-                            [globalFilterFields]="" [rowsPerPageOptions]="[5, 10, 20]">
+                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]">
                               <ng-template pTemplate="header">
                                 <tr>
                                   <th *ngFor="let col of cols"  [style.width]="'20em'"  [style.textAlign]="'center'">
@@ -308,13 +308,33 @@
                                   </th>
                                 </tr>
                               </ng-template>
-                              <ng-template pTemplate="body" let-rowData >
+                              <ng-template pTemplate="body" let-rowData>
+                                <tr>
+                                  <td  *ngFor="let column of cols"
+                                    [style.width]="'10em'"
+                                    [style.textAlign]="'center'"
+                                  >
+                                    <!-- Render the profile picture if column.field is 'profilePic' -->
+                                    <ng-container *ngIf="column.field === 'profilePicture'; else textCell">
+                                      <img
+                                        [src]="'data:image/png;base64,' + rowData[column.field]"
+                                        alt=""
+                                        style="width: 50px; height: 50px; border-radius: 50%;"
+                                      /> 
+                                    </ng-container>
+                                    <ng-template #textCell>
+                                      {{ rowData[column.field] }}
+                                    </ng-template>
+                                  </td>
+                                </tr>
+                              </ng-template>
+                              <!-- <ng-template pTemplate="body" let-rowData >
                                 <tr>
                                   <td *ngFor="let col of cols" [style.width]="'24em'"  [style.textAlign]="'center'">
                                     {{ rowData[col.field] }}
                                   </td>
                                 </tr>
-                              </ng-template>
+                              </ng-template> -->
                             </p-table>
                           </div>
                           
@@ -343,7 +363,7 @@
                 <div class="modal-header">
                   
                     <span>
-                    <h4 class="modal-title" style=" font-size: 18px">Add New Project Officer</h4>
+                    <h4 class="modal-title" style=" font-size: 18px">Add New {{this.pageHead}}</h4>
                 </span>
                 <span>
                     <button type="button" class="close-button" data-dismiss="modal" >&times;</button>

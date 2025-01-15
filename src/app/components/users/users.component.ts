@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   cols: any[] = []; // Table columns
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
-
+  pageHead:string='Project Officer Master';
   companyId!: number;
   roleId!: number;
   displayTab: string='block';
@@ -48,7 +48,14 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     });
 
     this.cols = [
-      { header: 'ID', field: 'id', type: "text", class: "text-align-center width8em word-break-all"},
+   
+      // {
+      //   header: "Profile", field: function (value: any, item: any) {
+      //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
+      //   }, type: "text"
+      // },
+      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all"},//profilePictur
+        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all"},//profilePicture
      
       { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all" },
       { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all" },
@@ -70,12 +77,16 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
         this.route.url.subscribe((url) => {
           if (url[2]?.path === '2') {
             this.dataKey = 'pc';
+            this.pageHead='Project Officer';
           } else if (url[2]?.path === '4') {
             this.dataKey = 'dc';
+            this.pageHead='District Coordinator';
           } else if (url[2]?.path === '5') {
             this.dataKey = 'bc';
+            this.pageHead='Block Coordinator';
           } else if (url[2]?.path === '3') {
             this.dataKey = 'sp';
+            this.pageHead='Soochnapreneur';
           }
 
           console.log('Data key = ' + this.dataKey);
