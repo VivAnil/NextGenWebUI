@@ -29,8 +29,8 @@
             <div>
                 <div class="position-relative padding-10-0">
                     <div class="col-md-6 padding-zero float-left">
-                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search"
-                            id="txt_globalsearch" autocomplete="off">
+                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search" pInputText   (input)="onGlobalFilter($event)">
+                            <!-- id="txt_globalsearch" autocomplete="off"> -->
                     </div>
                     <div class="col-md-6 padding-zero text-align-right font-size1-1em float-left">
                         <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
@@ -298,6 +298,26 @@
                     <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
                         class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true" style="display:inline-block;">
                         <div id="MappedGrid"></div>
+                        <div class="datatable-container">
+                            <p-table  #dt [value]="data" [paginator]="true"  [rows]="5" [responsiveLayout]="'scroll'" 
+                            [globalFilterFields]="" [rowsPerPageOptions]="[5, 10, 20]">
+                              <ng-template pTemplate="header">
+                                <tr>
+                                  <th *ngFor="let col of cols"  [style.width]="'20em'"  [style.textAlign]="'center'">
+                                    {{ col.header }} 
+                                  </th>
+                                </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-rowData >
+                                <tr>
+                                  <td *ngFor="let col of cols" [style.width]="'24em'"  [style.textAlign]="'center'">
+                                    {{ rowData[col.field] }}
+                                  </td>
+                                </tr>
+                              </ng-template>
+                            </p-table>
+                          </div>
+                          
                     </div>
                     
 

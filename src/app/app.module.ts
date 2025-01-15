@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { UsersComponent } from './components/users/users.component';
 @NgModule({
   declarations: [
     AppComponent,
+   
     LoginComponent,
     OrganisationComponent,
     LayoutComponent,
@@ -57,6 +59,7 @@ import { UsersComponent } from './components/users/users.component';
   ],
   imports: [
     BrowserModule,
+    TableModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,

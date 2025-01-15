@@ -81,4 +81,14 @@ export class ApiService {
     );
   }
    
+  fetchUserDetails(url:string, dataKey:string): Observable<userDetails[]> {
+
+    return this.http.get<userDetails[]>(url).pipe(
+      catchError((error) => {
+        console.error('API call failed:', error);
+        console.log("Exception in calling service. Endpoint " + this.baseUrl);
+        return of (error);
+      })
+    );
+  }
 }
