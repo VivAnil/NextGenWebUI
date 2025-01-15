@@ -99,6 +99,5 @@ export class LoginComponent implements OnInit {
         this.error="block";
         ValidateForm.validateForm(this.loginForm);
       }
-     
   }
 }

@@ -10,6 +10,7 @@ import { ICustomRoleDefinition } from '../../models/service.model';
   styleUrls: ['./companyusermaster.component.css']
 })
 export class CompanyusermasterComponent implements OnInit {
+  [x: string]: any;
   displayFilter: string = 'none';
   activeFilter: string = 'filter-link';
   isFilterOpen: boolean = false;
@@ -179,13 +180,49 @@ export class CompanyusermasterComponent implements OnInit {
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
         { title: "System User Type", name: "systemusertype", css: "width14em" },
+        { type: 'text', visible: false, name: "companyroleid" }, 
         {
-             title: "Action", itemTemplate: function (value: any, item: any) {
-                 return "<div class='text-align-center'><button class='border-none' title='' type='button' data-bs-toggle='modal' data-bs-target='#dv_adduser'  ><i class='fa fa-edit' title='Edit User'></i></button> <button class='border-none' title='Delete User' type='button' data-bs-target='#' data-bs-toggle='modal' ><i class='fa fa-trash' title='Delete User'></i></button></div>";
-             }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
-         }
-      ]
+          title: "Action", itemTemplate: function (value: any, item: any)
+          {
+            return "<div class='text-align-center'>< button class='border-none' type = 'button' data - bs - target='#dv_adduser' (click) = 'editCustomRole("+item.companyroleid+")' > <i class='fa fa-edit' title = 'Edit User' > </i></button >< button class='border-none' title = 'Delete User' type = 'button' data - bs - target='#' (click) = 'deleteCustomRole(" + item.companyroleid+")' ><i class='fa fa-trash' title = 'Delete User' > </i></button > </div>";
+          },
+          type: "control", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
+        },
+        {
+          title: "Action",
+          itemTemplate: (value: any, item: any) => {
+            return $("<div class='text-align-center'>")
+              .append($("<button class='border-none' type='button'>")
+                .attr("data-bs-target", "#dv_adduser")
+                .on("click", () => this.editCustomRole(item.companyroleid))
+                .html("<i class='fa fa-edit' title='Edit User'></i>"))
+              .append($("<button class='border-none' title='Delete User' type='button'>")
+                .on("click", () => this.deleteCustomRole(item.companyroleid))
+                .html("<i class='fa fa-trash' title='Delete User'></i>"));
+          },
+          type: "control", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
+        }
+      ],
+      onItemUpdating: function (args:any) {
+        // cancel update of the item with empty 'name' field
+        this.editCustomRole(args);
+      },
+      controller: {
+
+      }
     });
+  }
+
+  editCustomRole(args:any) {
+    const editedItem = args.item;
+    console.log('Editing item:', args);
+
+  }
+
+  deleteCustomRole(args: any) {
+    const editedItem = args.item;
+    console.log('Deleting item:', args);
+
   }
 
   createRole() {
@@ -223,7 +260,8 @@ export class CompanyusermasterComponent implements OnInit {
       this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
         map(item => ({
           profilename: item.companyRoleName,
-          systemusertype: item.systemRoleName
+          systemusertype: item.systemRoleName,
+          companyroleid: item.companyRoleId
         }));
 
       this.masterRoleData = customRoles.filter(item => item.systemRoleName !== null)
@@ -304,6 +342,5 @@ export interface IPermissionGroup {
   DisplayName: string,
   Children: IPermissionGroup[];
 };
-
 
 
