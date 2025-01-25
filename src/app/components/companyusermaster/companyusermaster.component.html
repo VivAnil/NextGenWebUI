@@ -41,7 +41,8 @@
 
                     </td>
                     <td>
-                      <select name="systemRoles" id="systemRoles" class="select-box-3 width100" [(ngModel)]="selectedSystemRoleId" (change)="onSelect($event)">
+                      <input type="text" [hidden]="!isEditing" [ngModel]="editRoleName" disabled/>
+                      <select name="systemRoles" [hidden]="isEditing" id="systemRoles" class="select-box-3 width100" [(ngModel)]="selectedSystemRoleId" (change)="onSelect($event)">
                         <option *ngFor="let role of masterRoleData" [disabled]="role.customRoleExists" [value]="role.systemRoleId" [text]="role.systemRoleName">{{ role.systemRoleName }}</option>
                       </select>
 
@@ -57,7 +58,7 @@
               </tr>
                 <tr>
                     <td colspan="4" class="text-align-center" align="center">
-                        <input type="button" value="Save" class="btn-blck1" (click)="createRole()" />
+                        <input type="button" value="Save" class="btn-blck1" (click)="createRole()" [hidden]="isEditing" />
                     </td>
 
                 </tr>
@@ -169,7 +170,37 @@
 
                 </ul>
                 <div id="tabs-1" aria-labelledby="ui-id-1" role="tabpanel" class="ui-tabs-panel ui-corner-bottom ui-widget-content" aria-hidden="true" style="display:{{displayTab}}">
-                    <div id="MappedGrid"></div>
+                  <div id="MappedGrid"></div>
+                  <div class="datatable-container">
+                    <p-table #dt [value]="data" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'"
+                             [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]">
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th *ngFor="let col of cols" [style.width]="'20em'" [style.textAlign]="'center'">
+                            {{ col.header }}
+                          </th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-rowData>
+                        <tr>
+                          <td *ngFor="let column of cols"
+                              [style.width]="'10em'"
+                              [style.textAlign]="'center'">
+                            <ng-template #textCell>
+                              {{ rowData[column.field] }}
+                            </ng-template>
+                          </td>s
+                        </tr>
+                      </ng-template>
+                      <!-- <ng-template pTemplate="body" let-rowData >
+        <tr>
+          <td *ngFor="let col of cols" [style.width]="'24em'"  [style.textAlign]="'center'">
+            {{ rowData[col.field] }}
+          </td>
+        </tr>
+      </ng-template> -->
+                    </p-table>
+                  </div>
                 </div>
             
 
