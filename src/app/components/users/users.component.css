@@ -100,16 +100,14 @@ input[type=checkbox]:checked ~ div {
   background-color: #f58634!important;
 }
 
-.datatable-container {
-    margin: 20px;
-  
-    h2 {
-      margin-bottom: 20px;
-      color: #333;
-    }
-  
-    .p-paginator {
-      margin-top: 10px;
-    }
+/*.datatable-container {
+  margin: 20px;
+ .p-paginator {
+    margin-top: 10px;
+  }
+  h2{
+    margin-bottom: 20px;
+    color: #333;
   }
   
+}*/

@@ -3,23 +3,25 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { catchError, map, Observable, of } from 'rxjs';
+import { RolemasterService } from './rolemaster.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private baseUrl : string = environment.baseAuthApiUrl;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private roleMasterSvc:RolemasterService) { }
   private user: User = {authenticated:true, roleid: 1};
 
-  login(loginObj: any): Observable<boolean> {
+  login(loginObj: any): Observable<any> {
     return this.http.post<any>(this.baseUrl, loginObj).pipe(
       map((response: { roleId: any; }) => {
         // Assuming a roleId exists on successful authentication
-        return response && response.roleId ? response.roleId : -1;
+        let companyRoleId = response && response.roleId ? response.roleId : -1;
+        return this.roleMasterSvc.getCustomRoleDefinitionForCompany(companyRoleId);
       }),
       catchError(error => {
         console.error('Login failed');
-        return of(false);  // Return false on error
+        return of(error);  // Return false on error
       })
     );
   }

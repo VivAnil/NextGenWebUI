@@ -44,8 +44,8 @@ export class LoginComponent implements OnInit {
       {
         //call service
         console.log(this.loginForm.value);
-        this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
-          if (isAuthenticated) {
+        this.authService.login(this.loginForm.value).subscribe(roleDefinition => {
+          if (roleDefinition) {
             // Navigate to a different route on successful login
             this.error="none";
             this.router.navigate(['organisation']); 

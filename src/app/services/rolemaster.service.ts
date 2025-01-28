@@ -9,7 +9,12 @@ import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/s
 })
 export class RolemasterService {
   private baseUrl: string = environment.baseRoleMasterApiUrl;
+  private userRoleSettings: any = null;
   constructor(private http: HttpClient) { }
+
+  logOut() {
+    this.userRoleSettings = null;
+  }
 
   getSystemRoles(): Observable<SystemRole[]> {
     return this.http.get<SystemRole[]>(this.baseUrl+"/systemrole/get").pipe(
@@ -40,14 +45,22 @@ export class RolemasterService {
   }
 
   getCustomRoleDefinitionForCompany(companyRoleId: number): Observable<any> {
-    return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
-      catchError((error) => {
-        console.error('API call failed:', error);
-        // Return hardcoded fallback data
-        console.log("Exception in calling service. Endpoint " + this.baseUrl);
-        return of(error);
-      })
-    );
+    if (this.userRoleSettings !== null) {
+      return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
+        map((response: any) => {
+          // Assuming a roleId exists on successful authentication
+
+          this.userRoleSettings = response;
+        }),
+        catchError((error) => {
+          console.error('API call failed:', error);
+          // Return hardcoded fallback data
+          console.log("Exception in calling service. Endpoint " + this.baseUrl);
+          return of(error);
+        })
+      );
+    }
+    return this.userRoleSettings;
   }
 
   getCustomRoleForCompany( companyId:number): Observable<any[]> {
