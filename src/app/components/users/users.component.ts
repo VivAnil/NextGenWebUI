@@ -35,8 +35,8 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
 
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
-
-
+  loading: boolean = true; // Set initial loading state
+  showColumnModal = false; // Modal visibility control
   
   constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
 
@@ -57,20 +57,20 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all"},//profilePictur
         { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all"},//profilePicture
      
-      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all" },
-      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all" },
-      { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all"},
-      { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all"},
-      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" },
-      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" },
-      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all" },
-      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" },
+      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true },
+      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true },
+      { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all", visible: true},
+      { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true },
+      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" ,visible: true },
+      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" ,visible: true },
+      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all" ,visible: true },
+      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
+      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" ,visible: true },
 
     ];
         // Listen to the route to determine which dataset to load
@@ -101,14 +101,17 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
         this.data = response; // Populate the grid with fetched data
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
-        //  this.cols = Object.keys(this.data[0]).map((key) => ({
-        //     field: key,
-        //     header: this.capitalizeFirstLetter(key),
-        //   }));
+         this.cols = Object.keys(this.data[0]).map((key) => ({
+            field: key,
+            header: this.capitalizeFirstLetter(key),
+            visible: true, // Default: All columns are visible
+          }));
 
            // Set fields for global filtering
-          //this.globalFilterFields = Object.keys(this.data[0]);
+          this.globalFilterFields = Object.keys(this.data[0]);
           this.globalFilterFields=this.cols;
+          this.loading = false; // Turn off loading once data is fetched
+          console.log(this.cols);
         }
       },
       error: (err) => {
@@ -248,6 +251,13 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     // Utility function to format headers
     capitalizeFirstLetter(str: string): string {
       return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
+    }
+    toggleColumn(column: any) {
+      column.visible = !column.visible; // Update visibility
+    }
+    columnVisibilityChange() {
+      // This method is triggered whenever a checkbox is checked/unchecked
+      console.log('Columns updated:', this.cols);
     }
 }
 

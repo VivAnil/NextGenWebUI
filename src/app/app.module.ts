@@ -32,7 +32,9 @@ import { PaymentreportComponent } from './components/paymentreport/paymentreport
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
 import { UsersComponent } from './components/users/users.component';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +72,10 @@ import { UsersComponent } from './components/users/users.component';
     MatCardModule, 
     MatCheckboxModule, 
     FormsModule, 
-    MatRadioModule 
-    
+    MatRadioModule,
+    DialogModule,
+    ProgressSpinnerModule, // Import ProgressSpinnerModule
+    CheckboxModule
     
   ],
   providers: [],

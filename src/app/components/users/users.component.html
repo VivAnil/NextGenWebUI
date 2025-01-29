@@ -147,7 +147,19 @@
                         </div>
                         <div class="column-tab1">
                             <div id="dv_nfcfiltercolumns">
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
+                                <!-- <p-dialog [(visible)]="showColumnModal" header="Filter Columns" [modal]="true" [closable]="true" [dismissableMask]="true"> -->
+                                    <div *ngIf="cols">
+                                        <div *ngFor="let col of cols"  class="col-sm-4 float-left text-overflow-ellipsis padding8">
+                                          <p-checkbox
+                                            [(ngModel)]="col.visible"
+                                            [binary]="true"
+                                            (onChange)="columnVisibilityChange()"
+                                          ></p-checkbox>
+                                          <label class="ml-2">{{ col.header }}</label>
+                                        </div>
+                                     
+                                  <!-- </p-dialog> -->
+                                <!-- <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
                                         for="0" class="cursor-pointer">ID</label></div>
                                 <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
@@ -197,9 +209,9 @@
                                 </div>
                                 <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                         disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
-                                        for="14" class="cursor-pointer">Action</label></div>
+                                        for="14" class="cursor-pointer">Action</label></div> -->
                             </div>
-                            <div id="dv_fcfiltercolumns">
+                            <!-- <div id="dv_fcfiltercolumns">
                                 <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
                                     disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
                                     for="0" class="cursor-pointer">ID</label></div>
@@ -251,7 +263,7 @@
                             <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
                                     disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
                                     for="14" class="cursor-pointer">Action</label></div>
-                            </div>
+                            </div> -->
 
 
                             <div class="clear-both"></div>
@@ -299,18 +311,22 @@
                         class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true" style="display:inline-block;">
                         <div id="MappedGrid"></div>
                         <div class="datatable-container">
+                            <p-progressSpinner *ngIf="loading"></p-progressSpinner>
                             <p-table  #dt [value]="data" [paginator]="true"  [rows]="5" [responsiveLayout]="'scroll'" 
-                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]">
+                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
                               <ng-template pTemplate="header">
                                 <tr>
-                                  <th *ngFor="let col of cols"  [style.width]="'20em'"  [style.textAlign]="'center'">
-                                    {{ col.header }} 
+                                    <ng-container *ngFor="let col of cols">
+                                  <th *ngIf="col.visible"  [style.width]="'20em'"  [style.textAlign]="'center'">
+                                     {{ col.header }} 
                                   </th>
+                                </ng-container>
                                 </tr>
                               </ng-template>
                               <ng-template pTemplate="body" let-rowData>
                                 <tr>
-                                  <td  *ngFor="let column of cols"
+                                    <ng-container *ngFor="let column of cols">
+                                  <td  *ngIf="column.visible"
                                     [style.width]="'10em'"
                                     [style.textAlign]="'center'"
                                   >
@@ -325,6 +341,15 @@
                                     <ng-template #textCell>
                                       {{ rowData[column.field] }}
                                     </ng-template>
+                                  </td>
+                                  </ng-container>
+                                </tr>
+                              </ng-template>
+                              <ng-template pTemplate="loadingBody">
+                                <tr>
+                                  <td [attr.colspan]="cols.length" style="text-align: center;">
+                                    <p-progressSpinner></p-progressSpinner>
+                                    <p>Loading data, please wait...</p>
                                   </td>
                                 </tr>
                               </ng-template>
