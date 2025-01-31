@@ -150,12 +150,12 @@
                                 <!-- <p-dialog [(visible)]="showColumnModal" header="Filter Columns" [modal]="true" [closable]="true" [dismissableMask]="true"> -->
                                     <div *ngIf="cols">
                                         <div *ngFor="let col of cols"  class="col-sm-4 float-left text-overflow-ellipsis padding8">
-                                          <p-checkbox
+                                          <p-checkbox class="cursor-pointer" style="padding-right: 5px;"
                                             [(ngModel)]="col.visible"
                                             [binary]="true"
                                             (onChange)="columnVisibilityChange()"
                                           ></p-checkbox>
-                                          <label class="ml-2">{{ col.header }}</label>
+                                          <label class="ml-2">  {{ col.header }}</label>
                                         </div>
                                      
                                   <!-- </p-dialog> -->
@@ -301,7 +301,7 @@
                         <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
                             aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
                             aria-expanded="true">
-                            <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All Project Officers</a>
+                            <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All {{pageHead}}</a>
                         </li>
                         
 
@@ -311,13 +311,13 @@
                         class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true" style="display:inline-block;">
                         <div id="MappedGrid"></div>
                         <div class="datatable-container">
-                            <p-progressSpinner *ngIf="loading"></p-progressSpinner>
+                            <!-- <p-progressSpinner *ngIf="loading"></p-progressSpinner> -->
                             <p-table  #dt [value]="data" [paginator]="true"  [rows]="5" [responsiveLayout]="'scroll'" 
                             [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
                               <ng-template pTemplate="header">
                                 <tr>
                                     <ng-container *ngFor="let col of cols">
-                                  <th *ngIf="col.visible"  [style.width]="'20em'"  [style.textAlign]="'center'">
+                                  <th *ngIf="col.visible"   [style.textAlign]="'center'" [style.width]="col.width">
                                      {{ col.header }} 
                                   </th>
                                 </ng-container>
@@ -327,7 +327,6 @@
                                 <tr>
                                     <ng-container *ngFor="let column of cols">
                                   <td  *ngIf="column.visible"
-                                    [style.width]="'10em'"
                                     [style.textAlign]="'center'"
                                   >
                                     <!-- Render the profile picture if column.field is 'profilePic' -->

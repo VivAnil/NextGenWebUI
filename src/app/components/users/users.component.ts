@@ -37,7 +37,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
-  
+  filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
   constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
 
   ngOnInit(): void {
@@ -104,7 +104,9 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
          this.cols = Object.keys(this.data[0]).map((key) => ({
             field: key,
             header: this.capitalizeFirstLetter(key),
-            visible: true, // Default: All columns are visible
+            visible: this.checkVisible(key),
+            width: '100px' 
+            
           }));
 
            // Set fields for global filtering
@@ -250,7 +252,10 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   }
     // Utility function to format headers
     capitalizeFirstLetter(str: string): string {
-      return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
+      // if (str=='profilePicture') 
+      //   return '';
+      // else
+        return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
     }
     toggleColumn(column: any) {
       column.visible = !column.visible; // Update visibility
@@ -259,5 +264,15 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       // This method is triggered whenever a checkbox is checked/unchecked
       console.log('Columns updated:', this.cols);
     }
+    checkVisible(key: string): any {
+      console.log(key);
+      if (this.filteredCols.includes(key)) {
+        return false;
+    }
+      else 
+        return true;
+    }
 }
+
+
 
