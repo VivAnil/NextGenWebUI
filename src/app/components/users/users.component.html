@@ -1,7 +1,7 @@
-<div class="col-md-10 float-left">   
+<div class="col-md-10 float-left">
 
     <div class="back-internal-page width100">
-        <div class="heading-title">{{this.pageHead}}  Master</div>
+        <div class="heading-title">{{this.pageHead}} Master</div>
         <div class="clear-both-20"></div>
         <div class="float-right">
             <div class="float-left" style="margin-top: 5px;">
@@ -11,10 +11,12 @@
 
             </div>
             <div class="display-inline">
-                <button type="button"  class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addSProjectOfficer" id="btn_newProjectOfficer" (click)="addProjectOficer();">
+                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addSProjectOfficer"
+                    id="btn_newProjectOfficer" (click)="addProjectOficer();">
                     + New {{this.pageHead}}
-                </button> 
-                <button type="button"  class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject" id="btn_assignProject" (click)="assignProject();">
+                </button>
+                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject"
+                    id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
                 </button>
             </div>
@@ -29,13 +31,15 @@
             <div>
                 <div class="position-relative padding-10-0">
                     <div class="col-md-6 padding-zero float-left">
-                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search" pInputText   (input)="onGlobalFilter($event)">
-                            <!-- id="txt_globalsearch" autocomplete="off"> -->
+                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search"
+                            pInputText (input)="onGlobalFilter($event)">
+                        <!-- id="txt_globalsearch" autocomplete="off"> -->
                     </div>
                     <div class="col-md-6 padding-zero text-align-right font-size1-1em float-left">
                         <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
                             <i class="fa fa-filter awe-filter"></i>Filters <i
-                                class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
+                                class="fa fa-caret-down rotate arrow awe-arrow"></i>
+                        </div>
                         <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left"><i
                                 class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i
                                 class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
@@ -46,96 +50,51 @@
                         </div>
                     </div>
                     <div class="clear-both"></div>
-                    <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}" class="width100 filter-tab-box">
+
+                    <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}"
+                        class="width100 filter-tab-box">
                         <div id="assigned_tab_filter">
                             <div class="row">
-                                <div class="col-sm-3 form-group">
-                                    <div class="label-text">First Name</div>
-                                    <div>
-                                        <input type="text" id="" class="input-box-3 width100">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 form-group">
-                                    <div class="label-text">Last Name</div>
-                                    <div>
-                                        <input type="text" id="" class="input-box-3 width100">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 form-group">
-                                    <div class="label-text">Mobile Number</div>
-                                    <div>
-                                        <input type="text" id="" class="input-box-3 width100">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 form-group">
-                                    <div class="label-text">Email</div>
-                                    <div>
-                                        <input type="text" id="" class="input-box-3 width100">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 form-group">
-                                    <div class="label-text">Sex</div>
-                                    <div>
-                                        <input type="text" id="" class="input-box-3 width100">
-                                    </div>
-                                </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">State</div>
+                                <ng-container *ngFor="let col of cols; let i = index">
+                                    <div class="col-sm-3 form-group" *ngIf="col.search">
                                         <div>
-                                            <input type="text" id="" class="input-box-3 width100">
+                                            <div class="label-text">{{ col.header }}</div>
+                                            <div>
+                                                <input type="text" [(ngModel)]="filters[col.field]"
+                                                    class="input-box-3 width100"
+                                                    placeholder="Search {{ col.header }}" />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">District</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">Village</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">Block</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">Project Name</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">Pin Code</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3 form-group">
-                                        <div class="label-text">Account Holder Name</div>
-                                        <div>
-                                            <input type="text" id="" class="input-box-3 width100">
-                                        </div>
-                                    </div>
-                              
+                                </ng-container>
                             </div>
-                            <div  style="margin-top: 20px;"></div>
+
+                            <div style="margin-top: 20px;"></div>
                             <div class="row text-align-center">
-                                <div class="col-md-6 float-left text-align-right"><input type="button" class="btn-blck1"
-                                        id="btn_search" value="Apply Filter"></div>
-                                <div class="col-md-6 float-left text-align-left"><input type="button" class="btn-blck1"
-                                        value="Cancel"></div>
+
+                                <div class="col-md-6 float-left text-align-right">
+                                    <a style="color: #258ee8; font-size: 1.3em; margin: 0 10px;" id="btn_cancelfilter">
+                                        Cancel
+                                    </a>
+
+                                    <!-- <div class="col-md-6 float-left text-align-left"> -->
+                                    <input type="button" class="btn-blck1" value="Apply Filter" (click)="applyFilter()">
+                                    <!-- </div> -->
+                                </div>
+
+
+
+
+
                             </div>
+
+
+
+
+
                         </div>
 
-
-
                     </div>
-
                     <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">
                         <div>
                             <label id="lbl_filtercolumnscount">6 out of 15</label> Column <div class="float-right"><a
@@ -148,708 +107,616 @@
                         <div class="column-tab1">
                             <div id="dv_nfcfiltercolumns">
                                 <!-- <p-dialog [(visible)]="showColumnModal" header="Filter Columns" [modal]="true" [closable]="true" [dismissableMask]="true"> -->
-                                    <div *ngIf="cols">
-                                        <div *ngFor="let col of cols"  class="col-sm-4 float-left text-overflow-ellipsis padding8">
-                                          <p-checkbox class="cursor-pointer" style="padding-right: 5px;"
-                                            [(ngModel)]="col.visible"
-                                            [binary]="true"
-                                            (onChange)="columnVisibilityChange()"
-                                          ></p-checkbox>
-                                          <label class="ml-2">  {{ col.header }}</label>
-                                        </div>
-                                     
-                                  <!-- </p-dialog> -->
-                                <!-- <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
-                                        for="0" class="cursor-pointer">ID</label></div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="1" class="cursor-pointer"><label
-                                        for="1" class="cursor-pointer">First Name</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="2" onclick="checkGridColumn(2,this)" id="2" checked="checked"
-                                        class="cursor-pointer"><label for="2" class="cursor-pointer">Last Name</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="3" onclick="checkGridColumn(3,this)" id="3" checked="checked"
-                                        class="cursor-pointer"><label for="3" class="cursor-pointer">DOB</label>
+                                <div *ngIf="cols">
+                                    <div *ngFor="let col of cols"
+                                        class="col-sm-4 float-left text-overflow-ellipsis padding8">
+                                        <p-checkbox class="cursor-pointer" style="padding-right: 5px;"
+                                            [(ngModel)]="col.visible" [binary]="true"
+                                            (onChange)="columnVisibilityChange()"></p-checkbox>
+                                        <label class="ml-2"> {{ col.header }}</label>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="4" onclick="checkGridColumn(4,this)" id="4"
-                                        class="cursor-pointer"><label for="4" class="cursor-pointer">Sex</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="5" onclick="checkGridColumn(5,this)" id="5"
-                                        class="cursor-pointer"><label for="5" class="cursor-pointer">Mobile No.</label>
-                                </div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="6" onclick="checkGridColumn(6,this)" id="6"
-                                        class="cursor-pointer"><label for="6" class="cursor-pointer">Email</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="7" onclick="checkGridColumn(7,this)" id="7"
-                                        class="cursor-pointer"><label for="7" class="cursor-pointer">Project Name</label></div>
-                                <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="8" onclick="checkGridColumn(8,this)" id="8"
-                                        class="cursor-pointer"><label for="8" class="cursor-pointer">State</label></div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="9" onclick="checkGridColumn(9,this)" id="9"
-                                        class="cursor-pointer"><label for="9" class="cursor-pointer">District</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="10" onclick="checkGridColumn(10,this)" id="10"
-                                        class="cursor-pointer"><label for="10" class="cursor-pointer">Address</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="11" onclick="checkGridColumn(11,this)" id="11"
-                                        class="cursor-pointer"><label for="11" class="cursor-pointer">Gram Panchayat</label>
-                                </div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="12" onclick="checkGridColumn(12,this)" id="12" checked="checked"
-                                        class="cursor-pointer"><label for="12" class="cursor-pointer">Village</label></div>
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                        data-value="13" onclick="checkGridColumn(13,this)" id="13"
-                                        class="cursor-pointer"><label for="13" class="cursor-pointer">Block</label>
-                                </div>
-                                <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                        disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
-                                        for="14" class="cursor-pointer">Action</label></div> -->
                             </div>
-                            <!-- <div id="dv_fcfiltercolumns">
-                                <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label
-                                    for="0" class="cursor-pointer">ID</label></div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    disabled="disabled" checked="checked" id="1" class="cursor-pointer"><label
-                                    for="1" class="cursor-pointer">First Name</label></div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="2" onclick="checkGridColumn(2,this)" id="2" checked="checked"
-                                    class="cursor-pointer"><label for="2" class="cursor-pointer">Last Name</label></div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="3" onclick="checkGridColumn(3,this)" id="3" checked="checked"
-                                    class="cursor-pointer"><label for="3" class="cursor-pointer">DOB</label>
-                            </div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="4" onclick="checkGridColumn(4,this)" id="4"
-                                    class="cursor-pointer"><label for="4" class="cursor-pointer">Sex</label></div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="5" onclick="checkGridColumn(5,this)" id="5"
-                                    class="cursor-pointer"><label for="5" class="cursor-pointer">Mobile No.</label>
-                            </div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="6" onclick="checkGridColumn(6,this)" id="6"
-                                    class="cursor-pointer"><label for="6" class="cursor-pointer">Email</label></div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="7" onclick="checkGridColumn(7,this)" id="7"
-                                    class="cursor-pointer"><label for="7" class="cursor-pointer">Project Name</label></div>
-                            <div class="col-sm-4 float-left  text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="8" onclick="checkGridColumn(8,this)" id="8"
-                                    class="cursor-pointer"><label for="8" class="cursor-pointer">State</label></div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="9" onclick="checkGridColumn(9,this)" id="9"
-                                    class="cursor-pointer"><label for="9" class="cursor-pointer">District</label>
-                            </div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="10" onclick="checkGridColumn(10,this)" id="10"
-                                    class="cursor-pointer"><label for="10" class="cursor-pointer">Address</label>
-                            </div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="11" onclick="checkGridColumn(11,this)" id="11"
-                                    class="cursor-pointer"><label for="11" class="cursor-pointer">Gram Panchayat</label>
-                            </div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="12" onclick="checkGridColumn(12,this)" id="12" checked="checked"
-                                    class="cursor-pointer"><label for="12" class="cursor-pointer">Village</label></div>
-                            <div class="col-sm-4 float-left text-overflow-ellipsis padding8"><input type="checkbox"
-                                    data-value="13" onclick="checkGridColumn(13,this)" id="13"
-                                    class="cursor-pointer"><label for="13" class="cursor-pointer">Block</label>
-                            </div>
-                            <div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox"
-                                    disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label
-                                    for="14" class="cursor-pointer">Action</label></div>
-                            </div> -->
 
 
                             <div class="clear-both"></div>
-                        </div>
 
 
-                        <div class="clear-both"></div>
-                    </div>
 
-                </div>
-            </div>
-
-            <div>
-                <div class="position-relative">
-                    <button type="button" id="btn_clear_filter" class="clear-filter-btn"><i
-                            class="fas fa-filter"></i>Clear
-                        Filters</button>
-                    <div class="page-filter">
-                        <select class="select-box-3 padding8">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="1250">Select All</option>
-
-                        </select>
-                    </div>
-                </div>
-
-                <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content">
-
-                    <ul role="tablist"
-                        class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-                        <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
-                            aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
-                            aria-expanded="true">
-                            <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All {{pageHead}}</a>
-                        </li>
-                        
-
-
-                    </ul>
-                    <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
-                        class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true" style="display:inline-block;">
-                        <div id="MappedGrid"></div>
-                        <div class="datatable-container">
-                            <!-- <p-progressSpinner *ngIf="loading"></p-progressSpinner> -->
-                            <p-table  #dt [value]="data" [paginator]="true"  [rows]="5" [responsiveLayout]="'scroll'" 
-                            [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
-                              <ng-template pTemplate="header">
-                                <tr>
-                                    <ng-container *ngFor="let col of cols">
-                                  <th *ngIf="col.visible"   [style.textAlign]="'center'" [style.width]="col.width">
-                                     {{ col.header }} 
-                                  </th>
-                                </ng-container>
-                                </tr>
-                              </ng-template>
-                              <ng-template pTemplate="body" let-rowData>
-                                <tr>
-                                    <ng-container *ngFor="let column of cols">
-                                  <td  *ngIf="column.visible"
-                                    [style.textAlign]="'center'"
-                                  >
-                                    <!-- Render the profile picture if column.field is 'profilePic' -->
-                                    <ng-container *ngIf="column.field === 'profilePicture'; else textCell">
-                                      <img
-                                        [src]="'data:image/png;base64,' + rowData[column.field]"
-                                        alt=""
-                                        style="width: 50px; height: 50px; border-radius: 50%;"
-                                      /> 
-                                    </ng-container>
-                                    <ng-template #textCell>
-                                      {{ rowData[column.field] }}
-                                    </ng-template>
-                                  </td>
-                                  </ng-container>
-                                </tr>
-                              </ng-template>
-                              <ng-template pTemplate="loadingBody">
-                                <tr>
-                                  <td [attr.colspan]="cols.length" style="text-align: center;">
-                                    <p-progressSpinner></p-progressSpinner>
-                                    <p>Loading data, please wait...</p>
-                                  </td>
-                                </tr>
-                              </ng-template>
-                              <!-- <ng-template pTemplate="body" let-rowData >
-                                <tr>
-                                  <td *ngFor="let col of cols" [style.width]="'24em'"  [style.textAlign]="'center'">
-                                    {{ rowData[col.field] }}
-                                  </td>
-                                </tr>
-                              </ng-template> -->
-                            </p-table>
-                          </div>
-                          
-                    </div>
-                    
-
-                </div>
-                <div class="clear-both-5"></div>
-
-
-            </div>
-
-
-        </div>
-
-        <div class="clear-both"></div>
-
-    </div>
-    <div class="clear-both"></div>
-    <div class="col-md-12">
-        <div class="clear-both-15"></div>
-    </div>
-    <div class="modal fade" id="dv_addSProjectOfficer" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                  
-                    <span>
-                    <h4 class="modal-title" style=" font-size: 18px">Add New {{this.pageHead}}</h4>
-                </span>
-                <span>
-                    <button type="button" class="close-button" data-dismiss="modal" >&times;</button>
-                    </span>
-                </div>
-                <div class="modal-body">
-                    <div class="">
-                        <div class="no-more-tables">
-                            <table class="col-sm-12 table-bordered table-condensed ">
-                                <colgroup>
-                                    <col style="background-color: rgb(243,243,243); width: 20%;" />
-                                    <col style="background-color: rgb(255,255,255); width: 30%;" />
-                                    <col style="background-color: rgb(243,243,243); width: 20%;" />
-                                    <col style="background-color: rgb(255,255,255); width: 30%;" />
-                                </colgroup>
-                                <tbody>
-                                    <tr><td class="section-heading" colspan="4">Personal Details</td></tr>
-                                    <tr>
-                                        <td>
-                                           ID <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100" disabled="disabled" value="PRO-0001" />
-                                        </td>
-                                        <td>
-                                           EMP ID 
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100" />
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            First Name <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Middle Name
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        
-                                        <td>
-                                            Last Name
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td> 
-                                            DOB <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="date" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td> 
-                                            Sex <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="radio" id="" name="gender" /> Male <input type="radio" id="" name="gender" /> Female<input type="radio" id="" name="gender" /> Transgender
-                                        </td>
-                                        <td>
-                                           Profile Photo 
-                                        </td>
-                                        <td>
-                                            <input type="file" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Email ID
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Mobile Number <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr><td class="section-heading" colspan="4">Address Details</td></tr>
-                                    <tr>
-                                        <td>
-                                            State <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <select class="select-box-3 width100">
-                                                <option>Jharkhand</option>
-                                                <option>Bihar</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            District <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <select class="select-box-3 width100">
-                                                <option>One</option>
-                                                <option>Two</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Block <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <select class="select-box-3 width100">
-                                                <option>One</option>
-                                                <option>Two</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            Village
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Gram Panchayat
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Pin Code
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            Address
-    
-                                        </td>
-                                        <td colspan="3">
-                                            <textarea type="text" id="" class="input-box-3 width100 "></textarea>
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr><td class="section-heading" colspan="4">Bank Details</td></tr>
-                                    <tr>
-                                        <td>
-                                            Account Holder Name <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Account No. <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Bank Name <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            IFSC Code <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Bank Branch <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Upload Bank Cancelled Cheque/Passbook (Scanned Copy)
-    
-                                        </td>
-                                        <td>
-                                            <input type="file" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr><td class="section-heading" colspan="4">Identification Details</td></tr>
-                                    <tr>
-                                        <td>
-                                           PAN Card No.
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Upload PAN Card (Scanned Copy)
-    
-                                        </td>
-                                        <td>
-                                            <input type="file" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                           Adhaar Card No. <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
-                                        </td>
-                                        <td>
-                                            Upload Adhaar Card (Scanned Copy) <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="file" id="" class="input-box-3 width100 " />
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td colspan="4" class="text-align-center back-white" align="center">
-                                            <input type="button" value="Save" class="btn-blck1" />
-                                        </td>
-    
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
-    
+
+                    <div>
+                        <div class="position-relative">
+                            <button type="button" id="btn_clear_filter" class="clear-filter-btn">
+                                <i class="fas fa-filter"></i>Clear Filters
+                            </button>
+                            <div class="page-filter">
+                                <select class="select-box-3 padding8">
+                                    <option value="10">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    <option value="200">200</option>
+                                    <option value="1250">Select All</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content"
+                            style="margin-top: 10px;">
+
+                            <ul role="tablist"
+                                class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+                                <li role="tab" tabindex="0"
+                                    class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
+                                    aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
+                                    aria-expanded="true">
+                                    <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">All
+                                        {{pageHead}}</a>
+                                </li>
+
+
+
+                            </ul>
+                            <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
+                                class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true"
+                                style="display:inline-block;">
+                                <div id="MappedGrid"></div>
+                                <div class="datatable-container">
+
+                                    <p-table #dt [value]="filteredData" [paginator]="true" [rows]="5"
+                                        [responsiveLayout]="'scroll'" [globalFilterFields]="globalFilterFields"
+                                        [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <ng-container *ngFor="let col of cols">
+                                                    <th *ngIf="col.visible" [style.textAlign]="'center'"
+                                                        [style.width]="col.width" [pSortableColumn]="col.field">
+                                                        {{ col.header }}
+                                                        <!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
+                                                    </th>
+                                                </ng-container>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData>
+                                            <tr>
+                                                <ng-container *ngFor="let column of cols">
+                                                    <td *ngIf="column.visible" [style.textAlign]="'center'">
+                                                        <!-- Render the profile picture if column.field is 'profilePic' -->
+                                                        <ng-container
+                                                            *ngIf="column.field === 'profilePicture'; else textCell">
+                                                            <img [src]="'data:image/png;base64,' + rowData[column.field]"
+                                                                alt=""
+                                                                style="width: 50px; height: 50px; border-radius: 50%;" />
+                                                        </ng-container>
+                                                        <ng-template #textCell>
+                                                            {{ rowData[column.field] }}
+                                                        </ng-template>
+                                                    </td>
+                                                </ng-container>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="loadingBody">
+                                            <tr>
+                                                <td [attr.colspan]="cols.length" style="text-align: center;">
+                                                    <p-progressSpinner></p-progressSpinner>
+                                                    <p>Loading data, please wait...</p>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+
+                                    </p-table>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="clear-both-5"></div>
+
+
+                    </div>
                 </div>
-                <div class="clear-both-5"></div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="dv_assignProject" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-    
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Assign Project</h4>
+                <div class="clear-both"></div>
+                <div class="col-md-12">
+                    <div class="clear-both-15"></div>
                 </div>
-                <div class="modal-body">
-                    <div class="">
-                        <div class="no-more-tables">
-                            <table class="col-sm-12 table-bordered table-condensed ">
-                                <colgroup>
-                                    <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                    <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                    <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                    <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                </colgroup>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            Project Name <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <select class="select-box-3 width100">
-                                                <option disabled="disabled">--select project--</option>
-                                                <option>Krisarthak</option>
-                                                <option>MeraApp</option>
-                                                <option>SoochnaPreneurs</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            Project Code <span>*</span>
-    
-                                        </td>
-                                        <td>
-                                            <input type="text" id="" class="input-box-3 width100 " disabled="disabled" />
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                </tbody>
-                            </table>
-                            <table class="col-sm-12 table-bordered table-condensed ">
-                                        <colgroup>
-                                            <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                            <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                            <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                            <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                            
-                                        </colgroup>
-                                    <tr><td colspan="4" class="text-align-center font-weight-bold">Select Project Officer and Project Location</td></tr>
-                                    <tr>
-                                        <td>Select Project Officer <span>*</span></td>
-                                        <td colspan="3">
-                                            <table class="col-sm-12 table-bordered table-condensed ">
-                                        <colgroup>
-                                            <col style="background-color: rgb(243,243,243); width: 50%;" />
-                                            <col style="background-color: rgb(255,255,255); width: 50%;" />
-                                            
-                                        </colgroup>
-                                                
+                <div class="modal fade" id="dv_addSProjectOfficer" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <span>
+                                    <h4 class="modal-title" style=" font-size: 18px">Add New {{this.pageHead}}</h4>
+                                </span>
+                                <span>
+                                    <button type="button" class="close-button" data-dismiss="modal">&times;</button>
+                                </span>
+                            </div>
+                            <div class="modal-body">
+                                <div class="">
+                                    <div class="no-more-tables">
+                                        <table class="col-sm-12 table-bordered table-condensed ">
+                                            <colgroup>
+                                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="section-heading" colspan="4">Personal Details</td>
+                                                </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="listBlock">	
-                                                            
-                                                            <ul id="sortable1" class='droptrue'>
-                                                                <li id="article_1">Amit Kumar</li>
-                                                                <li id="article_2">Irfan Khan</li>
-                                                                <li id="article_3">Danish Anwar</li>
-                                                            </ul>
-                                                        </div>
+                                                        ID <span>*</span>
+
                                                     </td>
-                                                    
-                                                    <td>					
-                                                        <div class="listBlock">                  
-                                                            <ul id="sortable2" class='droptrue'></ul>
-                                                        </div>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100"
+                                                            disabled="disabled" value="PRO-0001" />
                                                     </td>
+                                                    <td>
+                                                        EMP ID
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100" />
+                                                    </td>
+
                                                 </tr>
-                                            </table>
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>Select State <span>*</span></td>
-                                        <td colspan="3">
-                                            <table class="col-sm-12 table-bordered table-condensed ">
-                                        <colgroup>
-                                            <col style="background-color: rgb(243,243,243); width: 50%;" />
-                                            <col style="background-color: rgb(255,255,255); width: 50%;" />
-                                            
-                                        </colgroup>
-                                                
                                                 <tr>
                                                     <td>
-                                                        <div class="listBlock">	
-                                                            
-                                                            <ul id="sortable1" class='droptrue'>
-                                                                <li id="article_1">Jharkhand</li>
-                                                                <li id="article_2">Bihar</li>
-                                                                <li id="article_3">Assam</li>
-                                                            </ul>
-                                                        </div>
+                                                        First Name <span>*</span>
+
                                                     </td>
-                                                    
-                                                    <td>					
-                                                        <div class="listBlock">                  
-                                                            <ul id="sortable2" class='droptrue'></ul>
-                                                        </div>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Middle Name
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
                                                     </td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>Select District <span>*</span></td>
-                                        <td colspan="3">
-                                            <table class="col-sm-12 table-bordered table-condensed ">
-                                        <colgroup>
-                                            <col style="background-color: rgb(243,243,243); width: 50%;" />
-                                            <col style="background-color: rgb(255,255,255); width: 50%;" />
-                                            
-                                        </colgroup>
+                                                <tr>
+
+                                                    <td>
+                                                        Last Name
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        DOB <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="date" id="" class="input-box-3 width100 " />
+                                                    </td>
+
+                                                </tr>
                                                 <tr>
                                                     <td>
-                                                        <div class="listBlock">	
-                                                            
-                                                            <ul id="sortable1" class='droptrue'>
-                                                                <li id="article_1">Jahanabad</li>
-                                                                <li id="article_2">Aara</li>
-                                                                <li id="article_3">Nagaon</li>
-                                                            </ul>
-                                                        </div>
+                                                        Sex <span>*</span>
+
                                                     </td>
-                                                    
-                                                    <td>					
-                                                        <div class="listBlock">                  
-                                                            <ul id="sortable2" class='droptrue'></ul>
-                                                        </div>
+                                                    <td>
+                                                        <input type="radio" id="" name="gender" /> Male <input
+                                                            type="radio" id="" name="gender" /> Female<input
+                                                            type="radio" id="" name="gender" /> Transgender
+                                                    </td>
+                                                    <td>
+                                                        Profile Photo
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" id="" class="input-box-3 width100 " />
                                                     </td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td>Select Block <span>*</span></td>
-                                        <td colspan="3">
-                                            <table class="col-sm-12 table-bordered table-condensed ">
-                                                <colgroup>
-                                                    <col style="background-color: rgb(243,243,243); width: 50%;" />
-                                                    <col style="background-color: rgb(255,255,255); width: 50%;" />
-                                                    
-                                                </colgroup>
                                                 <tr>
                                                     <td>
-                                                        <div class="listBlock">	
-                                                            
-                                                            <ul id="sortable1" class='droptrue'>
-                                                                <li id="article_1">Jahanabad</li>
-                                                                <li id="article_2">Aara</li>
-                                                                <li id="article_3">Nagaon</li>
-                                                            </ul>
-                                                        </div>
+                                                        Email ID
+
                                                     </td>
-                                                    
-                                                    <td>					
-                                                        <div class="listBlock">                  
-                                                            <ul id="sortable2" class='droptrue'></ul>
-                                                        </div>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Mobile Number <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="section-heading" colspan="4">Address Details</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        State <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <select class="select-box-3 width100">
+                                                            <option>Jharkhand</option>
+                                                            <option>Bihar</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        District <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <select class="select-box-3 width100">
+                                                            <option>One</option>
+                                                            <option>Two</option>
+                                                        </select>
                                                     </td>
                                                 </tr>
-                                            </table>
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td colspan="4" class="text-align-center back-white" align="center">
-                                            <input type="button" value="Assign Project" class="btn-blck1" />
-                                        </td>
-    
-                                    </tr>
-                               
-                            </table>
+                                                <tr>
+                                                    <td>
+                                                        Block <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <select class="select-box-3 width100">
+                                                            <option>One</option>
+                                                            <option>Two</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        Village
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Gram Panchayat
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Pin Code
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Address
+
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <textarea type="text" id=""
+                                                            class="input-box-3 width100 "></textarea>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td class="section-heading" colspan="4">Bank Details</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Account Holder Name <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Account No. <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Bank Name <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        IFSC Code <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Bank Branch <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Upload Bank Cancelled Cheque/Passbook (Scanned Copy)
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="section-heading" colspan="4">Identification Details</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        PAN Card No.
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Upload PAN Card (Scanned Copy)
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Adhaar Card No. <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                    <td>
+                                                        Upload Adhaar Card (Scanned Copy) <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="file" id="" class="input-box-3 width100 " />
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="4" class="text-align-center back-white" align="center">
+                                                        <input type="button" value="Save" class="btn-blck1" />
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear-both-5"></div>
                         </div>
                     </div>
-    
                 </div>
-                <div class="clear-both-5"></div>
+                <div class="modal fade" id="dv_assignProject" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Assign Project</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="">
+                                    <div class="no-more-tables">
+                                        <table class="col-sm-12 table-bordered table-condensed ">
+                                            <colgroup>
+                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
+                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Project Name <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <select class="select-box-3 width100">
+                                                            <option disabled="disabled">--select project--</option>
+                                                            <option>Krisarthak</option>
+                                                            <option>MeraApp</option>
+                                                            <option>SoochnaPreneurs</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        Project Code <span>*</span>
+
+                                                    </td>
+                                                    <td>
+                                                        <input type="text" id="" class="input-box-3 width100 "
+                                                            disabled="disabled" />
+                                                    </td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <table class="col-sm-12 table-bordered table-condensed ">
+                                            <colgroup>
+                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
+                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
+                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
+
+                                            </colgroup>
+                                            <tr>
+                                                <td colspan="4" class="text-align-center font-weight-bold">Select
+                                                    Project
+                                                    Officer and Project Location</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Select Project Officer <span>*</span></td>
+                                                <td colspan="3">
+                                                    <table class="col-sm-12 table-bordered table-condensed ">
+                                                        <colgroup>
+                                                            <col
+                                                                style="background-color: rgb(243,243,243); width: 50%;" />
+                                                            <col
+                                                                style="background-color: rgb(255,255,255); width: 50%;" />
+
+                                                        </colgroup>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="listBlock">
+
+                                                                    <ul id="sortable1" class='droptrue'>
+                                                                        <li id="article_1">Amit Kumar</li>
+                                                                        <li id="article_2">Irfan Khan</li>
+                                                                        <li id="article_3">Danish Anwar</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="listBlock">
+                                                                    <ul id="sortable2" class='droptrue'></ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Select State <span>*</span></td>
+                                                <td colspan="3">
+                                                    <table class="col-sm-12 table-bordered table-condensed ">
+                                                        <colgroup>
+                                                            <col
+                                                                style="background-color: rgb(243,243,243); width: 50%;" />
+                                                            <col
+                                                                style="background-color: rgb(255,255,255); width: 50%;" />
+
+                                                        </colgroup>
+
+                                                        <tr>
+                                                            <td>
+                                                                <div class="listBlock">
+
+                                                                    <ul id="sortable1" class='droptrue'>
+                                                                        <li id="article_1">Jharkhand</li>
+                                                                        <li id="article_2">Bihar</li>
+                                                                        <li id="article_3">Assam</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="listBlock">
+                                                                    <ul id="sortable2" class='droptrue'></ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Select District <span>*</span></td>
+                                                <td colspan="3">
+                                                    <table class="col-sm-12 table-bordered table-condensed ">
+                                                        <colgroup>
+                                                            <col
+                                                                style="background-color: rgb(243,243,243); width: 50%;" />
+                                                            <col
+                                                                style="background-color: rgb(255,255,255); width: 50%;" />
+
+                                                        </colgroup>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="listBlock">
+
+                                                                    <ul id="sortable1" class='droptrue'>
+                                                                        <li id="article_1">Jahanabad</li>
+                                                                        <li id="article_2">Aara</li>
+                                                                        <li id="article_3">Nagaon</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="listBlock">
+                                                                    <ul id="sortable2" class='droptrue'></ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Select Block <span>*</span></td>
+                                                <td colspan="3">
+                                                    <table class="col-sm-12 table-bordered table-condensed ">
+                                                        <colgroup>
+                                                            <col
+                                                                style="background-color: rgb(243,243,243); width: 50%;" />
+                                                            <col
+                                                                style="background-color: rgb(255,255,255); width: 50%;" />
+
+                                                        </colgroup>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="listBlock">
+
+                                                                    <ul id="sortable1" class='droptrue'>
+                                                                        <li id="article_1">Jahanabad</li>
+                                                                        <li id="article_2">Aara</li>
+                                                                        <li id="article_3">Nagaon</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="listBlock">
+                                                                    <ul id="sortable2" class='droptrue'></ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <td colspan="4" class="text-align-center back-white" align="center">
+                                                    <input type="button" value="Assign Project" class="btn-blck1" />
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clear-both-5"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear-both-15">&nbsp;</div>
             </div>
-        </div>
-    </div>
-    <div class="clear-both-15">&nbsp;</div>
-</div>
