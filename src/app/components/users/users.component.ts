@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
   data: any[] = [];
   cols: any[] = []; // Table columns
+  filteredData: any[] = []; // Data to display in the grid
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
   pageHead:string='Project Officer Master';
@@ -32,12 +33,15 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
+  filters: { [key: string]: string } = {}; // Stores filter values
+  showFilterModal = false; // Controls filter modal visibility
+  
 
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
-
-
-  
+  loading: boolean = true; // Set initial loading state
+  showColumnModal = false; // Modal visibility control
+  filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
   constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
 
   ngOnInit(): void {
@@ -54,23 +58,23 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
       //   }, type: "text"
       // },
-      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all"},//profilePictur
-        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all"},//profilePicture
+      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePictur
+        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePicture
      
-      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all" },
-      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all" },
-      { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all"},
-      { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all"},
-      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" },
-      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" },
-      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all" },
-      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all" },
-      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" },
+      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true },
+      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true },
+      { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all", visible: true, search:false},
+      { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true, search:true },
+      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" ,visible: true, search:true },
+      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" ,visible: true, search:true },
+      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" ,visible: true , search:true},
+      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all" ,visible: true, search:true },
+      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
 
     ];
         // Listen to the route to determine which dataset to load
@@ -99,16 +103,29 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     this.serviceApi.fetchUserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId, this.dataKey).subscribe({
       next: (response) => {
         this.data = response; // Populate the grid with fetched data
+        this.filteredData = [...this.data]; // Clone the full data initially
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
-        //  this.cols = Object.keys(this.data[0]).map((key) => ({
-        //     field: key,
-        //     header: this.capitalizeFirstLetter(key),
-        //   }));
+         this.cols = Object.keys(this.data[0]).map((key) => ({
+            field: key,
+            header: this.capitalizeFirstLetter(key),
+            visible: this.checkVisible(key),
+            width: '100px' ,
+            search: this.searchable(key)
+          }));
 
            // Set fields for global filtering
-          //this.globalFilterFields = Object.keys(this.data[0]);
+          this.globalFilterFields = Object.keys(this.filteredData[0]);
           this.globalFilterFields=this.cols;
+          this.loading = false; // Turn off loading once data is fetched
+          console.log(this.cols);
+          // Initialize filters for each column
+          this.cols.forEach((col) => {
+            if (!this.filteredCols.includes(col.field))
+              if(this.checkVisible(col.field))
+                this.filters[col.field] = '';
+          });
+         
         }
       },
       error: (err) => {
@@ -117,6 +134,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       }
     });
   }
+
   ngAfterViewInit(): void {
     console.log('AfterViewInit');
     //this.inituserDetailsGrid();
@@ -242,12 +260,75 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     
   }
   onGlobalFilter(event: Event) {
+    
     const inputValue = (event.target as HTMLInputElement).value; // Cast to HTMLInputElement
+    console.log('inputValue ' + inputValue);
     this.dt?.filterGlobal(inputValue, 'contains');
   }
     // Utility function to format headers
     capitalizeFirstLetter(str: string): string {
-      return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
+      // if (str=='profilePicture') 
+      //   return '';
+      // else
+        return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
     }
+    toggleColumn(column: any) {
+      column.visible = !column.visible; // Update visibility
+    }
+    columnVisibilityChange() {
+      // This method is triggered whenever a checkbox is checked/unchecked
+      console.log('Columns updated:', this.cols);
+    }
+    checkVisible(key: string): any {
+      console.log(key);
+      if (this.filteredCols.includes(key)) {
+        return false;
+    }
+      else 
+        return true;
+    }
+
+    searchable(key: string): any {
+      
+      if (this.filteredCols.includes(key)) {
+        return false;
+    }
+      else if (key == 'profilePicture')
+      {
+        return false;
+      }
+      else
+        return true;
+    }
+
+    applyFilter() {
+      console.log('Apply Filter');
+      // Always start with the original data
+    this.filteredData = [...this.data];
+
+    // Apply filters
+    for (const key in this.filters) {
+      if (this.filters[key]) {
+        this.filteredData = this.filteredData.filter((item) =>
+          item[key]
+            ?.toString()
+            .toLowerCase()
+            .includes(this.filters[key].toLowerCase())
+        );
+      }
+    }
+    // If no filters are applied, show the full data
+    if (Object.values(this.filters).every((value) => value === '')) {
+      this.filteredData = [...this.data];
+    }
+      this.openFilter();
+    }
+    // Reset filters
+  resetFilters() {
+    this.filters = {}; // Clear filter values
+    this.filteredData = [...this.data]; // Reset to full data
+  }
 }
+
+
 
