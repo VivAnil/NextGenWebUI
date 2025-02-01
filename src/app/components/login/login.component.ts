@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { AuthService } from 'src/app/services/auth.service';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { RolemasterService } from '../../services/rolemaster.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
-    private router: Router
+    private router: Router,
+    private roleMasterSvc: RolemasterService
   ) 
   { }
 
@@ -64,7 +66,19 @@ export class LoginComponent implements OnInit {
       }
       
   }
-
+  /*
+  customRoleDefn => {
+              if (customRoleDefn === null) {
+                this.error = "block";
+                ValidateForm.validateForm(this.loginForm);
+              }
+              else {
+                console.log('RoleId:', this.roleId);
+                this.error = "none";
+                this.router.navigate(['organisation/' + this.roleId]);
+              }
+            }
+   */
   onLogin(){
     if(this.loginForm.valid)
       {
@@ -74,17 +88,26 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleId) => {
           this.roleId = roleId;
-          if (roleId === -1) {
-            //  alert('An error occurred during authentication.');
-            // Show an error message if login fails
-            this.error = "block";
-            ValidateForm.validateForm(this.loginForm);
-          } else {
-            console.log('RoleId:', this.roleId);
-            this.error = "none";
-            this.router.navigate(['organisation/' + this.roleId]);
-          }
-
+          this.roleMasterSvc.getCustomRoleDefinitionForCompany(this.roleId).subscribe({
+            next: (roleDefn) => {
+              // Now roleDefn is the result from the observable
+              let customRoleDefn = roleDefn;  // You can assign roleDefn to customRoleDefn
+              console.log('Custom Role Definition:', customRoleDefn);
+              // Now you can proceed with the logic using customRoleDefn
+              if (customRoleDefn === null) {
+                this.error = "block";
+                ValidateForm.validateForm(this.loginForm);
+              } else {
+                this.error = "none";
+                this.router.navigate(['organisation', this.roleId]);
+              }
+            },
+            error: (error) => {
+              console.error('Error fetching custom role definition:', error);
+              this.error = "block";
+              ValidateForm.validateForm(this.loginForm);
+            }
+          });
         },
         error: () => {
           this.loginForm.reset();

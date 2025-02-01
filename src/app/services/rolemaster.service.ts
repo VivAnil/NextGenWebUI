@@ -45,11 +45,10 @@ export class RolemasterService {
   }
 
   getCustomRoleDefinitionForCompany(companyRoleId: number): Observable<any> {
-    if (this.userRoleSettings !== null) {
+    if (this.userRoleSettings === null) {
       return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
         map((response: any) => {
           // Assuming a roleId exists on successful authentication
-
           this.userRoleSettings = response;
         }),
         catchError((error) => {
@@ -60,7 +59,7 @@ export class RolemasterService {
         })
       );
     }
-    return this.userRoleSettings;
+    return of(this.userRoleSettings);
   }
 
   getCustomRoleForCompany( companyId:number): Observable<any[]> {
