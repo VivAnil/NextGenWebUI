@@ -4,8 +4,8 @@
         <div class="heading-title">{{this.pageHead}} Master</div>
         <div class="clear-both-20"></div>
         <div class="float-right">
-            <div class="float-left" style="margin-top: 5px;">
-                <button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none">
+            <div class="float-left" style="margin-top: 4px;">
+                <button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none" (click)="exportToExcel()">
                     <i class="fa fa-file-excel-o file-icon" style="font-size: 30px;" aria-hidden="true"></i>
                 </button>
 
@@ -109,7 +109,7 @@
                                 <!-- <p-dialog [(visible)]="showColumnModal" header="Filter Columns" [modal]="true" [closable]="true" [dismissableMask]="true"> -->
                                 <div *ngIf="cols">
                                     <ng-container *ngFor="let col of cols; let i = index">
-                                        <div *ngIf="col.visible">
+                                        <div *ngIf="col.showInGrid">
                                             <div class="col-sm-4 float-left text-overflow-ellipsis padding8">
 
                                                 <p-checkbox class="cursor-pointer" [(ngModel)]="col.visible"

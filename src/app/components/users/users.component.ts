@@ -4,6 +4,9 @@ import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table'; // Import PrimeNG Table reference
 import { style } from '@angular/animations';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-users',
@@ -58,11 +61,11 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
       //   }, type: "text"
       // },
-      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePictur
-        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePicture
+      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
+        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
      
-      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true },
-      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true },
+      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true, showInGrid:true },
+      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true, showInGrid:true },
       { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all", visible: true, search:false},
       { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true, search:true },
       { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
@@ -111,7 +114,8 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
             header: this.capitalizeFirstLetter(key),
             visible: this.checkVisible(key),
             width: '100px' ,
-            search: this.searchable(key)
+            search: this.searchable(key),
+            showInGrid:this.checkVisible(key)
           }));
 
            // Set fields for global filtering
@@ -327,6 +331,26 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   resetFilters() {
     this.filters = {}; // Clear filter values
     this.filteredData = [...this.data]; // Reset to full data
+  }
+
+  exportToExcel() {
+    // Convert data to worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
+
+    // Create a new workbook and append the worksheet
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'GridData');
+
+    // Generate an Excel file and trigger download
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'GridData');
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+    saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
   }
 }
 
