@@ -1,12 +1,15 @@
 import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table'; // Import PrimeNG Table reference
 import { style } from '@angular/animations';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
+import {SexOption} from '../../models/master.model';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-users',
@@ -38,14 +41,46 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   isColumnOpen: boolean=false;
   filters: { [key: string]: string } = {}; // Stores filter values
   showFilterModal = false; // Controls filter modal visibility
-  
-
+  addUser: string = 'dv_addSProjectOfficer';
+  private genders: SexOption[] = [];
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
+  
+  sexOptions: { id: number; name: string }[] = [];
+  formData = {
+    Id: '',
+    ProfilePicture: '',
+    FirstName:'',
+    MiddleName:'',
+    LastName:'',
+    DOB:'',
+    Sex:'',
+    Mobile:'',
+    Email:'',
+    ProjectName:'',
+    StateId:'',
+    DistrictId:'',
+    BlockId:'',
+    Village:'',
+    GramPanchayat:'',
+    PinCode:'',
+    Address:'',
+    AccountHolderName:'',
+    AccountNo: '',
+    BankName: '',
+    IFSCCode: '',
+    BankBranch: '',
+    CancelledCheque: '',
+    PAN:'',
+    PANImage: '',
+    Aadhar:'',
+    AadharImage: ''
+};
+
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -257,9 +292,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
 
     
   }
-  addProjectOficer(){
 
-  }
   assignProject(){
     
   }
@@ -352,6 +385,40 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     });
     saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
   }
+
+  loadModal(modalId: string) {
+    const modalButton = document.getElementById('btn_openModal');
+    if (modalButton) {
+      this.fetchMasterData();
+      modalButton.setAttribute('data-bs-target', `#${modalId}`);
+      modalButton.click(); // Programmatically trigger the button to open the modal
+    }
+  }
+
+    // Form submission logic
+    submitForm() {
+      if (!this.formData.FirstName || !this.formData.LastName) {
+        return; // Prevent submission if mandatory fields are empty
+      }
+  
+      const payload = {
+        ...this.formData
+      };
+  
+      // Handle form submission logic (e.g., post to an API)
+      console.log('Submitting form data:', payload);
+    }
+
+    fetchMasterData() {
+      this.http.get<SexOption[]>('https://api.example.com/sexOptions').subscribe(
+        (response: SexOption []) => {
+          this.sexOptions = response;
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Failed to fetch sex options', error);
+        }
+      );
+    }
 }
 
 

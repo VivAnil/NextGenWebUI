@@ -11,10 +11,10 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addSProjectOfficer"
-                    id="btn_newProjectOfficer" (click)="addProjectOficer();">
+                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="" id="btn_openModal" (click)="loadModal(this.dataKey);"> 
                     + New {{this.pageHead}}
                 </button>
+             
                 <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject"
                     id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
@@ -216,19 +216,20 @@
                 <div class="col-md-12">
                     <div class="clear-both-15"></div>
                 </div>
-                <div class="modal fade" id="dv_addSProjectOfficer" role="dialog">
+                <div class="modal fade" id="pc" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
 
-                                <span>
-                                    <h4 class="modal-title" style=" font-size: 18px">Add New {{this.pageHead}}</h4>
+                                <span style=" font-size: 18px; letter-spacing: normal; margin-bottom: 16px; color: #fff;">
+                                   Add New {{this.pageHead}}
                                 </span>
                                 <span>
-                                    <button type="button" class="close-button" data-dismiss="modal">&times;</button>
+                                    <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" >&times;</button>
                                 </span>
                             </div>
                             <div class="modal-body">
+                                <form (ngSubmit)="submitForm()" #userForm="ngForm">
                                 <div class="">
                                     <div class="no-more-tables">
                                         <table class="col-sm-12 table-bordered table-condensed ">
@@ -242,66 +243,62 @@
                                                 <tr>
                                                     <td class="section-heading" colspan="4">Personal Details</td>
                                                 </tr>
-                                                <tr>
+                                                <tr style="margin-top: 5px;">
                                                     <td>
-                                                        ID <span>*</span>
+                                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
 
                                                     </td>
                                                     <td>
-                                                        <input type="text" id="" class="input-box-3 width100"
-                                                            disabled="disabled" value="PRO-0001" />
-                                                    </td>
-                                                    <td>
-                                                        EMP ID
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100" />
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        First Name <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                        <input type="text" id="firstName" class="input-box-3 width100" [(ngModel)]="formData.FirstName"  name="firstName" required />
+                                                        <div *ngIf="userForm.submitted && !formData.FirstName" class="text-danger">
+                                                            First Name is required.
+                                                          </div>
                                                     </td>
                                                     <td>
                                                         Middle Name
 
                                                     </td>
                                                     <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                        <input type="text" id="middleName" class="input-box-3 width100 " />
                                                     </td>
                                                 </tr>
                                                 <tr>
 
                                                     <td>
-                                                        Last Name
+                                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
 
                                                     </td>
                                                     <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
+                                                        <input type="text" id="lastName" class="input-box-3 width100" [(ngModel)]="formData.LastName"  name="lastName" required />
+                                                        <div *ngIf="userForm.submitted && !formData.LastName" class="text-danger">
+                                                            Last Name is required.
+                                                          </div>
                                                     </td>
                                                     <td>
                                                         DOB <span>*</span>
 
                                                     </td>
                                                     <td>
-                                                        <input type="date" id="" class="input-box-3 width100 " />
+                                                        <input type="date" id="dob" class="input-box-3 width100 " />
                                                     </td>
 
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        Sex <span>*</span>
+                                                        <label class="form-label">Sex*</label>
 
                                                     </td>
                                                     <td>
-                                                        <input type="radio" id="" name="gender" /> Male <input
-                                                            type="radio" id="" name="gender" /> Female<input
-                                                            type="radio" id="" name="gender" /> Transgender
+                                                        <div *ngFor="let sex of sexOptions">
+                                                            <input
+                                                              type="radio"
+                                                              [id]="'sex_' + sex.id"
+                                                              name="sex"
+                                                              [(ngModel)]="formData.Sex"
+                                                              [value]="sex.id"
+                                                            />
+                                                            <label [for]="'sex_' + sex.id">{{ sex.name }}</label>
+                                                          </div>
                                                     </td>
                                                     <td>
                                                         Profile Photo
@@ -488,7 +485,7 @@
 
                                                 <tr>
                                                     <td colspan="4" class="text-align-center back-white" align="center">
-                                                        <input type="button" value="Save" class="btn-blck1" />
+                                                        <button type="submit"  class="btn-blck1">Save</button> 
                                                     </td>
 
                                                 </tr>
@@ -496,7 +493,7 @@
                                         </table>
                                     </div>
                                 </div>
-
+                                </form>
                             </div>
                             <div class="clear-both-5"></div>
                         </div>
@@ -712,4 +709,5 @@
                     </div>
                 </div>
                 <div class="clear-both-15">&nbsp;</div>
+                
             </div>
