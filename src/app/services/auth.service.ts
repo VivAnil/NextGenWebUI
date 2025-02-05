@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
 import { catchError, map, Observable, of } from 'rxjs';
-import { RolemasterService } from './rolemaster.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,9 +33,7 @@ export class AuthService {
     //const payload = { username, password };
 
     return this.http.post<any>(this.baseUrl, loginObj).pipe(
-      map((response: any) => {
-        // Assuming a roleId exists on successful authentication
-      }), // Extract the roleId from the response
+      // Extract the roleId from the response
       catchError((error) => {
         console.error('Error during authentication:', error);
         return of(-1); // Return -1 in case of an error
