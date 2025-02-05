@@ -1,9 +1,15 @@
 import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table'; // Import PrimeNG Table reference
 import { style } from '@angular/animations';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import {SexOption} from '../../models/master.model';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-users',
@@ -35,14 +41,46 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   isColumnOpen: boolean=false;
   filters: { [key: string]: string } = {}; // Stores filter values
   showFilterModal = false; // Controls filter modal visibility
-  
-
+  addUser: string = 'dv_addSProjectOfficer';
+  private genders: SexOption[] = [];
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService) { }
+  
+  sexOptions: { id: number; name: string }[] = [];
+  formData = {
+    Id: '',
+    ProfilePicture: '',
+    FirstName:'',
+    MiddleName:'',
+    LastName:'',
+    DOB:'',
+    Sex:'',
+    Mobile:'',
+    Email:'',
+    ProjectName:'',
+    StateId:'',
+    DistrictId:'',
+    BlockId:'',
+    Village:'',
+    GramPanchayat:'',
+    PinCode:'',
+    Address:'',
+    AccountHolderName:'',
+    AccountNo: '',
+    BankName: '',
+    IFSCCode: '',
+    BankBranch: '',
+    CancelledCheque: '',
+    PAN:'',
+    PANImage: '',
+    Aadhar:'',
+    AadharImage: ''
+};
+
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -58,11 +96,11 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
       //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
       //   }, type: "text"
       // },
-      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePictur
-        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:true},//profilePicture
+      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
+        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
      
-      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true },
-      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true },
+      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true, showInGrid:true },
+      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true, showInGrid:true },
       { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all", visible: true, search:false},
       { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true, search:true },
       { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
@@ -111,7 +149,8 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
             header: this.capitalizeFirstLetter(key),
             visible: this.checkVisible(key),
             width: '100px' ,
-            search: this.searchable(key)
+            search: this.searchable(key),
+            showInGrid:this.checkVisible(key)
           }));
 
            // Set fields for global filtering
@@ -253,9 +292,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
 
     
   }
-  addProjectOficer(){
 
-  }
   assignProject(){
     
   }
@@ -328,6 +365,60 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     this.filters = {}; // Clear filter values
     this.filteredData = [...this.data]; // Reset to full data
   }
+
+  exportToExcel() {
+    // Convert data to worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
+
+    // Create a new workbook and append the worksheet
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'GridData');
+
+    // Generate an Excel file and trigger download
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'GridData');
+  }
+
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+    saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
+  }
+
+  loadModal(modalId: string) {
+    const modalButton = document.getElementById('btn_openModal');
+    if (modalButton) {
+      this.fetchMasterData();
+      modalButton.setAttribute('data-bs-target', `#${modalId}`);
+      modalButton.click(); // Programmatically trigger the button to open the modal
+    }
+  }
+
+    // Form submission logic
+    submitForm() {
+      if (!this.formData.FirstName || !this.formData.LastName) {
+        return; // Prevent submission if mandatory fields are empty
+      }
+  
+      const payload = {
+        ...this.formData
+      };
+  
+      // Handle form submission logic (e.g., post to an API)
+      console.log('Submitting form data:', payload);
+    }
+
+    fetchMasterData() {
+      this.http.get<SexOption[]>('https://api.example.com/sexOptions').subscribe(
+        (response: SexOption []) => {
+          this.sexOptions = response;
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Failed to fetch sex options', error);
+        }
+      );
+    }
 }
 
 
