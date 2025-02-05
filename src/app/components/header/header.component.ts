@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RolemasterService } from '../../services/rolemaster.service';
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
   isProfileOpen: boolean=false;
   displayProfile: string='none';
   email:string ='abc@defindia.org';
-  constructor( private router: Router, private roleMasterService: RolemasterService) { }
+  constructor( private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit {
     else this.displayProfile='none';
   }
   logout() {
-    this.roleMasterService.logOut();
+    this.authService.logOut();
     this.router.navigate(['login']);
   }
 }

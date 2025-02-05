@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/service.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,8 @@ import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/s
 export class RolemasterService {
   private baseUrl: string = environment.baseRoleMasterApiUrl;
   private userRoleSettings: any = null;
-  constructor(private http: HttpClient) { }
-
-  logOut() {
-    this.userRoleSettings = null;
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.userRoleSettings = authService.userRoleSettings;
   }
 
   getSystemRoles(): Observable<SystemRole[]> {
