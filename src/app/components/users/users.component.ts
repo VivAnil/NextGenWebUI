@@ -80,6 +80,13 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     AadharImage: ''
 };
 
+states: any[] = [];
+districts: any[] = [];
+blocks: any[] = [];
+
+selectedState: number =0;
+selectedDistrict: number =0;
+selectedBlock: number | null = null;
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -410,15 +417,85 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     }
 
     fetchMasterData() {
-      this.http.get<SexOption[]>('https://api.example.com/sexOptions').subscribe(
+      this.http.get<SexOption[]>('https://motherappmasterapi.azurewebsites.net/api/Gender/GetAllGender').subscribe(
         (response: SexOption []) => {
+          console.log('response = ' + response);
           this.sexOptions = response;
+          console.log('SexOptions = ' + this.sexOptions);
+
+          this.getStates();
         },
         (error: HttpErrorResponse) => {
           console.error('Failed to fetch sex options', error);
         }
       );
     }
+    getStates() {
+      this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/State/GetAllStates').subscribe(
+        (response) => {
+          this.states = response;
+          if (this.states.length > 0) {
+            this.selectedState = this.states[0].id; // Select first state by default
+            console.log('this.selectedState = ' + this.selectedState);
+            if (this.selectedState > 0)
+              this.getDistricts(this.selectedState);
+          }
+        },
+        (error) => {
+          console.error('Error fetching states:', error.message);
+        }
+      );
+    }
+    // Fetch districts based on selected state
+  getDistricts(stateId: number) {
+    this.http.get<any[]>(`https://motherappmasterapi.azurewebsites.net/api/District/GetAllDistrictsByStateId?stateId=${stateId}`).subscribe(
+      (response) => {
+        this.districts = response;
+        this.selectedDistrict = 0; // Reset district dropdown
+        this.blocks = []; // Reset block dropdown
+        this.selectedDistrict = this.districts[0].id; // Select first state by default
+        console.log('this.selectedDistrict = ' + this.selectedDistrict);
+        if (this.districts.length > 0)
+        {
+          this.selectedDistrict = this.districts[0].id;
+          if (this.selectedDistrict > 0)
+            this.getBlocks(this.selectedDistrict);
+        }
+      },
+      (error) => {
+        console.error('Error fetching districts:', error.message);
+      }
+    );
+  }
+
+  // Fetch blocks based on selected district
+  getBlocks(districtId: number) {
+    this.http.get<any[]>(`https://motherappmasterapi.azurewebsites.net/api/Block/GetAllBlocksByDistrictId?districtId=${districtId}`).subscribe(
+      (response) => {
+        this.blocks = response;
+        this.selectedBlock = null; // Reset block dropdown
+        this.selectedBlock = this.blocks[0].id; // Select first state by default
+        console.log('this.selectedBlock = ' + this.selectedBlock);
+      },
+      (error) => {
+        console.error('Error fetching blocks:', error.message);
+      }
+    );
+  }
+
+   // On state selection change
+   onStateChange() {
+    if (this.selectedState) {
+      this.getDistricts(this.selectedState);
+    }
+  }
+
+  // On district selection change
+  onDistrictChange() {
+    if (this.selectedDistrict) {
+      this.getBlocks(this.selectedDistrict);
+    }
+  }
 }
 
 
