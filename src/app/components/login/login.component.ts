@@ -23,8 +23,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
-    private router: Router,
-    private roleMasterSvc: RolemasterService
+    private router: Router
   ) 
   { }
 
@@ -50,15 +49,20 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleDefn) => {
           this.roleId = roleDefn.systemRoleId;
+          //this.roleMasterSvc.userRoleSettings = roleDefn;
           if (this.roleId === -1) {
             //  alert('An error occurred during authentication.');
             // Show an error message if login fails
             this.error = "block";
             ValidateForm.validateForm(this.loginForm);
-          } else {
+          } else if (this.roleId === 1) {
             console.log('RoleId:', this.roleId);
             this.error = "none";
             this.router.navigate(['organisation/' + this.roleId]);
+          }
+          else {
+            this.error = "none";
+            this.router.navigate(['organisationadmin/' + roleDefn.companyId + "/" + roleDefn.companyRoleId]);
           }
 
         },

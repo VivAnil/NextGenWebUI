@@ -217,6 +217,7 @@ export class CompanyusermasterComponent implements OnInit {
                 //.on("click", () => this.onItemEditing(item.companyroleid))
                 .html("<i class='fa fa-edit' title='Edit User'></i>"))
               .append($("<button class='border-none' title='Delete User' type='button'>")
+                .attr("disabled", item.canDeleteCustomRole)
                 .on("click", () => this.deleteCustomRole(item.companyroleid))
                 .html("<i class='fa fa-trash' title='Delete User'></i>"));
           },
@@ -330,7 +331,8 @@ export class CompanyusermasterComponent implements OnInit {
         map(item => ({
           profilename: item.companyRoleName,
           systemusertype: item.systemRoleName,
-          companyroleid: item.companyRoleId
+          companyroleid: item.companyRoleId,
+          canDeleteCustomRole: item.canDeleteCustomRole
         }));
 
       this.masterRoleData = customRoles.filter(item => item.systemRoleName !== null)
