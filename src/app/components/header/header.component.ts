@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 
@@ -12,9 +12,14 @@ export class HeaderComponent implements OnInit {
   isProfileOpen: boolean=false;
   displayProfile: string='none';
   email:string ='abc@defindia.org';
-  constructor( private router: Router, private authService: AuthService) { }
+  roleId!: number;
+  constructor( private router: Router, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      this.roleId = +params['roleid'];
+     console.log('roleid ' + this.roleId);
+    });
   }
   openProfile() {
     this.isProfileOpen = !this.isProfileOpen;
@@ -24,5 +29,8 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logOut();
     this.router.navigate(['login']);
+  }
+  resetPassword(){
+    this.router.navigate(['resetpassword']);
   }
 }

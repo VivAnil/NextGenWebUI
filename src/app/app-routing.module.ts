@@ -17,6 +17,7 @@ import { AllprojectsComponent } from './components/allprojects/allprojects.compo
 import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
 import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
 import { UsersComponent } from './components/users/users.component';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 
 const routes: Routes = [
   
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'organisation/:roleid',
     component: OrganisationComponent
   },
+  {path:'resetpassword/:companyid/:roleid', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
   {
     path: '',
     component:LayoutComponent,
@@ -47,6 +49,7 @@ const routes: Routes = [
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
+      
     ]
   },
       {path: 'project', component: ProjectComponent},

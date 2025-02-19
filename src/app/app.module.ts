@@ -35,6 +35,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +58,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     PaymentreportComponent,
     EditcompanyComponent,
     AllprojectsComponent,
-    UsersComponent
+    UsersComponent,
+    ResetpasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -10,4 +10,5 @@ export const environment = {
      benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',
   companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster',
   userdetailsApiUrl:'https://motherappuserapi.azurewebsites.net/user/',
+  resetPasswordUrl: 'https://motherappuserapi.azurewebsites.net/User/ResetPassword'
 };
