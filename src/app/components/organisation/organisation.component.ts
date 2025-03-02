@@ -4,7 +4,6 @@ import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
-import { AuthService } from 'src/app/services/auth.service';
 import { CompanyService, CompanyDashboard } from 'src/app/services/company.service';  
 
 
@@ -26,11 +25,11 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
   companyForm!: FormGroup;
   constructor(
     private router: Router,
-    private authService: AuthService, 
     private fb: FormBuilder,
     private companyService: CompanyService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
   
   
   // // Hardcoded labels and data  
@@ -186,54 +185,41 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     this.router.navigate(['login']);
   }
 
-  onUpdate(){
+  onUpdate() {
     console.log(this.companyForm.value);
-    if(this.companyForm.valid)
-      {
-        var pass = this.companyForm.controls['password'].value;
-        var cpass = this.companyForm.controls['confirmpassword'].value;
-        if (pass != cpass) 
-        {
-          this.passwordError='block';
-        }
-        else{
-            this.passwordError='none';
-        }
-        //call service
-        
-        this.authService.login(this.companyForm.value).subscribe(isAuthenticated => {
-          if (isAuthenticated) {
-            // Navigate to a different route on successful login
-            this.router.navigate(['organisation']); 
-          } else {
-            // Show an error message if login fails
-            ValidateForm.validateForm(this.companyForm);
-          }
-        });
+    if (this.companyForm.valid) {
+      var pass = this.companyForm.controls['password'].value;
+      var cpass = this.companyForm.controls['confirmpassword'].value;
+      if (pass != cpass) {
+        this.passwordError = 'block';
       }
       else {
-        // Show an error message if login fails
+        this.passwordError = 'none';
+      }
+      //call service
+      let userString = localStorage.getItem('userRoleSettings');
+      let userRoleSettings = userString ? JSON.parse(userString) : null;
+      if (userRoleSettings != null) {
+        this.router.navigate(['organisation']);
+      }
+      else {
         ValidateForm.validateForm(this.companyForm);
       }
-      //   this.authService.login(this.loginForm.value)
-      //   .subscribe(
-      //     {
-      //       next: (res) => {
-      //         this.loginForm.reset();
-      //         console.log(res);
-      //       }
-      //     }
-      //   )
-   
-      // }
-      // else{
-      //   //throw the error
-      //   ValidateForm.validateForm(this.loginForm);
-      // }
+     
+    }
+    else {
+      // Show an error message if login fails
+      ValidateForm.validateForm(this.companyForm);
+    }
+    
   }
 
   viewCompany(companyId: number, roleId:number): void {
-    console.log('companyId = ' +companyId +' role id = ' + roleId);
+    console.log('companyId = ' + companyId + ' role id = ' + roleId);
+    let userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    userRoleSettings.companyId = companyId;
+    localStorage.setItem('userRoleSettings', userRoleSettings);
     this.router.navigate(['/organisationadmin', companyId, roleId]
       //{ queryParams: { 'companyid': companyId, 'roleid': roleId } }
     );

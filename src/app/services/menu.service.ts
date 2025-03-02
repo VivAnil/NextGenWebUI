@@ -69,6 +69,10 @@ export class MenuService {
   );
   menuItems$ = this.menuItems.asObservable();
 
+  setMenuItemsBasedOnRole() {
+
+  }
+
   updateMenuItems(menuItems: MenuItems[]): void {
     this.menuItems.next(menuItems);
   }

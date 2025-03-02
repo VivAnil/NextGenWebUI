@@ -326,7 +326,7 @@ export class CompanyusermasterComponent implements OnInit {
   }
 
   getCustomRoleDetails() {
-    this.rolemasterService.getCustomRoleForCompany(1).subscribe(customRoles => {
+    this.rolemasterService.getCustomRoleForCompany().subscribe(customRoles => {
       this.customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
         map(item => ({
           profilename: item.companyRoleName,

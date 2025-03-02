@@ -36,10 +36,10 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { AuthService } from './services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
-   
     LoginComponent,
     OrganisationComponent,
     LayoutComponent,

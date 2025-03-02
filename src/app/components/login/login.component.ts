@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { AuthService } from 'src/app/services/auth.service';
 import { faL } from '@fortawesome/free-solid-svg-icons';
-import { RolemasterService } from '../../services/rolemaster.service';
 
 @Component({
   selector: 'app-login',
@@ -49,7 +48,6 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleDefn) => {
           this.roleId = roleDefn.systemRoleId;
-          //this.roleMasterSvc.userRoleSettings = roleDefn;
           if (this.roleId === -1) {
             //  alert('An error occurred during authentication.');
             // Show an error message if login fails

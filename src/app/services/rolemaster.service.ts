@@ -3,16 +3,17 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/service.model';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RolemasterService {
   private baseUrl: string = environment.baseRoleMasterApiUrl;
-  private userRoleSettings: any = null;
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.userRoleSettings = authService.userRoleSettings;
+  userRoleSettings: any = null;
+  private customRoleSettings: any = null;
+  constructor(private http: HttpClient) {
+    const userString = localStorage.getItem('userRoleSettings');
+    this.userRoleSettings = userString ? JSON.parse(userString) : null;
   }
 
   getSystemRoles(): Observable<SystemRole[]> {
@@ -44,11 +45,12 @@ export class RolemasterService {
   }
 
   getCustomRoleDefinitionForCompany(companyRoleId: number): Observable<any> {
-    if (this.userRoleSettings === null) {
+    if (this.customRoleSettings?.companyRoleId !== companyRoleId) {
+    // return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoleSettings/"+companyRoleId).pipe(
       return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
         map((response: any) => {
-          // Assuming a roleId exists on successful authentication
-          this.userRoleSettings = response;
+          // Assuming a roleId exists on successful authentication CompanyUserRoleMaster/CompanyRoleSettings/3
+          this.customRoleSettings = response;
         }),
         catchError((error) => {
           console.error('API call failed:', error);
@@ -58,12 +60,13 @@ export class RolemasterService {
         })
       );
     }
-    return of(this.userRoleSettings);
+    return of(this.customRoleSettings);
   }
 
-  getCustomRoleForCompany( companyId:number): Observable<any[]> {
-    return this.http.get<any>(environment.companyUserRoleMasterBaseUrl+ "/CompanyRoles/1").pipe(
-    //return this.http.post<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+  getCustomRoleForCompany(): Observable<any[]> {
+    console.log(this.userRoleSettings.companyRoleId);
+    return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/"+this.userRoleSettings.companyId).pipe(
+    //return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
       catchError(error => {
         console.error('Get custom company role failed');
         return of(error);  // Return false on error
