@@ -37,6 +37,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { AuthService } from './services/auth.service';
+import { PermissionComponentComponent } from './permission-component/permission-component.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { AuthService } from './services/auth.service';
     EditcompanyComponent,
     AllprojectsComponent,
     UsersComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    PermissionComponentComponent
   ],
   imports: [
     BrowserModule,
