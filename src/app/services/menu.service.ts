@@ -129,9 +129,49 @@ export class MenuService {
       });
     });
 
+    if (userRoleSettings.SystemRoleId !== 1) {
+      if (userRoleSettings.SystemRoleId === 6) {
+        newMenu = newMenu.filter((link) => {
+
+        });
+      }
+      newMenu = newMenu.map(item => ({
+        ...item,
+        links: this.filterLinksBasedOnRole(item.links, userRoleSettings.SystemRoleId)  // Optionally hide the title if needed
+      }));
+
+    }
+
     newMenu = newMenu.filter(item => item.links && item.links.length > 0);
     return newMenu;
   }
+
+  private filterLinksBasedOnRole(links: Links[], roleId: string): Links[] {
+    return links.filter(link => {
+      switch (roleId) {
+        case '1':
+          return true;  // Admin sees all links
+        case '2':
+          // User doesn't see certain links like "Process Payment" and "Payment Report"
+          return link.label !== 'Project Officer Master' && link.label !== 'Edit Administrator Details';
+        case '3':
+          // Manager doesn't see "Service Section"
+          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Block Coordinator Master' && link.label !== 'SoochnaPreneur Master' && link.label !== 'Edit Administrator Details';
+        case '4':
+          // User doesn't see certain links like "Process Payment" and "Payment Report"
+          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Edit Administrator Details';
+        case '5':
+          // User doesn't see certain links like "Process Payment" and "Payment Report"
+          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Block Coordinator Master' && link.label !== 'Edit Administrator Details';
+        case '6':
+          // User doesn't see certain links like "Process Payment" and "Payment Report"
+          return link.label !== 'Edit Administrator Details' && link.label !== 'Edit Administrator Details';
+        default:
+          return false;  // Default: no links available for unknown roles
+      }
+    });
+  }
+
 
   updateMenuItems(menuItems: MenuItems[]): void {
     let items = this.modifyMenuItemsBasedOnPermissions();
