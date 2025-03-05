@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-resetpassword',
@@ -9,17 +10,25 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./resetpassword.component.css']
 })
 export class ResetpasswordComponent implements OnInit {
+  companyId!:number;
+  roleId!:number;
   resetForm: FormGroup;
   isSubmitted = false;
   successMessage = '';
   errorMessage = '';
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute) {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       newPassword: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, { validator: this.passwordMatchValidator });
+
+    this.route.queryParams.subscribe(params => {
+      this.companyId = params['companyId'];
+      this.roleId = params['roleId'];
+    });
   }
+  
 
   passwordMatchValidator(form: FormGroup) {
     return form.get('newPassword')!.value === form.get('confirmPassword')!.value
@@ -38,7 +47,9 @@ export class ResetpasswordComponent implements OnInit {
     //if (this.resetForm.valid) {
       const resetData = {
         email: this.resetForm.value.email,
-        password: this.resetForm.value.newPassword
+        password: this.resetForm.value.newPassword,
+        companyId: this.companyId,
+        roelId: this.roleId
       };
      
       // Call external API to reset password
@@ -48,9 +59,9 @@ export class ResetpasswordComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  callResetPasswordService(data: { email: string, password: string }) {
+  callResetPasswordService(data: { email: string, password: string, companyId: number, roelId: number }) {
     const apiUrl = environment.resetPasswordUrl; //'https://your-api.com/reset-password'; // Replace with actual API URL
-    alert('hi');
+    //alert('hi');
     this.http.post(apiUrl, data).subscribe({
       next: (response) => {
         this.successMessage = 'Password reset successful! Please login with your new password.';

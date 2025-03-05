@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'organisation/:roleid',
     component: OrganisationComponent
   },
-  {path:'resetpassword/:companyid/:roleid', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
+
   {
     path: '',
     component:LayoutComponent,
@@ -48,8 +48,8 @@ const routes: Routes = [
       {path: 'projectreport', component: AllprojectsComponent},
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
-      
+      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'}
+           
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -57,7 +57,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-       {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
+      {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -66,6 +66,7 @@ const routes: Routes = [
       {path: 'benReport', component: AllbeneficiariesComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
+      {path:'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
   {
     path: '**',
     redirectTo: 'login'
