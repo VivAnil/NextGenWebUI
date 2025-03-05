@@ -31,6 +31,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['login']);
   }
   resetPassword(){
-    this.router.navigate(['resetpassword']);
+    
+    this.router.navigate(['/resetpassword'], {
+      queryParams: { companyId: 9, roleId: 1 }
+    });
   }
 }
+
