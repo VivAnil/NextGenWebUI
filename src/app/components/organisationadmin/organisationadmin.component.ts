@@ -256,13 +256,17 @@ export class OrganisationadminComponent implements OnInit {
 
   ];
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.companyId = +params['companyid'];
-      this.roleId=+params['roleid'];
-    });
+    // this.route.params.subscribe((params) => {
+    //   this.companyId = +params['companyid'];
+    //   this.roleId=+params['roleid'];
+    // });
     let userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
-    
+    if (userRoleSettings != null && userRoleSettings != undefined)
+    {
+    this.roleId = userRoleSettings.roleId;
+    this.companyId=userRoleSettings.companyId;
+    }
     this.updatePath();
     this.loadCompanyData();
   }
@@ -330,6 +334,7 @@ export class OrganisationadminComponent implements OnInit {
   }
 
   updatePath(): void{
+    console.log('updatepath');
     this.menuService.updateMenuItems([
       { title: 'User Configuration', 
         links: 
