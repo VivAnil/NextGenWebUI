@@ -219,7 +219,7 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     let userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     userRoleSettings.companyId = companyId;
-    localStorage.setItem('userRoleSettings', userRoleSettings);
+    localStorage.setItem('userRoleSettings', JSON.stringify( userRoleSettings));
     this.router.navigate(['/organisationadmin', companyId, roleId]
       //{ queryParams: { 'companyid': companyId, 'roleid': roleId } }
     );

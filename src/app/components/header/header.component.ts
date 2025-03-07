@@ -13,12 +13,17 @@ export class HeaderComponent implements OnInit {
   displayProfile: string='none';
   email:string ='abc@defindia.org';
   roleId!: number;
+  companyId!: number;
   constructor( private router: Router, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.roleId = +params['roleid'];
-     console.log('roleid ' + this.roleId);
+    let userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    this.roleId = userRoleSettings.roleId;
+    this.companyId=userRoleSettings.companyId;
+
+     console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
     });
   }
   openProfile() {

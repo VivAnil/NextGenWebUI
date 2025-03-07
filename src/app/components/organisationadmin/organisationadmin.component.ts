@@ -260,6 +260,9 @@ export class OrganisationadminComponent implements OnInit {
       this.companyId = +params['companyid'];
       this.roleId=+params['roleid'];
     });
+    let userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    
     this.updatePath();
     this.loadCompanyData();
   }
