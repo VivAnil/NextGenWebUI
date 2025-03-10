@@ -23,6 +23,10 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
   passwordError: string='none';
   email:string ='abc@defindia.org';
   companyForm!: FormGroup;
+
+  selectedLogo: File | null = null;
+  logoBase64: string | null = null;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -86,15 +90,19 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       this.roleId = +params['roleid'];
      
     });
+
     this.companyForm= this.fb.group({
       companyname: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      email: ['', [Validators.required, Validators.email]],
       contactperson: ['', Validators.required],
       mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', Validators.required],
-      confirmpassword: ['', Validators.required]
+      confirmpassword: ['', Validators.required],
+      url:'',
+      logo:''
+
     });
     
     this.companyService.getCompanyStatistics().subscribe((data) => {
@@ -199,12 +207,13 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       //call service
       let userString = localStorage.getItem('userRoleSettings');
       let userRoleSettings = userString ? JSON.parse(userString) : null;
-      if (userRoleSettings != null) {
-        this.router.navigate(['organisation']);
-      }
-      else {
-        ValidateForm.validateForm(this.companyForm);
-      }
+      this.addCompany();
+      // if (userRoleSettings != null) {
+      //   this.router.navigate(['organisation']);
+      // }
+      // else {
+      //   ValidateForm.validateForm(this.companyForm);
+      // }
      
     }
     else {
@@ -212,6 +221,41 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
       ValidateForm.validateForm(this.companyForm);
     }
     
+  }
+  addCompany() {
+    const formData = this.companyForm.value;
+    const payload = {
+      Name: formData.companyname,
+      Address: formData.address,
+      Url: formData.url,
+      ContactPerson: formData.contactperson,
+      Email: formData.email,
+      Mobile: formData.mobile,
+      Logo: this.logoBase64, // Can be null
+      Username: formData.username,
+      Password: formData.password
+    };
+    this.companyService.addCompany(payload).subscribe({
+      next: (response) => {
+        console.log('resoonse = ', response);
+        if (response == 1)
+        {
+          alert('Company added successfully!');
+        }
+        else if (response == 100)
+        {
+          alert('Company already exists');
+        }
+        else{
+          console.error('Add Company Failed:', response);
+          alert('Failed to add company.');
+        }
+      },
+      error: (err) => {
+        console.error('Add Company Failed:', err);
+        alert('Failed to add company.');
+      }
+    });
   }
 
   viewCompany(companyId: number, roleId:number): void {
@@ -225,4 +269,19 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     );
 
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedLogo = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.logoBase64 = (reader.result as string).split(',')[1]; // Extract Base64 only
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+
 }

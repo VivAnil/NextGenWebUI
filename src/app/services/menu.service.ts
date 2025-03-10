@@ -31,7 +31,7 @@ export class MenuService {
         title: 'User Details', 
         links:[
           {label:'Project Officer Master', path:'/user'},
-          {label:'District Coordinator Master', path:'/user'},
+          {label:'District Coordinator Master', path:'/user/dc'},
           {label:'Block Coordinator Master', path:'/user'},
           {label:'SoochnaPreneur Master', path:'/user'},
           {label:'Beneficiary Master', path:'/bn'},
@@ -80,55 +80,55 @@ export class MenuService {
     permissionSettings.forEach((permission: any) => {
       console.log(`Permission: ${permission.permissionName} is ${permission.permissionId}`);
 
-      newMenu.forEach((menu) => {
-        // Loop through the links of each menu item
-        menu.links = menu.links.filter((link) => {
-          console.log('permission.permissionName = ' + permission.permissionName);
-          switch (permission.permissionName) {
-            case 'Edit_Company':
-              return permission.isAssigned || link.label !== 'Edit Company Details';
-            //case 'Delete_Company':
-            //  // Remove or disable delete company if not assigned
-            //  return permission.isAssigned || link.label !== 'Delete Company Details';
-            //case 'Add_Project':
-            //  return permission.isAssigned || link.label !== 'Add Project';
-            //case 'Edit_Project':
-            //  return permission.isAssigned || link.label !== 'Edit Project';
-            case 'View_Project':
-              return permission.isAssigned || link.label !== 'Project Master';
-            //case 'Delete_Project':
-            //  return permission.isAssigned || link.label !== 'Delete Project';
-            case 'View_Project_Report':
-              return permission.isAssigned || link.label !== 'All Project Report';
-            case 'View_Beneficiary_Report':
-              return permission.isAssigned || link.label !== 'All Beneficiaries Report';
-            case 'View_Sp_Beneficiary_Report':
-              return permission.isAssigned || link.label !== 'SP Wise Beneficiaries Report';
-            //case 'Add_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Add Service Pillar';
-            //case 'Edit_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Edit Service Pillar';
-            case 'View_Service_Pillar':
-              return permission.isAssigned || link.label !== 'View Service Pillar';
-            //case 'Delete_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Delete Service Pillar';
-            //case 'Add_Service':
-            //  return permission.isAssigned || link.label !== 'Add Service';
-            //case 'Edit_Service':
-            //  return permission.isAssigned || link.label !== 'Edit Service';
-            case 'View_Service':
-              return permission.isAssigned || link.label !== 'View Service';
-            case 'Delete_Service':
-              return permission.isAssigned || link.label !== 'Delete Service';
-            case 'View_Process_Payment':
-              return permission.isAssigned || link.label !== 'Process Payment';
-            case 'View_Payment_Report':
-              return permission.isAssigned || link.label !== 'Payment Report';
-            default:
-              return true; // Keep the link if no matching permission
-          }
-        });
-      });
+      // newMenu.forEach((menu) => {
+      //   // Loop through the links of each menu item
+      //   menu.links = menu.links.filter((link) => {
+      //     console.log('permission.permissionName = ' + permission.permissionName);
+      //     switch (permission.permissionName) {
+      //       case 'Edit_Company':
+      //         return permission.isAssigned || link.label !== 'Edit Company Details';
+      //       //case 'Delete_Company':
+      //       //  // Remove or disable delete company if not assigned
+      //       //  return permission.isAssigned || link.label !== 'Delete Company Details';
+      //       //case 'Add_Project':
+      //       //  return permission.isAssigned || link.label !== 'Add Project';
+      //       //case 'Edit_Project':
+      //       //  return permission.isAssigned || link.label !== 'Edit Project';
+      //       case 'View_Project':
+      //         return permission.isAssigned || link.label !== 'Project Master';
+      //       //case 'Delete_Project':
+      //       //  return permission.isAssigned || link.label !== 'Delete Project';
+      //       case 'View_Project_Report':
+      //         return permission.isAssigned || link.label !== 'All Project Report';
+      //       case 'View_Beneficiary_Report':
+      //         return permission.isAssigned || link.label !== 'All Beneficiaries Report';
+      //       case 'View_Sp_Beneficiary_Report':
+      //         return permission.isAssigned || link.label !== 'SP Wise Beneficiaries Report';
+      //       //case 'Add_Service_Pillar':
+      //       //  return permission.isAssigned || link.label !== 'Add Service Pillar';
+      //       //case 'Edit_Service_Pillar':
+      //       //  return permission.isAssigned || link.label !== 'Edit Service Pillar';
+      //       case 'View_Service_Pillar':
+      //         return permission.isAssigned || link.label !== 'View Service Pillar';
+      //       //case 'Delete_Service_Pillar':
+      //       //  return permission.isAssigned || link.label !== 'Delete Service Pillar';
+      //       //case 'Add_Service':
+      //       //  return permission.isAssigned || link.label !== 'Add Service';
+      //       //case 'Edit_Service':
+      //       //  return permission.isAssigned || link.label !== 'Edit Service';
+      //       case 'View_Service':
+      //         return permission.isAssigned || link.label !== 'View Service';
+      //       case 'Delete_Service':
+      //         return permission.isAssigned || link.label !== 'Delete Service';
+      //       case 'View_Process_Payment':
+      //         return permission.isAssigned || link.label !== 'Process Payment';
+      //       case 'View_Payment_Report':
+      //         return permission.isAssigned || link.label !== 'Payment Report';
+      //       default:
+      //         return true; // Keep the link if no matching permission
+      //     }
+      //   });
+      // });
     });
 
     if (userRoleSettings.SystemRoleId !== 1) {
@@ -175,8 +175,9 @@ export class MenuService {
   }
 
 
-  updateMenuItems(menuItems: MenuItems[]): void {
-    let items = this.modifyMenuItemsBasedOnPermissions();
-    this.menuItems.next(items);
+  updateMenuItems(mitems: MenuItems[]): void {
+    // let items = this.modifyMenuItemsBasedOnPermissions();
+    // this.menuItems.next(items);
+    this.menuItems.next(mitems);
   }
 }

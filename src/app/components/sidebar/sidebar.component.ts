@@ -72,7 +72,7 @@ export class SidebarComponent implements OnInit {
     {
     this.roleId = userRoleSettings.roleId;
     this.companyId=userRoleSettings.companyId;
-    }+
+    }
 
 	console.log ('companyId =' +this.companyId +' and roleId = ' + this.roleId );
 
