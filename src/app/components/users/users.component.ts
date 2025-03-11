@@ -28,6 +28,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   pageHead:string='Project Officer Master';
   companyId!: number;
   roleId!: number;
+  companyRoleId!: number;
   displayTab: string='block';
   displayTab1: string='none';
   displayFilter: string='none';
@@ -90,6 +91,11 @@ selectedBlock: number | null = null;
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    this.companyId = userRoleSettings.companyId; 
+    this.roleId = userRoleSettings.systemRoleId; 
+    this.companyRoleId = userRoleSettings.companyRoleId; 
     this.route.params.subscribe((params) => {
       this.companyId = +params['companyid'];
       this.roleId=+params['roleid'];

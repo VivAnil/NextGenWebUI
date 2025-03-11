@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Title } from 'chart.js';
+import { MenuItem } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
 
 export interface MenuItems {
@@ -23,46 +24,46 @@ export class MenuService {
       {
         title: 'User Configuration', 
         links:[
-          {label:'Application User Master', path:'/companyusermaster'},
-          {label:'Edit Administrator Details', path:'/editadmin'}
+          //{label:'Application User Master', path:'/companyusermaster'},
+          //{label:'Edit Administrator Details', path:'/editadmin'}
         ]
       },
       {
         title: 'User Details', 
         links:[
-          {label:'Project Officer Master', path:'/user'},
-          {label:'District Coordinator Master', path:'/user'},
-          {label:'Block Coordinator Master', path:'/user'},
-          {label:'SoochnaPreneur Master', path:'/user'},
-          {label:'Beneficiary Master', path:'/bn'},
+          //{label:'Project Officer Master', path:'/user'},
+          //{label:'District Coordinator Master', path:'/user'},
+          //{label:'Block Coordinator Master', path:'/user'},
+          //{label:'SoochnaPreneur Master', path:'/user'},
+          //{label:'Beneficiary Master', path:'/bn'},
         ]
       },
       {
         title: 'Company Details', 
         links:[
-          {label:'Edit Company Details', path: '/editcompany'},
-          {label:'Project Master', path: '/project' }
+          //{label:'Edit Company Details', path: '/editcompany'},
+          //{label:'Project Master', path: '/project' }
         ]
       },
       {
         title: 'Report Section', 
         links:[
-          { label: 'All Project Report', path: '/projectreport' },
-          { label: 'All Beneficiaries Report', path: '/benReport' },
-          { label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
+          //{ label: 'All Project Report', path: '/projectreport' },
+          //{ label: 'All Beneficiaries Report', path: '/benReport' },
+          //{ label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
         ]
       },
       {
         title: 'Service Section', 
         links:[
-          { label: 'View All Services', path: '/services' }
+          //{ label: 'View All Services', path: '/services' }
         ]
       },
       {
         title: 'Payment Section', 
         links:[
-          { label: 'Process Payment', path: '/processpayment' }, 
-          { label: 'Payment Report', path: '/paymentreport' }
+          //{ label: 'Process Payment', path: '/processpayment' }, 
+          //{ label: 'Payment Report', path: '/paymentreport' }
         ]
       }
     ]
@@ -79,101 +80,100 @@ export class MenuService {
 
     permissionSettings.forEach((permission: any) => {
       console.log(`Permission: ${permission.permissionName} is ${permission.permissionId}`);
-
-      newMenu.forEach((menu) => {
-        // Loop through the links of each menu item
-        menu.links = menu.links.filter((link) => {
-          console.log('permission.permissionName = ' + permission.permissionName);
-          switch (permission.permissionName) {
-            case 'Edit_Company':
-              return permission.isAssigned || link.label !== 'Edit Company Details';
-            //case 'Delete_Company':
-            //  // Remove or disable delete company if not assigned
-            //  return permission.isAssigned || link.label !== 'Delete Company Details';
-            //case 'Add_Project':
-            //  return permission.isAssigned || link.label !== 'Add Project';
-            //case 'Edit_Project':
-            //  return permission.isAssigned || link.label !== 'Edit Project';
-            case 'View_Project':
-              return permission.isAssigned || link.label !== 'Project Master';
-            //case 'Delete_Project':
-            //  return permission.isAssigned || link.label !== 'Delete Project';
-            case 'View_Project_Report':
-              return permission.isAssigned || link.label !== 'All Project Report';
-            case 'View_Beneficiary_Report':
-              return permission.isAssigned || link.label !== 'All Beneficiaries Report';
-            case 'View_Sp_Beneficiary_Report':
-              return permission.isAssigned || link.label !== 'SP Wise Beneficiaries Report';
-            //case 'Add_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Add Service Pillar';
-            //case 'Edit_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Edit Service Pillar';
-            case 'View_Service_Pillar':
-              return permission.isAssigned || link.label !== 'View Service Pillar';
-            //case 'Delete_Service_Pillar':
-            //  return permission.isAssigned || link.label !== 'Delete Service Pillar';
-            //case 'Add_Service':
-            //  return permission.isAssigned || link.label !== 'Add Service';
-            //case 'Edit_Service':
-            //  return permission.isAssigned || link.label !== 'Edit Service';
-            case 'View_Service':
-              return permission.isAssigned || link.label !== 'View Service';
-            case 'Delete_Service':
-              return permission.isAssigned || link.label !== 'Delete Service';
-            case 'View_Process_Payment':
-              return permission.isAssigned || link.label !== 'Process Payment';
-            case 'View_Payment_Report':
-              return permission.isAssigned || link.label !== 'Payment Report';
-            default:
-              return true; // Keep the link if no matching permission
-          }
-        });
-      });
-    });
-
-    if (userRoleSettings.SystemRoleId !== 1) {
-      if (userRoleSettings.SystemRoleId === 6) {
-        newMenu = newMenu.filter((link) => {
-
-        });
+     
+      switch (permission.permissionName) {
+        case 'Edit_Company':
+          var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
+          menuItem.links.push({ label: 'Edit Company Details', path: '/editcompany' });
+          break;
+        case 'View_Project':
+          var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
+          menuItem.links.push({ label: 'Project Master', path: '/project' });
+          break;
+        case 'View_Project_Report':
+          var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
+          menuItem.links.push({ label: 'All Project Report', path: '/projectreport' });
+          break;
+        case 'View_Beneficiary_Report':
+          var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
+          menuItem.links.push({ label: 'All Beneficiaries Report', path: '/benReport' });
+          break;
+        case 'View_Sp_Beneficiary_Report':
+          var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
+          menuItem.links.push({ label: 'SP Wise Beneficiaries Report', path: '/spwisereport' });
+          break;
+        case 'View_Service':
+          var menuItem = newMenu.filter(menu => menu.title === "Service Section")[0];
+          menuItem.links.push({ label: 'View All Services', path: '/services' });
+          break;
+        case 'View_Process_Payment':
+          var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
+          menuItem.links.push({ label: 'Process Payment', path: '/processpayment' });
+          break;
+        case 'View_Payment_Report':
+          var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
+          menuItem.links.push({ label: 'Payment Report', path: '/paymentreport' });
+          break;
+        default:
+          return ; // Keep the link if no matching permission
       }
-      newMenu = newMenu.map(item => ({
-        ...item,
-        links: this.filterLinksBasedOnRole(item.links, userRoleSettings.SystemRoleId)  // Optionally hide the title if needed
-      }));
+    });
+    var menuUserConfig = newMenu.filter(menu => menu.title === "User Configuration")[0];
+    var menuUserDetails = newMenu.filter(menu => menu.title === "User Details")[0];
 
-    }
-
-    newMenu = newMenu.filter(item => item.links && item.links.length > 0);
+    this.AddLinksBasedOnRole(menuUserConfig, menuUserDetails, userRoleSettings.systemRoleId);
+    newMenu = newMenu.filter(item => item.links && item.links.length == 0);
     return newMenu;
   }
 
-  private filterLinksBasedOnRole(links: Links[], roleId: string): Links[] {
-    return links.filter(link => {
-      switch (roleId) {
-        case '1':
-          return true;  // Admin sees all links
-        case '2':
-          // User doesn't see certain links like "Process Payment" and "Payment Report"
-          return link.label !== 'Project Officer Master' && link.label !== 'Edit Administrator Details';
-        case '3':
-          // Manager doesn't see "Service Section"
-          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Block Coordinator Master' && link.label !== 'SoochnaPreneur Master' && link.label !== 'Edit Administrator Details';
-        case '4':
-          // User doesn't see certain links like "Process Payment" and "Payment Report"
-          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Edit Administrator Details';
-        case '5':
-          // User doesn't see certain links like "Process Payment" and "Payment Report"
-          return link.label !== 'Project Officer Master' && link.label !== 'District Coordinator Master' && link.label !== 'Block Coordinator Master' && link.label !== 'Edit Administrator Details';
-        case '6':
-          // User doesn't see certain links like "Process Payment" and "Payment Report"
-          return link.label !== 'Edit Administrator Details' && link.label !== 'Edit Administrator Details';
-        default:
-          return false;  // Default: no links available for unknown roles
-      }
-    });
+  private AddLinksBasedOnRole(menuUserConfig: MenuItems, menuUserDetails:MenuItems, roleId: string): void {
+    switch (roleId) {
+      case '1':
+        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserConfig.links.push({ label: 'Edit Administrator Details', path: '/editadmin' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      case '2':
+        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      case '3':
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      case '4':
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      // User doesn't see certain links like "Process Payment" and "Payment Report"
+      case '5':
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      // User doesn't see certain links like "Process Payment" and "Payment Report"
+      case '6':
+        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        break;
+      default:
+        break;  // Default: no links available for unknown roles
+    }
   }
-
 
   updateMenuItems(menuItems: MenuItems[]): void {
     let items = this.modifyMenuItemsBasedOnPermissions();

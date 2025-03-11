@@ -267,7 +267,7 @@ export class OrganisationadminComponent implements OnInit {
     this.roleId = userRoleSettings.roleId;
     this.companyId=userRoleSettings.companyId;
     }
-    this.updatePath();
+    //this.updatePath();
     this.loadCompanyData();
   }
   ngAfterViewInit(): void {
