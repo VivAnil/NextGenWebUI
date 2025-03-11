@@ -131,7 +131,8 @@
 
                                     </td>
                                     <td>
-                                        <input type="file" id="" class="input-box-3 width100 " />
+                                        <!-- <input type="file" id="" class="input-box-3 width100 " /> -->
+                                        <input type="file" class="input-box-3 width100" formControlName ="logo" (change)="onFileSelected($event)" />
                                     </td>
                                 </tr>
 
@@ -141,7 +142,7 @@
 
                                     </td>
                                     <td>
-                                        <input type="text" id="" class="input-box-3 width100 " />
+                                        <input type="text" formControlName="url" class="input-box-3 width100 " />
                                     </td>
 
                                     <td>

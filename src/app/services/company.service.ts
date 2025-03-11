@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineAll, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface CompanyDashboard {
@@ -27,6 +27,7 @@ export class CompanyService {
 
   private companyDashboardApiUrl : string = environment.companyDashboardApiUrl;
   private benStatsApiUrl : string = environment.benStatsApiUrl;
+  private baseCompanyUrl: string = environment.baseCompanyUrl;
   constructor(private http: HttpClient) { }
 
   getCompanyStatistics(): Observable<CompanyDashboard[]> {
@@ -35,5 +36,14 @@ export class CompanyService {
 
   getBeneficiaryStats(companyId: number): Observable<any> {
     return this.http.get(`${this.benStatsApiUrl}/${companyId}`);
+  }
+
+  addCompany(data: any): Observable<any> {
+    const api = this.baseCompanyUrl + 'company';
+    return this.http.post<any>(api, data);
+  }
+  editCompany(data: any, companyId: string): Observable<any> {
+    const api = this.baseCompanyUrl + 'company/' +companyId;
+    return this.http.put<any>(api, data);
   }
 }
