@@ -256,10 +256,6 @@ export class OrganisationadminComponent implements OnInit {
 
   ];
   ngOnInit(): void {
-    // this.route.params.subscribe((params) => {
-    //   this.companyId = +params['companyid'];
-    //   this.roleId=+params['roleid'];
-    // });
     let userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     if (userRoleSettings != null && userRoleSettings != undefined)
@@ -271,8 +267,6 @@ export class OrganisationadminComponent implements OnInit {
     this.loadCompanyData();
   }
   ngAfterViewInit(): void {
-    //this.loadCompanyData();
-  // setTimeout(() => this.loadCompanyData(), 700); // Ensure charts are created after DOM is updated
   }
   loadCompanyData(): void {
     // Call API to load data for the selected company using this.companyId
