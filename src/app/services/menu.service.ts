@@ -122,7 +122,7 @@ export class MenuService {
     var menuUserDetails = newMenu.filter(menu => menu.title === "User Details")[0];
 
     this.AddLinksBasedOnRole(menuUserConfig, menuUserDetails, userRoleSettings.systemRoleId);
-    //newMenu = newMenu.filter(item => item.links && item.links.length == 0);
+    newMenu = newMenu.filter(item => item.links && item.links.length > 0);
     return newMenu;
   }
 
