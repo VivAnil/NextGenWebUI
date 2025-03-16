@@ -11,7 +11,7 @@
 
 </div>
 <div class="display-inline">
-<button type="button" class="btn-orange" (click)="toggleTab();" style="display:{{displayTab}}">+ New Project</button> 
+<button type="button" [hidden] ="disableNewProject" class="btn-orange" (click)="toggleTab();" style="display:{{displayTab}}">+ New Project</button> 
 <button type="button" class="btn-orange" (click)="toggleTab();" style="display:{{displayTab1}}">Back To Project Listing</button>
 </div>
 

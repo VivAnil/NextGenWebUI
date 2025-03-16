@@ -78,7 +78,7 @@ export class MenuService {
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
     this.companyId = userRoleSettings.companyId;
     let newMenu = menuItems; // Clone the original menuItems to avoid mutating the original state.
-
+    permissionSettings = permissionSettings.filter((setting: { permissionName: string, isAssigned: boolean })  => setting.isAssigned);
     permissionSettings.forEach((permission: any) => {
       console.log(`Permission: ${permission.permissionName} is ${permission.permissionId}`);
      
