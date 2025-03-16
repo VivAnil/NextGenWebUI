@@ -18,7 +18,8 @@ export interface Links{
 })
 export class MenuService {
 
-  constructor() { }
+  constructor() {
+  }
   private menuItems = new BehaviorSubject<MenuItems[]>(
     [
       {
@@ -31,10 +32,10 @@ export class MenuService {
       {
         title: 'User Details', 
         links:[
-          //{label:'Project Officer Master', path:'/user'},
-          //{label:'District Coordinator Master', path:'/user'},
-          //{label:'Block Coordinator Master', path:'/user'},
-          //{label:'SoochnaPreneur Master', path:'/user'},
+          //{label:'Project Officer Master', path:'/user/'},
+          //{label:'District Coordinator Master', path:'/user/'},
+          //{label:'Block Coordinator Master', path:'/user/'},
+          //{label:'SoochnaPreneur Master', path:'/user/'},
           //{label:'Beneficiary Master', path:'/bn'},
         ]
       },
@@ -69,13 +70,13 @@ export class MenuService {
     ]
   );
   menuItems$ = this.menuItems.asObservable();
-
+  private companyId: number = 0;
   modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): MenuItems[] {
     console.log('modifyMenuItem');
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
-
+    this.companyId = userRoleSettings.companyId;
     let newMenu = menuItems; // Clone the original menuItems to avoid mutating the original state.
 
     permissionSettings.forEach((permission: any) => {
@@ -127,48 +128,54 @@ export class MenuService {
   }
 
   private AddLinksBasedOnRole(menuUserConfig: MenuItems, menuUserDetails:MenuItems, roleId: string): void {
-    let id :number = parseInt(roleId);
+    let id: number = parseInt(roleId);
+
+    //[{ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' },
+    //  { label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' },
+    //  { label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' },
+    //  { label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' },
+
     switch (id) {
       case 1:
         menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
         menuUserConfig.links.push({ label: 'Edit Administrator Details', path: '/editadmin' });
-        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       case 2:
         menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       case 3:
-        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       case 4:
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 5:
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 6:
         menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user/' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' });
         menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
         break;
       default:
@@ -193,10 +200,10 @@ export class MenuService {
       {
         title: 'User Details',
         links: [
-          //{label:'Project Officer Master', path:'/user'},
-          //{label:'District Coordinator Master', path:'/user'},
-          //{label:'Block Coordinator Master', path:'/user'},
-          //{label:'SoochnaPreneur Master', path:'/user'},
+          //{label:'Project Officer Master', path:'/user/'},
+          //{label:'District Coordinator Master', path:'/user/'},
+          //{label:'Block Coordinator Master', path:'/user/'},
+          //{label:'SoochnaPreneur Master', path:'/user/'},
           //{label:'Beneficiary Master', path:'/bn'},
         ]
       },
