@@ -10,7 +10,7 @@ import { ICustomRoleDefinition, SystemPermission, SystemRole } from '../models/s
 export class RolemasterService {
   private baseUrl: string = environment.baseRoleMasterApiUrl;
   userRoleSettings: any = null;
-  private customRoleSettings: any = null;
+  customRoleSettings: any = null;
   constructor(private http: HttpClient) {
     const userString = localStorage.getItem('userRoleSettings');
     this.userRoleSettings = userString ? JSON.parse(userString) : null;
@@ -46,12 +46,8 @@ export class RolemasterService {
 
   getCustomRoleDefinitionForCompany(companyRoleId: number): Observable<any> {
     if (this.customRoleSettings?.companyRoleId !== companyRoleId) {
-    // return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoleSettings/"+companyRoleId).pipe(
-      return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
-        map((response: any) => {
-          // Assuming a roleId exists on successful authentication CompanyUserRoleMaster/CompanyRoleSettings/3
-          this.customRoleSettings = response;
-        }),
+     return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoleSettings/"+companyRoleId).pipe(
+    //  return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
         catchError((error) => {
           console.error('API call failed:', error);
           // Return hardcoded fallback data
@@ -65,8 +61,8 @@ export class RolemasterService {
 
   getCustomRoleForCompany(): Observable<any[]> {
     console.log(this.userRoleSettings.companyRoleId);
-    return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/"+this.userRoleSettings.companyId).pipe(
-    //return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+   // return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/"+this.userRoleSettings.companyId).pipe(
+    return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
       catchError(error => {
         console.error('Get custom company role failed');
         return of(error);  // Return false on error
@@ -83,8 +79,8 @@ export class RolemasterService {
       CompanyId: customRoleDefinition.companyId,
       PermissionsAssigned:customRoleDefinition.permisionsAssigned
     };
-    return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/create", customRole).pipe(
-    //return this.http.post<any>("https://localhost:7047/api/CompanyUserRoleMaster/create", customRole).pipe(
+    //return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/create", customRole).pipe(
+    return this.http.post<any>("https://localhost:7047/api/CompanyUserRoleMaster/create", customRole).pipe(
       map((response: { id: number; }) => {
         console.log(response);
         return (response.id);
@@ -104,8 +100,8 @@ export class RolemasterService {
       CompanyId: customRoleDefinition.companyId,
       PermissionsUpdated : customRoleDefinition.permisionsAssigned
     };
-    return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/update", customRole).pipe(
-      //return this.http.put<any>("https://localhost:7047/api/CompanyUserRoleMaster/update", customRole).pipe(
+    //return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/update", customRole).pipe(
+      return this.http.put<any>("https://localhost:7047/api/CompanyUserRoleMaster/update", customRole).pipe(
       map((response: { id: number; }) => {
         console.log(response);
         return (response.id);

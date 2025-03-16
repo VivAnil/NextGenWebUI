@@ -234,6 +234,7 @@ export class CompanyusermasterComponent implements OnInit {
     if (args.item.ID === 0) {
       args.cancel = true;
     }
+    let customRoleSettings: any;
     //alert('Editing item:' + compantRoleId);
     this.rolemasterService.getCustomRoleDefinitionForCompany(compantRoleId).subscribe(customRoles => {
       const permissionIds = customRoles.permissionSettings
@@ -250,9 +251,10 @@ export class CompanyusermasterComponent implements OnInit {
       this.editRoleName = customRoles.systemRoleName;
       this.selectedSystemRole = customRoles.systemRoleName;
       this.selectedSystemRoleId = customRoles.systemRoleId;
+      customRoleSettings = customRoles;
     }
-
     );
+    this.rolemasterService.customRoleSettings = customRoleSettings;
 
   }
 
