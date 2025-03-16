@@ -132,7 +132,7 @@
                     </table>
                 </form>
                     <div class="clear-both-20"></div>
-                    <div align="center"><input type="button" value="Update" class="btn-blck1"  (click)="onUpdate()" /></div>
+                    <div align="center"><input type="button" *ngIf="allowUpdateProject" value="Update" class="btn-blck1"  (click)="onUpdate()" /></div>
                 </div>
             </div>
 <div class="clear-both-5"></div>

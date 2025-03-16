@@ -18,12 +18,22 @@ export class ServicesComponent implements OnInit {
   activeDefault: string='default-link';
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
-  isColumnOpen: boolean=false;
-
+  isColumnOpen: boolean = false;
+  allowNewService: boolean = false;
+  allowNewServicePillar: boolean = false;
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
 
-  constructor(private serviceApi: ApiService, private servicePillarApi: ApiServicepillar) { }
+  constructor(private serviceApi: ApiService, private servicePillarApi: ApiServicepillar) {
+
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
+    let addNewServicePillarPermission = permissionSettings.filter((setting: { permissionName: string, isAssigned: boolean }) => setting.permissionName === 'Add_Service_Pillar');
+    this.allowNewServicePillar = addNewServicePillarPermission?.isAssigned ?? true;
+    let addNewServicePermission = permissionSettings.filter((setting: { permissionName: string, isAssigned: boolean }) => setting.permissionName === 'Add_Service');
+    this.allowNewService = addNewServicePermission?.isAssigned ?? true;
+  }
   ngAfterViewInit(): void {
     this.initJsGrid();
   }

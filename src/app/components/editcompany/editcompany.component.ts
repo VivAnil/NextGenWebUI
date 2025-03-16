@@ -15,7 +15,14 @@ export class EditcompanyComponent implements OnInit {
   logoBase64: string | null = null;
   editCompanyForm!: FormGroup;
   companyId!: string;
-  constructor(private router: Router, private fb: FormBuilder, private cs: CompanyService, private route: ActivatedRoute) { }
+  allowUpdateProject: boolean = false;
+  constructor(private router: Router, private fb: FormBuilder, private cs: CompanyService, private route: ActivatedRoute) {
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
+    let addNewProjectPermission = permissionSettings.filter((setting: { permissionName: string, isAssigned: boolean }) => setting.permissionName === 'Edit_Project');
+    this.allowUpdateProject = addNewProjectPermission?.isAssigned ?? true;
+  }
   ngOnInit(): void {
     this.editCompanyForm = this.fb.group({
       companyname: ['', Validators.required],

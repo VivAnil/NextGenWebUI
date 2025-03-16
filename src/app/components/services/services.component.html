@@ -11,10 +11,10 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" style="display:{{displayTab}}" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addService" id="btn_service" (click)="newService();">
+                <button type="button" style="display:{{displayTab}}" *ngIf="allowNewService" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addService" id="btn_service" (click)="newService();">
                     + New Service
                 </button> 
-                <button type="button" style="display:{{displayTab1}}" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">
+                <button type="button" style="display:{{displayTab1}}" *ngIf="allowNewServicePillar" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_addOrg" id="btn_serviceType">
                     + New Service Pillar
                 </button>
             </div>
