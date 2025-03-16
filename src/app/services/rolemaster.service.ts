@@ -100,7 +100,7 @@ export class RolemasterService {
       CompanyId: customRoleDefinition.companyId,
       PermissionsUpdated : customRoleDefinition.permisionsAssigned
     };
-    return this.http.post<any>(environment.companyUserRoleMasterBaseUrl + "/update", customRole).pipe(
+    return this.http.put<any>(environment.companyUserRoleMasterBaseUrl + "/update", customRole).pipe(
     //  return this.http.put<any>("https://localhost:7047/api/CompanyUserRoleMaster/update", customRole).pipe(
       map((response: { id: number; }) => {
         console.log(response);

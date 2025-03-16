@@ -70,7 +70,7 @@ export class SidebarComponent implements OnInit {
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     if (userRoleSettings != null && userRoleSettings != undefined)
     {
-    this.roleId = userRoleSettings.roleId;
+    this.roleId = userRoleSettings.companyRoleId;
     this.companyId=userRoleSettings.companyId;
     }
 

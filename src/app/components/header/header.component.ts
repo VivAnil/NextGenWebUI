@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     this.route.params.subscribe((params) => {
     let userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
-    this.roleId = userRoleSettings.roleId;
+    this.roleId = userRoleSettings.companyRoleId;
     this.companyId=userRoleSettings.companyId;
 
      console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
