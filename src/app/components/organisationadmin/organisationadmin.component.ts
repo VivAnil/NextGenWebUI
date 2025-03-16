@@ -260,7 +260,7 @@ export class OrganisationadminComponent implements OnInit {
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     if (userRoleSettings != null && userRoleSettings != undefined)
     {
-    this.roleId = userRoleSettings.roleId;
+      this.roleId = userRoleSettings.companyRoleId;
     this.companyId=userRoleSettings.companyId;
     }
     this.updatePath();
@@ -329,48 +329,38 @@ export class OrganisationadminComponent implements OnInit {
 
   updatePath(): void{
     console.log('updatepath');
+    this.menuService.resetMenu();
     this.menuService.updateMenuItems([
-      { title: 'User Configuration', 
-        links: 
-        [{ label: 'Application User Master', path: '/companyusermaster' }, 
-         { label: 'Edit Administrator Details', path: '/editadmin' }] 
+      {
+        title: 'User Configuration',
+        links: [
+        ]
       },
-         { title: 'User Details', 
-        links: 
-        [{ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' }, 
-         { label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' },
-         { label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5'}, 
-         { label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3'  },
-         { label: 'Beneficiary Master', path: '/bn' }
-          ] 
+      {
+        title: 'User Details',
+        links: [
+        ]
       },
-      { title: 'Company Details', 
-        links: 
-        [{ label: 'Edit Company Details', path: '/editcompany' }, 
-         { label: 'Project Master', path: '/project' }
-         
-          ] 
+      {
+        title: 'Company Details',
+        links: [
+        ]
       },
-      { title: 'Report Section', 
-        links: 
-        [{ label: 'All Project Report', path: '/projectreport' }, 
-         { label: 'All Beneficiaries Report', path: '/benReport' },
-         { label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
-         
-          ] 
+      {
+        title: 'Report Section',
+        links: [
+        ]
       },
-      { title: 'Service Section', 
-        links: 
-        [{ label: 'View All Services', path: '/services' }		 
-          ] 
+      {
+        title: 'Service Section',
+        links: [
+        ]
       },
-      { title: 'Payment Section', 
-        links: 
-        [{ label: 'Process Payment', path: '/processpayment' }, 
-         { label: 'Payment Report', path: '/paymentreport' }
-         ] 
+      {
+        title: 'Payment Section',
+        links: [
+        ]
       }
-      
     ]);
   }
 }

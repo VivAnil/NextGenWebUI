@@ -74,7 +74,9 @@ export class SidebarComponent implements OnInit {
     this.companyId=userRoleSettings.companyId;
     }
 
-	console.log ('companyId =' +this.companyId +' and roleId = ' + this.roleId );
+    console.log('companyId =' + this.companyId + ' and roleId = ' + this.roleId);
+
+   // this.menuItems = this.menuService.modifyMenuItemsBasedOnPermissions();
 
 	this.menuService.menuItems$.subscribe(items => {
 		this.menuItems = items;

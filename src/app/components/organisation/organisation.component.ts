@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { CompanyService, CompanyDashboard } from 'src/app/services/company.service';  
+import { MenuService } from '../../services/menu.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     private router: Router,
     private fb: FormBuilder,
     private companyService: CompanyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private menuService: MenuService
   ) {
   }
   
@@ -189,8 +191,10 @@ export class OrganisationComponent implements OnInit, AfterViewInit {
     if(this.displayProfile=='none') this.displayProfile='block';
     else this.displayProfile='none';
   }
-  logout(){
+  logout() {
+    this.menuService.resetMenu();
     this.router.navigate(['login']);
+
   }
 
   onUpdate() {

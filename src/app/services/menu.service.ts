@@ -70,13 +70,13 @@ export class MenuService {
   );
   menuItems$ = this.menuItems.asObservable();
 
-  modifyMenuItemsBasedOnPermissions(): MenuItems[] {
+  modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): MenuItems[] {
     console.log('modifyMenuItem');
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
 
-    let newMenu = [...this.menuItems.getValue()]; // Clone the original menuItems to avoid mutating the original state.
+    let newMenu = menuItems; // Clone the original menuItems to avoid mutating the original state.
 
     permissionSettings.forEach((permission: any) => {
       console.log(`Permission: ${permission.permissionName} is ${permission.permissionId}`);
@@ -176,8 +176,59 @@ export class MenuService {
     }
   }
 
-  updateMenuItems(menuItems: MenuItems[]): void {
-    let items = this.modifyMenuItemsBasedOnPermissions();
+  updateMenuItems(menuItems:MenuItems[]): void {
+    let items = this.modifyMenuItemsBasedOnPermissions(menuItems);
+    this.menuItems.next(items);
+  }
+
+  resetMenu(): void {
+    let items = [
+      {
+        title: 'User Configuration',
+        links: [
+          //{label:'Application User Master', path:'/companyusermaster'},
+          //{label:'Edit Administrator Details', path:'/editadmin'}
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+          //{label:'Project Officer Master', path:'/user'},
+          //{label:'District Coordinator Master', path:'/user'},
+          //{label:'Block Coordinator Master', path:'/user'},
+          //{label:'SoochnaPreneur Master', path:'/user'},
+          //{label:'Beneficiary Master', path:'/bn'},
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+          //{label:'Edit Company Details', path: '/editcompany'},
+          //{label:'Project Master', path: '/project' }
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+          //{ label: 'All Project Report', path: '/projectreport' },
+          //{ label: 'All Beneficiaries Report', path: '/benReport' },
+          //{ label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+          //{ label: 'View All Services', path: '/services' }
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+          //{ label: 'Process Payment', path: '/processpayment' }, 
+          //{ label: 'Payment Report', path: '/paymentreport' }
+        ]
+      }
+    ];
     this.menuItems.next(items);
   }
 }
