@@ -6,6 +6,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { map } from 'jquery';
 import { ServicePillar } from '../models/servicePillar.model';
 import { userDetails } from '../models/userDetails.model';
+import { Beneficiary } from '../models/beneficiary.model';
 
 @Injectable({
   providedIn: 'root'
@@ -87,6 +88,18 @@ export class ApiService {
       catchError((error) => {
         console.error('API call failed:', error);
         console.log("Exception in calling service. Endpoint " + this.baseUrl);
+        return of (error);
+      })
+    );
+  }
+
+  fetchBeneficiaries(url:string, dataKey:string): Observable<Beneficiary[]> {
+    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/9/0/0';
+
+    return this.http.get<Beneficiary[]>(benUrl).pipe(
+      catchError((error) => {
+        console.error('API call failed:', error);
+        console.log("Exception in calling service. Endpoint " + benUrl);
         return of (error);
       })
     );
