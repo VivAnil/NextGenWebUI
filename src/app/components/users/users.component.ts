@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import {SexOption} from '../../models/master.model';
+import { MenuService } from '../../services/menu.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-users',
@@ -88,7 +89,7 @@ blocks: any[] = [];
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,private menuService: MenuService) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -148,6 +149,8 @@ selectedBlock: number | null = null;
          // this.inituserDetailsGrid(); // Fetch data based on the dataKey
          this.loadData();
         });
+
+    this.updatePath();
 
   }
   loadData():void{
@@ -501,6 +504,43 @@ selectedBlock: number | null = null;
     if (this.selectedDistrict) {
       this.getBlocks(this.selectedDistrict);
     }
+  }
+
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
   }
 }
 
