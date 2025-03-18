@@ -18,6 +18,7 @@ import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbene
 import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
 import { UsersComponent } from './components/users/users.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
+import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 
 const routes: Routes = [
   
@@ -46,7 +47,7 @@ const routes: Routes = [
       {path: 'editcompany', component: EditcompanyComponent},
       {path: 'paymentreport', component: PaymentreportComponent},
       {path: 'projectreport', component: AllprojectsComponent},
-      {path: 'benReport', component: AllbeneficiariesComponent},
+      {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'}
            
@@ -63,7 +64,7 @@ const routes: Routes = [
       {path: 'editadmin', component: EditadminComponent},
       {path: 'editcompany', component: EditcompanyComponent},
       {path: 'projectreport', component: AllprojectsComponent},
-      {path: 'benReport', component: AllbeneficiariesComponent},
+      {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
       {path:'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
