@@ -9,7 +9,9 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import {SexOption} from '../../models/master.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import ValidateForm from 'src/app/helpers/validateForm';
+import { MenuService } from 'src/app/services/menu.service';
 declare var $: any; // Import jQuery
 
 @Component({
@@ -52,7 +54,7 @@ export class BeneficiaryComponent implements OnInit {
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
-  
+  benForm!: FormGroup;
   sexOptions: { id: number; name: string }[] = [];
   formData = {
     Id: '',
@@ -83,15 +85,22 @@ export class BeneficiaryComponent implements OnInit {
     Aadhar:'',
     AadharImage: ''
 };
-
+maxDate: string = ''; // for limiting future dates in DOB
 states: any[] = [];
 districts: any[] = [];
 blocks: any[] = [];
-
+selectedProfile: File | null = null;
+profileBase64: string | null = null;
+selectedPan: File | null = null;
+panBase64: string | null = null;
+selectedAadhar: File | null = null;
+aadharBase64: string | null = null;
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient) { }
+projectList: { projectId: number, projectName: string }[] = [];
+soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -128,8 +137,37 @@ selectedBlock: number | null = null;
       { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
 
     ];
- 
+    
+     this.benForm= this.fb.group({
+          firstname: ['', Validators.required],
+          middlename:[''],
+          lastname:[''],
+          fathersname:[''],
+          dob: ['', Validators.required],
+          age: [{ value: '', disabled: false }],
+          //sex
+          email: ['', [Validators.email]],
+          mobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+          village:[''],
+          address: [''],
+          grampanchayat: [''],
+          pincode: [''],
+          pan:[''],
+          aadhar:[''],
+          panimage:'',
+          aadharimage:'',
+          url:'',
+          profilephoto:'',
+          sexId: ['', Validators.required],
+          projectId: ['', Validators.required],
+          soochnapreurId: ['', Validators.required],
+          stateId: ['', Validators.required],
+          districtId: ['', Validators.required],
+          blockId: ['', Validators.required],
+        });
          this.loadData();
+         this.updatePath();
+         this.setMaxDate();
   }
   loadData() {
     this.serviceApi.fetchBeneficiaries(this.userdetailsApiUrl+this.companyId+'/0/0', this.dataKey).subscribe({
@@ -151,7 +189,7 @@ selectedBlock: number | null = null;
           this.globalFilterFields = Object.keys(this.filteredData[0]);
           this.globalFilterFields=this.cols;
           this.loading = false; // Turn off loading once data is fetched
-          console.log(this.cols);
+        //  console.log(this.cols);
           // Initialize filters for each column
           this.cols.forEach((col) => {
             if (!this.filteredCols.includes(col.field))
@@ -159,6 +197,32 @@ selectedBlock: number | null = null;
                 this.filters[col.field] = '';
           });
          
+          // Extract unique projectId & projectName
+        const projectMap: { [key: number]: string } = {};
+        response.forEach(item => {
+          if (item.projectId && item.projectName) {
+            projectMap[item.projectId] = item.projectName;
+          }
+        });
+
+        this.projectList = Object.keys(projectMap).map(id => ({
+          projectId: +id,
+          projectName: projectMap[+id]
+        }));
+        console.log('ProjectList = ' + JSON.stringify(this.projectList));
+        // Extract unique soochnapreneurId & soochnapreneur
+        const smMap: { [key: number]: string } = {};
+        response.forEach(item => {
+          if (item.soochnapreneurId && item.soochnapreneur) {
+            smMap[item.soochnapreneurId] = item.soochnapreneur;
+          }
+        });
+
+        this.soochnapreurList = Object.keys(smMap).map(id => ({
+          soochnapreneurId: +id,
+          soochnapreneur: smMap[+id]
+        }));
+        console.log('soochnapreurList = ' + JSON.stringify(this.soochnapreurList));
         }
       },
       error: (err) => {
@@ -243,7 +307,7 @@ openFilter() {
       console.log('Columns updated:', this.cols);
     }
     checkVisible(key: string): any {
-      console.log(key);
+     // console.log(key);
       if (this.filteredCols.includes(key)) {
         return false;
     }
@@ -265,7 +329,7 @@ openFilter() {
     }
 
     applyFilter() {
-      console.log('Apply Filter');
+     // console.log('Apply Filter');
       // Always start with the original data
     this.filteredData = [...this.data];
 
@@ -374,8 +438,10 @@ openFilter() {
         this.blocks = []; // Reset block dropdown
         this.selectedDistrict = this.districts[0].id; // Select first state by default
         console.log('this.selectedDistrict = ' + this.selectedDistrict);
+
         if (this.districts.length > 0)
         {
+          this.benForm.patchValue({ districtId: '', blockId: '' });
           this.selectedDistrict = this.districts[0].id;
           if (this.selectedDistrict > 0)
             this.getBlocks(this.selectedDistrict);
@@ -393,7 +459,8 @@ openFilter() {
       (response) => {
         this.blocks = response;
         this.selectedBlock = null; // Reset block dropdown
-        this.selectedBlock = this.blocks[0].id; // Select first state by default
+        this.selectedBlock = this.blocks[0].id; 
+        this.benForm.patchValue({ blockId: '' });
         console.log('this.selectedBlock = ' + this.selectedBlock);
       },
       (error) => {
@@ -403,16 +470,178 @@ openFilter() {
   }
 
    // On state selection change
-   onStateChange() {
+   onStateChange(event: any): void {
+    const stateId = event.target.value;
+    this.selectedState=stateId;
     if (this.selectedState) {
       this.getDistricts(this.selectedState);
     }
   }
 
   // On district selection change
-  onDistrictChange() {
+  onDistrictChange(event: any): void {
+    const districtId = event.target.value;
+    this.selectedDistrict=districtId;
     if (this.selectedDistrict) {
       this.getBlocks(this.selectedDistrict);
     }
   }
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedProfile = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profileBase64 = (reader.result as string).split(',')[1]; // Extract Base64 only
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  onAadharSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedAadhar = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.aadharBase64 = (reader.result as string).split(',')[1]; // Extract Base64 only
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  onPanSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedPan = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.panBase64 = (reader.result as string).split(',')[1]; // Extract Base64 only
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  }
+  onSave() {
+      console.log(this.benForm.value);
+      if (this.benForm.valid) {
+        //call service
+        let userString = localStorage.getItem('userRoleSettings');
+        let userRoleSettings = userString ? JSON.parse(userString) : null;
+      //  this.addBeneficiary();
+        // if (userRoleSettings != null) {
+        //   this.router.navigate(['organisation']);
+        // }
+        // else {
+        //   ValidateForm.validateForm(this.benForm);
+        // }
+       
+      }
+      else {
+        // Show an error message if login fails
+        ValidateForm.validateForm(this.benForm);
+      }
+      
+    }
+    addBeneficiary() {
+      const formData = this.benForm.value;
+      const payload = {
+        Name: formData.companyname,
+        Address: formData.address,
+        Url: formData.url,
+        ContactPerson: formData.contactperson,
+        Email: formData.email,
+        Mobile: formData.mobile,
+        Logo: this.profileBase64, // Can be null
+        Username: formData.username,
+        Password: formData.password
+      };
+      this.serviceApi.saveBeneficiary(payload).subscribe({
+        next: (response) => {
+          console.log('resoonse = ', response);
+          if (response == 1)
+          {
+            alert('Company added successfully!');
+          }
+          else if (response == 100)
+          {
+            alert('Company already exists');
+          }
+          else{
+            console.error('Add Company Failed:', response);
+            alert('Failed to add company.');
+          }
+        },
+        error: (err) => {
+          console.error('Add Company Failed:', err);
+          alert('Failed to add company.');
+        }
+      });
+    }
+
+    updatePath(): void {
+      console.log('updatepath');
+      this.menuService.resetMenu();
+      this.menuService.updateMenuItems([
+        {
+          title: 'User Configuration',
+          links: [
+          ]
+        },
+        {
+          title: 'User Details',
+          links: [
+          ]
+        },
+        {
+          title: 'Company Details',
+          links: [
+          ]
+        },
+        {
+          title: 'Report Section',
+          links: [
+          ]
+        },
+        {
+          title: 'Service Section',
+          links: [
+          ]
+        },
+        {
+          title: 'Payment Section',
+          links: [
+          ]
+        }
+      ]);
+    }
+    setMaxDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, '0');
+      const dd = String(today.getDate()).padStart(2, '0');
+      this.maxDate = `${yyyy}-${mm}-${dd}`; // e.g., 2025-03-09
+    }
+
+    calculateAge(event: Event): void {
+      const input = event.target as HTMLInputElement;
+      const dobValue = input.value;
+      if (dobValue) {
+        const dobDate = new Date(dobValue);
+        const today = new Date();
+  
+        let age = today.getFullYear() - dobDate.getFullYear();
+        const m = today.getMonth() - dobDate.getMonth();
+  
+        if (m < 0 || (m === 0 && today.getDate() < dobDate.getDate())) {
+          age--;
+        }
+  
+        this.benForm.get('age')?.setValue(age);
+      } else {
+        this.benForm.get('age')?.setValue('');
+      }
+    }
 }

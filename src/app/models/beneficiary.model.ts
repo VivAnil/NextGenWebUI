@@ -19,6 +19,10 @@ export interface Beneficiary {
   Address:string,
   PAN:string,
   Aadhar:string,
+  projectId: number,
+  projectName: string,
+  soochnapreneur: string,
+  soochnapreneurId: number
   }
   
   // Assuming that the User class is defined somewhere like this:

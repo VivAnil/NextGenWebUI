@@ -104,4 +104,13 @@ export class ApiService {
       })
     );
   }
+
+  
+  saveBeneficiary(data: any): Observable<any> {
+    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/9/0/0';
+    const api = benUrl;
+    return this.http.post<any>(api, data);
+  }
+
+
 }

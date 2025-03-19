@@ -12,11 +12,12 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="" id="btn_openModal"
+                <!-- <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="" id="btn_openModal"
                     (click)="loadModal(this.dataKey);">
                     + New {{this.pageHead}}
-                </button>
-
+                </button> -->
+                <button type="button" id="btn_openModal" class="btn-orange" data-bs-toggle="modal" data-bs-target="#addBen" (click)="loadModal('addBen')" >Add New
+                    Beneficiary</button>
             </div>
 
 
@@ -215,25 +216,19 @@
                 <div class="col-md-12">
                     <div class="clear-both-15"></div>
                 </div>
-                <div class="modal fade" id="pc" role="dialog">
+                <div class="modal fade" id="addBen" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
 
-                                <span
-                                    style=" font-size: 18px; letter-spacing: normal; margin-bottom: 16px; color: #fff;">
-                                    Add New {{this.pageHead}}
-                                </span>
-                                <span>
-                                    <button type="button" class="close-button" data-bs-dismiss="modal"
-                                        aria-label="Close">&times;</button>
-                                </span>
+                                <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h2 class="modal-title">Add New Beneficiary</h2>
                             </div>
                             <div class="modal-body">
-                                <form (ngSubmit)="submitForm()" #userForm="ngForm">
-                                    <div class="">
-                                        <div class="no-more-tables">
-                                            <table class="col-sm-12 table-bordered table-condensed ">
+                                <div class="">
+                                    <div class="no-more-tables">
+                                        <form [formGroup]="benForm" class="signin-form">
+                                            <table class="col-sm-12 table-bordered table-condensed" cellpadding="5">
                                                 <colgroup>
                                                     <col style="background-color: rgb(243,243,243); width: 20%;" />
                                                     <col style="background-color: rgb(255,255,255); width: 30%;" />
@@ -244,480 +239,237 @@
                                                     <tr>
                                                         <td class="section-heading" colspan="4">Personal Details</td>
                                                     </tr>
-                                                    <tr style="margin-top: 5px;">
+                                                    <tr>
                                                         <td>
-                                                            <label for="firstName" class="form-label">First Name <span
-                                                                    class="text-danger">*</span></label>
-
+                                                            First Name <span>*</span>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="firstName"
-                                                                class="input-box-3 width100"
-                                                                [(ngModel)]="formData.FirstName" name="firstName"
-                                                                required />
-                                                            <div *ngIf="userForm.submitted && !formData.FirstName"
-                                                                class="text-danger">
-                                                                First Name is required.
+                                                            <div class="input-field" [class.error]="benForm.controls['firstname'].dirty && benForm.hasError('required', 'firstname')">
+                                                                <input type="text" formControlName="firstname" class="input-box-3 width100 " placeholder="First Name"/>
                                                             </div>
+                                                            <small *ngIf="benForm.controls['firstname'].dirty 	&& benForm.hasError('required', 'firstname')" class="text-danger">
+                                                                First name is required
+                                                            </small>
+                                                        </td>
+                                                       <td>
+                                                        Middle Name
+                                                       </td>
+                                                       <td><input type="text"formControlName="middlename" class = "input-box-3 width100" placeholder="Middle Name"> </td>
+                                                    </tr>
+                    
+                                                    <tr>
+                                                        <td>
+                                                            Last Name
                                                         </td>
                                                         <td>
-                                                            Middle Name
-
+                                                            <input type="text" formControlName="lastname" class = "input-box-3 width100" placeholder="Last Name"> 
+                                                        </td>
+                                                    
+                                                        <td>
+                                                           Father's Name <span>*</span>
+                    
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="middleName"
-                                                                class="input-box-3 width100 " />
+                                                            <input type="text" formControlName="fathersname" class = "input-box-3 width100" placeholder="Father's Name"> 
+                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>
-
-                                                        <td>
-                                                            <label for="lastName" class="form-label">Last Name <span
-                                                                    class="text-danger">*</span></label>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="lastName"
-                                                                class="input-box-3 width100"
-                                                                [(ngModel)]="formData.LastName" name="lastName"
-                                                                required />
-                                                            <div *ngIf="userForm.submitted && !formData.LastName"
-                                                                class="text-danger">
-                                                                Last Name is required.
-                                                            </div>
-                                                        </td>
                                                         <td>
                                                             DOB <span>*</span>
-
+    
                                                         </td>
                                                         <td>
-                                                            <input type="date" id="dob" class="input-box-3 width100 " />
+                                                            <input type="date" formControlName="dob" class="input-box-3 width100"
+                                                            [max]="maxDate" (change)="calculateAge($event)"/>
                                                         </td>
-
+                                                        <td>
+                                                            <span>Age</span>
+                                                         </td>
+                                                         <td>
+                                                             <input type="text" formControlName="age" class = "input-box-3 width100" placeholder="age" readonly> 
+                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label class="form-label">Sex*</label></td>
+                                                        <td>
+                                                            <div>
+                                                                <label *ngFor="let sex of sexOptions">
+                                                                  <input style="margin-left: 5px;"
+                                                                    type="radio"
+                                                                    [id]="'sex_' + sex.id"
+                                                                    formControlName="sexId"
+                                                                    [value]="sex.id"
+                                                                  />
+                                                                  {{ sex.name }}  
+                                                                </label>
+                                                              </div>
+                                                        </td>
+                                                        <td>
+                                                           Profile Photo
+                        
+                                                        </td>
+                                                        <td>
+                                                            <!-- <input type="file" id="txtLogo" class="input-box-3 width100 " /> -->
+                                                            <input type="file" class="input-box-3 width100" formControlName ="profilephoto" (change)="onFileSelected($event)" />
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <label class="form-label">Sex*</label>
-
+                                                            Mobile No. <span>*</span>
                                                         </td>
                                                         <td>
-                                                            <div *ngFor="let sex of sexOptions">
-                                                                <input type="radio" [id]="'sex_' + sex.id" name="sex"
-                                                                    [(ngModel)]="formData.Sex" [value]="sex.id" />
-                                                                <label style="margin-left: 5px;"
-                                                                    [for]="'sex_' + sex.id">{{ sex.name }}</label>
+                                                            <div class="input-field" [class.error]="benForm.controls['mobile'].dirty && benForm.hasError('required', 'mobile')">
+                                                                <input type="text" formControlName="mobile" class="input-box-3 width100 " />
+                                                            </div>
+                                                            <small *ngIf="benForm.controls['mobile'].dirty && benForm.hasError('required', 'mobile')" class="text-danger">
+                                                                Mobile number is required
+                                                            </small>
+                                                            <div *ngIf="benForm.get('mobile')?.invalid && benForm.get('mobile')?.touched"> 
+                                                            
+                                                                <small *ngIf="benForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid mobile format.</small> 
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            Profile Photo
+                                                            Email 
                                                         </td>
                                                         <td>
-                                                            <input type="file" id="" class="input-box-3 width100 " />
+                                                            <div class="input-field" [class.error]="benForm.controls['email'].dirty && benForm.hasError('required', 'email')">
+                                                                <input type="email" formControlName="email" class="input-box-3 width100 " />
+                                                            </div>
+                                                            <div *ngIf="benForm.get('email')?.invalid && benForm.get('email')?.touched"> 
+                                                            
+                                                                <small *ngIf="benForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small> 
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                   
+                                                    <tr>
+                                                        <td class="section-heading" colspan="4">PROJECT AND ADDRESS DETAILS</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Select Project <span>*</span></td>
+                                                        <td>
+                                                          <select class="select-box-3 width100" formControlName="projectId">
+                                                            <option value="">-- Select Project --</option>
+                                                            <option *ngFor="let project of projectList" [value]="project.projectId">
+                                                              {{ project.projectName }}
+                                                            </option>
+                                                          </select>
+                                                          <small *ngIf="benForm.controls['projectId'].dirty && benForm.hasError('required', 'projectId')" class="text-danger">
+                                                            Project is required
+                                                        </small>
+                                                        </td>
+
+                                                        <td>Select SP <span>*</span></td>
+                                                        <td>
+                                                          <select class="select-box-3 width100" formControlName="soochnapreurId">
+                                                            <option value="">-- Select SP --</option>
+                                                            <option *ngFor="let sp of soochnapreurList" [value]="sp.soochnapreneurId">
+                                                              {{ sp.soochnapreneur }}
+                                                            </option>
+                                                          </select>
+                                                          <small *ngIf="benForm.controls['soochnapreurId'].dirty && benForm.hasError('required', 'soochnapreurId')" class="text-danger">
+                                                            Soochnapreur is required
+                                                        </small>
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Select State <span>*</span></td>
                                                         <td>
-                                                            Email ID
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Mobile Number <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
+                                                            <select class="select-box-3 width100" formControlName="stateId" (change)="onStateChange($event)">
+                                                            <option value="">-- Select State --</option>
+                                                            <option *ngFor="let state of states" [value]="state.id">
+                                                                {{ state.name }}
+                                                            </option>
+                                                            </select>
                                                         </td>
 
+                                                        <td>Select District <span>*</span></td>
+                                                        <td>
+                                                            <select class="select-box-3 width100" formControlName="districtId" (change)="onDistrictChange($event)">
+                                                            <option value="">-- Select District --</option>
+                                                            <option *ngFor="let district of districts" [value]="district.id">
+                                                                {{ district.districtName }}
+                                                            </option>
+                                                            </select>
+                                                        </td>
                                                     </tr>
-
                                                     <tr>
-                                                        <td class="section-heading" colspan="4">Address Details</td>
-                                                    </tr>
-                                                    <tr>
+                                                        <td>Select Block <span>*</span></td>
                                                         <td>
-                                                            State <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <select class="select-box-3 width100">
-                                                                <option>Jharkhand</option>
-                                                                <option>Bihar</option>
+                                                            <select class="select-box-3 width100" formControlName="blockId">
+                                                            <option value="">-- Select Block --</option>
+                                                            <option *ngFor="let block of blocks" [value]="block.id">
+                                                                {{ block.blockName }}
+                                                            </option>
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            District <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <select class="select-box-3 width100">
-                                                                <option>One</option>
-                                                                <option>Two</option>
-                                                            </select>
-                                                        </td>
+                                                            <span>Village</span>
+                                                         </td>
+                                                         <td>
+                                                             <input type="text" formControlName="village" class = "input-box-3 width100" placeholder="village"> 
+                                                             
+                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            Block <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <select class="select-box-3 width100">
-                                                                <option>One</option>
-                                                                <option>Two</option>
-                                                            </select>
-                                                        </td>
-                                                        <td>
-                                                            Village
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Gram Panchayat
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Pin Code
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Address
-
+                                                            Address 
+                    
                                                         </td>
                                                         <td colspan="3">
-                                                            <textarea type="text" id=""
-                                                                class="input-box-3 width100 "></textarea>
+                                                            <div class="input-field">
+                                                                <input type="text" formControlName="address" class="input-box-3 width100 " />
+                                                            </div>
+                                                           
                                                         </td>
-
+                    
                                                     </tr>
                                                     <tr>
-                                                        <td class="section-heading" colspan="4">Bank Details</td>
+                                                        <td class="section-heading" colspan="4">IDENTIFICATION DETAILS</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            Account Holder Name <span>*</span>
+                                                        <td>PAN Card No.</td>
+                                                         <td>
+                                                             <input type="text" formControlName="pan" class = "input-box-3 width100" placeholder="PAN"> 
+                                                         </td>
 
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Account No. <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
+                                                        <td>Upload PAN Card (Scanned Copy)</td>
+                                                         <td>
+                                                             <!-- <input type="file" id="txtLogo" class="input-box-3 width100 " /> -->
+                                                             <input type="file" class="input-box-3 width100" formControlName ="panimage" (change)="onFileSelected($event)" />
+                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            Bank Name <span>*</span>
+                                                        <td>Aadhar Card No.</td>
+                                                         <td>
+                                                             <input type="text" formControlName="aadhar" class = "input-box-3 width100" placeholder="Aadhar"> 
+                                                         </td>
 
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            IFSC Code <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
+                                                        <td>Upload Aadhar Card (Scanned Copy)</td>
+                                                         <td>
+                                                             <!-- <input type="file" id="txtLogo" class="input-box-3 width100 " /> -->
+                                                             <input type="file" class="input-box-3 width100" formControlName ="aadharimage" (change)="onFileSelected($event)" />
+                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            Bank Branch <span>*</span>
-
+                                                        <td colspan="4" align="center" class="back-white">
+                                                            <button type="button" (click)="onSave()"  class="btn-blck1">Save</button>
                                                         </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Upload Bank Cancelled Cheque/Passbook (Scanned Copy)
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="file" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="section-heading" colspan="4">Identification Details
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            PAN Card No.
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Upload PAN Card (Scanned Copy)
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="file" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Adhaar Card No. <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                        <td>
-                                                            Upload Adhaar Card (Scanned Copy) <span>*</span>
-
-                                                        </td>
-                                                        <td>
-                                                            <input type="file" id="" class="input-box-3 width100 " />
-                                                        </td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td colspan="4" class="text-align-center back-white"
-                                                            align="center">
-                                                            <button type="submit" class="btn-blck1">Save</button>
-                                                        </td>
-
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="clear-both-5"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="dv_assignProject" role="dialog">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Assign Project</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="">
-                                    <div class="no-more-tables">
-                                        <table class="col-sm-12 table-bordered table-condensed ">
-                                            <colgroup>
-                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                            </colgroup>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Project Name <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <select class="select-box-3 width100">
-                                                            <option disabled="disabled">--select project--</option>
-                                                            <option>Krisarthak</option>
-                                                            <option>MeraApp</option>
-                                                            <option>SoochnaPreneurs</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        Project Code <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 "
-                                                            disabled="disabled" />
-                                                    </td>
-
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <table class="col-sm-12 table-bordered table-condensed ">
-                                            <colgroup>
-                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-                                                <col style="background-color: rgb(243,243,243); width: 25%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 25%;" />
-
-                                            </colgroup>
-                                            <tr>
-                                                <td colspan="4" class="text-align-center font-weight-bold">Select
-                                                    Project
-                                                    Officer and Project Location</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Select Project Officer <span>*</span></td>
-                                                <td colspan="3">
-                                                    <table class="col-sm-12 table-bordered table-condensed ">
-                                                        <colgroup>
-                                                            <col
-                                                                style="background-color: rgb(243,243,243); width: 50%;" />
-                                                            <col
-                                                                style="background-color: rgb(255,255,255); width: 50%;" />
-
-                                                        </colgroup>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="listBlock">
-
-                                                                    <ul id="sortable1" class='droptrue'>
-                                                                        <li id="article_1">Amit Kumar</li>
-                                                                        <li id="article_2">Irfan Khan</li>
-                                                                        <li id="article_3">Danish Anwar</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-
-                                                            <td>
-                                                                <div class="listBlock">
-                                                                    <ul id="sortable2" class='droptrue'></ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Select State <span>*</span></td>
-                                                <td colspan="3">
-                                                    <table class="col-sm-12 table-bordered table-condensed ">
-                                                        <colgroup>
-                                                            <col
-                                                                style="background-color: rgb(243,243,243); width: 50%;" />
-                                                            <col
-                                                                style="background-color: rgb(255,255,255); width: 50%;" />
-
-                                                        </colgroup>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="listBlock">
-
-                                                                    <ul id="sortable1" class='droptrue'>
-                                                                        <li id="article_1">Jharkhand</li>
-                                                                        <li id="article_2">Bihar</li>
-                                                                        <li id="article_3">Assam</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-
-                                                            <td>
-                                                                <div class="listBlock">
-                                                                    <ul id="sortable2" class='droptrue'></ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Select District <span>*</span></td>
-                                                <td colspan="3">
-                                                    <table class="col-sm-12 table-bordered table-condensed ">
-                                                        <colgroup>
-                                                            <col
-                                                                style="background-color: rgb(243,243,243); width: 50%;" />
-                                                            <col
-                                                                style="background-color: rgb(255,255,255); width: 50%;" />
-
-                                                        </colgroup>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="listBlock">
-
-                                                                    <ul id="sortable1" class='droptrue'>
-                                                                        <li id="article_1">Jahanabad</li>
-                                                                        <li id="article_2">Aara</li>
-                                                                        <li id="article_3">Nagaon</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-
-                                                            <td>
-                                                                <div class="listBlock">
-                                                                    <ul id="sortable2" class='droptrue'></ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>Select Block <span>*</span></td>
-                                                <td colspan="3">
-                                                    <table class="col-sm-12 table-bordered table-condensed ">
-                                                        <colgroup>
-                                                            <col
-                                                                style="background-color: rgb(243,243,243); width: 50%;" />
-                                                            <col
-                                                                style="background-color: rgb(255,255,255); width: 50%;" />
-
-                                                        </colgroup>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="listBlock">
-
-                                                                    <ul id="sortable1" class='droptrue'>
-                                                                        <li id="article_1">Jahanabad</li>
-                                                                        <li id="article_2">Aara</li>
-                                                                        <li id="article_3">Nagaon</li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-
-                                                            <td>
-                                                                <div class="listBlock">
-                                                                    <ul id="sortable2" class='droptrue'></ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-
-                                            </tr>
-
-                                            <tr>
-                                                <td colspan="4" class="text-align-center back-white" align="center">
-                                                    <input type="button" value="Assign Project" class="btn-blck1" />
-                                                </td>
-
-                                            </tr>
-
-                                        </table>
+                                        </form>
                                     </div>
                                 </div>
-
+                
                             </div>
                             <div class="clear-both-5"></div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="clear-both-15">&nbsp;</div>
 
             </div>
