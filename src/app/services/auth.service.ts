@@ -32,6 +32,7 @@ export class AuthService {
       map((response:any) => {
         // Assuming a roleId exists on successful authentication
         this.userRoleSettings = response;
+        response.username=loginObj.username;
         localStorage.setItem('userRoleSettings', JSON.stringify(response));
         return response;
       }),

@@ -16,7 +16,7 @@ export class ApiService {
  private baseUrl : string = environment.baseServiceUrl;
  private baseSPurl: string = environment.baseSPUrl;
  private userdetailsApiUrl: string = environment.userdetailsApiUrl;
-
+ private companyId!:string;
   constructor(private http: HttpClient) { }
   private services: Service[] = [];
   private userDetails: userDetails[] = [];
@@ -94,7 +94,12 @@ export class ApiService {
   }
 
   fetchBeneficiaries(url:string, dataKey:string): Observable<Beneficiary[]> {
-    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/9/0/0';
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
+    this.companyId = userRoleSettings.companyId;
+
+    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/'+ this.companyId +'/0/0';
 
     return this.http.get<Beneficiary[]>(benUrl).pipe(
       catchError((error) => {
@@ -107,7 +112,7 @@ export class ApiService {
 
   
   saveBeneficiary(data: any): Observable<any> {
-    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/9/0/0';
+    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary';
     const api = benUrl;
     return this.http.post<any>(api, data);
   }

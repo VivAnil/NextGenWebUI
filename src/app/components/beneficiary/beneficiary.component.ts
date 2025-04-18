@@ -98,6 +98,7 @@ aadharBase64: string | null = null;
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
+userName!:string;
 projectList: { projectId: number, projectName: string }[] = [];
 soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService) { }
@@ -108,6 +109,8 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     this.companyId = userRoleSettings.companyId; 
     this.roleId = userRoleSettings.systemRoleId; 
     this.companyRoleId = userRoleSettings.companyRoleId; 
+    this.userName = userRoleSettings.username;
+
     this.route.params.subscribe((params) => {
       this.companyId = +params['companyid'];
       this.roleId=+params['roleid'];
@@ -526,59 +529,60 @@ openFilter() {
   }
   onSave() {
       console.log(this.benForm.value);
-      if (this.benForm.valid) {
-        //call service
-        let userString = localStorage.getItem('userRoleSettings');
-        let userRoleSettings = userString ? JSON.parse(userString) : null;
-      //  this.addBeneficiary();
-        // if (userRoleSettings != null) {
-        //   this.router.navigate(['organisation']);
-        // }
-        // else {
-        //   ValidateForm.validateForm(this.benForm);
-        // }
-       
-      }
-      else {
-        // Show an error message if login fails
-        ValidateForm.validateForm(this.benForm);
-      }
+          if (this.benForm.valid) {
+            //call service
+            this.addBeneficiary();
+          }
+          else {
+            ValidateForm.validateForm(this.benForm);
+          }
       
     }
     addBeneficiary() {
       const formData = this.benForm.value;
       const payload = {
-        Name: formData.companyname,
-        Address: formData.address,
-        Url: formData.url,
-        ContactPerson: formData.contactperson,
-        Email: formData.email,
-        Mobile: formData.mobile,
-        Logo: this.profileBase64, // Can be null
-        Username: formData.username,
-        Password: formData.password
-      };
-      this.serviceApi.saveBeneficiary(payload).subscribe({
-        next: (response) => {
-          console.log('resoonse = ', response);
-          if (response == 1)
-          {
-            alert('Company added successfully!');
-          }
-          else if (response == 100)
-          {
-            alert('Company already exists');
-          }
-          else{
-            console.error('Add Company Failed:', response);
-            alert('Failed to add company.');
-          }
-        },
-        error: (err) => {
-          console.error('Add Company Failed:', err);
-          alert('Failed to add company.');
+        firstname: formData.firstname,
+        middlename: formData.middlename,
+        lastname: formData.lastname,
+        fathersname: formData.fathersname,
+        dob: formData.dob,
+        email: formData.email,
+        mobile: formData.mobile,
+        village: formData.village,
+        address: formData.address,
+        grampanchayat: formData.grampanchayat,
+        pincode: formData.pincode,
+        PanCard: formData.pan,
+        aadhar: formData.aadhar,
+        url: formData.url,
+        panimage: this.panBase64, // Can be null
+        aadharimage: this.aadharBase64,
+        profilephoto: this.profileBase64,
+        Sex: formData.sexId,
+        projectId: formData.projectId,
+        SoochnaPreneurId: formData.soochnapreurId,
+        StateId: formData.stateId,
+        DistrictId: formData.districtId,
+        BlockId: formData.blockId,
+        CompanyId:this.companyId,
+        LastUpdateBy: this.userName
+    };
+    this.serviceApi.saveBeneficiary(payload).subscribe({
+      next: (response) => {
+        console.log('Response = ', response);
+        if (response == 1) {
+          alert('Beneficiary Added Successfully!');
         }
-      });
+        else {
+          console.error('Save Beneficiary Failed: ', response);
+          alert('Failed to Add Beneficiary.');
+        }
+      },
+      error: (err) => {
+        console.error('Save Beneficiary Failed: ', err);
+        alert('Failed to Add Beneficiary.');
+      }
+    });
     }
 
     updatePath(): void {
