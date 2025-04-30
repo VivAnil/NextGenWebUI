@@ -42,15 +42,12 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      //call service
-      console.log(this.loginForm.value);
+      localStorage.clear();
       // this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleDefn) => {
           this.roleId = roleDefn.systemRoleId;
-          if (this.roleId === -1) {
-            //  alert('An error occurred during authentication.');
-            // Show an error message if login fails
+          if (this.roleId === -1 || this.roleId === undefined) {
             this.error = "block";
             ValidateForm.validateForm(this.loginForm);
           } else if (this.roleId === 1) {
@@ -72,55 +69,10 @@ export class LoginComponent implements OnInit {
       });
     }
     else {
-      // Show an error message if login fails
       this.loginForm.reset();
       this.error = "block";
       ValidateForm.validateForm(this.loginForm);
     }
 
   }
-  //onLogin2(){
-  //  if(this.loginForm.valid)
-  //    {
-  //      //call service
-  //      console.log(this.loginForm.value);
-  //     // this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
-  //    this.authService.authenticate(this.loginForm.value).subscribe({
-  //      next: (roleId) => {
-  //        this.roleId = roleId;
-  //        this.roleMasterSvc.getCustomRoleDefinitionForCompany(1).subscribe({
-  //          next: (roleDefn) => {
-  //            // Now roleDefn is the result from the observable
-  //            let customRoleDefn = roleDefn;  // You can assign roleDefn to customRoleDefn
-  //            console.log('Custom Role Definition:', customRoleDefn);
-  //            // Now you can proceed with the logic using customRoleDefn
-  //            if (customRoleDefn === null) {
-  //              this.error = "block";
-  //              ValidateForm.validateForm(this.loginForm);
-  //            } else {
-  //              this.error = "none";
-  //              this.router.navigate(['organisation', this.roleId]);
-  //            }
-  //          },
-  //          error: (error) => {
-  //            console.error('Error fetching custom role definition:', error);
-  //            this.error = "block";
-  //            ValidateForm.validateForm(this.loginForm);
-  //          }
-  //        });
-  //      },
-  //      error: () => {
-  //        this.loginForm.reset();
-  //        this.error = "block";
-  //        ValidateForm.validateForm(this.loginForm);
-  //      }
-  //    });
-  //    }
-  //    else {
-  //    // Show an error message if login fails
-  //      this.loginForm.reset();
-  //      this.error="block";
-  //      ValidateForm.validateForm(this.loginForm);
-  //    }
-  //}
 }

@@ -46,8 +46,8 @@ export class RolemasterService {
 
   getCustomRoleDefinitionForCompany(companyRoleId: number): Observable<any> {
     if (this.customRoleSettings?.companyRoleId !== companyRoleId) {
-    // return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoleSettings/"+companyRoleId).pipe(
-      return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
+     return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoleSettings/"+companyRoleId).pipe(
+    //  return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + `/CompanyRoleSettings/${companyRoleId}`).pipe(
         catchError((error) => {
           console.error('API call failed:', error);
           // Return hardcoded fallback data
@@ -61,8 +61,19 @@ export class RolemasterService {
 
   getCustomRoleForCompany(): Observable<any[]> {
     console.log(this.userRoleSettings.companyRoleId);
-    return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/"+this.userRoleSettings.companyId).pipe(
-   // return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+   // return this.http.get<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/"+this.userRoleSettings.companyId).pipe(
+   return this.http.get<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/1").pipe(
+      catchError(error => {
+        console.error('Get custom company role failed');
+        return of(error);  // Return false on error
+      })
+    );
+
+  }
+
+  deleteCustomRoleForCompany(companyRoleId: number): Observable<any[]> {
+    //return this.http.delete<any>(environment.companyUserRoleMasterBaseUrl + "/CompanyRoles/" + companyRoleId).pipe(
+    return this.http.delete<any>("https://localhost:7047/api/CompanyUserRoleMaster/CompanyRoles/" + companyRoleId).pipe(
       catchError(error => {
         console.error('Get custom company role failed');
         return of(error);  // Return false on error

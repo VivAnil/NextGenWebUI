@@ -193,46 +193,39 @@ export class CompanyusermasterComponent implements OnInit {
       fields: [
         { title: "Profile Name", name: "profilename", type: "text", validate: "required", css: "width14em" },
         { title: "System User Type", name: "systemusertype", css: "width14em" },
-        { type: 'text', visible: false, name: "companyroleid" }, 
-        //{
-        //  title: "Action", itemTemplate: function (value: any, item: any)
-        //  {
-        //    var internalHtml = "< button class='border-none' type = 'button' data - bs - target='#dv_adduser' (click) = 'onItemEditing("+item.companyroleid
-        //    +")' > <i class='fa fa-edit' title = 'Edit User' > </i></button >< button class='border-none' title = 'Delete User' type = 'button' data - bs - target='#' (click) = 'deleteCustomRole("
-        //    +item.companyroleid+")' ><i class='fa fa-trash' title = 'Delete User' > </i></button >";
-
-
-        //    var div= $("<div class='text-align-center'>")
-        //    .append(internalHtml);
-        //    return div;
-        //  },
-        //  type: "control", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
-        //},
+        { type: 'text', visible: false, name: "companyroleid" },
         {
           title: "Action",
           itemTemplate: (value: any, item: any) => {
             return $("<div class='text-align-center'>")
               .append($("<button class='border-none' type='button'>")
                 .attr("data-bs-target", "#dv_adduser")
-                //.on("click", () => this.onItemEditing(item.companyroleid))
                 .html("<i class='fa fa-edit' title='Edit User'></i>"))
               .append($("<button class='border-none' title='Delete User' type='button'>")
                 .attr("disabled", item.canDeleteCustomRole)
-                .on("click", () => this.deleteCustomRole(item.companyroleid))
+                .on("click", () => this.onCustomDelete(item))
                 .html("<i class='fa fa-trash' title='Delete User'></i>"));
           },
           type: "control", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
         }
       ],
       onItemEditing: (args: any) => this.onItemEditing(args.item.companyroleid,args),
-      onItemUpdated: (args: any) => this.onItemEdited(args.item.companyroleid,args)
-      
+      onItemUpdated: (args: any) => this.onItemEdited(args.item.companyroleid, args),
+      onItemDeleting: (args: any) => this.onItemDeleting(args.item.companyroleid, args),
+      onItemDeleted: (args: any) => this.onItemDeleted(args.item.companyroleid, args)
     });
   }
 
+  onCustomDelete(item: any) {
+    const grid = $("#MappedGrid").data("JSGrid");
+    grid.deleteItem(item);
+  }
+
   onItemEditing(compantRoleId: number,args :any) {
-    if (args.item.ID === 0) {
+    if (args.item.ID === undefined) {
       args.cancel = true;
+      this.isEditing = false;
+      this.editRoleName = "";
     }
     let customRoleSettings: any;
     //alert('Editing item:' + compantRoleId);
@@ -243,7 +236,6 @@ export class CompanyusermasterComponent implements OnInit {
       $('#html1').jstree("deselect_all");
 
       for (const permissionId of permissionIds) {
-        console.log(`Processing permissionId: ${permissionId}`);
         $('#html1').jstree('select_node', `Permission_${permissionId}`);
       }
       this.customRoleDisplayName = customRoles.companyRoleName;
@@ -269,10 +261,14 @@ export class CompanyusermasterComponent implements OnInit {
     alert(`Editing item: ${JSON.stringify(item)}`);
   }
 
-  deleteCustomRole(args: any) {
-    const editedItem = args.item;
-    console.log('Deleting item:', args);
+  onItemDeleting(compantRoleId: number, args: any) {
+    this.deleteRole(compantRoleId);
+    console.log('Deleting item:', compantRoleId);
 
+  }
+  onItemDeleted(compantRoleId: number, args: any) {
+    this.deleteRole(compantRoleId);
+    console.log(compantRoleId);
   }
 
   createRole() {
@@ -319,7 +315,18 @@ export class CompanyusermasterComponent implements OnInit {
       });
     }
   }
-  
+
+  deleteRole(compantRoleId: number) {
+    this.rolemasterService.deleteCustomRoleForCompany(compantRoleId).subscribe(customRoles => {
+      console.log(customRoles);
+      if (Number(customRoles) > 0) { 
+        this.customRoleDisplayName = "";
+        var newRole = this.masterRoleData.filter((role: { companyRoleId: number; }) => role.companyRoleId === this.selectedSystemRole[0].companyRoleId);// This will give you the raw value
+        $("#MappedGrid").jsGrid("del", { profilename: this.customRoleDisplayName, systemusertype: this.selectedSystemRole[0].systemRoleName }).done(function () { console.log("insertion completed"); });
+      }
+    });
+  }
+
   onSelect(event: any) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = Number( selectElement.value); 
