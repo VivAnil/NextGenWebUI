@@ -175,25 +175,28 @@
                             <div  class="float-left width25 margin-right-10px">
                                 <div class="font-weight-bold">Project Name</div>
                                 <div>
-                                            <select name="" id="" class="paddingp6em width100">
-                                                <option value="1">-All Projects--</option>
-                                                <option value="1">Smartpur Smartpur Smartpur Smartpur Smartpur Smartpur</option>
-                                                <option value="2">Digital Didi</option>
-                                                <option value="3">Krisarthak</option>
-                                                
-                                            </select>
+
+                                  <select name="projects" id="companyProjects" class="select-box-3 width100" [(ngModel)]="selectedProjectId" (change)="onProjectSelect($event)">
+                                    <option [value]="0">All Projects</option>
+                                    <option *ngFor="let project of projectsList" [value]="project.id" [text]="project.name">{{ project.name }}</option>
+                                  </select>
+                                  
                                 </div>  
                             </div>
                             <div  class="float-left margin-right-10px">
                                 <div class="font-weight-bold">From</div> 
-                                <div><input type="date" class="input-box-3" /></div>
+                                <div><input type="date" class="input-box-3" [(ngModel)]="startDate" /></div>
                             </div>
                             <div  class="float-left margin-right-10px">
                                 <div class="font-weight-bold">To</div> 
-                                <div><input type="date" class="input-box-3" /></div>
+                                <div><input type="date" class="input-box-3" [(ngModel)]="endDate" /></div>
                             </div>
-                            
-                        </div>
+                            <div class="float-right margin-left-10px">
+                             <div><input type="button" class="input-box-3"
+       id="btn_search" value="Apply Date Filter" (click)="filterByDate($event)" /></div> 
+                            </div>
+
+                            </div>
                    
                 </div>
                 <div class="page-filter">                        

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { ProjectsService } from '../../services/projects.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-allprojects',
@@ -17,8 +18,22 @@ export class AllprojectsComponent implements OnInit {
   activeDefault: string='default-link';
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
-  isColumnOpen: boolean=false;
-  constructor(private serviceApi: ApiService) { }
+  isColumnOpen: boolean = false;
+  userRoleSettings: any = null;
+  projectServiceData: any;
+  projectsList: any;
+  selectedProjectId: any = 0;
+  startDate: any;
+  endDate: any;
+
+  constructor(private projectsService: ProjectsService) {
+    const userString = localStorage.getItem('userRoleSettings');
+    this.userRoleSettings = userString ? JSON.parse(userString) : null;
+    this.endDate = new Date();
+    var oldDate = new Date();
+    oldDate.setDate(this.endDate.getDate() - 300);
+    this.startDate = oldDate; 
+ }
   ngAfterViewInit(): void {
     this.initJsGrid();
   }
@@ -46,103 +61,43 @@ export class AllprojectsComponent implements OnInit {
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-     data: this.getDummyData(),
+      data: JSON.stringify(this.projectServiceData),
        autoload: true,
 
-    //  controller: {
-    //    loadData: () => {
-    //      return this.serviceApi.getData().toPromise();
-    //    },
-    //  },
+      //controller: {
+      //  loadData: () => {
+      //    return this.projectsService.getAllProjectsForUser().toPromise();
+      //  },
+      //},
       fields: [
         { title: "Project Id", name: "projectId", type: "number", validate: "required", css: "text-align-c" },
         { title: "Project Name", name: "projectName", type: "text", css: "width14em" },
-        { title: "Total Unique Beneficiaries", name: "totalUniqueBen", type: "number", css: "text-align-c" },
-        { title: "Total No. Of SPs", name: "totalSP", type: "number", css: "text-align-c width6em" },
+        { title: "Total Unique Beneficiaries", name: "uniqueBenfCount", type: "number", css: "text-align-c" },
+        { title: "Total No. Of SPs", name: "uniqueSPCount", type: "number", css: "text-align-c width6em" },
         { title: "Total No. Of Services", name: "totalServices", type: "number", css: "text-align-c width6em" },
-        { title: "Revenue By Services (A)", name: "revenueByServices", type: "text", css: "text-align-c width6em" },
-        { title: "Revenue By Incentives (B)", name: "revenueByIncentives", type: "text", css: "text-align-c width6em" },
-        { title: "Total Services Worth", name: "totalServicesWorth", type: "text", validate: "required", css: "text-align-c" },
+        { title: "Revenue By Services (A)", name: "totalServiceRate", type: "number", css: "text-align-c width6em" },
+        { title: "Revenue By Incentives (B)", name: "totalIncentivesPayable", type: "number", css: "text-align-c width6em" },
+        { title: "Total Services Worth", name: "totalServiceWorth", type: "number", validate: "required", css: "text-align-c" },
         {
           title: "Action", name :"action", itemTemplate:"<div class='text-align-center'><a class='border-none color-black margin-right-10px' title='View Project Analytics' type='button' href='projectanalytics.html' ><i class='fa fa-area-chart'></i></a> <a class='border-none color-black' title='View Project Details' type='button' href='viewprojectdetails.html' ><i class='fa fa-eye' title='View Project Details'></i></a></div>", type: "text", sorting: false, editing: false, filtering: false, css: "inactive"
-                    
         }
-        // {
-        //   title: "Action", itemTemplate: function (value, item) {
-        //     return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addService'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
-        //   }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
-        // }
       ]
     });
-
    
   }
 
-  getDummyData() {
-    return [
-      {
-        "projectId": "PRO-0001",
-        "projectName": "Smartpur",
-        "totalUniqueBen": "5",
-        "totalSP": "30",
-        "totalServices": "15,000",
-        "revenueByServices": "9,500",
-        "revenueByIncentives": "5,500",
-        "totalServicesWorth": "2,500"
-      },
-      {
-        "projectId": "PRO-0002",
-        "projectName": "Krisarthak",
-        "totalUniqueBen": "5",
-        "totalSP": "30",
-        "totalServices": "10,000",
-        "revenueByServices": "8,500",
-        "revenueByIncentives": "1,500",
-        "totalServicesWorth": "1,5000"
-      },
-      {
-        "projectId": "PRO-0003",
-        "projectName": "Digtal Summit",
-        "totalUniqueBen": "18",
-        "totalSP": "5",
-        "totalServices": "15,000",
-        "revenueByServices": "9,500",
-        "revenueByIncentives": "5,500",
-        "totalServicesWorth": "2,500"
-      },
-      {
-        "projectId": "PRO-0004",
-        "projectName": "Green Prakriya",
-        "totalUniqueBen": "15",
-        "totalSP": "25",
-        "totalServices": "15,000",
-        "revenueByServices": "9,500",
-        "revenueByIncentives": "5,500",
-        "totalServicesWorth": "2,500"
-      },
-      {
-        "projectId": "PRO-0005",
-        "projectName": "Smartpur",
-        "totalUniqueBen": "5",
-        "totalSP": "30",
-        "totalServices": "25,000",
-        "revenueByServices": "19,500",
-        "revenueByIncentives": "5,500",
-        "totalServicesWorth": "25,500"
-      },
-      {
-        "projectId": "PRO-0006",
-        "projectName": "Krisarthak",
-        "totalUniqueBen": "5",
-        "totalSP": "30",
-        "totalServices": "15,000",
-        "revenueByServices": "9,500",
-        "revenueByIncentives": "5,500",
-        "totalServicesWorth": "2,500"
-      }
-    ];
-  }
   ngOnInit(): void {
+    this.projectsService.getProjectWiseRevenue('2025-01-01', '2025-10-01', undefined).subscribe(revenueData => {
+      this.projectServiceData = revenueData;
+      $("#allProjectGrid").jsGrid("option", "data", this.projectServiceData.projectWiseRevenueSummary);
+    });
+
+    this.projectsService.getAllProjectsForCompany().subscribe(projectsData => {
+      this.projectsList = projectsData.map((project: { id: number; name: string; }) => ({
+        id: project.id,
+        name: project.name
+      }));
+    });
   }
   openFilter() {
     this.isFilterOpen = !this.isFilterOpen;    
@@ -188,5 +143,26 @@ export class AllprojectsComponent implements OnInit {
     this.activeDefault = 'default-link';
     }
 
+  }
+
+  filterByDate(event: any) {
+    this.projectsService.getProjectWiseRevenue(this.startDate, this.endDate, this.selectedProjectId).subscribe(revenueData => {
+      this.projectServiceData = revenueData;
+      $("#allProjectGrid").jsGrid("option", "data", this.projectServiceData.projectWiseRevenueSummary);
+    });
+  }
+
+  onProjectSelect(event: any) {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedProjectId = Number(selectElement.value) === 0 ? null : Number(selectElement.value);
+
+    console.log(Array.isArray(this.projectServiceData));
+
+    let filterdata = 
+      Number(selectElement.value) === 0
+        ? this.projectServiceData.projectWiseRevenueSummary
+        : this.projectServiceData.projectWiseRevenueSummary.filter((project: any) => Number(project.projectId) === this.selectedProjectId)
+      ;
+    $("#allProjectGrid").jsGrid("option", "data", filterdata);
   }
 }

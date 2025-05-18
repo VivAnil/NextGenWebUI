@@ -13,7 +13,8 @@ export const environment = {
   companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster',
   userdetailsApiUrl:'https://motherappuserapi.azurewebsites.net/user/',
   resetPasswordUrl: 'https://motherappuserapi.azurewebsites.net/User/ResetPassword',
-   baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/"
+  baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
+  baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/" 
 };
 
 
