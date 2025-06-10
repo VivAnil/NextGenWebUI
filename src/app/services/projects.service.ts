@@ -21,8 +21,8 @@ export class ProjectsService {
       "companyId" : this.userRoleSettings.companyId,
       "managerId" : this.userRoleSettings.systemRoleId == 1 ? null : this.userRoleSettings.Id,
       "projectid" : this.userRoleSettings.systemRoleId == 1 ? null : this.userRoleSettings.ProjectId,
-      "startDate" : '2025-01-01',
-      "endDate" : '2025-10-01'
+      "startDate": startDate,
+      "endDate" : endDate
     };
 
     return this.http.post<any>(this.baseUrl + "ServicesReport/GetProjectWiseRevenue",request).pipe(

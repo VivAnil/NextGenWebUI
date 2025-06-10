@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { ApiService } from 'src/app/services/api.service';
 import { ProjectsService } from '../../services/projects.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-allprojects',
   templateUrl: './allprojects.component.html',
-  styleUrls: ['./allprojects.component.css']
+  styleUrls: ['./allprojects.component.css'],
+  providers: [DatePipe]
 })
 export class AllprojectsComponent implements OnInit {
   displayTab: string='block';
@@ -26,13 +28,13 @@ export class AllprojectsComponent implements OnInit {
   startDate: any;
   endDate: any;
 
-  constructor(private projectsService: ProjectsService) {
+  constructor(private projectsService: ProjectsService, private datepipe: DatePipe) {
     const userString = localStorage.getItem('userRoleSettings');
     this.userRoleSettings = userString ? JSON.parse(userString) : null;
-    this.endDate = new Date();
+    this.endDate = this.datepipe.transform(new Date(), 'yyyy-MM-dd') ;
     var oldDate = new Date();
-    oldDate.setDate(this.endDate.getDate() - 300);
-    this.startDate = oldDate; 
+    oldDate.setDate(oldDate.getDate() - 180);
+    this.startDate = this.datepipe.transform(oldDate, 'yyyy-MM-dd');  
  }
   ngAfterViewInit(): void {
     this.initJsGrid();
@@ -87,7 +89,7 @@ export class AllprojectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectsService.getProjectWiseRevenue('2025-01-01', '2025-10-01', undefined).subscribe(revenueData => {
+    this.projectsService.getProjectWiseRevenue(this.startDate, this.endDate, undefined).subscribe(revenueData => {
       this.projectServiceData = revenueData;
       $("#allProjectGrid").jsGrid("option", "data", this.projectServiceData.projectWiseRevenueSummary);
     });
