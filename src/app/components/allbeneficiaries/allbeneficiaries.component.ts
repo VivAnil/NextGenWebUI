@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { MenuService } from '../../services/menu.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-allbeneficiaries',
@@ -19,7 +20,8 @@ export class AllbeneficiariesComponent implements OnInit {
   activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
-  constructor(private serviceApi: ApiService) { }
+  constructor(private serviceApi: ApiService,private menuService: MenuService) {
+  }
   ngAfterViewInit(): void {
     this.initJsGrid();
   }
@@ -196,7 +198,45 @@ export class AllbeneficiariesComponent implements OnInit {
     ];
   }
   ngOnInit(): void {
+    this.updatePath();
   }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
+  }
+
   openFilter() {
     this.isFilterOpen = !this.isFilterOpen;    
     if(this.displayFilter=='none') 

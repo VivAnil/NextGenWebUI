@@ -7,6 +7,7 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
+import { MenuService } from '../../services/menu.service';
 // import * as $ from 'jquery';
 declare var $: any; // Import jQuery
 @Component({
@@ -34,7 +35,7 @@ export class ProjectComponent implements OnInit {
   isAdhaarIncentive: boolean = false;
   isPANIncentive: boolean = false;
   allowNewProject: boolean = false;
-  constructor() {
+  constructor(private menuService: MenuService) {
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
@@ -131,6 +132,43 @@ export class ProjectComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.updatePath();
+  }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
   }
 
   openFilter() {

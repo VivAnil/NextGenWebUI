@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from '../../services/menu.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-paymentreport',
@@ -19,7 +20,7 @@ export class PaymentreportComponent implements OnInit {
         activeTab1: string = 'ui-tab ';
         isColumnOpen: boolean = false;
 
-        constructor() { }
+        constructor(private menuService: MenuService) { }
         ngAfterViewInit(): void {
                 this.initJsGrid();
         }
@@ -201,7 +202,44 @@ export class PaymentreportComponent implements OnInit {
         }
       
         ngOnInit(): void {
-        }
+    this.updatePath();
+  }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
+  }
         uniqueBeneficiaries() {
 
                 return false;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ApiService } from 'src/app/services/api.service';
 import { ProjectsService } from '../../services/projects.service';
+import { MenuService } from '../../services/menu.service';
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-allprojects',
@@ -28,7 +29,7 @@ export class AllprojectsComponent implements OnInit {
   startDate: any;
   endDate: any;
 
-  constructor(private projectsService: ProjectsService, private datepipe: DatePipe) {
+  constructor(private projectsService: ProjectsService, private datepipe: DatePipe,private menuService: MenuService) {
     const userString = localStorage.getItem('userRoleSettings');
     this.userRoleSettings = userString ? JSON.parse(userString) : null;
     this.endDate = this.datepipe.transform(new Date(), 'yyyy-MM-dd') ;
@@ -100,6 +101,43 @@ export class AllprojectsComponent implements OnInit {
         name: project.name
       }));
     });
+    this.updatePath();
+  }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
   }
   openFilter() {
     this.isFilterOpen = !this.isFilterOpen;    

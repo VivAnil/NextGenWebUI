@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { CompanyService, CompanyDashboard } from 'src/app/services/company.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-editcompany',
@@ -16,7 +17,7 @@ export class EditcompanyComponent implements OnInit {
   editCompanyForm!: FormGroup;
   companyId!: string;
   allowUpdateProject: boolean = false;
-  constructor(private router: Router, private fb: FormBuilder, private cs: CompanyService, private route: ActivatedRoute) {
+  constructor(private router: Router, private fb: FormBuilder, private cs: CompanyService, private route: ActivatedRoute, private menuService: MenuService) {
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
@@ -39,6 +40,43 @@ export class EditcompanyComponent implements OnInit {
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     this.companyId = userRoleSettings.companyId;
     console.log('CompanyId = ', this.companyId);
+    this.updatePath();
+  }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
   }
   onFileSelected(event: any): void {
     const file = event.target.files[0];

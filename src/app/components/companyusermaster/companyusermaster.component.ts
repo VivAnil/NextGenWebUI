@@ -4,6 +4,7 @@ declare var $: any; // Import jQuery
 import 'jstree';
 import { RolemasterService } from '../../services/rolemaster.service';
 import { ICustomRoleDefinition } from '../../models/service.model';
+import { MenuService } from '../../services/menu.service';
 @Component({
   selector: 'app-companyusermaster',
   templateUrl: './companyusermaster.component.html',
@@ -38,7 +39,7 @@ export class CompanyusermasterComponent implements OnInit {
   isEditing: boolean = false;
   editRoleName: string = "";
   updateCustomRole: any;
-  constructor(private rolemasterService: RolemasterService) { }
+  constructor(private rolemasterService: RolemasterService, private menuService: MenuService) { }
   ngOnInit(): void {
     this.getCustomRoleDetails();
     this.cols = [
@@ -47,6 +48,43 @@ export class CompanyusermasterComponent implements OnInit {
     ];
     this.data = this.customAssignedRoles;
     this.initJsGrid();
+    this.updatePath();
+  }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Configuration',
+        links: [
+        ]
+      },
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Report Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Payment Section',
+        links: [
+        ]
+      }
+    ]);
   }
 
   ngAfterViewInit(): void {
