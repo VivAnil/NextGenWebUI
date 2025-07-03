@@ -1,23 +1,24 @@
 import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-
 import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table'; // Import PrimeNG Table reference
-import { style } from '@angular/animations';
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-
 import {SexOption} from '../../models/master.model';
 import { MenuService } from '../../services/menu.service';
-declare var $: any; // Import jQuery
+import { UserProfile } from 'src/app/models/IUserProfile';
+declare let $: any; // Import jQuery
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit,  AfterViewInit  {
+  userProfile!: UserProfile;
+   successMessage = '';
+   errorMessage = '';
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
   private isVisible: boolean = false;
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
@@ -95,6 +96,7 @@ selectedBlock: number | null = null;
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     this.companyId = userRoleSettings.companyId; 
+    this.formData.DOB = '1990-12-25'; 
     this.roleId = userRoleSettings.systemRoleId; 
     this.companyRoleId = userRoleSettings.companyRoleId; 
     this.route.params.subscribe((params) => {
@@ -416,15 +418,40 @@ selectedBlock: number | null = null;
       if (!this.formData.FirstName || !this.formData.LastName) {
         return; // Prevent submission if mandatory fields are empty
       }
-  
-      const payload = {
-        ...this.formData
-      };
-  
+      const apiUrl = environment.userdetailsApiUrl;
+      console.log(apiUrl);
+      // const payload = {
+      //   ...this.formData
+      // };
+      this.formData.Id = '0';
+      this.http.post(apiUrl, this.formData).subscribe({
+      next: (response) => {
+        this.successMessage = 'User Added';
+        alert(this.successMessage)
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        
+        
+        console.error('Error Add new officer', JSON.stringify(error));
+      },
+      complete: () => {
+         console.log(' Request completed.');
+      }
+    });
       // Handle form submission logic (e.g., post to an API)
-      console.log('Submitting form data:', payload);
-    }
+      console.log('Submitting form data:', this.formData);
 
+      
+    }
+    readFileAsBase64(file: File): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
+}
     fetchMasterData() {
       this.http.get<SexOption[]>('https://motherappmasterapi.azurewebsites.net/api/Gender/GetAllGender').subscribe(
         (response: SexOption []) => {
@@ -493,18 +520,33 @@ selectedBlock: number | null = null;
   }
 
    // On state selection change
-   onStateChange() {
+   onStateChange(event: Event) {
+    this.selectedState = Number((event.target as HTMLSelectElement).value);
     if (this.selectedState) {
       this.getDistricts(this.selectedState);
     }
   }
 
   // On district selection change
-  onDistrictChange() {
+  onDistrictChange(event: Event){ 
+  this.selectedDistrict = Number((event.target as HTMLSelectElement).value);
     if (this.selectedDistrict) {
       this.getBlocks(this.selectedDistrict);
     }
   }
+onFileChange(event: Event, field: string) {
+  const file = (event.target as HTMLInputElement).files?.[0];
+  if (file) {
+    this.readFileAsBase64(file).then(base64 => {
+   (this.formData as any)[field] = base64;
+    });
+  }
+}
+onDOBChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  this.formData.DOB = input.value; // Format will be yyyy-MM-dd
+  console.log('DOB changed to:', this.formData.DOB);
+}
 
   updatePath(): void {
     console.log('updatepath');

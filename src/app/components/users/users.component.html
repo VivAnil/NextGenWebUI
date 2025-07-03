@@ -221,278 +221,521 @@
                         <div class="modal-content">
                             <div class="modal-header">
 
-                                <span style=" font-size: 18px; letter-spacing: normal; margin-bottom: 16px; color: #fff;">
-                                   Add New {{this.pageHead}}
+                                <span
+                                    style=" font-size: 18px; letter-spacing: normal; margin-bottom: 16px; color: #fff;">
+                                    Add New {{this.pageHead}}
                                 </span>
                                 <span>
-                                    <button type="button" class="close-button" data-bs-dismiss="modal" aria-label="Close" >&times;</button>
+                                    <button type="button" class="close-button"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close">&times;</button>
                                 </span>
                             </div>
                             <div class="modal-body">
-                                <form (ngSubmit)="submitForm()" #userForm="ngForm">
-                                <div class="">
-                                    <div class="no-more-tables">
-                                        <table class="col-sm-12 table-bordered table-condensed ">
-                                            <colgroup>
-                                                <col style="background-color: rgb(243,243,243); width: 20%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 30%;" />
-                                                <col style="background-color: rgb(243,243,243); width: 20%;" />
-                                                <col style="background-color: rgb(255,255,255); width: 30%;" />
-                                            </colgroup>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="section-heading" colspan="4">Personal Details</td>
-                                                </tr>
-                                                <tr style="margin-top: 5px;">
-                                                    <td>
-                                                        <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                <form (ngSubmit)="submitForm()"
+                                    #userForm="ngForm">
+                                    <div class>
+                                        <div class="no-more-tables">
+                                            <table
+                                                class="col-sm-12 table-bordered table-condensed ">
+                                                <colgroup>
+                                                    <col
+                                                        style="background-color: rgb(243,243,243); width: 20%;" />
+                                                    <col
+                                                        style="background-color: rgb(255,255,255); width: 30%;" />
+                                                    <col
+                                                        style="background-color: rgb(243,243,243); width: 20%;" />
+                                                    <col
+                                                        style="background-color: rgb(255,255,255); width: 30%;" />
+                                                </colgroup>
+                                                <tbody>
+                                                    <tr>
+                                                        <td
+                                                            class="section-heading"
+                                                            colspan="4">Personal
+                                                            Details</td>
+                                                    </tr>
+                                                    <tr
+                                                        style="margin-top: 5px;">
+                                                        <td>
+                                                            <label
+                                                                for="firstName"
+                                                                class="form-label">First
+                                                                Name <span
+                                                                    class="text-danger">*</span></label>
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="firstName" class="input-box-3 width100" [(ngModel)]="formData.FirstName"  name="firstName" required />
-                                                        <div *ngIf="userForm.submitted && !formData.FirstName" class="text-danger">
-                                                            First Name is required.
-                                                          </div>
-                                                    </td>
-                                                    <td>
-                                                        Middle Name
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                id="firstName"
+                                                                class="input-box-3 width100"
+                                                                [(ngModel)]="formData.FirstName"
+                                                                name="firstName"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.FirstName"
+                                                                class="text-danger">
+                                                                First Name is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Middle Name
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="middleName" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="middleName"
+                                                                id="middleName"  [(ngModel)]="formData.MiddleName"
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
 
-                                                    <td>
-                                                        <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                        <td>
+                                                            <label
+                                                                for="lastName"
+                                                                class="form-label">Last
+                                                                Name <span
+                                                                    class="text-danger">*</span></label>
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="lastName" class="input-box-3 width100" [(ngModel)]="formData.LastName"  name="lastName" required />
-                                                        <div *ngIf="userForm.submitted && !formData.LastName" class="text-danger">
-                                                            Last Name is required.
-                                                          </div>
-                                                    </td>
-                                                    <td>
-                                                        DOB <span>*</span>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                id="lastName"
+                                                                class="input-box-3 width100"
+                                                                [(ngModel)]="formData.LastName"
+                                                                name="lastName"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.LastName"
+                                                                class="text-danger">
+                                                                Last Name is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            DOB <span>*</span>
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="date" id="dob" class="input-box-3 width100 " />
-                                                    </td>
+                                                        </td>
+                                                        <td>
+                                                            <input type="date"
+                                                                id="dob"
+                                                                class="input-box-3 width100 "
+                                                                [(ngModel)]="formData.DOB"
+                                                                required (change)="onDOBChange($event)" />
+                                                                <div
+                                                            *ngIf="userForm.submitted && !formData.DOB"
+                                                            class="text-danger">
+                                                            DOB is
+                                                            required.
+                                                        </div>
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <label
+                                                                class="form-label">Sex*</label>
 
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="form-label">Sex*</label>
+                                                        </td>
+                                                        <td>
+                                                            <div
+                                                                *ngFor="let sex of sexOptions">
+                                                                <input
+                                                                    type="radio"
+                                                                    [id]="'sex_' + sex.id"
+                                                                    name="sex"
+                                                                    [(ngModel)]="formData.Sex"
+                                                                    [value]="sex.id"
+                                                                    required />
+                                                                <label
+                                                                    style="margin-left: 5px;"
+                                                                    [for]="'sex_' + sex.id">{{
+                                                                    sex.name
+                                                                    }}</label>
+                                                            </div>
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.Sex"
+                                                                class="text-danger">
+                                                                Please select a
+                                                                gender.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Profile Photo
+                                                        </td>
+                                                        <td>
+                                                            <input type="file" name="profilePhoto"
+                                                                id="profilePhoto"  (change)="onFileChange($event, 'ProfilePicture')" 
+                                                                [(ngModel)]="formData.ProfilePicture"
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Email ID
 
-                                                    </td>
-                                                    <td>
-                                                        <div *ngFor="let sex of sexOptions">
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="email"
+                                                                id="email" 
+                                                                class="input-box-3 width100 "
+                                                                [(ngModel)]="formData.Email" />
+                                                        </td>
+                                                        <td>
+
+                                                            Mobile Number
+                                                            <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                id="mobile"
+                                                                class="input-box-3 width100 "
+                                                                name="mobile"
+                                                                [(ngModel)]="formData.Mobile"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.Mobile"
+                                                                class="text-danger">
+                                                                Mobile number is
+                                                                required.
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td
+                                                            class="section-heading"
+                                                            colspan="4">Address
+                                                            Details</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            State <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <select
+                                                                class="select-box-3 width100"
+                                                                id="state"
+                                                                name="state"
+                                                                [(ngModel)]="formData.StateId"
+                                                                required
+                                                                (change)="onStateChange($event)">
+                                                                <option
+                                                                    [ngValue]="null">--
+                                                                    Select a
+                                                                    state
+                                                                    --</option>
+                                                                <option
+                                                                    *ngFor="let state of states"
+                                                                    [value]="state.id">{{
+                                                                    state.name
+                                                                    }}</option>
+                                                            </select>
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.StateId"
+                                                                class="text-danger">
+                                                                State is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            District
+                                                            <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <select
+                                                                class="select-box-3 width100"
+                                                                id="district"
+                                                                name="district"
+                                                                [(ngModel)]="formData.DistrictId"
+                                                                required
+                                                                (change)="onDistrictChange($event)">
+                                                                <option
+                                                                    [ngValue]="null">--
+                                                                    Select a
+                                                                    district
+                                                                    --</option>
+                                                                <option
+                                                                    *ngFor="let district of districts"
+                                                                    [value]="district.id">{{
+                                                                    district.districtName
+                                                                    }}</option>
+                                                            </select>
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.DistrictId"
+                                                                class="text-danger">
+                                                                District is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Block <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <select
+                                                                class="select-box-3 width100"
+                                                                name="block"
+                                                                [(ngModel)]="formData.BlockId"
+                                                                required>
+                                                                <option
+                                                                    [ngValue]="null">--
+                                                                    Select a
+                                                                    block
+                                                                    --</option>
+                                                                <option
+                                                                    *ngFor="let block of blocks"
+                                                                    [value]="block.id">{{
+                                                                    block.blockName
+                                                                    }}</option>
+                                                            </select>
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.BlockId"
+                                                                class="text-danger">
+                                                                Block is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Village
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="input-box-3 width100"
+                                                                name="village"
+                                                                [(ngModel)]="formData.Village" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Gram Panchayat
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" name="gramPanchayat"  [(ngModel)]="formData.GramPanchayat"
+                                                                id="gram"
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                        <td>
+                                                            Pin Code
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"  [(ngModel)]="formData.PinCode"
+                                                                id="pinCode" name="pincode"
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Address
+
+                                                        </td>
+                                                        <td colspan="3">
+                                                            <textarea [(ngModel)]="formData.Address"
+                                                                type="text" id="address" name="address"
+                                                                class="input-box-3 width100 "></textarea>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="section-heading"
+                                                            colspan="4">Bank
+                                                            Details</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Account Holder Name
+                                                            <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="input-box-3 width100"
+                                                                name="accountHolderName"
+                                                                [(ngModel)]="formData.AccountHolderName"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.AccountHolderName"
+                                                                class="text-danger">
+                                                                Account Holder Name is required.
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            Account No.
+                                                            <span>*</span>
+
+                                                        </td>
+ <td>
+                                                            <input type="text"
+                                                                class="input-box-3 width100"
+                                                                name="accountNo"
+                                                                [(ngModel)]="formData.AccountNo"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.AccountNo"
+                                                                class="text-danger">
+                                                                Account number
+                                                                is required.
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Bank Name
+                                                            <span>*</span>
+
+                                                        </td>
+                                                      <td>
+                                                        <input
+                                                            type="text"
+                                                            name="bankName"
+                                                            [(ngModel)]="formData.BankName"
+                                                            class="input-box-3 width100"
+                                                            required />
+                                                        <div *ngIf="userForm.submitted && !formData.BankName" class="text-danger">
+                                                            Bank name is required.
+                                                        </div>
+                                                        </td>
+                                                        <td>
+                                                            IFSC Code
+                                                            <span>*</span>
+
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="input-box-3 width100"
+                                                                name="ifscCode"
+                                                                [(ngModel)]="formData.IFSCCode"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.IFSCCode"
+                                                                class="text-danger">
+                                                                IFSC code is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Bank Branch
+                                                            <span>*</span>
+
+                                                        </td>
+                                                        <td>
                                                             <input
-                                                              type="radio"
-                                                              [id]="'sex_' + sex.id"
-                                                              name="sex"
-                                                              [(ngModel)]="formData.Sex"
-                                                              [value]="sex.id"
+                                                                type="text"
+                                                                name="bankBranch"
+                                                                [(ngModel)]="formData.BankBranch"
+                                                                class="input-box-3 width100"
+                                                                required
                                                             />
-                                                            <label style="margin-left: 5px;" [for]="'sex_' + sex.id">{{ sex.name }}</label>
-                                                          </div>
-                                                    </td>
-                                                    <td>
-                                                        Profile Photo
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Email ID
+                                                            <div *ngIf="userForm.submitted && !formData.BankBranch" class="text-danger">
+                                                                Bank branch is required.
+                                                            </div>
+                                                            </td>   
+                                                        <td>
+                                                            Upload Bank
+                                                            Cancelled
+                                                            Cheque/Passbook
+                                                            (Scanned Copy)
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Mobile Number <span>*</span>
+                                                        </td>
+                                                        <td>
+                                                            <input type="file" name="cancelledCheque"  (change)="onFileChange($event, 'CancelledCheque')" 
+                                                                id
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="section-heading"
+                                                            colspan="4">Identification
+                                                            Details</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            PAN Card No.
 
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" [(ngModel)]="formData.PAN" name="pan"
+                                                                id="pan"
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                        <td>
+                                                            Upload PAN Card
+                                                            (Scanned Copy)
 
-                                                </tr>
+                                                        </td>
+                                                        <td>
+                                                            <input type="file"
+                                                                id="panImage" [(ngModel)]="formData.PANImage" name="panImage" (change)="onFileChange($event, 'PANImage')" 
+                                                                class="input-box-3 width100 " />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Adhaar Card No.
+                                                            <span>*</span>
 
-                                                <tr>
-                                                    <td class="section-heading" colspan="4">Address Details</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        State <span>*</span>
+                                                        </td>
+                                                        <td>
+                                                            <input type="text"
+                                                                class="input-box-3 width100"
+                                                                name="aadhar"
+                                                                [(ngModel)]="formData.Aadhar"
+                                                                required />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.Aadhar"
+                                                                class="text-danger">
+                                                                Aadhaar number
+                                                                is required.
+                                                            </div></td>
+                                                        <td>
+                                                            Upload Adhaar Card
+                                                            (Scanned Copy)
+                                                            <span>*</span>
 
-                                                    </td>
-                                                    <td>
-                                                        <select class="select-box-3 width100">
-                                                            <option>Jharkhand</option>
-                                                            <option>Bihar</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        District <span>*</span>
+                                                        </td>
+                                                        <td>
+                                                            <input type="file"
+                                                                class="input-box-3 width100"
+                                                                name="aadharImage"
+                                                                required
+                                                                (change)="onFileChange($event, 'AadharImage')" />
+                                                            <div
+                                                                *ngIf="userForm.submitted && !formData.AadharImage"
+                                                                class="text-danger">
+                                                                Aadhaar image is
+                                                                required.
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
-                                                    </td>
-                                                    <td>
-                                                        <select class="select-box-3 width100">
-                                                            <option>One</option>
-                                                            <option>Two</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Block <span>*</span>
+                                                    <tr>
+                                                        <td colspan="4"
+                                                            class="text-align-center back-white"
+                                                            align="center">
+                                                            <button
+                                                                type="submit"
+                                                                class="btn-blck1">Save</button>
+                                                        </td>
 
-                                                    </td>
-                                                    <td>
-                                                        <select class="select-box-3 width100">
-                                                            <option>One</option>
-                                                            <option>Two</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        Village
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Gram Panchayat
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Pin Code
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Address
-
-                                                    </td>
-                                                    <td colspan="3">
-                                                        <textarea type="text" id=""
-                                                            class="input-box-3 width100 "></textarea>
-                                                    </td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td class="section-heading" colspan="4">Bank Details</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Account Holder Name <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Account No. <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Bank Name <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        IFSC Code <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Bank Branch <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Upload Bank Cancelled Cheque/Passbook (Scanned Copy)
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="section-heading" colspan="4">Identification Details</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        PAN Card No.
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Upload PAN Card (Scanned Copy)
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Adhaar Card No. <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                    <td>
-                                                        Upload Adhaar Card (Scanned Copy) <span>*</span>
-
-                                                    </td>
-                                                    <td>
-                                                        <input type="file" id="" class="input-box-3 width100 " />
-                                                    </td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td colspan="4" class="text-align-center back-white" align="center">
-                                                        <button type="submit"  class="btn-blck1">Save</button> 
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
                                 </form>
                             </div>
                             <div class="clear-both-5"></div>

@@ -7,7 +7,6 @@
 /bazel-out
 
 # Node
-/node_modules
 node_modules
 npm-debug.log
 yarn-error.log
@@ -43,3 +42,4 @@ testem.log
 Thumbs.db
 .vs/*
 /.vs/slnx.sqlite
+/.vscode/launch.json
