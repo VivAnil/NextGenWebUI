@@ -8,7 +8,7 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {SexOption} from '../../models/master.model';
 import { MenuService } from '../../services/menu.service';
-import { UserProfile } from 'src/app/models/IUserProfile';
+// import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
   selector: 'app-users',
@@ -16,7 +16,7 @@ declare let $: any; // Import jQuery
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit,  AfterViewInit  {
-  userProfile!: UserProfile;
+  // userProfile!: UserProfile;
    successMessage = '';
    errorMessage = '';
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
