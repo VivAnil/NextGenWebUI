@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   email:string ='abc@defindia.org';
   roleId!: number;
   companyId!: number;
+  userName: string = 'Azeem Khan';
   constructor( private router: Router, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     this.roleId = userRoleSettings.companyRoleId;
     this.companyId=userRoleSettings.companyId;
+    this.userName = userRoleSettings.userName;
 
      console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
     });

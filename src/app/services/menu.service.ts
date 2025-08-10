@@ -36,7 +36,7 @@ export class MenuService {
           //{label:'District Coordinator Master', path:'/user/'},
           //{label:'Block Coordinator Master', path:'/user/'},
           //{label:'SoochnaPreneur Master', path:'/user/'},
-          //{label:'Beneficiary Master', path:'/bn'},
+          //{label:'Beneficiary Master', path:'/bn/'},
         ]
       },
       {
@@ -151,32 +151,31 @@ export class MenuService {
         menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
         menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 3:
         menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
         menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' + this.companyId +'/0/0' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn/' + this.companyId +'/0/0' });
         break;
       case 4:
         menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' + this.companyId +'/0/0' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn/' + this.companyId +'/0/0' });
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 5:
         menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn'  + this.companyId +'/0/0'});
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn/'  + this.companyId +'/0/0'});
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 6:
-        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user/' });
-        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' });
-        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' });
-        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' });
-        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn' + this.companyId +'/0/0' });
+        menuUserDetails.links.push({ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails.links.push({ label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails.links.push({ label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails.links.push({ label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails.links.push({ label: 'Beneficiary Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       default:
         break;  // Default: no links available for unknown roles
@@ -204,7 +203,7 @@ export class MenuService {
           //{label:'District Coordinator Master', path:'/user/'},
           //{label:'Block Coordinator Master', path:'/user/'},
           //{label:'SoochnaPreneur Master', path:'/user/'},
-          //{label:'Beneficiary Master', path:'/bn'},
+          //{label:'Beneficiary Master', path:'/bn/'},
         ]
       },
       {
