@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     this.roleId = userRoleSettings.companyRoleId;
     this.companyId=userRoleSettings.companyId;
-    this.userName = userRoleSettings.userName;
+    this.userName = userRoleSettings.username;
 
      console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
     });
