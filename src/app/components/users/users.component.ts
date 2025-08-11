@@ -135,16 +135,16 @@ selectedBlock: number | null = null;
         this.route.url.subscribe((url) => {
           if (url[2]?.path === '2') {
             this.dataKey = 'pc';
-            this.pageHead='Project Officer';
+            this.pageHead='Programmer Manager';
           } else if (url[2]?.path === '4') {
             this.dataKey = 'dc';
-            this.pageHead='District Coordinator';
+            this.pageHead='Programme Manager';
           } else if (url[2]?.path === '5') {
             this.dataKey = 'bc';
-            this.pageHead='Block Coordinator';
+            this.pageHead='CLM';
           } else if (url[2]?.path === '3') {
             this.dataKey = 'sp';
-            this.pageHead='Soochnapreneur';
+            this.pageHead='LBC';
           }
 
           console.log('Data key = ' + this.dataKey);
