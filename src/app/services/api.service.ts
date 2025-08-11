@@ -99,7 +99,7 @@ export class ApiService {
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
     this.companyId = userRoleSettings.companyId;
 
-    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/'+ this.companyId +'/0/0';
+    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/'+ this.companyId +'/0/0';
 
     return this.http.get<Beneficiary[]>(benUrl).pipe(
       catchError((error) => {
