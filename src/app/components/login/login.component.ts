@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleDefn) => {
           this.roleId = roleDefn.systemRoleId;
+          // Store logo in localStorage (safe because it's just base64 string)
+          if (roleDefn.companyLogo) {
+            localStorage.setItem("companyLogo", roleDefn.companyLogo);
+          }
           if (this.roleId === -1 || this.roleId === undefined) {
             this.error = "block";
             ValidateForm.validateForm(this.loginForm);

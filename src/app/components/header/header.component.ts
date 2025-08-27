@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   roleId!: number;
   companyId!: number;
   userName: string = 'Azeem Khan';
+  companyLogo: string = "../../../assets/images/logowhite.png"; // default
   constructor( private router: Router, private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -27,6 +28,11 @@ export class HeaderComponent implements OnInit {
 
      console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
     });
+    const logo = localStorage.getItem("companyLogo");
+    if (logo) {
+      // prepend correct base64 mime type
+      this.companyLogo = `data:image/png;base64,${logo}`;
+    }
   }
   openProfile() {
     this.isProfileOpen = !this.isProfileOpen;

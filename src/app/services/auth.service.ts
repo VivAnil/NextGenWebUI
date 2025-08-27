@@ -34,6 +34,10 @@ export class AuthService {
         this.userRoleSettings = response;
         response.username=loginObj.username;
         localStorage.setItem('userRoleSettings', JSON.stringify(response));
+        // Store logo in localStorage (safe because it's just base64 string)
+          if (response.companyLogo) {
+            localStorage.setItem("companyLogo", response.companyLogo);
+          }
         return response;
       }),
       catchError((error) => {
