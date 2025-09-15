@@ -19,6 +19,7 @@ import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbenefic
 import { UsersComponent } from './components/users/users.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
+import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 
 const routes: Routes = [
   
@@ -30,7 +31,10 @@ const routes: Routes = [
     path: 'organisation/:roleid',
     component: OrganisationComponent
   },
-
+  {
+    path: 'dashboard/:roleid',
+    component: TgtdashboardComponent
+  },
   {
     path: '',
     component:LayoutComponent,

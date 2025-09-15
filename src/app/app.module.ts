@@ -38,6 +38,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { AuthService } from './services/auth.service';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
+import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { BeneficiaryComponent } from './components/beneficiary/beneficiary.compo
     AllprojectsComponent,
     UsersComponent,
     ResetpasswordComponent,
-    BeneficiaryComponent
+    BeneficiaryComponent,
+    TgtdashboardComponent
   ],
   imports: [
     BrowserModule,
