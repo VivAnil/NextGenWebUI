@@ -109,7 +109,6 @@ export class ApiService {
       })
     );
   }
-
   
   saveBeneficiary(data: any): Observable<any> {
     const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary';
@@ -117,5 +116,9 @@ export class ApiService {
     return this.http.post<any>(api, data);
   }
 
-
+  fetchTGTDashBoardFilters(): Observable<any> {
+    //const benUrl='https://motherappuserapi.azurewebsites.net/api/TGTDashboard';
+    const filterUrl = 'https://localhost:7122/api/TGTDashboard';
+    return this.http.get<any>(filterUrl);
+  }
 }

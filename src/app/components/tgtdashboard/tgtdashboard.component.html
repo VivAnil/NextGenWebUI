@@ -1,637 +1,311 @@
-<div class="float-left back-black width100"><a href="organisation.html">Back to Super Admin dashboard</a></div>
-  <div style="clear:both; height:0;">&nbsp;</div>
-  <div class="container-fluid header back-header" style="background: #311c1b; margin-bottom: 20px;" id="header">
-
-  <div class="row">
-
-    <div style="" class="col-sm-6 padding-top-bottom-5px"><a href="organisationadmin.html"><img style="max-width:100%;" src="images/Inomy_logowhite.png" alt="" /></a></div>
-
-    <div class="col-sm-6 position-relative text-align-right">
-
-      <div style="width:100%; float:left;" class="profile-box-div">
-        <div class="text-overflow letter-spacing-0 font-color-white" style="float:left; width:82%;">Welcome ! <span class="span-color emp-name-color"><span>Inomy Admin</span></span></div>
-        <div style="float: left; width: 16%; margin-top: 2vw; text-align: left; margin-left: 2%;"><img class="profile-img" src="images/profile-pic.png" style="border-width:0px;" /></div>
-      </div>
-      <div class="profile-box">
-
-        <div class="col-md-12 font-color-black" style="font-size: 17px;"><span>Shaifali Chikermane</span></div>
-        <div class="col-md-12 emp-email-color"><span>xyx@defindia.org</span></div>
-        <div class="col-md-12 emp-email-color"><span><input id="colorpicker" type="color" title="Change Header Background"></span></div>
-        <div class="clear-both-20"></div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6 padding-zero">
-            <button type="button" class="btn-blck" data-toggle="modal" data-target="#dv_resetSuperAdmin">Reset Password</button>
-
-          </div>
-
-          <div class="col-md-2">&nbsp;</div>
-
-          <div class="col-md-4">
-            <a class="btn-blck" href="login.html">Logout</a>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-  </div>
-
-
-
-
-
-  <div class="container-fluid">
+<div class="container-fluid">
   <div class="row display-flex">
-    <div class="col-md-2 font-color-white padding-zero navbar-inverse align-item" id="left-menu">
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapsezero">
 
-                &nbsp; USER CONFIGURATION
-              </a>
-            </h4>
-          </div>
-          <div id="collapsezero" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-
-                <tr>
-                  <td>
-                    <a href="rolemanagement.html" class="font-color-black" onclick="setDivID('collapsezero')" id="link_profile">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Application User Master
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="editadmindetails.html" class="font-color-black" onclick="setDivID('collapsezero')" id="link_profile">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Edit Administrator Details
-                    </a>
-                  </td>
-                </tr>
+    <div class="col-md-12" style="height:100%;">
 
 
-              </table>
-            </div>
-          </div>
-        </div>
+      <div class="width100">
 
+        <div class="heading-title">The Goat Trust Dashboard</div>
+        <div class="clear-both-20"></div>
+        <div id="div_dashboard">
 
-
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-
-                &nbsp; USERS DETAILS
-              </a>
-            </h4>
-          </div>
-          <div id="collapseTwo" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-                <!--tr>
-                                        <td>
-                                            <a href="projectofficer.html" class="font-color-black" onclick="setDivID('collapseTwo')">
-                                                <img class="max-width25" src="images/links-arrow.png" />
-                                                &nbsp; Project Officer Master</a>
-                                        </td>
-                                    </tr>
-                <tr>
-                                        <td>
-                                            <a href="dc.html" class="font-color-black" onclick="setDivID('collapseTwo')">
-                                                <img class="max-width25" src="images/links-arrow.png" />
-                                                &nbsp; District Coordinator Master</a>
-                                        </td>
-                                    </tr-->
-                <tr>
-                  <td>
-                    <a href="bc.html" class="font-color-black" onclick="setDivID('collapseTwo')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; CLM
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="sp.html" class="font-color-black" onclick="setDivID('collapseTwo')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; LBC/Pashu Sakhi
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="bn.html" class="font-color-black" onclick="setDivID('collapseTwo')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; RWEs
-                    </a>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-
-                &nbsp; COMPANY DETAILS
-              </a>
-            </h4>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-
-                <tr>
-                  <td>
-                    <a href="editcompanydetails.html" class="font-color-black" onclick="setDivID('collapseOne')" id="link_profile">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Edit Company Details
-                    </a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <a href="project.html" class="font-color-black" onclick="setDivID('collapseOne')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Project Master
-                    </a>
-                  </td>
-                </tr>
-
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-
-                &nbsp; REPORTS SECTION
-              </a>
-            </h4>
-          </div>
-          <div id="collapseThree" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>
-                    <a href="projectreport.html" class="font-color-black" onclick="setDivID('collapseThree')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp;  All Project Report
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="Beneficiariesreport.html" class="font-color-black" onclick="setDivID('collapseThree')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; All Beneficiaries Report
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="spwisebeneficiariesdetails.html" class="font-color-black" onclick="setDivID('collapseThree')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; SP Wise Beneficiaries Report
-                    </a>
-                  </td>
-                </tr>
-
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-
-                &nbsp; SERVICE SECTION
-              </a>
-            </h4>
-          </div>
-          <div id="collapseFour" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>
-                    <a href="services.html" class="font-color-black" onclick="setDivID('collapseFour')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp;  View All Services
-                    </a>
-                  </td>
-                </tr>
-
-
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading panel-title">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
-
-                &nbsp; PAYMENT SECTION
-              </a>
-            </h4>
-          </div>
-          <div id="collapseFive" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table">
-                <tr>
-                  <td>
-                    <a href="processpayment.html" class="font-color-black" onclick="setDivID('collapseThree')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Process Payment
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="paymentReport.html" class="font-color-black" onclick="setDivID('collapseThree')">
-                      <img class="max-width25" src="images/links-arrow.png" />
-                      &nbsp; Payment Report
-                    </a>
-                  </td>
-                </tr>
-
-
-              </table>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="col-md-10">
-
-      <div class="col-md-12" style="height:100%;">
-
-
-        <div class="width100">
-
-          <div class="heading-title">The Goat Trust Dashboard</div>
           <div class="clear-both-20"></div>
-          <div id="div_dashboard">
-
-            <div class="clear-both-20"></div>
-            <div class="col-md-12" style="padding:20px 0px; background:#ebebeb">
-              <div class="col-md-2">
-                <div class="font-weight-bold">State</div>
-                <div>
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Assam
-                    </label>
-
-
-                  </div>
-
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="font-weight-bold">District</div>
-                <div style="max-height:100px; overflow-y:auto;">
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Goalpara
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Kamrup
-                    </label>
-
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="font-weight-bold">Block</div>
-                <div style="max-height:100px; overflow-y:auto;">
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Balijana
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Chamaria
-                    </label>
-
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="font-weight-bold">Village</div>
-                <div style="max-height:100px; overflow-y:auto;">
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Balijana
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Chamaria
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Balijana
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Chamaria
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Balijana
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Chamaria
-                    </label>
-
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="font-weight-bold">Name of RWEs</div>
-                <div style="max-height:100px; overflow-y:auto;">
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      All
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Achiran Nasha
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Aaloki Mandal
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Achiran Bibi
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Adari Mandal
-                    </label>
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Adari Ray
-                    </label>
-
-
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="font-weight-bold">Name of SHG</div>
-                <div style="max-height:100px; overflow-y:auto;">
-                  <div class="checkbox-wrapper-29">
-
-                    <label class="checkbox">
-                      <input type="checkbox" class="checkbox__input">
-                      <span class="checkbox__label"></span>
-                      Daskin Batimari
-                    </label>
-
-
-
-                  </div>
+          <div class="col-md-12" style="padding:20px 0px; background:#ebebeb">
+            <div class="col-md-2">
+              <div class="font-weight-bold">State</div>
+              <div>
+                <div class="checkbox-wrapper-29" *ngFor="let state of states">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="state.isSelected"
+                           [value]="state.id" />
+                    <span class="checkbox__label"></span>
+                    {{ state.stateName }}
+                  </label>
                 </div>
               </div>
             </div>
-            <div class="clear-both-20"></div>
-            <div class="col-md-12 padding-zero">
-              <div class="col-md-8 padding-zero">
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Name of Pashu Sakhi</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      Jabada Khatun
-
-                    </div>
-
-                  </div>
+            <div class="col-md-2">
+              <div class="font-weight-bold">District</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let district of districts">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="district.isSelected"
+                           [value]="district.id"/>
+                    <span class="checkbox__label"></span>
+                    {{ district.districtName }}
+                  </label>
                 </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Name of CLM</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      Kangkan
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Livestock Status</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      10
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Economic Status</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      BPL
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Category</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      General
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Livelihood</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      Housewife
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Farmland Status</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      Irrigated
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">RWEs</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      1551
-
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-md-4">
-
-                  <div class="box-1">
-                    <div class="box-2">Bank Account</div>
-                    <div class="text-align-center padding-top-bottom-5px">
-
-                      No
-
-                    </div>
-
-                  </div>
-                </div>
-
               </div>
-              <div class="col-md-4 padding-zero">
-                <div class="clear-both-15"></div>
-                <table class="width100 text-align-center" style="table-layout:fixed;">
-                  <th class="text-align-center box-2" style="border-right:2px solid#fff;">Animal Type</th>
-                  <th class="text-align-center box-2" style="border-right:2px solid#fff;">Total Count</th>
-                  <th class="text-align-center box-2">Animal Icon</th>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Goat</td>
-                    <td class="padding-top-bottom-5px">1547</td>
-                    <td class="padding-top-bottom-5px"><img src="images/goat.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Poultry</td>
-                    <td class="padding-top-bottom-5px">863</td>
-                    <td class="padding-top-bottom-5px"><img src="images/hen.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Pig</td>
-                    <td class="padding-top-bottom-5px">52</td>
-                    <td class="padding-top-bottom-5px"><img src="images/pig.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Buffalo</td>
-                    <td class="padding-top-bottom-5px">1</td>
-                    <td class="padding-top-bottom-5px"><img src="images/buffalo.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Cow</td>
-                    <td class="padding-top-bottom-5px">775</td>
-                    <td class="padding-top-bottom-5px"><img src="images/cow.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Duck</td>
-                    <td class="padding-top-bottom-5px">468</td>
-                    <td class="padding-top-bottom-5px"><img src="images/duck.png" style="max-width:40%;" /></td>
-                  </tr>
-                  <tr class="border-6">
-                    <td class="padding-top-bottom-5px">Other</td>
-                    <td class="padding-top-bottom-5px">44</td>
-                    <td class="padding-top-bottom-5px"></td>
-                  </tr>
-                  <tr class="border-6 back-sub-container font-weight-bold">
-                    <td class="padding-top-bottom-5px">Total</td>
-                    <td class="padding-top-bottom-5px">3750</td>
-                    <td class="padding-top-bottom-5px"></td>
-                  </tr>
-                </table>
+            </div>
+            <div class="col-md-2">
+              <div class="font-weight-bold">Block</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let block of blocks">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="block.isSelected"
+                           [value]="block.id" />
+                    <span class="checkbox__label"></span>
+                    {{ block.blockName }}
+                  </label>
+                </div>
               </div>
+            </div>
+            <div class="col-md-2">
+              <div class="font-weight-bold">Village</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let village of villages">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="village.isSelected"
+                           [value]="village.id" />
+                    <span class="checkbox__label"></span>
+                    {{ village.villageName }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="font-weight-bold">Name of RWEs</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29">
+
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    All
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Achiran Nasha
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Aaloki Mandal
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Achiran Bibi
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Adari Mandal
+                  </label>
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Adari Ray
+                  </label>
+
+
+                </div>
+              </div>
+            </div>
+            <!--<div class="col-md-2">
+              <div class="font-weight-bold">Name of SHG</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29">
+
+                  <label class="checkbox">
+                    <input type="checkbox" class="checkbox__input">
+                    <span class="checkbox__label"></span>
+                    Daskin Batimari
+                  </label>
+
+
+
+                </div>
+              </div>
+            </div>-->
+          </div>
+          <div class="clear-both-20"></div>
+          <div class="col-md-12 padding-zero">
+            <div class="col-md-8 padding-zero">
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Name of Pashu Sakhi</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    Jabada Khatun
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Name of CLM</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    Kangkan
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Livestock Status</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    10
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Economic Status</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    BPL
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Category</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    General
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Livelihood</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    Housewife
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Farmland Status</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    Irrigated
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">RWEs</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    1551
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4">
+
+                <div class="box-1">
+                  <div class="box-2">Bank Account</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    No
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-4 padding-zero">
+              <div class="clear-both-15"></div>
+              <table class="width100 text-align-center" style="table-layout:fixed;">
+                <th class="text-align-center box-2" style="border-right:2px solid#fff;">Animal Type</th>
+                <th class="text-align-center box-2" style="border-right:2px solid#fff;">Total Count</th>
+                <th class="text-align-center box-2">Animal Icon</th>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Goat</td>
+                  <td class="padding-top-bottom-5px">1547</td>
+                  <td class="padding-top-bottom-5px"><img src="images/goat.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Poultry</td>
+                  <td class="padding-top-bottom-5px">863</td>
+                  <td class="padding-top-bottom-5px"><img src="images/hen.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Pig</td>
+                  <td class="padding-top-bottom-5px">52</td>
+                  <td class="padding-top-bottom-5px"><img src="images/pig.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Buffalo</td>
+                  <td class="padding-top-bottom-5px">1</td>
+                  <td class="padding-top-bottom-5px"><img src="images/buffalo.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Cow</td>
+                  <td class="padding-top-bottom-5px">775</td>
+                  <td class="padding-top-bottom-5px"><img src="images/cow.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Duck</td>
+                  <td class="padding-top-bottom-5px">468</td>
+                  <td class="padding-top-bottom-5px"><img src="images/duck.png" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Other</td>
+                  <td class="padding-top-bottom-5px">44</td>
+                  <td class="padding-top-bottom-5px"></td>
+                </tr>
+                <tr class="border-6 back-sub-container font-weight-bold">
+                  <td class="padding-top-bottom-5px">Total</td>
+                  <td class="padding-top-bottom-5px">3750</td>
+                  <td class="padding-top-bottom-5px"></td>
+                </tr>
+              </table>
             </div>
           </div>
-
-
-          <div class="clear-both"></div>
-
         </div>
+
+
+        <div class="clear-both"></div>
+
       </div>
-
-
     </div>
 
-
-
   </div>
 
 
-  </div>
+</div>
 
 
-
-
-  <div class="clear-both-15">&nbsp;</div>
-  <div class="" align="center"><span class="font-weight-bold">Powered and Supported by</span>: <a href="https://defindia.org/" target="_blank" class="color-black">Digital Empowerment Foundation</a></div>
-  <div class="clear-both-15">&nbsp;</div>
-  <div class="modal fade" id="dv_resetSuperAdmin" role="dialog">
+<div class="modal fade" id="dv_resetSuperAdmin" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -694,3 +368,7 @@
     </div>
   </div>
 </div>
+<app-footer></app-footer>
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>

@@ -32,10 +32,6 @@ const routes: Routes = [
     component: OrganisationComponent
   },
   {
-    path: 'dashboard/:roleid',
-    component: TgtdashboardComponent
-  },
-  {
     path: '',
     component:LayoutComponent,
     children:[
@@ -45,6 +41,7 @@ const routes: Routes = [
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
       {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always',},
+      {path: 'dashboard/:roleid', component: TgtdashboardComponent,  runGuardsAndResolvers: 'always',},
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
