@@ -20,6 +20,7 @@
                     <input type="checkbox"
                            class="checkbox__input"
                            [(ngModel)]="state.isSelected"
+                           (change)="onStateChange(state)"
                            [value]="state.id" />
                     <span class="checkbox__label"></span>
                     {{ state.stateName }}
@@ -35,6 +36,7 @@
                     <input type="checkbox"
                            class="checkbox__input"
                            [(ngModel)]="district.isSelected"
+                           (change)="onDistrictChange()"
                            [value]="district.id"/>
                     <span class="checkbox__label"></span>
                     {{ district.districtName }}
@@ -50,6 +52,7 @@
                     <input type="checkbox"
                            class="checkbox__input"
                            [(ngModel)]="block.isSelected"
+                           (change)="onBlockChange()"
                            [value]="block.id" />
                     <span class="checkbox__label"></span>
                     {{ block.blockName }}
@@ -64,10 +67,11 @@
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
+                           (change)="onVillageChange()"
                            [(ngModel)]="village.isSelected"
                            [value]="village.id" />
                     <span class="checkbox__label"></span>
-                    {{ village.villageName }}
+                    {{ village.village }}
                   </label>
                 </div>
               </div>
@@ -75,40 +79,15 @@
             <div class="col-md-2">
               <div class="font-weight-bold">Name of RWEs</div>
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29">
-
+                <div class="checkbox-wrapper-29" *ngFor="let rwe of rweNames">
                   <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="rwe.isSelected"
+                           [value]="rwe.id" />
                     <span class="checkbox__label"></span>
-                    All
+                    {{ rwe.rweName }}
                   </label>
-                  <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Achiran Nasha
-                  </label>
-                  <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Aaloki Mandal
-                  </label>
-                  <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Achiran Bibi
-                  </label>
-                  <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Adari Mandal
-                  </label>
-                  <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Adari Ray
-                  </label>
-
-
                 </div>
               </div>
             </div>
@@ -118,7 +97,7 @@
                 <div class="checkbox-wrapper-29">
 
                   <label class="checkbox">
-                    <input type="checkbox" class="checkbox__input">
+                    <input type="radio" class="checkbox__input">
                     <span class="checkbox__label"></span>
                     Daskin Batimari
                   </label>

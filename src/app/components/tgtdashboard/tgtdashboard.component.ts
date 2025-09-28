@@ -16,6 +16,7 @@ export class TgtdashboardComponent implements OnInit {
   villages: any;
   blocks: any;
   rweNames: any;
+  allData: any;
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -27,118 +28,23 @@ export class TgtdashboardComponent implements OnInit {
     this.updatePath();
     this.apiService.fetchTGTDashBoardFilters().subscribe(
       (data) => {
-        this.states = [
-          {
-            id: 0,                // special ID for "All"
-            stateId: 0,
-            stateName: "All",
-            isSelected: false
-          },
-          ...data
-            .filter(
-              (value: any, index: any, self: any) =>
-                index === self.findIndex(
-                  (t: any) => t.stateId === value.stateId && t.stateName === value.stateName
-                )
-            )
-            .map((item: any) => ({
-              id: item.stateId,
-              stateId: item.stateId,
-              stateName: item.stateName,
-              isSelected: false
-            }))];
+        this.allData = data;
 
-        this.districts = [
-          {
-            id: 0,                // special ID for "All"
-            stateId: 0,
-            districtId: 0,
-            districtName: "All",
-            isSelected: false
-          },
-         ...data
-          .filter(
-            (value: any, index: any, self: any) =>
-              index === self.findIndex(
-                (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.districtName === value.districtName
-              )
-          )
-          .map((item: any) => ({
-            id: item.stateId + '_' + item.districtId,
-            stateId: item.stateId,
-            districtId: item.districtId,
-            districtName: item.districtName,
-            isSelected: false
-          }))];
+        this.states = ResetStates(data);  
 
-        this.blocks = [
-          {
-            id: 0,                // special ID for "All"
-            stateId: 0,
-            districtId: 0,
-            blockId: 0,
-            blockName:  "All",
-            isSelected: false
-          },
-          ...data
-            .filter(
-              (value: any, index: any, self: any) =>
-                index === self.findIndex(
-                  (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.blockid == value.blocktId && t.blockid === value.blockid && t.blockName === value.blockName
-                )
-            )
-            .map((item: any) => ({
-              id: item.stateId + '_' + item.districtId + '_' + item.blockId,
-              stateId: item.stateId,
-              districtId: item.districtId,
-              blockId: item.blockId,
-              blockName: item.blockName,
-              isSelected: false
-            }))];
+        this.districts = ResetDistricts(data);
 
-        this.villages = [
-          {
-            id: 0,                // special ID for "All"
-            stateId: 0,
-            districtId: 0,
-            blockId: 0,
-            villageName: "All",
-            isSelected: false
-          },
-          ...data
-            .filter(
-              (value: any, index: any, self: any) =>
-                index === self.findIndex(
-                  (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.blockid == value.blocktId && t.blockid === value.blockid && t.village === value.village
-                )
-            )
-            .map((item: any) => ({
-              id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village,
-              stateId: item.stateId,
-              districtId: item.districtId,
-              blockId: item.blockId,
-              villageName: item.village,
-              isSelected: false
-            }))];
+        this.blocks = ResetBlocks(data);  
 
-        this.rweNames=data
-          .filter(
-            (value: any, index: any, self: any) =>
-              index === self.findIndex(
-                (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.blockid == value.blocktId && t.blockid === value.blockid && t.village === value.village 
-              )
-          )
-          .map((item: any) => ({
-            id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village,
-            stateId: item.stateId,
-            districtId: item.districtId,
-            blockId: item.blockId,
-            village: item.village,
-            isSelected: false 
-          }));
+        this.villages = ResetVillages(data);
+
+        this.rweNames = ResetRWEs(data);
+        
       }
     );
   }
+
+
 
   updatePath(): void {
     console.log('updatepath');
@@ -176,5 +82,193 @@ export class TgtdashboardComponent implements OnInit {
       }
     ]);
   }
+  // when state checkbox changes
+  onStateChange(state:any) {
 
+      // Filter districts belonging to selected states
+    const selectedStates = this.states
+      .filter((d: any) => d.isSelected && d.stateId !== 0)
+    .map((d: any) => d.stateId);
+
+    this.districts = ResetDistricts(this.allData).
+      filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
+        selectedStates.includes(d.stateId));
+
+    this.blocks = ResetBlocks(this.allData)
+      .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
+        selectedStates.includes(d.stateId));
+
+    this.villages = ResetVillages(this.allData)
+      .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
+        selectedStates.includes(d.stateId));
+
+    this.rweNames = ResetRWEs(this.allData)
+      .filter((d: any) =>
+        !selectedStates || selectedStates.length ===0? true :
+        selectedStates.includes(d.stateId));
+
+
+}
+
+  onDistrictChange() {
+    const selectedDistricts = this.districts
+      .filter((d: any) => d.isSelected && d.districtId !== 0)
+      .map((d: any) => d.districtId);
+    
+    this.blocks = ResetBlocks(this.allData)
+      .filter((d: any) =>
+        !selectedDistricts || selectedDistricts.length === 0
+          ? true
+          : selectedDistricts.includes(d.districtId)
+        );
+
+    this.villages = ResetVillages(this.allData)
+      .filter((d: any) =>
+        !selectedDistricts || selectedDistricts.length === 0
+          ? true
+          : selectedDistricts.includes(d.districtId)
+        );
+
+    this.rweNames = ResetRWEs(this.allData)
+      .filter((d: any) =>
+        !selectedDistricts || selectedDistricts.length === 0
+          ? true
+          : selectedDistricts.includes(d.districtId)
+
+        );
+  }
+
+  onBlockChange() {
+    const selectedBlocks = this.blocks
+      .filter((b:any) => b.isSelected && b.blockId !== 0) // skip "All"
+      .map((b: any) => b.blockId);
+
+    this.villages = ResetVillages(this.allData)
+      .filter((d: any) =>
+        !selectedBlocks || selectedBlocks.length === 0
+          ? true
+          : selectedBlocks.includes(d.blockId)
+      );
+
+    this.rweNames = ResetRWEs(this.allData)
+      .filter((d: any) =>
+        !selectedBlocks || selectedBlocks.length === 0
+          ? true
+          : selectedBlocks.includes(d.blockId)
+      );
+  }
+
+
+  onVillageChange() {
+    const selectedVillages = this.villages
+      .filter((v: any) => v.isSelected)
+      .map((v: any) => v.village);
+
+    this.rweNames = ResetRWEs(this.allData)
+      .filter((d: any) =>
+        !selectedVillages || selectedVillages.length === 0
+          ? true
+          :selectedVillages.includes(d.village)
+      );
+  }
+
+}
+
+function ResetStates(data: any): any {
+  return data
+      .filter(
+        (value: any, index: any, self: any) =>
+          index === self.findIndex(
+            (t: any) => t.stateId === value.stateId && t.stateName === value.stateName
+          )
+      )
+      .map((item: any) => ({
+        id: item.stateId,
+        stateId: item.stateId,
+        stateName: item.stateName,
+        isSelected: false
+      }));
+}
+
+function ResetDistricts(data: any): any {
+  return data
+      .filter(
+        (value: any, index: any, self: any) =>
+          index === self.findIndex(
+            (t: any) => t.stateId === value.stateId
+              && t.districtId === value.districtId
+              && t.districtName === value.districtName
+          )
+      )
+      .map((item: any) => ({
+        id: item.stateId + '_' + item.districtId,
+        stateId: item.stateId,
+        districtId: item.districtId,
+        districtName: item.districtName,
+        isSelected: false
+      }));
+}
+
+function ResetBlocks(data: any): any {
+  return data
+      .filter(
+        (value: any, index: any, self: any) =>
+          index === self.findIndex(
+            (t: any) => t.stateId === value.stateId
+              && t.districtId === value.districtId
+              && t.blockId == value.blockId
+              && t.blockName === value.blockName
+          )
+      )
+      .map((item: any) => ({
+        id: item.stateId + '_' + item.districtId + '_' + item.blockId,
+        stateId: item.stateId,
+        districtId: item.districtId,
+        blockId: item.blockId,
+        blockName: item.blockName,
+        isSelected: false
+      }));
+}
+
+function ResetVillages(data: any): any {
+  let counter = 1;
+  return data
+    .filter(
+      (value: any, index: any, self: any) =>
+        index === self.findIndex(
+          (t: any) =>
+            t.stateId === value.stateId &&
+            t.districtId === value.districtId &&
+            t.blockId === value.blockId &&   
+            t.village === value.village
+        )
+    )
+    .map((item: any) => ({
+      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_'+(counter++),
+      stateId: item.stateId,
+      districtId: item.districtId,
+      blockId: item.blockId,
+      village: item.village,
+      isSelected: false
+    }));
+}
+
+function ResetRWEs(data: any): any {
+  return data
+    .filter(
+      (value: any, index: any, self: any) =>
+        index === self.findIndex(
+          (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.blockid == value.blocktId && t.blockid === value.blockid && t.village === value.village
+        )
+    )
+    .map((item: any) => ({
+      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_' + item.rweId,
+      stateId: item.stateId,
+      districtId: item.districtId,
+      blockId: item.blockId,
+      village: item.village,
+      rweId: item.rweId,
+      rweName: item.rweName,
+      isSelected: false
+    }));
 }
