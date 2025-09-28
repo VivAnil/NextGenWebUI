@@ -17,6 +17,18 @@ export class TgtdashboardComponent implements OnInit {
   blocks: any;
   rweNames: any;
   allData: any;
+  totalLivestockCount: any =0;
+  clms: any =[];
+  pashusakhis: any = [];
+  economicStatus: any = [];
+  goatCount: number = 0;
+  cowCount: number = 0;
+  duckCount: number = 0;
+  pigCount: number = 0;
+  henCount: number = 0;
+  buffaloCount: number = 0;
+  otherCount: number = 0;
+
 
   constructor(private router: Router,
     private fb: FormBuilder,
@@ -44,7 +56,23 @@ export class TgtdashboardComponent implements OnInit {
     );
   }
 
-
+  fetchRweSummary(): any {
+   const rwes= this.rweNames.filter((d: any) => d.isSelected)
+      .map((d: any) => d.rweId);
+    this.apiService.fetchTGTDashBoarData(rwes).subscribe((data: any) => {
+      this.totalLivestockCount = data.totalLivestockCount;
+      this.clms = data.clm;
+      this.pashusakhis = data.pashuSakhi;
+      this.economicStatus = data.economicStatus;
+      this.goatCount = data.livestockSummary.Goat;
+      this.cowCount = data.livestockSummary.Cow;
+      this.buffaloCount = data.livestockSummary.Buffalo;
+      this.pigCount = data.livestockSummary.Pig;
+      this.duckCount = data.livestockSummary.Duck;
+      this.otherCount = data.livestockSummary.Other;
+      this.henCount = data.livestockSummary.Poultry;
+    });
+  }
 
   updatePath(): void {
     console.log('updatepath');
@@ -157,7 +185,6 @@ export class TgtdashboardComponent implements OnInit {
           : selectedBlocks.includes(d.blockId)
       );
   }
-
 
   onVillageChange() {
     const selectedVillages = this.villages

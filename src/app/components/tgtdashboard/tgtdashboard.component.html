@@ -91,22 +91,14 @@
                 </div>
               </div>
             </div>
-            <!--<div class="col-md-2">
-              <div class="font-weight-bold">Name of SHG</div>
+
+            <div class="col-md-2">
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29">
-
-                  <label class="checkbox">
-                    <input type="radio" class="checkbox__input">
-                    <span class="checkbox__label"></span>
-                    Daskin Batimari
-                  </label>
-
-
-
+                <div class="row text-align-center">
+                  <input type="button" (click)="fetchRweSummary()" class="btn-blck1" id="btn_search" value="Apply Filter">
                 </div>
               </div>
-            </div>-->
+            </div>
           </div>
           <div class="clear-both-20"></div>
           <div class="col-md-12 padding-zero">
@@ -115,9 +107,10 @@
 
                 <div class="box-1">
                   <div class="box-2">Name of Pashu Sakhi</div>
-                  <div class="text-align-center padding-top-bottom-5px">
 
-                    Jabada Khatun
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let pashusakhi of pashusakhis">
+
+                    {{pashusakhi}}
 
                   </div>
 
@@ -127,9 +120,9 @@
 
                 <div class="box-1">
                   <div class="box-2">Name of CLM</div>
-                  <div class="text-align-center padding-top-bottom-5px">
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let clm of clms">
 
-                    Kangkan
+                    {{clm}}
 
                   </div>
 
@@ -141,7 +134,7 @@
                   <div class="box-2">Livestock Status</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    10
+                   {{totalLivestockCount}}
 
                   </div>
 
@@ -151,9 +144,9 @@
 
                 <div class="box-1">
                   <div class="box-2">Economic Status</div>
-                  <div class="text-align-center padding-top-bottom-5px">
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let status of economicStatus">
 
-                    BPL
+                    {{status}}
 
                   </div>
 
@@ -165,7 +158,7 @@
                   <div class="box-2">Category</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    General
+                    -
 
                   </div>
 
@@ -177,7 +170,7 @@
                   <div class="box-2">Livelihood</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    Housewife
+                    -
 
                   </div>
 
@@ -189,7 +182,7 @@
                   <div class="box-2">Farmland Status</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    Irrigated
+                    -
 
                   </div>
 
@@ -201,7 +194,7 @@
                   <div class="box-2">RWEs</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    1551
+                    -
 
                   </div>
 
@@ -213,7 +206,7 @@
                   <div class="box-2">Bank Account</div>
                   <div class="text-align-center padding-top-bottom-5px">
 
-                    No
+                    -
 
                   </div>
 
@@ -229,66 +222,58 @@
                 <th class="text-align-center box-2">Animal Icon</th>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Goat</td>
-                  <td class="padding-top-bottom-5px">1547</td>
-                  <td class="padding-top-bottom-5px"><img src="images/goat.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{goatCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src ="../../../assets/images/goat.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Poultry</td>
-                  <td class="padding-top-bottom-5px">863</td>
-                  <td class="padding-top-bottom-5px"><img src="images/hen.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{henCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/hen.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Pig</td>
-                  <td class="padding-top-bottom-5px">52</td>
-                  <td class="padding-top-bottom-5px"><img src="images/pig.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{pigCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/pig.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Buffalo</td>
-                  <td class="padding-top-bottom-5px">1</td>
-                  <td class="padding-top-bottom-5px"><img src="images/buffalo.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{buffaloCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/buffalo.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Cow</td>
-                  <td class="padding-top-bottom-5px">775</td>
-                  <td class="padding-top-bottom-5px"><img src="images/cow.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{cowCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/cow.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Duck</td>
-                  <td class="padding-top-bottom-5px">468</td>
-                  <td class="padding-top-bottom-5px"><img src="images/duck.png" style="max-width:40%;" /></td>
+                  <td class="padding-top-bottom-5px">{{duckCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/duck.jpg" style="max-width:40%;" /></td>
                 </tr>
                 <tr class="border-6">
                   <td class="padding-top-bottom-5px">Other</td>
-                  <td class="padding-top-bottom-5px">44</td>
+                  <td class="padding-top-bottom-5px">{{otherCount}}</td>
                   <td class="padding-top-bottom-5px"></td>
                 </tr>
                 <tr class="border-6 back-sub-container font-weight-bold">
                   <td class="padding-top-bottom-5px">Total</td>
-                  <td class="padding-top-bottom-5px">3750</td>
+                  <td class="padding-top-bottom-5px">
+                    {{totalLivestockCount}}</td>
                   <td class="padding-top-bottom-5px"></td>
                 </tr>
               </table>
             </div>
           </div>
         </div>
-
-
         <div class="clear-both"></div>
-
       </div>
     </div>
-
   </div>
-
-
 </div>
-
-
 <div class="modal fade" id="dv_resetSuperAdmin" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Reset Password - Admin</h4>
       </div>
@@ -306,14 +291,12 @@
                 <tr>
                   <td>
                     Old Password <span>*</span>
-
                   </td>
                   <td>
                     <input type="password" id="" class="input-box-3 width100 " />
                   </td>
                   <td>
                     New Password <span>*</span>
-
                   </td>
                   <td>
                     <input type="password" id="" class="input-box-3 width100 " />
@@ -322,7 +305,6 @@
                 <tr>
                   <td>
                     Confirm New Password <span>*</span>
-
                   </td>
                   <td>
                     <input type="password" id="" class="input-box-3 width100 " />
@@ -330,24 +312,20 @@
                   <td colspan="2">
                   </td>
                 </tr>
-
                 <tr>
                   <td colspan="4" class="text-align-center back-white" align="center">
                     <input type="button" value="Update" class="btn-blck1" />
                   </td>
-
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-
       </div>
       <div class="clear-both-5"></div>
     </div>
   </div>
 </div>
 <app-footer></app-footer>
-
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
