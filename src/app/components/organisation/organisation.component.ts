@@ -12,8 +12,8 @@ import { FooterComponent } from "../layout/footer/footer.component";
 @Component({
   selector: 'app-organisation',
   templateUrl: './organisation.component.html',
-  styleUrls: ['./organisation.component.css'],
-  imports: [HeaderComponent, FooterComponent]
+  styleUrls: ['./organisation.component.css']
+ // imports: [HeaderComponent, FooterComponent]
 })
 export class OrganisationComponent implements OnInit {
   
