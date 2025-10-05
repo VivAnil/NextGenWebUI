@@ -48,6 +48,8 @@ export class LoginComponent implements OnInit {
         next: (roleDefn) => {
           this.roleId = roleDefn.systemRoleId;
           // Store logo in localStorage (safe because it's just base64 string)
+          sessionStorage.setItem('reloaded', 'false');
+          //alert(sessionStorage.getItem('reloaded'));
           if (roleDefn.companyLogo) {
             localStorage.setItem("companyLogo", roleDefn.companyLogo);
           }

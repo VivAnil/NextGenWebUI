@@ -1,5 +1,5 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { AfterViewInit, Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { ActivatedRoute, Event as RouterEvent  } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,7 @@ import {SexOption} from '../../models/master.model';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import ValidateForm from 'src/app/helpers/validateForm';
 import { MenuService } from 'src/app/services/menu.service';
+import { Service } from 'src/app/models/service.model';
 declare var $: any; // Import jQuery
 
 @Component({
@@ -28,11 +29,17 @@ export class BeneficiaryComponent implements OnInit {
   data: any[] = [];
   cols: any[] = []; // Table columns
   filteredData: any[] = []; // Data to display in the grid
+  casteData: { id: number; name: string }[] = [];
+  economicStatusData: { id: number; name: string }[] = [];
+  selectedCaste: { id: number; name: string } | undefined;
+  selectedEconomicStatus: { id: number; name: string } | undefined;
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
   pageHead:string='Beneficiary';
   companyId!: number;
   roleId!: number;
+  projectId: any;
+  projectName: string = 'none';
   companyRoleId!: number;
   displayTab: string='block';
   displayTab1: string='none';
@@ -53,6 +60,7 @@ export class BeneficiaryComponent implements OnInit {
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
+  projId!: number ;
   filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
   benForm!: FormGroup;
   sexOptions: { id: number; name: string }[] = [];
@@ -98,12 +106,22 @@ aadharBase64: string | null = null;
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
+servicePillarData :Service[] | undefined;
+serviceName:Service[] | undefined;
+selectedBusinesses:Service[] | undefined;
 userName!:string;
 projectList: { projectId: number, projectName: string }[] = [];
 soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService) { }
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService, private renderer: Renderer2) { }
 
   ngOnInit(): void {
+
+    this.serviceApi.getData().subscribe({
+    next:  (response: Service[]) => {
+      this.servicePillarData = this.getDistinctServicePillars(response);
+    }
+  });
+
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
     this.companyId = userRoleSettings.companyId; 
@@ -167,12 +185,43 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           stateId: ['', Validators.required],
           districtId: ['', Validators.required],
           blockId: ['', Validators.required],
+
+            // Schemes
+          schemeName: [''],
+          grantAmount: [''],
+          schemeStartDate: [''],
+          schemeSubsidyAmount: [''],
+
+    // Business unit
+        startDate: ['']
         });
          this.loadData();
          this.updatePath();
          this.setMaxDate();
+
+         this.serviceApi.getCastes().subscribe({
+          next: data => this.casteData = data,
+          error: err => console.error(err)
+        });
+
+         this.serviceApi.getEconomicStatus().subscribe({
+          next: data => this.economicStatusData = data,
+          error: err => console.error(err)
+        });
+  }
+  
+  getDistinctServicePillars(services: Service[]): Service[] {
+    const seen = new Set<string>();
+    return services.filter(service => {
+      if (seen.has(service.servicePillarName)) {
+        return false;
+      }
+      seen.add(service.servicePillarName);
+      return true;
+    });
   }
   loadData() {
+ 
     this.serviceApi.fetchBeneficiaries(this.userdetailsApiUrl+this.companyId+'/0/0', this.dataKey).subscribe({
       next: (response) => {
         this.data = response; // Populate the grid with fetched data
@@ -187,6 +236,7 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
             search: this.searchable(key),
             showInGrid:this.checkVisible(key)
           }));
+     
 
            // Set fields for global filtering
           this.globalFilterFields = Object.keys(this.filteredData[0]);
@@ -269,6 +319,14 @@ openFilter() {
     this.selectedOption = selectedId;
 
   }
+ onProjectChange(event: Event): void {
+  const select = event.target as HTMLSelectElement;
+  const selectedOption = select.options[select.selectedIndex];
+
+  this.projectId = selectedOption.id;         // ✅ gets option's id
+  this.projectName = selectedOption.value;    // ✅ gets option's value
+}
+
   openDefault(){
 
     if(this.activeDefault=='default-link') 
@@ -286,15 +344,39 @@ openFilter() {
     
   }
 
-  assignProject(){
-    
+   showAllSchemes(): void {
+    const rows = document.querySelectorAll('tr.tr-scheme');
+    rows.forEach(row => {
+      if (row.classList.contains('display-none')) {
+        this.renderer.removeClass(row, 'display-none');
+        this.renderer.addClass(row, 'display-block'); // optional if you want to force block
+      }
+      else{
+         this.renderer.removeClass(row, 'display-block');
+        this.renderer.addClass(row, 'display-none'); // optional if you want to force block
+      }
+    });
   }
-  onGlobalFilter(event: Event) {
-    
-    const inputValue = (event.target as HTMLInputElement).value; // Cast to HTMLInputElement
-    console.log('inputValue ' + inputValue);
-    this.dt?.filterGlobal(inputValue, 'contains');
+  showAllUnit(): void {
+    const rows = document.querySelectorAll('tr.tr-unit');
+    rows.forEach(row => {
+      if (row.classList.contains('display-none')) {
+        this.renderer.removeClass(row, 'display-none');
+        this.renderer.addClass(row, 'display-block'); // optional if you want to force block
+      }
+      else{
+         this.renderer.removeClass(row, 'display-block');
+        this.renderer.addClass(row, 'display-none'); // optional if you want to force block
+      }
+    });
   }
+ onGlobalFilter(query: string): void {
+  const q = (query ?? '').toLowerCase();
+  this.filteredData = this.data.filter(x =>
+    JSON.stringify(x).toLowerCase().includes(q)
+  );
+}
+
     // Utility function to format headers
     capitalizeFirstLetter(str: string): string {
       // if (str=='profilePicture') 
@@ -471,7 +553,24 @@ openFilter() {
       }
     );
   }
+onServiceProductNameChange(event: any): void {
+  const serviceId = Number(event.target.value); // ✅ convert to number
 
+  this.serviceApi.getData().subscribe({
+    next: (response: Service[]) => {
+      this.selectedBusinesses = response.filter(s => s.id === serviceId);
+    }
+  });
+}
+ onServiceNameChange(event: any): void {
+  const serviceId = Number(event.target.value); // ✅ convert to number
+
+  this.serviceApi.getData().subscribe({
+    next: (response: Service[]) => {
+      this.serviceName = response.filter(s => s.servicePillarId === serviceId);
+    }
+  });
+}
    // On state selection change
    onStateChange(event: any): void {
     const stateId = event.target.value;
@@ -540,33 +639,52 @@ openFilter() {
     }
     addBeneficiary() {
       const formData = this.benForm.value;
-      const payload = {
-        firstname: formData.firstname,
-        middlename: formData.middlename,
-        lastname: formData.lastname,
-        fathersname: formData.fathersname,
-        dob: formData.dob,
-        email: formData.email,
-        mobile: formData.mobile,
-        village: formData.village,
-        address: formData.address,
-        grampanchayat: formData.grampanchayat,
-        pincode: formData.pincode,
-        PanCard: formData.pan,
-        aadhar: formData.aadhar,
-        url: formData.url,
-        panimage: this.panBase64, // Can be null
-        aadharimage: this.aadharBase64,
-        profilephoto: this.profileBase64,
-        Sex: formData.sexId,
-        projectId: formData.projectId,
-        SoochnaPreneurId: formData.soochnapreurId,
-        StateId: formData.stateId,
-        DistrictId: formData.districtId,
-        BlockId: formData.blockId,
-        CompanyId:this.companyId,
-        LastUpdateBy: this.userName
-    };
+     const schemeData = {
+    id: 0,
+    spId: Number(formData.soochnapreurId),
+    nameOfScheme: formData.schemeName,
+    grantOrLoanAmount: Number(formData.grantAmount),
+    startDate: formData.schemeStartDate + 'T00:00:00Z', // ISO format
+    subsidyAmount: Number(formData.schemeSubsidyAmount)
+  };
+      console.log(schemeData);
+      console.log(this.selectedBusinesses);
+      let schemes: any[] = [];
+      schemes.push(schemeData);
+     const payload = {
+  firstname: formData.firstname,
+  middlename: formData.middlename,
+  lastname: formData.lastname,
+  fathersname: formData.fathersname,
+  dob: formData.dob + 'T00:00:00Z',
+  email: formData.email,
+  mobile: formData.mobile,
+  village: formData.village,
+  address: formData.address,
+  pincode: formData.pincode,
+  PanCard: formData.pan,
+  aadhar: formData.aadhar,
+  url: formData.url,
+  panimage: this.panBase64,
+  aadharimage: this.aadharBase64,
+  profilephoto: this.profileBase64,
+  sex: formData.sexId,
+  projectId:  Number(this.projectId),
+  SoochnaPreneurId: formData.soochnapreurId,
+  StateId: Number(formData.stateId),
+  DistrictId: Number(formData.districtId),
+  BlockId: Number(formData.blockId),
+  CompanyId: this.companyId,
+  projectName: this.projectName,
+  LastUpdateBy: this.userName,
+  gramPanchayat: formData.gramPanchayat,
+  schemes: schemes,              // ✅ use the array you built
+  businesses: this.selectedBusinesses ?? [], // ✅ or whatever you collect
+  casteId: this.selectedCaste?.id,
+  economicStatusId: this.selectedEconomicStatus?.id,
+  casteName: this.selectedCaste?.name,
+  economicStatusName: this.selectedEconomicStatus?.name
+};
     this.serviceApi.saveBeneficiary(payload).subscribe({
       next: (response) => {
         console.log('Response = ', response);
@@ -627,7 +745,25 @@ openFilter() {
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const dd = String(today.getDate()).padStart(2, '0');
       this.maxDate = `${yyyy}-${mm}-${dd}`; // e.g., 2025-03-09
-    }
+  }
+    selectEconomicStatus(event: Event): void {
+        const selectElement = event.target as HTMLSelectElement;
+
+        this.selectedEconomicStatus = {
+          id: Number(selectElement.value),          // convert string → number
+          name: selectElement.options[selectElement.selectedIndex].text // get label text
+        };
+  }
+
+selectCaste(event: Event): void {
+  const selectElement = event.target as HTMLSelectElement;
+
+  this.selectedCaste = {
+    id: Number(selectElement.id),          // convert string → number
+    name: selectElement.options[selectElement.selectedIndex].text // get label text
+  };
+}
+
 
     calculateAge(event: Event): void {
       const input = event.target as HTMLInputElement;

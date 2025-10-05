@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ChartConfiguration, ChartOptions, ChartType } from 'chart.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faWeight } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { MenuService } from 'src/app/services/menu.service';
   templateUrl: './organisationadmin.component.html',
   styleUrls: ['./organisationadmin.component.css']
 })
-export class OrganisationadminComponent implements OnInit {
+export class OrganisationadminComponent implements OnInit, AfterViewInit  {
   public chartType: ChartType = 'bar';
   public StateBenChartType: ChartType = 'pie';
   public GenBenChartType: ChartType = 'bar';
@@ -266,8 +266,17 @@ export class OrganisationadminComponent implements OnInit {
     this.updatePath();
     this.loadCompanyData();
   }
-  ngAfterViewInit(): void {
+ ngAfterViewInit(): void {
+  //alert(sessionStorage.getItem('reloaded'));
+  if (sessionStorage.getItem('reloaded') == 'false') {
+    sessionStorage.setItem('reloaded', 'true');
+    const current = window.location.href; // or this.router.url for SPA path
+     setTimeout(() => {
+       window.location.replace(current);     
+      }, 1000);
+   
   }
+}
   loadCompanyData(): void {
     // Call API to load data for the selected company using this.companyId
     console.log('Loading data for company ID:', this.companyId);

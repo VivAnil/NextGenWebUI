@@ -14,7 +14,9 @@ export const environment = {
   userdetailsApiUrl:'https://motherappuserapi.azurewebsites.net/user/',
   resetPasswordUrl: 'https://motherappuserapi.azurewebsites.net/User/ResetPassword',
   baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
-  baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/" 
+  baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
+  baseCasteUrl: "https://motherappmasterapi.azurewebsites.net/api/Master/GetCaste",
+  baseEconomicStatusUrl: "https://motherappmasterapi.azurewebsites.net/api/Master/GetEconomicStatus"
 };
 
 
