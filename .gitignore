@@ -10,7 +10,7 @@
 node_modules
 npm-debug.log
 yarn-error.log
-
+node_modules/*
 # IDEs and editors
 .idea/
 .project
@@ -43,3 +43,16 @@ Thumbs.db
 .vs/*
 /.vs/slnx.sqlite
 /.vscode/launch.json
+node_modules/webpack/node_modules/schema-utils/package.json
+package-lock.json
+package.json
+.vscode/settings.json
+package-lock.json
+package.json
+.vscode/settings.json
+node_modules/.package-lock.json
+node_modules/.bin/webpack
+node_modules/terser-webpack-plugin/package.json
+node_modules/terser-webpack-plugin/README.md
+node_modules/terser-webpack-plugin/dist/index.js
+node_modules/terser-webpack-plugin/dist/utils.js
