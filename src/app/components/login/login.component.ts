@@ -60,6 +60,10 @@ export class LoginComponent implements OnInit {
             console.log('RoleId:', this.roleId);
             this.error = "none";
             this.router.navigate(['organisation/' + this.roleId]);
+          } else if (roleDefn.companyId == 32)
+          {
+            this.error = "none";
+            this.router.navigate(['dashboard/' + this.roleId]);
           }
           else {
             this.error = "none";
