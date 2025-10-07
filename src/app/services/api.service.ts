@@ -117,5 +117,16 @@ export class ApiService {
     return this.http.post<any>(api, data);
   }
 
+  fetchTGTDashBoardFilters(): Observable<any> {
+    const filterUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetFilters';
+    //const filterUrl = 'https://localhost:7122/api/TGTDashBoard/GetFilters';
+    return this.http.get<any>(filterUrl);
+  }
+
+  fetchTGTDashBoarData(rwes: any): Observable<any> {
+    const filterUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetRWESummary';
+    //const filterUrl = 'https://localhost:7122/api/TGTDashBoard/GetRWESummary';
+    return this.http.post<any>(filterUrl, rwes);
+  }
 
 }
