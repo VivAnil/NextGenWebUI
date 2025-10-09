@@ -199,15 +199,15 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
          this.updatePath();
          this.setMaxDate();
 
-         this.serviceApi.getCastes().subscribe({
-          next: data => this.casteData = data,
-          error: err => console.error(err)
-        });
+    //  this.serviceApi.getCastes().subscribe({
+    //   next: data => this.casteData = data,
+    //   error: err => console.error(err)
+    // });
 
-         this.serviceApi.getEconomicStatus().subscribe({
-          next: data => this.economicStatusData = data,
-          error: err => console.error(err)
-        });
+    //  this.serviceApi.getEconomicStatus().subscribe({
+    //   next: data => this.economicStatusData = data,
+    //   error: err => console.error(err)
+    // });
   }
   
   getDistinctServicePillars(services: Service[]): Service[] {

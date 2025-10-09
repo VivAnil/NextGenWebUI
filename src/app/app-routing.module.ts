@@ -19,6 +19,7 @@ import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbenefic
 import { UsersComponent } from './components/users/users.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
+import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 
 const routes: Routes = [
   
@@ -30,7 +31,6 @@ const routes: Routes = [
     path: 'organisation/:roleid',
     component: OrganisationComponent
   },
-
   {
     path: '',
     component:LayoutComponent,
@@ -40,7 +40,8 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,  runGuardsAndResolvers: 'always' } ,
+      { path: 'organisationadmin/:companyid/:roleid', component: OrganisationadminComponent, runGuardsAndResolvers: 'always', },
+      { path: 'dashboard/:roleid', component: TgtdashboardComponent, runGuardsAndResolvers: 'always', },
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
@@ -58,7 +59,7 @@ const routes: Routes = [
       {path: 'home', component: HomeComponent},
       {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
-      {path: 'organisationadmin/:companyid/:roleid',component: OrganisationadminComponent,},
+  { path: 'organisationadmin/:companyid/:roleid', component: OrganisationadminComponent, runGuardsAndResolvers: 'always', },
       {path: 'processpayment', component: PaymentComponent},
       {path: 'companyusermaster', component: CompanyusermasterComponent},
       {path: 'editadmin', component: EditadminComponent},
