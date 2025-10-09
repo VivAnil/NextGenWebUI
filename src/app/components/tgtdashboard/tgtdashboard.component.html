@@ -1,0 +1,331 @@
+<div class="container-fluid">
+  <div class="row display-flex">
+
+    <div class="col-md-12" style="height:100%;">
+
+
+      <div class="width100">
+
+        <div class="heading-title">The Goat Trust Dashboard</div>
+        <div class="clear-both-20"></div>
+        <div id="div_dashboard">
+
+          <div class="clear-both-20"></div>
+          <div class="col-md-12" style="padding:20px 0px; background:#ebebeb">
+            <div class="col-md-2 float-left">
+              <div class="font-weight-bold">State</div>
+              <div>
+                <div class="checkbox-wrapper-29" *ngFor="let state of states">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="state.isSelected"
+                           (change)="onStateChange(state)"
+                           [value]="state.id" />
+                    <span class="checkbox__label"></span>
+                    {{ state.stateName }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 float-left">
+              <div class="font-weight-bold">District</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let district of districts">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="district.isSelected"
+                           (change)="onDistrictChange()"
+                           [value]="district.id"/>
+                    <span class="checkbox__label"></span>
+                    {{ district.districtName }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 float-left">
+              <div class="font-weight-bold">Block</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let block of blocks">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="block.isSelected"
+                           (change)="onBlockChange()"
+                           [value]="block.id" />
+                    <span class="checkbox__label"></span>
+                    {{ block.blockName }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 float-left">
+              <div class="font-weight-bold">Village</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let village of villages">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           (change)="onVillageChange()"
+                           [(ngModel)]="village.isSelected"
+                           [value]="village.id" />
+                    <span class="checkbox__label"></span>
+                    {{ village.village }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 float-left">
+              <div class="font-weight-bold">Name of RWEs</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let rwe of rweNames">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           [(ngModel)]="rwe.isSelected"
+                           [value]="rwe.id" />
+                    <span class="checkbox__label"></span>
+                    {{ rwe.rweName }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="clear-both-15"></div>
+            <div class="col-md-12">
+              <div class="col-md-4" align="center">
+                <div class="row text-align-center">
+                  <input type="button" (click)="fetchRweSummary()" class="btn-blck1" id="btn_search" value="Apply Filter">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clear-both-20"></div>
+          <div class="col-md-12 padding-zero float-left">
+            <div class="col-md-8 padding-zero float-left">
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Name of Pashu Sakhi</div>
+
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let pashusakhi of pashusakhis">
+
+                    {{pashusakhi}}
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Name of CLM</div>
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let clm of clms">
+
+                    {{clm}}
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Livestock Status</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                   {{totalLivestockCount}}
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Economic Status</div>
+                  <div class="text-align-center padding-top-bottom-5px" *ngFor="let status of economicStatus">
+
+                    {{status}}
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Category</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    -
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Livelihood</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    -
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Farmland Status</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    -
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">RWEs</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    -
+
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-md-4 float-left">
+
+                <div class="box-1">
+                  <div class="box-2">Bank Account</div>
+                  <div class="text-align-center padding-top-bottom-5px">
+
+                    -
+
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-4 padding-zero float-left">
+              <div class="clear-both-15"></div>
+              <table class="width100 text-align-center" style="table-layout:fixed;">
+                <th class="text-align-center box-2" style="border-right:2px solid#fff;">Animal Type</th>
+                <th class="text-align-center box-2" style="border-right:2px solid#fff;">Total Count</th>
+                <th class="text-align-center box-2">Animal Icon</th>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Goat</td>
+                  <td class="padding-top-bottom-5px">{{goatCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src ="../../../assets/images/goat.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Poultry</td>
+                  <td class="padding-top-bottom-5px">{{henCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/hen.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Pig</td>
+                  <td class="padding-top-bottom-5px">{{pigCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/pig.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Buffalo</td>
+                  <td class="padding-top-bottom-5px">{{buffaloCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/buffalo.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Cow</td>
+                  <td class="padding-top-bottom-5px">{{cowCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/cow.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Duck</td>
+                  <td class="padding-top-bottom-5px">{{duckCount}}</td>
+                  <td class="padding-top-bottom-5px"><img src="../../../assets/images/duck.jpg" style="max-width:40%;" /></td>
+                </tr>
+                <tr class="border-6">
+                  <td class="padding-top-bottom-5px">Other</td>
+                  <td class="padding-top-bottom-5px">{{otherCount}}</td>
+                  <td class="padding-top-bottom-5px"></td>
+                </tr>
+                <tr class="border-6 back-sub-container font-weight-bold">
+                  <td class="padding-top-bottom-5px">Total</td>
+                  <td class="padding-top-bottom-5px">
+                    {{totalLivestockCount}}</td>
+                  <td class="padding-top-bottom-5px"></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="clear-both"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="dv_resetSuperAdmin" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Reset Password - Admin</h4>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <div class="no-more-tables">
+            <table class="col-sm-12 table-bordered table-condensed ">
+              <colgroup>
+                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                <col style="background-color: rgb(255,255,255); width: 30%;" />
+                <col style="background-color: rgb(243,243,243); width: 20%;" />
+                <col style="background-color: rgb(255,255,255); width: 30%;" />
+              </colgroup>
+              <tbody>
+                <tr>
+                  <td>
+                    Old Password <span>*</span>
+                  </td>
+                  <td>
+                    <input type="password" id="" class="input-box-3 width100 " />
+                  </td>
+                  <td>
+                    New Password <span>*</span>
+                  </td>
+                  <td>
+                    <input type="password" id="" class="input-box-3 width100 " />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Confirm New Password <span>*</span>
+                  </td>
+                  <td>
+                    <input type="password" id="" class="input-box-3 width100 " />
+                  </td>
+                  <td colspan="2">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-align-center back-white" align="center">
+                    <input type="button" value="Update" class="btn-blck1" />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="clear-both-5"></div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
