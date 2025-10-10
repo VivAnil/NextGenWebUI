@@ -2187,7 +2187,7 @@ dropdown:after, .active .admin__action-dropdown:after {
 }
 
 .checkbox-wrapper-29 {
-  --size: 1.4rem;
+  --size: 1rem;
   --background: #fff;
   font-size: var(--size);
 }
