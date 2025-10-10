@@ -318,22 +318,27 @@ export class MenuService {
 
     switch (id) {
       case 1:
-
+        if (this.companyId != 32) {
         menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
         menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 2:
+        if (this.companyId != 32) {
         menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
         menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+         }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 3:
+        if (this.companyId != 32) {
         menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+         }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
@@ -350,8 +355,10 @@ export class MenuService {
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 6:
+        if (this.companyId != 32) {
         menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
         menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+         }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });

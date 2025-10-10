@@ -20,10 +20,16 @@
 
             <div  style="width:100%; float:left;" class="profile-box-div">
                 <div class="text-overflow letter-spacing-0 font-color-white" style="float:left; width:82%;">Welcome 
-                    <span class="span-color emp-name-color"><span>{{userName}}!</span></span></div>
+                    <span class="span-color emp-name-color"><span>{{userName}}!</span></span>
+                    <span (click)="logout()">
+                        <a style="font-size: 14px; font-weight: bolder; cursor: pointer;margin-left: 5px; margin-right: 3px;"> Logout </a>
+                    </span>
+                    
+                    </div>
                 <div (click)="openProfile()" style="float: left; width: 16%; margin-top: 2vw; text-align: left; margin-left: 2%;"><img
                         class="profile-img" src="../../../assets/images/profile-pic.png" style="border-width:0px;" /></div>
             </div>
+        
             <div *ngIf="isProfileOpen" class="profile-box" style="display:{{displayProfile}}">
                 <div class="col-md-12 font-color-black" style="font-size: 17px;"><span>{{userName}}</span></div>
                 <div class="col-md-12 emp-email-color"><span>{{email}}</span></div>
