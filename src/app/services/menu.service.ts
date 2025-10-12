@@ -75,29 +75,40 @@ export class MenuService {
   dcRoleDisplayName: string = 'District Coordinator';
   bcRoleDisplayName: string = 'Block Coordinator';
   benRoleDisplayName: string = 'Beneficiary';
-  getCustomRoleDetails() {
-    var customeRoles: any = localStorage.getItem("customAssignedRoles");
+  async getCustomRoleDetails(): Promise<void> {
+    let customeRoles: any = localStorage.getItem("customAssignedRoles");
     let customAssignedRoles = customeRoles ? JSON.parse(customeRoles) : null;
 
-    if (customAssignedRoles === null) {
-      this.rolemasterService.getCustomRoleForCompany().subscribe(customRoles => {
-        customAssignedRoles = customRoles.filter(item => item.companyRoleName !== null).
-          map(item => ({
+    // If already cached in localStorage, no API call needed
+    if (customAssignedRoles !== null) {
+      this.setRoleDisplayNames(customAssignedRoles);
+      return;
+    }
+
+    // Otherwise, fetch from API
+    return new Promise((resolve, reject) => {
+      this.rolemasterService.getCustomRoleForCompany().subscribe({
+        next: (customRoles) => {
+          customAssignedRoles = customRoles
+            .filter((item: any) => item.companyRoleName !== null)
+            .map((item: any) => ({
             profilename: item.companyRoleName,
             systemusertype: item.systemRoleName,
             companyroleid: item.companyRoleId,
             systemRoleId: item.systemRoleId,
             canDeleteCustomRole: item.canDeleteCustomRole
           }));
+
         localStorage.setItem("customAssignedRoles", JSON.stringify(customAssignedRoles));
+          this.setRoleDisplayNames(customAssignedRoles);
+          resolve();
+        },
+        error: (err) => {
+          console.error('Error loading custom roles:', err);
+          reject(err);
       }
-      );
-    }
-    this.pmRoleDisplayName = customAssignedRoles.filter((role: any) => role.systemRoleId === 2)[0]?.profilename ?? '';
-    this.spRoleDisplayName = customAssignedRoles.filter((role: any) => role.systemRoleId === 3)[0]?.profilename ?? '';
-    this.dcRoleDisplayName = customAssignedRoles.filter((role: any) => role.systemRoleId === 4)[0]?.profilename ?? '';
-    this.bcRoleDisplayName = customAssignedRoles.filter((role: any) => role.systemRoleId === 5)[0]?.profilename ?? '';
-    this.benRoleDisplayName = customAssignedRoles.filter((role: any) => role.systemRoleId === 7)[0]?.profilename ?? '';
+      });
+    });
   }
   menuItems$ = this.menuItems.asObservable();
 
@@ -438,5 +449,13 @@ export class MenuService {
       }
     ];
     this.menuItems.next(items);
+  }
+
+  private setRoleDisplayNames(customAssignedRoles: any[]): void {
+    this.pmRoleDisplayName = customAssignedRoles.find(r => r.systemRoleId === 2)?.profilename ?? '';
+    this.spRoleDisplayName = customAssignedRoles.find(r => r.systemRoleId === 3)?.profilename ?? '';
+    this.dcRoleDisplayName = customAssignedRoles.find(r => r.systemRoleId === 4)?.profilename ?? '';
+    this.bcRoleDisplayName = customAssignedRoles.find(r => r.systemRoleId === 5)?.profilename ?? '';
+    this.benRoleDisplayName = customAssignedRoles.find(r => r.systemRoleId === 7)?.profilename ?? '';
   }
 }
