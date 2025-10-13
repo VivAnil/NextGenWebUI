@@ -56,4 +56,4 @@ node_modules/terser-webpack-plugin/package.json
 node_modules/terser-webpack-plugin/README.md
 node_modules/terser-webpack-plugin/dist/index.js
 node_modules/terser-webpack-plugin/dist/utils.js
-
+node_modules/*

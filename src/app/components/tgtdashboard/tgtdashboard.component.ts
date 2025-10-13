@@ -79,11 +79,6 @@ export class TgtdashboardComponent implements OnInit {
     this.menuService.resetMenu();
     this.menuService.updateMenuItems([
       {
-        title: 'User Configuration',
-        links: [
-        ]
-      },
-      {
         title: 'User Details',
         links: [
         ]
@@ -94,17 +89,7 @@ export class TgtdashboardComponent implements OnInit {
         ]
       },
       {
-        title: 'Report Section',
-        links: [
-        ]
-      },
-      {
         title: 'Service Section',
-        links: [
-        ]
-      },
-      {
-        title: 'Payment Section',
         links: [
         ]
       }

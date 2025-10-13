@@ -117,35 +117,53 @@ export class MenuService {
       switch (permission.permissionName) {
         case 'Edit_Company':
           var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
-          menuItem.links.push({ label: 'Edit Company Details', path: '/editcompany' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: 'Edit Company Details', path: '/editcompany' });
+          }
           break;
         case 'View_Project':
           var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
-          menuItem.links.push({ label: 'Project Master', path: '/project' });
+          if (menuItem && menuItem.links) {
+
+            menuItem.links.push({ label: 'Project Master', path: '/project' });
+          }
           break;
         case 'View_Project_Report':
           var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-          menuItem.links.push({ label: 'All Project Report', path: '/projectreport' });
+          if (menuItem && menuItem.links) {
+
+            menuItem.links.push({ label: 'All Project Report', path: '/projectreport' });
+          }
           break;
         case 'View_Beneficiary_Report':
           var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-          menuItem.links.push({ label: 'All ' + this.benRoleDisplayName +' Report', path: '/benReport' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: 'All ' + this.benRoleDisplayName + ' Report', path: '/benReport' });
+          }
           break;
         case 'View_Sp_Beneficiary_Report':
           var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-          menuItem.links.push({ label: this.spRoleDisplayName+ ' Wise '+ this.benRoleDisplayName+' Report', path: '/spwisereport' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: this.spRoleDisplayName + ' Wise ' + this.benRoleDisplayName + ' Report', path: '/spwisereport' });
+          }
           break;
         case 'View_Service':
           var menuItem = newMenu.filter(menu => menu.title === "Service Section")[0];
-          menuItem.links.push({ label: 'View All Services', path: '/services' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: 'View All Services', path: '/services' });
+          }
           break;
         case 'View_Process_Payment':
           var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
-          menuItem.links.push({ label: 'Process Payment', path: '/processpayment' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: 'Process Payment', path: '/processpayment' });
+          }
           break;
         case 'View_Payment_Report':
           var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
-          menuItem.links.push({ label: 'Payment Report', path: '/paymentreport' });
+          if (menuItem && menuItem.links) {
+            menuItem.links.push({ label: 'Payment Report', path: '/paymentreport' });
+          }
           break;
         default:
           return ; // Keep the link if no matching permission
@@ -169,46 +187,46 @@ export class MenuService {
 
     switch (id) {
       case 1:
-        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserConfig.links.push({ label: 'Edit Administrator Details', path: '/editadmin' });
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName+' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName+' Master', path: '/user/' + this.companyId + '/4' });
-        menuUserDetails.links.push({ label: this.bcRoleDisplayName+' Master', path: '/user/' + this.companyId + '/5' });
-        menuUserDetails.links.push({ label: this.spRoleDisplayName+' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName+' Master', path: '/bn/' + this.companyId +'/0/0' });
+        menuUserConfig?.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserConfig?.links.push({ label: 'Edit Administrator Details', path: '/editadmin' });
+        menuUserDetails?.links.push({ label: this.pmRoleDisplayName+' Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails?.links.push({ label: this.dcRoleDisplayName+' Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails?.links.push({ label: this.bcRoleDisplayName+' Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName+' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName+' Master', path: '/bn/' + this.companyId +'/0/0' });
         break;
       case 2:
-        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-        menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
-        menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
+        menuUserConfig?.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserDetails?.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails?.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails?.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 3:
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-        menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
-        menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
+        menuUserDetails?.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails?.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 4:
-        menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
-        menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
+        menuUserDetails?.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 5:
-        menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 6:
-        menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-        menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
-        menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
-        menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
+        menuUserConfig?.links.push({ label: 'Application User Master', path: '/companyusermaster' });
+        menuUserDetails?.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
+        menuUserDetails?.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        menuUserDetails?.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
+        menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
+        menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       default:
         break;  // Default: no links available for unknown roles

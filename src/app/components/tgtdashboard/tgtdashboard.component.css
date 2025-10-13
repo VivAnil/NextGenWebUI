@@ -1039,7 +1039,7 @@ input[type=checkbox], input[type=radio] {
 
 .back-red {
   background: #f00 !important;
-  color: #fff;
+  Color: #fff;
   border: 1px solid#fff;
 }
 
@@ -1973,7 +1973,7 @@ mark {
     display: inline-block;
     position: relative;
     margin-left: 0.2564102564102564% !important;
-    margin-left: 0.25109110747408616% !important;
+    *margin-left: 0.25109110747408616% !important;
     float: left;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -2260,8 +2260,82 @@ dropdown:after, .active .admin__action-dropdown:after {
   .checkbox-wrapper-29 .checkbox__label {
     margin-right: calc(var(--size) * 0.45);
   }
+  
+  .checkbox, .radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 .border-6 {
   border: 1px solid#ccc;
   border-top: none;
 }
+
+.radio-wrapper-29 {
+  --size: 1.4rem;
+  --background: #fff;
+  font-size: var(--size);
+}
+
+  .radio-wrapper-29 *,
+  .radio-wrapper-29 *::after,
+  .radio-wrapper-29 *::before {
+    box-sizing: border-box;
+  }
+
+  .radio-wrapper-29 input[type="radio"] {
+    visibility: hidden;
+    display: none;
+  }
+
+  .radio-wrapper-29 .radio__label {
+    position: relative;
+    width: var(--size);
+    margin-right: calc(var(--size) * 0.45);
+  }
+
+    .radio-wrapper-29 .radio__label:before {
+      content: ' ';
+      display: block;
+      height: var(--size);
+      width: var(--size);
+      position: absolute;
+      top: calc(var(--size) * 0.125);
+      left: 0;
+      border-radius: 50%; /* Circle shape */
+      background: var(--background);
+      border: calc(var(--size) * 0.14) solid #000;
+    }
+
+    .radio-wrapper-29 .radio__label:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: calc(var(--size) * 0.375);
+      left: calc(var(--size) * 0.375);
+      width: calc(var(--size) * 0.5);
+      height: calc(var(--size) * 0.5);
+      border-radius: 50%; /* Filled circle */
+      background: green; /* Selected color */
+      transform: scale(0);
+      transition: 0.2s ease-in-out;
+    }
+
+  .radio-wrapper-29 input[type="radio"]:checked + .radio__label:after {
+    transform: scale(1); /* Show filled circle when checked */
+  }
+
+  .radio-wrapper-29 .radio {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  .radio-wrapper-29 .radio__label:hover:before,
+  .radio-wrapper-29 .radio__label:hover:after {
+    border-color: green;
+  }
+
