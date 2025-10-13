@@ -16,6 +16,7 @@ export class TgtdashboardComponent implements OnInit {
   villages: any;
   blocks: any;
   rweNames: any;
+  lbcNames: any;
   allData: any;
   totalLivestockCount: any =0;
   clms: any =[];
@@ -84,6 +85,7 @@ export class TgtdashboardComponent implements OnInit {
       this.blocks = ResetBlocks(data);
       this.villages = ResetVillages(data);
       this.rweNames = ResetRWEs(data);
+      this.lbcNames = ResetLBCs(data);
     });
   }
 
@@ -146,6 +148,10 @@ export class TgtdashboardComponent implements OnInit {
       .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
         selectedStates.includes(d.stateId));
 
+    this.lbcNames = ResetLBCs(this.allData)
+      .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
+        selectedStates.includes(d.stateId));
+
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
         !selectedStates || selectedStates.length ===0? true :
@@ -171,7 +177,14 @@ export class TgtdashboardComponent implements OnInit {
         !selectedDistricts || selectedDistricts.length === 0
           ? true
           : selectedDistricts.includes(d.districtId)
-        );
+    );
+
+    this.lbcNames = ResetLBCs(this.allData)
+      .filter((d: any) =>
+        !selectedDistricts || selectedDistricts.length === 0
+          ? true
+          : selectedDistricts.includes(d.districtId)
+      );
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
@@ -192,6 +205,13 @@ export class TgtdashboardComponent implements OnInit {
         !selectedBlocks || selectedBlocks.length === 0
           ? true
           : selectedBlocks.includes(d.blockId)
+    );
+
+    this.lbcNames = ResetLBCs(this.allData)
+      .filter((d: any) =>
+        !selectedBlocks || selectedBlocks.length === 0
+          ? true
+          : selectedBlocks.includes(d.blockId)
       );
 
     this.rweNames = ResetRWEs(this.allData)
@@ -207,6 +227,13 @@ export class TgtdashboardComponent implements OnInit {
       .filter((v: any) => v.isSelected)
       .map((v: any) => v.village);
 
+    this.lbcNames = ResetLBCs(this.allData)
+      .filter((d: any) =>
+        !selectedVillages || selectedVillages.length === 0
+          ? true
+          : selectedVillages.includes(d.village)
+      );
+
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
         !selectedVillages || selectedVillages.length === 0
@@ -215,6 +242,18 @@ export class TgtdashboardComponent implements OnInit {
       );
   }
 
+  onLBCChange() {
+    const selectedVillages = this.villages
+      .filter((v: any) => v.isSelected)
+      .map((v: any) => v.village);
+
+    this.rweNames = ResetRWEs(this.allData)
+      .filter((d: any) =>
+        !selectedVillages || selectedVillages.length === 0
+          ? true
+          : selectedVillages.includes(d.village)
+      );
+  }
 }
 
 function ResetStates(data: any): any {
@@ -301,17 +340,47 @@ function ResetRWEs(data: any): any {
     .filter(
       (value: any, index: any, self: any) =>
         index === self.findIndex(
-          (t: any) => t.stateId === value.stateId && t.districtId === value.districtId && t.blockid == value.blocktId && t.blockid === value.blockid && t.village === value.village
+          (t: any) =>
+            t.stateId === value.stateId &&
+            t.districtId === value.districtId &&
+            t.blockId === value.blockId &&
+            t.village === value.village &&
+            t.lbcId === value.lbcId
         )
     )
     .map((item: any) => ({
-      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_' + item.rweId,
+      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_' + item.lbcId + '_' + item.rweId,
       stateId: item.stateId,
       districtId: item.districtId,
       blockId: item.blockId,
       village: item.village,
+      lbcId: item.lbcId,
       rweId: item.rweId,
       rweName: item.rweName,
+      isSelected: false
+    }));
+}
+
+function ResetLBCs(data: any): any {
+  return data
+    .filter(
+      (value: any, index: any, self: any) =>
+        index === self.findIndex(
+          (t: any) =>
+            t.stateId === value.stateId &&
+            t.districtId === value.districtId &&
+            t.blockId === value.blockId &&
+            t.village === value.village 
+        )
+    )
+    .map((item: any) => ({
+      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_'+item.lbcId,
+      stateId: item.stateId,
+      districtId: item.districtId,
+      blockId: item.blockId,
+      village: item.village,
+      lbcId: item.lbcId,
+      lbcName: item.lbcName,
       isSelected: false
     }));
 }

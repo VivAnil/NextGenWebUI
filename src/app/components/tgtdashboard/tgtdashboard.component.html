@@ -15,7 +15,7 @@
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">State</div>
               <div>
-                <div class="checkbox-wrapper-29" *ngFor="let state of states">
+                <div class="checkbox-wrapper-29" *ngFor="let state of states; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
@@ -23,7 +23,7 @@
                            (change)="onStateChange(state)"
                            [value]="state.id" />
                     <span class="checkbox__label"></span>
-                    {{ state.stateName }}
+                    {{ i + 1 }} {{ state.stateName }}
                   </label>
                 </div>
               </div>
@@ -31,15 +31,15 @@
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">District</div>
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29" *ngFor="let district of districts">
+                <div class="checkbox-wrapper-29" *ngFor="let district of districts; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
                            [(ngModel)]="district.isSelected"
                            (change)="onDistrictChange()"
-                           [value]="district.id"/>
+                           [value]="district.id" />
                     <span class="checkbox__label"></span>
-                    {{ district.districtName }}
+                    {{ i + 1 }} {{ district.districtName }}
                   </label>
                 </div>
               </div>
@@ -47,7 +47,7 @@
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">Block</div>
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29" *ngFor="let block of blocks">
+                <div class="checkbox-wrapper-29" *ngFor="let block of blocks; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
@@ -55,7 +55,7 @@
                            (change)="onBlockChange()"
                            [value]="block.id" />
                     <span class="checkbox__label"></span>
-                    {{ block.blockName }}
+                    {{ i + 1 }} {{ block.blockName }}
                   </label>
                 </div>
               </div>
@@ -63,7 +63,7 @@
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">Village</div>
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29" *ngFor="let village of villages">
+                <div class="checkbox-wrapper-29" *ngFor="let village of villages; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
@@ -71,7 +71,23 @@
                            [(ngModel)]="village.isSelected"
                            [value]="village.id" />
                     <span class="checkbox__label"></span>
-                    {{ village.village }}
+                    {{ i + 1 }} {{ village.village }}
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 float-left width20 padding8">
+              <div class="font-weight-bold">Name of LBCs</div>
+              <div style="max-height:100px; overflow-y:auto;">
+                <div class="checkbox-wrapper-29" *ngFor="let lbc of lbcNames; let i = index">
+                  <label class="checkbox">
+                    <input type="checkbox"
+                           class="checkbox__input"
+                           (change)="onLBCChange()"
+                           [(ngModel)]="lbc.isSelected"
+                           [value]="lbc.id" />
+                    <span class="checkbox__label"></span>
+                    {{ i + 1 }} {{ lbc.lbcName }}
                   </label>
                 </div>
               </div>
@@ -79,14 +95,14 @@
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">Name of RWEs</div>
               <div style="max-height:100px; overflow-y:auto;">
-                <div class="checkbox-wrapper-29" *ngFor="let rwe of rweNames">
+                <div class="checkbox-wrapper-29" *ngFor="let rwe of rweNames; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
                            class="checkbox__input"
                            [(ngModel)]="rwe.isSelected"
                            [value]="rwe.id" />
                     <span class="checkbox__label"></span>
-                    {{ rwe.rweName }}
+                    {{ i + 1 }} {{ rwe.rweName }}
                   </label>
                 </div>
               </div>
