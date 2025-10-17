@@ -1,7 +1,11 @@
 <div class="col-md-10 float-left">
 
     <div class="back-internal-page width100">
-        <div class="heading-title">{{this.pageHead}} Master</div>
+        <div class="heading-title"><span>{{this.pageHead}} Master</span> <span class="command-option"
+                (click)="loadDashboard();"> Go to Dashboard </span>
+            <!-- <i class="fa fa-tachometer-alt"></i> Go to Dashboard</span> -->
+        </div>
+
         <div class="clear-both-20"></div>
         <div class="float-right">
             <div class="float-left" style="margin-top: 4px;">

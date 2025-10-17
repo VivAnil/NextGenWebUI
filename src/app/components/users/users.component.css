@@ -126,3 +126,39 @@ td {
   }
   
 }*/
+
+.right-text {
+  cursor: pointer;
+  /* optional if it's a link/button */
+}
+
+.heading-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f9fa;
+  padding: 12px 20px;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.command-option {
+  font-size: 15px;
+  font-weight: bold;
+  color: #0078d4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s, transform 0.1s;
+}
+
+.command-option:hover {
+  color: #005a9e;
+  text-decoration: underline;
+}
+
+.command-option:active {
+  transform: scale(0.98);
+}

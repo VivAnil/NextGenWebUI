@@ -8,6 +8,7 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {SexOption} from '../../models/master.model';
 import { MenuService } from '../../services/menu.service';
+import { Router } from '@angular/router';
 // import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
@@ -50,7 +51,10 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
-  filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
+  filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
+    "email", "soochnapreneur", "totalServices", "casteId"
+  ];
   
   sexOptions: { id: number; name: string }[] = [];
   formData = {
@@ -90,7 +94,7 @@ blocks: any[] = [];
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,private menuService: MenuService) { }
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -112,8 +116,8 @@ selectedBlock: number | null = null;
       //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
       //   }, type: "text"
       // },
-      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
-        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
+      // { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
+      // { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
      
       { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true, showInGrid:true },
       { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true, showInGrid:true },
@@ -121,7 +125,7 @@ selectedBlock: number | null = null;
       { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true, search:true },
       { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
       { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
-      { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" ,visible: true, search:true },
+      // { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" ,visible: true, search:true },
       { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" ,visible: true, search:true },
       { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" ,visible: true , search:true},
       { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
@@ -583,6 +587,11 @@ onDOBChange(event: Event): void {
         ]
       }
     ]);
+  }
+
+  loadDashboard() {
+    //this.companyId
+    this.router.navigate(['dashboard/' + this.roleId]);
   }
 }
 
