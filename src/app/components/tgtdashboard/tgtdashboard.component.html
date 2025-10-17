@@ -7,14 +7,13 @@
       <div class="width100">
 
         <div class="heading-title">The Goat Trust Dashboard</div>
-        <div class="clear-both-20"></div>
+        <div class="clear-both-15"></div>
         <div id="div_dashboard">
 
-          <div class="clear-both-20"></div>
-          <div class="col-md-12" style="padding:20px 0px; background:#ebebeb">
-            <div class="col-md-2 float-left width20 padding8">
-              <div class="font-weight-bold">State</div>
-              <div>
+          <div class="padding8" style="background:#ebebeb">
+            <div class="col-md-2 float-left width14em padding8">
+              <div class="font-weight-bold">STATE</div>
+              <div style="max-height:110px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let state of states; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -28,9 +27,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-2 float-left width20 padding8">
-              <div class="font-weight-bold">District</div>
-              <div style="max-height:100px; overflow-y:auto;">
+            <div class="col-md-2 float-left width14em padding8">
+              <div class="font-weight-bold">DISTRICT</div>
+              <div style="max-height:100px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let district of districts; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -44,9 +43,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-2 float-left width20 padding8">
-              <div class="font-weight-bold">Block</div>
-              <div style="max-height:100px; overflow-y:auto;">
+            <div class="col-md-2 float-left width14em padding8">
+              <div class="font-weight-bold">BLOCK</div>
+              <div style="max-height:100px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let block of blocks; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -60,9 +59,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-2 float-left width20 padding8">
-              <div class="font-weight-bold">Village</div>
-              <div style="max-height:100px; overflow-y:auto;">
+            <div class="col-md-2 float-left width14em padding8">
+              <div class="font-weight-bold">VILLAGE</div>
+              <div style="max-height:100px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let village of villages; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -78,7 +77,7 @@
             </div>
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">Name of LBCs</div>
-              <div style="max-height:100px; overflow-y:auto;">
+              <div style="max-height:100px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let lbc of lbcNames; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -94,7 +93,7 @@
             </div>
             <div class="col-md-2 float-left width20 padding8">
               <div class="font-weight-bold">Name of RWEs</div>
-              <div style="max-height:100px; overflow-y:auto;">
+              <div style="max-height:100px; min-height:100px; overflow-y:auto;">
                 <div class="checkbox-wrapper-29" *ngFor="let rwe of rweNames; let i = index">
                   <label class="checkbox">
                     <input type="checkbox"
@@ -108,17 +107,15 @@
               </div>
             </div>
             <div class="clear-both-15"></div>
-            <div class="col-md-12 width100">
-              <div class="col-md-4 width20 padding8" align="center">
+            
                 <div class="text-align-center">
                   <input type="button" (click)="fetchRweSummary()" class="btn-blck1" id="btn_search" value="Apply Filter">
                 </div>
-              </div>
-            </div>
+            <div class="clear-both-15"></div>
           </div>
           <div class="clear-both-20"></div>
           <div class="col-md-12 padding-zero float-left">
-            <div class="col-md-8 padding-zero float-left margin-right-10px">
+            <div class="col-md-8 padding-zero float-left">
               <div class="col-md-4 float-left padding8">
 
                 <div class="box-1">

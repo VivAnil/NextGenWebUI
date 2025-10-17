@@ -463,6 +463,13 @@ openFilter() {
 
   loadModal(modalId: string) {
     const modalButton = document.getElementById('btn_openModal');
+    const modalButtonBusiness = document.getElementById('btn_openModalBusiness');
+    if (modalButton) {
+      this.fetchMasterData();
+      modalButton.setAttribute('data-bs-target', `#${modalId}`);
+      modalButton.click(); // Programmatically trigger the button to open the modal
+    }
+
     if (modalButton) {
       this.fetchMasterData();
       modalButton.setAttribute('data-bs-target', `#${modalId}`);

@@ -172,7 +172,7 @@
                                             <tr>
                                                 <ng-container *ngFor="let col of cols">
                                                     <th *ngIf="col.visible" [style.textAlign]="'center'"
-                                                        [style.width]="col.width" [pSortableColumn]="col.field">
+                                                        [style.width.px]="200" [pSortableColumn]="col.field"   class="td-border">
                                                         {{ col.header }}
                                                         <!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
                                                     </th>
@@ -182,7 +182,7 @@
                                         <ng-template pTemplate="body" let-rowData>
                                             <tr>
                                                 <ng-container *ngFor="let column of cols">
-                                                    <td *ngIf="column.visible" [style.textAlign]="'center'">
+                                                    <td *ngIf="column.visible" [style.textAlign]="'center'" class="td-border">
                                                         <!-- Render the profile picture if column.field is 'profilePic' -->
                                                         <ng-container
                                                             *ngIf="column.field === 'profilePicture'; else textCell">
@@ -195,6 +195,92 @@
                                                         </ng-template>
                                                     </td>
                                                 </ng-container>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="36" style="padding:0">
+                                                    <table style="width:100%; background-color: aliceblue; border:2px solid#555555!important;" cellpadding="10">
+                                                        <tr>
+                                            
+                                            
+                                                            <th class="td-border ">Name of LBC</th>
+                                                            <th class="td-border ">Caste</th>
+                                                            <th class="td-border ">District</th>
+                                                            <th class="td-border ">Block</th>
+                                                            <th class="td-border ">Village</th>
+                                                            <th class="td-border ">Name of Father/Husband</th>
+                                                            <th class="td-border ">Aadhaar No</th>
+                                                            <th class="td-border ">Educatio</th>
+                                                            <th class="td-border ">Age</th>
+                                                            <th class="td-border ">Goat Rearer</th>
+                                                            <th class="td-border ">No of Goat</th>
+                                                            <th class="td-border ">Poultry Rearer</th>
+                                                            <th class="td-border ">No of Poultry</th>
+                                                            <th class="td-border ">Marital Status</th>
+                                                            <th class="td-border ">Monthly Income</th>
+                                                            <th class="td-border ">No. of Family Members</th>
+                                                        </tr>
+                                                        <tr>
+                                            
+                                            
+                                                            <td class="td-border">Dinku sarkar</td>
+                                                            <td class="td-border">SC</td>
+                                                            <td class="td-border">Kamrup</td>
+                                                            <td class="td-border">Chamaria</td>
+                                                            <td class="td-border">Puthimari</td>
+                                                            <td class="td-border">Paritosh Sarkar</td>
+                                                            <td class="td-border">890369016901</td>
+                                                            <td class="td-border">HSLC</td>
+                                                            <td class="td-border">27</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">4</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">20</td>
+                                                            <td class="td-border">Married</td>
+                                                            <td class="td-border">5000</td>
+                                                            <td class="td-border">6</td>
+                                                        </tr>
+                                                        <tr>
+                                            
+                                            
+                                                            <td class="td-border">Swapna Mandal</td>
+                                                            <td class="td-border">SC</td>
+                                                            <td class="td-border">Kamrup</td>
+                                                            <td class="td-border">Chamaria</td>
+                                                            <td class="td-border">Puthimari</td>
+                                                            <td class="td-border">Paritosh Sarkar</td>
+                                                            <td class="td-border">890369016901</td>
+                                                            <td class="td-border">HSLC</td>
+                                                            <td class="td-border">27</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">4</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">20</td>
+                                                            <td class="td-border">Married</td>
+                                                            <td class="td-border">5000</td>
+                                                            <td class="td-border">6</td>
+                                                        </tr>
+                                                        <tr>
+                                            
+                                            
+                                                            <td class="td-border">Usha Bayan</td>
+                                                            <td class="td-border">SC</td>
+                                                            <td class="td-border">Kamrup</td>
+                                                            <td class="td-border">Chamaria</td>
+                                                            <td class="td-border">Puthimari</td>
+                                                            <td class="td-border">Paritosh Sarkar</td>
+                                                            <td class="td-border">890369016901</td>
+                                                            <td class="td-border">HSLC</td>
+                                                            <td class="td-border">27</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">4</td>
+                                                            <td class="td-border">Yes</td>
+                                                            <td class="td-border">20</td>
+                                                            <td class="td-border">Married</td>
+                                                            <td class="td-border">5000</td>
+                                                            <td class="td-border">6</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="loadingBody">

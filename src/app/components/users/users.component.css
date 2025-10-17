@@ -99,7 +99,22 @@ article input {
 input[type=checkbox]:checked ~ div {
   background-color: #f58634!important;
 }
+.td-border {
+  border: 1px solid #ccc !important;
+}
 
+.td-width {
+  width: 14em !important;
+}
+
+th,
+td {
+  width: 200px;
+  /* adjust per column */
+
+  white-space: nowrap;
+}
+  
 /*.datatable-container {
   margin: 20px;
  .p-paginator {

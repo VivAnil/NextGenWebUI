@@ -2264,8 +2264,9 @@ dropdown:after, .active .admin__action-dropdown:after {
   .checkbox, .radio {
     position: relative;
     display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+      /*margin-top: 10px;
+            margin-bottom: 10px;*/
 }
 
 .border-6 {

@@ -166,7 +166,7 @@ selectedBlock: number | null = null;
             field: key,
             header: this.capitalizeFirstLetter(key),
             visible: this.checkVisible(key),
-            width: '100px' ,
+           width: '200px',
             search: this.searchable(key),
             showInGrid:this.checkVisible(key)
           }));

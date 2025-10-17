@@ -15,7 +15,10 @@
       
         <button type="button" id="btn_openModal" class="btn-orange" data-bs-toggle="modal" data-bs-target="#addBen" (click)="loadModal('addBen')">
           Add New
-          RWE/Beneficiary
+          RWE
+          </button> <button type="button" id="btn_openModalBusiness" class="btn-orange" data-bs-toggle="modal"
+            data-bs-target="#addBusiness" (click)="loadModal('addBusiness')">
+            Add Business
         </button>
       </div>
 
@@ -659,6 +662,226 @@
                   </div>
                 </div>
 
+              </div>
+              <div class="clear-both-5"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="addBusiness" role="dialog">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+        
+                <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">Add Business</h4>
+              </div>
+              <div class="modal-body">
+                <div class="">
+                  <div class="no-more-tables">
+                    <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
+                      <colgroup>
+                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                      </colgroup>
+                      <tbody>
+        
+        
+        
+        
+        
+                        <tr>
+                          <td colspan="4" align="right">
+                            <div class="section-heading text-align-left">Business Details</div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Name of RWE</td>
+                          <td colspan="3"><select class="select-box-3 width30 margin-right-10px">
+                              <option>Select RWE</option>
+                              <option value="Goat Feed/ Feed Mill">Suman Kumari</option>
+                              <option value="Kid Nursery">Dipti Kumari</option>
+        
+                            </select> <input type="text" class="input-box-3 width60" placeholder="Search" /></td>
+        
+                        </tr>
+                        <tr>
+                          <td>Type of Business</td>
+                          <td>
+                            <select name="business_options" id="business_options" class="select-box-3 width100">
+                              <option>Select Business Type</option>
+                              <option value="Goat Feed/ Feed Mill">Goat Farming</option>
+                              <option value="Kid Nursery">Backyard Poultry</option>
+        
+                            </select>
+                          </td>
+                          <td>Business Sub-Category</td>
+                          <td>
+                            <select name="business_options" id="business_options" class="select-box-3 width100">
+                              <option>Select Business</option>
+                              <option value="Goat Feed/ Feed Mill">Goat Feed/ Feed Mill</option>
+                              <option value="Kid Nursery">Kid Nursery</option>
+                              <option value="Livestock Input Shop">Livestock Input Shop</option>
+                              <option value="Herbal Formulations Medicines and supplements">Herbal Formulations Medicines and
+                                supplements</option>
+                              <option value="Cold Chain Equipment and tools">Cold Chain Equipment and tools</option>
+                              <option value="Breeding Buck and AI Services">Breeding Buck and AI Services</option>
+                              <option value="Bakrid Buck Farming">Bakrid Buck Farming</option>
+                              <option value="Commercial Desi Poultry Farming">Commercial Desi Poultry Farming</option>
+                              <option value="Goat Dung Manure">Goat Dung Manure</option>
+                              <option value="Goat & Chik’s Marketing">Goat & Chik’s Marketing</option>
+                              <option value="Goat Milk byproducts">Goat Milk byproducts</option>
+                              <option value="Pashumart Retails Outlet (Input/output)">Pashumart Retails Outlet (Input/output)
+                              </option>
+                              <option value="Hygienic Mutton and Desi Egg Shop">Hygienic Mutton and Desi Egg Shop</option>
+        
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+        
+                          <td>Services/Product</td>
+                          <td>
+                            <select name="business_products" id="business_products" class="select-box-3 width100">
+                              <option>Select Product</option>
+                              <option value="">Dana Mishran</option>
+                              <option value="">Neem Oil</option>
+                              <option value="">Pachmola</option>
+                              <option value="">Masala Bolus</option>
+                              <option value="">Milk Replacer</option>
+                              <option value="">Liver Tonic</option>
+                              <option value="">Goat Dung Manure</option>
+                              <option value="">Goat Milk Soap</option>
+                              <option value="">Kid Sale</option>
+                              <option value="">Goat Sale - Female</option>
+                              <option value="">Goat Sale - Male</option>
+                              <option value="">Goat Urine</option>
+                              <option value="">Desi Eggs</option>
+                              <option value="">Desi Chicks</option>
+                              <option value="">Desi Hen/Bird</option>
+                              <option value="">Nursery Plant</option>
+                              <option value="">Goat Urine</option>
+        
+                            </select>
+                          </td>
+                          <td>
+                            Inventory (Vol./Qty)
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width60 margin-right-10px" /> <select
+                              class="select-box-3 width30">
+                              <option>-Select Unit-</option>
+                              <option>Kg</option>
+                              <option>Litre</option>
+                              <option>Pack</option>
+                              <option>Piece</option>
+                              <option>Other</option>
+        
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Start Month
+        
+                          </td>
+                          <td>
+                            <select class="select-box-3 width100">
+                              <option>-Select Month-</option>
+                              <option>January</option>
+                              <option>February</option>
+                              <option>March</option>
+                              <option>April</option>
+                              <option>May</option>
+                              <option>June</option>
+                              <option>July</option>
+                              <option>August</option>
+                              <option>September</option>
+                              <option>October</option>
+                              <option>November</option>
+                              <option>December</option>
+                            </select>
+                          </td>
+        
+        
+                          <td>
+                            Start Year
+                          </td>
+                          <td>
+                            <select class="select-box-3 width100">
+                              <option>-Select Year-</option>
+                              <option>2025</option>
+                              <option>2024</option>
+                              <option>2023</option>
+                              <option>2022</option>
+                              <option>2021</option>
+                              <option>2020</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+        
+        
+                            Total Investment
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width100 " />
+                          </td>
+        
+        
+                          <td>
+                            Self Investment
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width100 " />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+        
+                            Project Loan (if any)
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width100 " />
+                          </td>
+        
+        
+                          <td>
+                            Bank Loan (if any)
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width100 " />
+                          </td>
+        
+        
+                        </tr>
+                        <tr>
+                          <td>
+        
+                            Collective Loan (if any)
+                          </td>
+                          <td>
+                            <input type="text" id="" class="input-box-3 width100 " />
+                          </td>
+        
+        
+        
+        
+        
+                        </tr>
+                        <tr>
+                          <td colspan="4" class="text-align-center back-white" align="center">
+                            <input type="button" value="Save" class="btn-blck1" />
+                          </td>
+        
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+        
               </div>
               <div class="clear-both-5"></div>
             </div>
