@@ -12,6 +12,7 @@ import { Beneficiary } from '../models/beneficiary.model';
   providedIn: 'root'
 })
 export class ApiService {
+
  // private baseUrl : string = 'https://localhost:7052/api/Service/Get';//environment.baseServiceurl;
  private baseUrl : string = environment.baseServiceUrl;
  private baseSPurl: string = environment.baseSPUrl;
@@ -128,5 +129,16 @@ export class ApiService {
     //const filterUrl = 'https://localhost:7122/api/TGTDashBoard/GetRWESummary';
     return this.http.post<any>(filterUrl, rwes);
   }
+
+  getLbcByClmId(clmId: number) {
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
+    this.companyId = userRoleSettings.companyId;
+
+    const userUrl = 'https://motherappuserapi.azurewebsites.net/User/byManager/' + this.companyId + '/' + clmId;
+    return this.http.get<any[]>(userUrl);
+  }
+
 
 }

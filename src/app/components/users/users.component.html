@@ -35,7 +35,7 @@
             <div>
                 <div class="position-relative padding-10-0">
                     <div class="col-md-6 padding-zero float-left">
-                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search"
+                        <input type="text" class="input-box-3 width90 padding-10" placeholder="Type to search..."
                             pInputText (input)="onGlobalFilter($event)">
                         <!-- id="txt_globalsearch" autocomplete="off"> -->
                     </div>
@@ -140,7 +140,7 @@
                             <button type="button" id="btn_clear_filter" class="clear-filter-btn">
                                 <i class="fas fa-filter"></i>Clear Filters
                             </button>
-                            <div class="page-filter">
+                            <!-- <div class="page-filter">
                                 <select class="select-box-3 padding8">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
@@ -149,7 +149,7 @@
                                     <option value="200">200</option>
                                     <option value="1250">Select All</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content"  style="margin-top: 10px;">
@@ -184,11 +184,11 @@
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="body" let-rowData>
-                                            <tr>
+                                            <tr (click)="toggleRow(rowData)" class="clickable-row">
                                                 <ng-container *ngFor="let column of cols">
                                                     <td *ngIf="column.visible" [style.textAlign]="'center'" class="td-border">
                                                         <!-- Render the profile picture if column.field is 'profilePic' -->
-                                                        <ng-container
+                                                        <!-- <ng-container
                                                             *ngIf="column.field === 'profilePicture'; else textCell">
                                                             <img [src]="'data:image/png;base64,' + rowData[column.field]"
                                                                 alt=""
@@ -196,13 +196,27 @@
                                                         </ng-container>
                                                         <ng-template #textCell>
                                                             {{ rowData[column.field] }}
+                                                        </ng-template>-->
+                                                        <ng-container *ngIf="column.field === 'firstName'; else normalCell">
+                                                            <span class="expand-link" (click)="onClmClick(rowData)">
+                                                                {{ rowData[column.field] }}
+                                                            </span>
+                                                        </ng-container>
+                                                        <ng-template #normalCell>
+                                                            {{ rowData[column.field] }}
                                                         </ng-template>
+                                                        
                                                     </td>
                                                 </ng-container>
                                             </tr>
-                                            <tr>
+                                            <tr *ngIf="expandedRow === rowData">
                                                 <td colspan="36" style="padding:0">
-                                                    <table style="width:100%; background-color: aliceblue; border:2px solid#555555!important;" cellpadding="10">
+                                                    <div *ngIf="loadingLbc" style="text-align:center;padding:10px;">
+                                                        <p-progressSpinner></p-progressSpinner>
+                                                        <p>Loading LBCs...</p>
+                                                    </div>
+                                                    <table *ngIf="!loadingLbc && rowData.lbcList?.length"
+                                                        style="width:100%; background-color: aliceblue; border:2px solid#555555!important;" cellpadding="10">
                                                         <tr>
                                             
                                             
@@ -284,6 +298,9 @@
                                                             <td class="td-border">6</td>
                                                         </tr>
                                                     </table>
+                                                    <div *ngIf="!loadingLbc && !rowData.lbcList?.length" style="text-align:center;padding:10px;">
+                                                        No data found.
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </ng-template>

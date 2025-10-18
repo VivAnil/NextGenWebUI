@@ -162,3 +162,27 @@ td {
 .command-option:active {
   transform: scale(0.98);
 }
+.clickable-row:hover {
+  background-color: #f0f8ff;
+  cursor: pointer;
+}
+
+.expand-link {
+  color: #0078d4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.expand-link:hover {
+  color: #005a9e;
+}
+
+.expand-link {
+  color: #0078d4;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.expand-link:hover {
+  color: #005a9e;
+}

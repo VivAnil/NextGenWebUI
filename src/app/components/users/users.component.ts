@@ -17,7 +17,8 @@ declare let $: any; // Import jQuery
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit,  AfterViewInit  {
-  // userProfile!: UserProfile;
+  expandedRow: any | null = null;
+  loadingLbc = false;
    successMessage = '';
    errorMessage = '';
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
@@ -53,7 +54,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId"
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
   ];
   
   sexOptions: { id: number; name: string }[] = [];
@@ -192,6 +193,54 @@ selectedBlock: number | null = null;
       error: (err) => {
         console.error('Error fetching data:', err);
         this.data = []; // Set an empty array if there's an error
+      }
+    });
+  }
+
+  onClmClick(rowData: any): void {
+    // collapse if same row is clicked again
+    if (this.expandedRow === rowData) {
+      this.expandedRow = null;
+      return;
+    }
+
+    this.expandedRow = rowData;
+    this.loadingLbc = true;
+    rowData.lbcList = [];
+
+    this.serviceApi.getLbcByClmId(rowData.id).subscribe({
+      next: (res) => {
+        rowData.lbcList = res;
+        this.loadingLbc = false;
+        this.filteredData = [...rowData.lbcList]; // Clone the full data initially
+        // // Dynamically set columns based on API keys
+        if (rowData.lbcList.length > 0) {
+          this.cols = Object.keys(rowData.lbcList[0]).map((key) => ({
+            field: key,
+            header: this.capitalizeFirstLetter(key),
+            visible: this.checkVisible(key),
+            width: '200px',
+            search: this.searchable(key),
+            showInGrid: this.checkVisible(key)
+          }));
+
+          // Set fields for global filtering
+          this.globalFilterFields = Object.keys(this.filteredData[0]);
+          this.globalFilterFields = this.cols;
+          this.loading = false; // Turn off loading once data is fetched
+          console.log(this.cols);
+          // Initialize filters for each column
+          this.cols.forEach((col) => {
+            if (!this.filteredCols.includes(col.field))
+              if (this.checkVisible(col.field))
+                this.filters[col.field] = '';
+          });
+
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load LBC data', err);
+        this.loadingLbc = false;
       }
     });
   }
@@ -592,6 +641,14 @@ onDOBChange(event: Event): void {
   loadDashboard() {
     //this.companyId
     this.router.navigate(['dashboard/' + this.roleId]);
+  }
+
+  toggleRow(rowData: any): void {
+    if (this.expandedRow === rowData) {
+      this.expandedRow = null; // collapse
+    } else {
+      this.expandedRow = rowData; // expand this row
+    }
   }
 }
 
