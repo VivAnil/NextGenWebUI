@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { environment } from 'src/environments/environment';
@@ -17,6 +17,7 @@ declare let $: any; // Import jQuery
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit,  AfterViewInit  {
+  @ViewChild('dtLbc') dtLbc: Table | undefined;
   expandedRow: any | null = null;
   loadingLbc = false;
    successMessage = '';
@@ -27,6 +28,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   data: any[] = [];
   cols: any[] = []; // Table columns
   filteredData: any[] = []; // Data to display in the grid
+  lbcFilteredData: any[] = []; // Data to display in the grid
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
   pageHead:string='Project Officer Master';
@@ -45,6 +47,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   activeTab1: string='ui-tab ';
   isColumnOpen: boolean=false;
   filters: { [key: string]: string } = {}; // Stores filter values
+  lbcFilters: { [key: string]: string } = {}; // Stores filter values
   showFilterModal = false; // Controls filter modal visibility
   addUser: string = 'dv_addSProjectOfficer';
   private genders: SexOption[] = [];
@@ -53,6 +56,10 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+  ];
+  filteredLbcCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
   ];
@@ -87,7 +94,10 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
     Aadhar:'',
     AadharImage: ''
 };
-
+  filterLbc(event: Event, dt: Table, field: string) {
+    const value = (event.target as HTMLInputElement).value;
+    dt.filter(value, field, 'contains');
+  }
 states: any[] = [];
 districts: any[] = [];
 blocks: any[] = [];
@@ -95,7 +105,7 @@ blocks: any[] = [];
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -197,53 +207,73 @@ selectedBlock: number | null = null;
     });
   }
 
-  onClmClick(rowData: any): void {
-    // collapse if same row is clicked again
+  onClmClick(rowData: any, event: MouseEvent): void {
+    event.stopPropagation();
     if (this.expandedRow === rowData) {
       this.expandedRow = null;
       return;
     }
-
-    this.expandedRow = rowData;
     this.loadingLbc = true;
-    rowData.lbcList = [];
+    // Set this row as expanded
+    this.expandedRow = rowData;
+    rowData.lbcList = []; // Reset old data
 
+    // Call API using CLM Id
     this.serviceApi.getLbcByClmId(rowData.id).subscribe({
       next: (res) => {
-        rowData.lbcList = res;
-        this.loadingLbc = false;
-        this.filteredData = [...rowData.lbcList]; // Clone the full data initially
-        // // Dynamically set columns based on API keys
-        if (rowData.lbcList.length > 0) {
-          this.cols = Object.keys(rowData.lbcList[0]).map((key) => ({
+        if (res && res.length > 0) {
+          rowData.lbcList = res || [];
+          const first = res[0];
+          this.lbcFilteredData = [...rowData.lbcList];
+
+          // rowData.lbcCols = Object.keys(first).map(key => ({
+          //   field: key,
+          //   header: this.formatHeader(key)
+          // }));
+          rowData.lbcCols = Object.keys(first).map((key) => ({
             field: key,
             header: this.capitalizeFirstLetter(key),
             visible: this.checkVisible(key),
-            width: '200px',
-            search: this.searchable(key),
+            width: '150px',
+            // search: this.searchable(key),
             showInGrid: this.checkVisible(key)
           }));
 
           // Set fields for global filtering
-          this.globalFilterFields = Object.keys(this.filteredData[0]);
+          this.globalFilterFields = Object.keys(this.lbcFilteredData[0]);
           this.globalFilterFields = this.cols;
           this.loading = false; // Turn off loading once data is fetched
           console.log(this.cols);
           // Initialize filters for each column
           this.cols.forEach((col) => {
-            if (!this.filteredCols.includes(col.field))
+            if (!this.filteredLbcCols.includes(col.field))
               if (this.checkVisible(col.field))
-                this.filters[col.field] = '';
+                this.lbcFilters[col.field] = '';
           });
+          this.loadingLbc = false;
+          this.cdr.detectChanges(); // Notify Angular to update view
+        } else {
+          rowData.lbcList = [];
+          rowData.lbcCols = [];
 
         }
+        this.loadingLbc = false;
       },
       error: (err) => {
-        console.error('Failed to load LBC data', err);
+        console.error("Failed to load LBC data", err);
+        rowData.lbcList = [];
         this.loadingLbc = false;
+        this.cdr.detectChanges();
       }
     });
   }
+
+  // Utility - Format header
+  private formatHeader(key: string): string {
+    return key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+  }
+
+
 
   ngAfterViewInit(): void {
     console.log('AfterViewInit');

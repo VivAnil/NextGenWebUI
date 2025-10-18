@@ -172,17 +172,6 @@ td {
   text-decoration: underline;
   cursor: pointer;
 }
-
-.expand-link:hover {
-  color: #005a9e;
-}
-
-.expand-link {
-  color: #0078d4;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .expand-link:hover {
   color: #005a9e;
 }
