@@ -112,63 +112,6 @@ export class MenuService {
   }
   menuItems$ = this.menuItems.asObservable();
 
-  // modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): MenuItems[] {
-  //   console.log('modifyMenuItem');
-  //   const userString = localStorage.getItem('userRoleSettings');
-  //   let userRoleSettings = userString ? JSON.parse(userString) : null;
-  //   let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
-  //   this.companyId = userRoleSettings.companyId;
-  //   let newMenu = menuItems; // Clone the original menuItems to avoid mutating the original state.
-  //   permissionSettings = permissionSettings.filter((setting: { permissionName: string, isAssigned: boolean }) => setting.isAssigned);
-  //   this.getCustomRoleDetails();
-
-  //   permissionSettings.forEach((permission: any) => {
-  //     console.log(`Permission: ${permission.permissionName} is ${permission.permissionId}`);
-
-  //     switch (permission.permissionName) {
-  //       case 'Edit_Company':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
-  //         menuItem.links.push({ label: 'Edit Company Details', path: '/editcompany' });
-  //         break;
-  //       case 'View_Project':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Company Details")[0];
-  //         menuItem.links.push({ label: 'Project Master', path: '/project' });
-  //         break;
-  //       case 'View_Project_Report':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-  //         menuItem.links.push({ label: 'All Project Report', path: '/projectreport' });
-  //         break;
-  //       case 'View_Beneficiary_Report':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-  //         menuItem.links.push({ label: 'All ' + this.benRoleDisplayName +' Report', path: '/benReport' });
-  //         break;
-  //       case 'View_Sp_Beneficiary_Report':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Report Section")[0];
-  //         menuItem.links.push({ label: this.spRoleDisplayName+ ' Wise '+ this.benRoleDisplayName+' Report', path: '/spwisereport' });
-  //         break;
-  //       case 'View_Service':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Service Section")[0];
-  //         menuItem.links.push({ label: 'View All Services', path: '/services' });
-  //         break;
-  //       case 'View_Process_Payment':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
-  //         menuItem.links.push({ label: 'Process Payment', path: '/processpayment' });
-  //         break;
-  //       case 'View_Payment_Report':
-  //         var menuItem = newMenu.filter(menu => menu.title === "Payment Section")[0];
-  //         menuItem.links.push({ label: 'Payment Report', path: '/paymentreport' });
-  //         break;
-  //       default:
-  //         return ; // Keep the link if no matching permission
-  //     }
-  //   });
-  //   var menuUserConfig = newMenu.filter(menu => menu.title === "User Configuration")[0];
-  //   var menuUserDetails = newMenu.filter(menu => menu.title === "User Details")[0];
-
-  //   this.AddLinksBasedOnRole(menuUserConfig, menuUserDetails, userRoleSettings.systemRoleId);
-  //   newMenu = newMenu.filter(item => item.links && item.links.length > 0);
-  //   return newMenu;
-  // }
   modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): MenuItems[] {
     console.log('modifyMenuItemsBasedOnPermissions called');
 

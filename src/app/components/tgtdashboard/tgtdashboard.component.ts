@@ -243,15 +243,15 @@ export class TgtdashboardComponent implements OnInit {
   }
 
   onLBCChange() {
-    const selectedVillages = this.villages
+    const selectedLCB = this.lbcNames
       .filter((v: any) => v.isSelected)
-      .map((v: any) => v.village);
+      .map((v: any) => v.lbcId);
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
-        !selectedVillages || selectedVillages.length === 0
+        !selectedLCB || selectedLCB.length === 0
           ? true
-          : selectedVillages.includes(d.village)
+          : selectedLCB.includes(d.lbcId)
       );
   }
 }
@@ -261,7 +261,7 @@ function ResetStates(data: any): any {
       .filter(
         (value: any, index: any, self: any) =>
           index === self.findIndex(
-            (t: any) => t.stateId === value.stateId && t.stateName === value.stateName
+            (t: any) => t.stateId === value.stateId && t.stateName === value.stateName && t.stateId !== 0
           )
       )
       .map((item: any) => ({
@@ -280,6 +280,8 @@ function ResetDistricts(data: any): any {
             (t: any) => t.stateId === value.stateId
               && t.districtId === value.districtId
               && t.districtName === value.districtName
+              && t.stateId !== 0
+              && t.districtId !== 0
           )
       )
       .map((item: any) => ({
@@ -312,75 +314,83 @@ function ResetBlocks(data: any): any {
       }));
 }
 
-function ResetVillages(data: any): any {
+function ResetVillages(data: any[]): any[] {
+  const seen = new Set<string>();
   let counter = 1;
+
   return data
-    .filter(
-      (value: any, index: any, self: any) =>
-        index === self.findIndex(
-          (t: any) =>
-            t.stateId === value.stateId &&
-            t.districtId === value.districtId &&
-            t.blockId === value.blockId &&   
-            t.village === value.village
-        )
-    )
-    .map((item: any) => ({
-      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_'+(counter++),
+    .filter(item => {
+      // Normalize village name to avoid duplicates due to case/whitespace
+      const key = `${item.stateId}_${item.districtId}_${item.blockId}_${item.village.trim().toLowerCase()}`;
+
+      if (
+        !item.stateId ||
+        !item.districtId ||
+        !item.blockId ||
+        seen.has(key)
+      ) {
+        return false;
+      }
+
+      seen.add(key);
+      return true;
+    })
+    .map(item => ({
+      id: `${item.stateId}_${item.districtId}_${item.blockId}_${counter++}`,
       stateId: item.stateId,
       districtId: item.districtId,
       blockId: item.blockId,
-      village: item.village,
+      village: item.village.trim(),
       isSelected: false
     }));
 }
 
-function ResetRWEs(data: any): any {
+function ResetRWEs(data: any[]): any[] {
+  const seen = new Set<string>();
+
   return data
-    .filter(
-      (value: any, index: any, self: any) =>
-        index === self.findIndex(
-          (t: any) =>
-            t.stateId === value.stateId &&
-            t.districtId === value.districtId &&
-            t.blockId === value.blockId &&
-            t.village === value.village &&
-            t.lbcId === value.lbcId
-        )
-    )
-    .map((item: any) => ({
-      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_' + item.lbcId + '_' + item.rweId,
+    .filter(item => {
+      const key = `${item.stateId}_${item.districtId}_${item.blockId}_${item.village.trim().toLowerCase()}_${item.lbcId}_${item.rweId}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .map(item => ({
+      id: `${item.stateId}_${item.districtId}_${item.blockId}_${item.village}_${item.lbcId}_${item.rweId}`,
       stateId: item.stateId,
       districtId: item.districtId,
       blockId: item.blockId,
-      village: item.village,
+      village: item.village.trim(),
       lbcId: item.lbcId,
       rweId: item.rweId,
-      rweName: item.rweName,
+      rweName: item.rweName?.trim(),
       isSelected: false
     }));
 }
 
-function ResetLBCs(data: any): any {
+function ResetLBCs(data: any[]): any[] {
+  const seen = new Set<string>();
+
   return data
-    .filter(
-      (value: any, index: any, self: any) =>
-        index === self.findIndex(
-          (t: any) =>
-            t.stateId === value.stateId &&
-            t.districtId === value.districtId &&
-            t.blockId === value.blockId &&
-            t.village === value.village 
-        )
-    )
-    .map((item: any) => ({
-      id: item.stateId + '_' + item.districtId + '_' + item.blockId + '_' + item.village + '_'+item.lbcId,
+    .filter(item => {
+      // Normalize text to avoid duplicates by case or whitespace
+      const key = `${item.stateId}_${item.districtId}_${item.blockId}_${item.village.trim().toLowerCase()}_${item.lbcId}`;
+
+      if (seen.has(key)) {
+        return false;
+      }
+      seen.add(key);
+      return true;
+    })
+    .map(item => ({
+      id: `${item.stateId}_${item.districtId}_${item.blockId}_${item.village}_${item.lbcId}`,
       stateId: item.stateId,
       districtId: item.districtId,
       blockId: item.blockId,
-      village: item.village,
+      village: item.village.trim(),
       lbcId: item.lbcId,
-      lbcName: item.lbcName,
+      lbcName: item.lbcName?.trim(),
       isSelected: false
     }));
 }
+
