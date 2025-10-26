@@ -38,6 +38,7 @@ export class BeneficiaryComponent implements OnInit {
   projectLoan: any;
   bankLoan: any;
   collectiveLoan: any;
+  hideSaveRWE: boolean = false;
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
   private isVisible: boolean = false;
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
@@ -829,25 +830,97 @@ selectCaste(event: Event): void {
   };
 }
 
-  onRWEChange(): void {
-    this.loadRweBusinesses();
+  // List of all filter fields in your component
+  filterFields = [
+    'selectedRwe',
+    'selectedRWEBusinessType',
+    'selectedRWEBusinessSubCatType',
+    'selectedRWEServiceOrProduct'
+  ];
+
+  // Call this whenever any filter changes
+  onFilterChange(field: string, event: any): void {
+    const value = event.target.value;
+    const numberFields = ['selectedRwe', 'selectedRWEBusinessType', 'selectedRWEBusinessSubCatType', 'selectedRWEServiceOrProduct'];
+    (this as any)[field] = numberFields.includes(field) && value !== "" ? +value : value;
+
+
+    // If RWE changes, reload businesses first
+    if (field === 'selectedRwe') {
+      this.loadRweBusinesses();
+    } else {
+      this.displayRweBusinessData();
+    }
   }
 
-  displayRweData() {
-    if (this.selectedRwe) { }
-  }
-
+  // Load businesses from API
   loadRweBusinesses(): void {
+    console.log(this.selectedRwe);
     this.rweBusinessService.getAllBusinessesForRwe(this.selectedRwe).subscribe({
       next: (data) => {
         this.rweBusinesses = data;
-        console.log('Businesses:', this.rweBusinesses);
+        this.displayRweBusinessData();
       },
       error: (err) => {
         console.error('Error loading businesses:', err);
-        this.rweBusinesses = [];      }
+        this.rweBusinesses = [];
+        this.displayRweBusinessData(); // clear previous selection
+      }
     });
   }
+
+  // Dynamic display of first filtered business
+  displayRweBusinessData(): void {
+    const filtered = this.rweBusinesses.filter(business =>
+      this.filterFields.every(field => {
+        const filterValue = (this as any)[field];
+        const businessFieldMap: any = {
+          selectedRwe: 'rweId',
+          selectedRWEBusinessType: 'businessTypeId',
+          selectedRWEBusinessSubCatType: 'businessSubCatTypeId',
+          selectedRWEServiceOrProduct: 'serviceOrProductId'
+        };
+        const businessField = businessFieldMap[field];
+        return filterValue === "" || (business as any)[businessField] === filterValue;
+      })
+    );
+
+    const firstBusiness = filtered[0];
+
+    if (firstBusiness) {
+      this.hideSaveRWE = false;
+      Object.assign(this, {
+        selectedInventory: firstBusiness.inventory,
+        selectedInventoryUnit: firstBusiness.inventoryUnit,
+        selfInvestment: firstBusiness.selfInvestment,
+        bankLoan: firstBusiness.bankLoan,
+        projectLoan: firstBusiness.projectLoan,
+        collectiveLoan: firstBusiness.collectiveLoan,
+        selectedStartMonth: firstBusiness.startMonth,
+        selectedStartYear: firstBusiness.startYear,
+        totalInvestment:firstBusiness.totalInvestment
+      });
+    } else {
+      this.hideSaveRWE = true;
+      Object.assign(this, {
+        selectedInventory: "",
+        selectedInventoryUnit: "",
+        selfInvestment: "",
+        bankLoan: "",
+        projectLoan: "",
+        collectiveLoan: "",
+        selectedStartMonth: "",
+        selectedStartYear: "",
+        totalInvestment:""
+      });
+    }
+  }
+
+  // Helper to capitalize first letter
+  capitalize(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
 
     calculateAge(event: Event): void {
       const input = event.target as HTMLInputElement;

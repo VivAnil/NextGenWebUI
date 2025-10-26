@@ -698,7 +698,7 @@
                         </tr>
                         <tr>
                           <td>Name of RWE</td>
-                          <td colspan="3"><select class="select-box-3 width30 margin-right-10px" [(ngModel)]="selectedRwe" (change)="onRWEChange()" >
+                          <td colspan="3"><select class="select-box-3 width30 margin-right-10px" [(ngModel)]="selectedRwe" (change)="onFilterChange('selectedRwe', $event)" >
   <option value="" disabled selected>Select RWE</option>
   <!--<option value="Goat Feed/ Feed Mill">Suman Kumari</option>
   <option value="Kid Nursery">Dipti Kumari</option>-->
@@ -713,7 +713,7 @@
                         <tr>
                           <td>Type of Business</td>
                           <td>
-                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessType">
+                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)">
                               <option  value="" disabled selected>Select Business Type</option>
                               <option *ngFor="let type of rweBusinessfilters?.rweBusinessType | keyvalue" [value]="type.key">
                                 {{ type.value }}
@@ -722,7 +722,7 @@
                           </td>
                           <td>Business Sub-Category</td>
                           <td>
-                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessSubCatType">
+                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessSubCatType"   (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)">
                               <option  value="" disabled selected>Select Business</option>
                               <option *ngFor="let type of rweBusinessfilters?.rweBusinessSubCatType | keyvalue" [value]="type.key">
                                 {{ type.value }}
@@ -733,7 +733,7 @@
                         <tr>
                           <td>Services/Product</td>
                           <td>
-                            <select name="business_products" id="business_products" class="select-box-3 width100" [(ngModel)]="selectedRWEServiceOrProduct">
+                            <select name="business_products" id="business_products" class="select-box-3 width100" [(ngModel)]="selectedRWEServiceOrProduct"  (change)="onFilterChange('selectedRWEServiceOrProduct', $event)">
                               <option value="" disabled selected>Select Product</option>
                               <option *ngFor="let type of rweBusinessfilters?.rweServiceOrProduct | keyvalue" [value]="type.key">
                                 {{ type.value }}
@@ -840,7 +840,7 @@
                         </tr>
                         <tr>
                           <td colspan="4" class="text-align-center back-white" align="center">
-                            <input type="button" value="Save" class="btn-blck1" id="saveRweBusiness" (click)="onSaveRweBusiness()" />
+                            <input *ngIf="hideSaveRWE" type="button" value="Save" class="btn-blck1" id="saveRweBusiness" (click)="onSaveRweBusiness()" />
                           </td>
                         </tr>
                       </tbody>
