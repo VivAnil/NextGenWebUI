@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms'
 import ValidateForm from 'src/app/helpers/validateForm';
 import { MenuService } from 'src/app/services/menu.service';
 import { Service } from 'src/app/models/service.model';
+import { RWEBusinessFilters, RweBusiness, rweBusiness } from '../../services/rweBusiness.service';
 declare var $: any; // Import jQuery
 
 @Component({
@@ -22,13 +23,29 @@ declare var $: any; // Import jQuery
  // imports: [FormsModule]
 })
 export class BeneficiaryComponent implements OnInit {
-
+  rweBusinesses: RweBusiness[] = [];
+  rweBusinessfilters: RWEBusinessFilters | undefined;
+  selectedRwe: any = "";
+  selectedRWEBusinessType: any ="";
+  selectedRWEBusinessSubCatType: any ="";
+  selectedRWEServiceOrProduct: any ="";
+  selectedStartMonth: any;
+  selectedStartYear: any;
+  selectedInventoryUnit: any = "";
+  selectedInventory: any;
+  totalInvestment: any;
+  selfInvestment: any;
+  projectLoan: any;
+  bankLoan: any;
+  collectiveLoan: any;
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
   private isVisible: boolean = false;
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
   data: any[] = [];
   cols: any[] = []; // Table columns
+  years: any[] = [];
   filteredData: any[] = []; // Data to display in the grid
+  rwes: any[] = [];
   casteData: { id: number; name: string }[] = [];
   economicStatusData: { id: number; name: string }[] = [];
   selectedCaste: { id: number; name: string } | undefined;
@@ -112,10 +129,16 @@ selectedBusinesses:Service[] | undefined;
 userName!:string;
 projectList: { projectId: number, projectName: string }[] = [];
 soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService, private renderer: Renderer2) { }
+
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService, private renderer: Renderer2,private rweBusinessService: rweBusiness) { }
 
   ngOnInit(): void {
+    let yr = new Date().getFullYear();
+    this.years = [];
 
+    while (yr >= 2020) {
+      this.years.push(yr--);
+    }
     this.serviceApi.getData().subscribe({
     next:  (response: Service[]) => {
       this.servicePillarData = this.getDistinctServicePillars(response);
@@ -225,6 +248,11 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     this.serviceApi.fetchBeneficiaries(this.userdetailsApiUrl+this.companyId+'/0/0', this.dataKey).subscribe({
       next: (response) => {
         this.data = response; // Populate the grid with fetched data
+        this.rwes = this.data.map((item: any) => ({
+          id: item.id,
+          rweName: item.firstName+' '+item.lastName
+        }));
+
         this.filteredData = [...this.data]; // Clone the full data initially
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
@@ -262,7 +290,6 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           projectId: +id,
           projectName: projectMap[+id]
         }));
-        console.log('ProjectList = ' + JSON.stringify(this.projectList));
         // Extract unique soochnapreneurId & soochnapreneur
         const smMap: { [key: number]: string } = {};
         response.forEach(item => {
@@ -275,13 +302,20 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           soochnapreneurId: +id,
           soochnapreneur: smMap[+id]
         }));
-        console.log('soochnapreurList = ' + JSON.stringify(this.soochnapreurList));
         }
       },
       error: (err) => {
         console.error('Error fetching data:', err);
         this.data = []; // Set an empty array if there's an error
       }
+    });
+
+    this.rweBusinessService.getRWEBusinessFilters().subscribe({
+      next: (data) => {
+        this.rweBusinessfilters = data;
+        console.log('Filters:', this.rweBusinessfilters);
+      },
+      error: (err) => console.error('Error fetching rwe business filters:', err)
     });
   }
 openFilter() {
@@ -643,7 +677,31 @@ onServiceProductNameChange(event: any): void {
             ValidateForm.validateForm(this.benForm);
           }
       
-    }
+  }
+
+  onSaveRweBusiness() {
+    const rweBusiness: RweBusiness = {
+      id:0,
+      rweId: this.selectedRwe,
+      businessTypeId: this.selectedRWEBusinessType,
+      businessSubCatTypeId: this.selectedRWEBusinessSubCatType,
+      serviceOrProductId: this.selectedRWEServiceOrProduct,
+      startMonth: this.selectedStartMonth,
+      startYear: this.selectedStartYear,
+      inventory: this.selectedInventory,
+      inventoryUnit: this.selectedInventoryUnit,
+      totalInvestment: this.totalInvestment,
+      selfInvestment: this.selfInvestment,
+      bankLoan: this.bankLoan,
+      projectLoan: this.projectLoan,
+      collectiveLoan: this.collectiveLoan
+    };
+    console.log(rweBusiness);
+    this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
+      next: () => alert('RWE Business saved successfully!'),
+      error: (err) => console.error('Error saving RWE Business:', err)
+    });
+  }
     addBeneficiary() {
       const formData = this.benForm.value;
      const schemeData = {
@@ -771,6 +829,25 @@ selectCaste(event: Event): void {
   };
 }
 
+  onRWEChange(): void {
+    this.loadRweBusinesses();
+  }
+
+  displayRweData() {
+    if (this.selectedRwe) { }
+  }
+
+  loadRweBusinesses(): void {
+    this.rweBusinessService.getAllBusinessesForRwe(this.selectedRwe).subscribe({
+      next: (data) => {
+        this.rweBusinesses = data;
+        console.log('Businesses:', this.rweBusinesses);
+      },
+      error: (err) => {
+        console.error('Error loading businesses:', err);
+        this.rweBusinesses = [];      }
+    });
+  }
 
     calculateAge(event: Event): void {
       const input = event.target as HTMLInputElement;
