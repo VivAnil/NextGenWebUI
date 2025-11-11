@@ -79,7 +79,7 @@ export class BeneficiaryComponent implements OnInit {
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   projId!: number ;
-  filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+  filteredCols: string[] = ["profilePicture", "dob", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
   ];

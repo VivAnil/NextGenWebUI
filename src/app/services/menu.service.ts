@@ -150,10 +150,10 @@ export class MenuService {
           break;
 
         case 'View_Project':
-          newMenu.find(m => m.title === 'Company Details')?.links.push({
-            label: 'Project Master',
-            path: '/project'
-          });
+          // newMenu.find(m => m.title === 'Company Details')?.links.push({
+          //   label: 'Project Master',
+          //   path: '/project'
+          // });
           break;
 
         case 'View_Project_Report':
@@ -333,7 +333,8 @@ export class MenuService {
             m.title !== 'Payment Section' &&
             m.title !== 'User Configuration' &&
             m.title !== 'Report Section' &&
-            m.title !== 'Service Section'
+            m.title !== 'Service Section' &&
+            m.title !== 'Project Master'
         )
         : mi;
 
