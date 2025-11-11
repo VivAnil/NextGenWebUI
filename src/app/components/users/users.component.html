@@ -207,44 +207,40 @@
         </div>
 
         <ng-container *ngIf="!loadingLbc && clmRow.lbcList?.length">
-            <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
-                [responsiveLayout]="'scroll'">
+<p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
+    [responsiveLayout]="'scroll'">
 
-            <!-- Header -->
-            <ng-template pTemplate="header">
-                <tr>
-                <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
-                    {{ col.header }}
-                </th>
-                </tr>
-            <!-- Filter row -->
-            <!-- <tr>
-                            <th *ngFor="let col of clmRow.lbcCols">
-                                <input pInputText type="text" (input)="filterLbc($event, dtLbc, col.field)" placeholder="Search {{col.header}}"
-                                    style="width: 100%;" />
-                            </th>
-                            </tr> -->
-            </ng-template>
-            <!-- Body -->
-            <ng-template pTemplate="body" let-lbcRow>
-                <tr>
-                    <td *ngFor="let col of clmRow.lbcCols" style="text-align:center;">
-                        {{ lbcRow[col.field] }}
-                    </td>
-                </tr>
-                </ng-template>
-                
-                <!-- Empty message -->
-                <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td [attr.colspan]="clmRow.lbcCols?.length" style="text-align:center;">
-                        No LBC data found.
-                    </td>
-                    </tr>
-            </ng-template>
-            
-            </p-table>
-            </ng-container>
+    <!-- Header -->
+    <ng-template pTemplate="header">
+        <tr>
+        <th style="text-align:center; width: 80px;">Sr. No.</th>
+        <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
+            {{ col.header }}
+        </th>
+        </tr>
+    </ng-template>
+
+    <!-- Body -->
+    <ng-template pTemplate="body" let-lbcRow let-i="rowIndex">
+        <tr>
+        <td style="text-align:center;">{{ i + 1 }}</td>
+        <td *ngFor="let col of clmRow.lbcCols" style="text-align:center;">
+            {{ lbcRow[col.field] }}
+        </td>
+        </tr>
+        </ng-template>
+        
+        <!-- Empty message -->
+        <ng-template pTemplate="emptymessage">
+            <tr>
+        <td [attr.colspan]="clmRow.lbcCols?.length + 1" style="text-align:center;">
+            No LBC data found.
+        </td>
+        </tr>
+        </ng-template>
+</p-table>
+</ng-container>
+
             </td>
             </tr>
             </ng-template>

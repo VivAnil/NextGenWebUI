@@ -332,7 +332,8 @@ export class MenuService {
           m =>
             m.title !== 'Payment Section' &&
             m.title !== 'User Configuration' &&
-            m.title !== 'Report Section'
+            m.title !== 'Report Section' &&
+            m.title !== 'Service Section'
         )
         : mi;
 

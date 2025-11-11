@@ -53,7 +53,7 @@ export class BeneficiaryComponent implements OnInit {
   selectedEconomicStatus: { id: number; name: string } | undefined;
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
-  pageHead:string='Beneficiary';
+  pageHead: string = 'RWE';
   companyId!: number;
   roleId!: number;
   projectId: any;
@@ -79,7 +79,10 @@ export class BeneficiaryComponent implements OnInit {
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
   projId!: number ;
-  filteredCols: string[] = ["middleName", "address","panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId"];
+  filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+  ];
   benForm!: FormGroup;
   sexOptions: { id: number; name: string }[] = [];
   formData = {
@@ -161,8 +164,8 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
 
     this.cols = [
   
-      { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
-        { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
+      //{ header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
+      // { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
      
       { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true, showInGrid:true },
       { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true, showInGrid:true },
@@ -248,7 +251,11 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
  
     this.serviceApi.fetchBeneficiaries(this.userdetailsApiUrl+this.companyId+'/0/0', this.dataKey).subscribe({
       next: (response) => {
-        this.data = response; // Populate the grid with fetched data
+        // this.data = response; // Populate the grid with fetched data
+        this.data = response.map((item: any, index: number) => ({
+          srNo: index + 1,
+          ...item
+        }));
         this.rwes = this.data.map((item: any) => ({
           id: item.id,
           rweName: item.firstName+' '+item.lastName
@@ -281,6 +288,7 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
          
           // Extract unique projectId & projectName
         const projectMap: { [key: number]: string } = {};
+          var count = 0;
         response.forEach(item => {
           if (item.projectId && item.projectName) {
             projectMap[item.projectId] = item.projectName;

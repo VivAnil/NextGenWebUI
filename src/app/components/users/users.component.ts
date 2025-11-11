@@ -173,7 +173,11 @@ selectedBlock: number | null = null;
   loadData():void{
     this.serviceApi.fetchUserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId, this.dataKey).subscribe({
       next: (response) => {
-        this.data = response; // Populate the grid with fetched data
+        // this.data = response; // Populate the grid with fetched data
+        this.data = response.map((item: any, index: number) => ({
+          srNo: index + 1,
+          ...item
+        }));
         this.filteredData = [...this.data]; // Clone the full data initially
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
@@ -222,7 +226,12 @@ selectedBlock: number | null = null;
     this.serviceApi.getLbcByClmId(rowData.id).subscribe({
       next: (res) => {
         if (res && res.length > 0) {
-          rowData.lbcList = res || [];
+          // ✅ Add serial number for each LBC row
+          rowData.lbcList = res.map((item: any, index: number) => ({
+            srNo: index + 1,
+            ...item
+          }));
+          //  rowData.lbcList = res || [];
           const first = res[0];
           this.lbcFilteredData = [...rowData.lbcList];
 
