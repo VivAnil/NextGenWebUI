@@ -1,149 +1,151 @@
-<div class="col-md-10 float-left "> 
-    <div style="height:100%;"> 
+<div class="col-md-10 float-left ">
+    <div style="height:100%;">
 
-        
+
         <div class="width100">
-<div class="back-internal-page width100">
-    <div class="heading-title">Inomy Media Pvt Ltd</div>
-    <div class="clear-both-20"></div>
-<div class="clear-both-20"></div>
-
-
-<div>
-
-
-
-<div>
-
-
-                <div class="no-more-tables">
-                    <div class="section-heading">Edit Company  Details</div>
-                    <form [formGroup]="editCompanyForm" class="signin-form">
-                    <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
-                        <colgroup>
-                            <col style="background-color: rgb(243,243,243); width: 20%;" />
-                            <col style="background-color: rgb(255,255,255); width: 30%;" />
-                            <col style="background-color: rgb(243,243,243); width: 20%;" />
-                            <col style="background-color: rgb(255,255,255); width: 30%;" />
-                        </colgroup>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    Company Name *
-
-                                </td>
-                                <td>
-                                    <!-- <input type="text" id="txtCompanyName" class="input-box-3 width100 " /> -->
-                                    <div class="input-field" [class.error]="editCompanyForm.controls['companyname'].dirty && editCompanyForm.hasError('required', 'companyname')">
-                                        <input type="text" formControlName="companyname" class="input-box-3 width100 " placeholder="Company Name"/>
-                                    </div>
-                                    <small *ngIf="editCompanyForm.controls['companyname'].dirty 	&& editCompanyForm.hasError('required', 'companyname')" class="text-danger">
-                                        Company name is required
-                                    </small>
-                                </td>
-                                <td>
-                                    Logo of the company *
-
-                                </td>
-                                <td>
-                                    <!-- <input type="file" id="txtLogo" class="input-box-3 width100 " /> -->
-                                    <input type="file" class="input-box-3 width100" formControlName ="logo" (change)="onFileSelected($event)" />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Company URL
-
-                                </td>
-                                <td>
-                                    <!-- <input type="text" id="txtURL" class="input-box-3 width100 " /> -->
-                                    <input type="text" formControlName="url" class="input-box-3 width100 " />
-                                </td>
-                                <td>
-                                   Contact EMail *
-
-                                </td>
-                                <td>
-                                    <!-- <input type="text" id="txtEmail" class="input-box-3 width100 " /> -->
-                                    <div class="input-field" [class.error]="editCompanyForm.controls['email'].dirty && editCompanyForm.hasError('required', 'email')">
-                                        <input type="email" formControlName="email" class="input-box-3 width100 " />
-                                    </div>
-                                    <small *ngIf="editCompanyForm.controls['email'].dirty && editCompanyForm.hasError('required', 'email')" class="text-danger">
-                                        Company email is required
-                                    </small>
-                                    <div *ngIf="editCompanyForm.get('email')?.invalid && editCompanyForm.get('email')?.touched"> 
-                                    
-                                        <small *ngIf="editCompanyForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small> 
-                                    </div>
-                                </td>
-                            </tr>
+            <div class="back-internal-page width100">
+                <div id="companyName" class="heading-title">{{companyName}}</div>
+                <div class="clear-both-20"></div>
+                <div class="clear-both-20"></div>
+                <div>
+                    <div>
+                        <div class="no-more-tables">
+                            <div class="section-heading">Edit Company Details</div>
+                            <form [formGroup]="editCompanyForm" class="signin-form">
+                                <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
+                                    <colgroup>
+                                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                        <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                        <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                    </colgroup>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                Company Name *
+                                            </td>
+                                            <td>
+                                                <!-- <input type="text" id="txtCompanyName" class="input-box-3 width100 " /> -->
+                                                <div class="input-field"
+                                                    [class.error]="editCompanyForm.controls['companyname'].dirty && editCompanyForm.hasError('required', 'companyname')">
+                                                    <input type="text" formControlName="companyname" class="input-box-3 width100 " placeholder="Company Name" />
+                                                </div>
+                                                <small *ngIf="editCompanyForm.controls['companyname'].dirty 	&& editCompanyForm.hasError('required', 'companyname')"
+                                                    class="text-danger">
+                                                    Company name is required
+                                                </small>
+                                                </td>
+                                                <td>
+                                                    Logo of the company *
+                                            </td>
+                                            <td>
+                                                <!-- <input type="file" id="txtLogo" class="input-box-3 width100 " /> -->
+                                                <input type="file" class="input-box-3 width100" formControlName="logo" (change)="onFileSelected($event)" />
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        Company URL
+                                            </td>
+                                            <td>
+                                                <!-- <input type="text" id="txtURL" class="input-box-3 width100 " /> -->
+                                                <input type="text" formControlName="url" class="input-box-3 width100 " />
+                                            </td>
+                                            <td>
+                                                Contact EMail *
+                                            </td>
+                                            <td>
+                                                <!-- <input type="text" id="txtEmail" class="input-box-3 width100 " /> -->
+                                                <div class="input-field"
+                                                    [class.error]="editCompanyForm.controls['email'].dirty && editCompanyForm.hasError('required', 'email')">
+                                                    <input type="email" formControlName="email" class="input-box-3 width100 " />
+                                                </div>
+                                                <small *ngIf="editCompanyForm.controls['email'].dirty && editCompanyForm.hasError('required', 'email')"
+                                                    class="text-danger">
+                                                    Company email is required
+                                                </small>
+                                                <div *ngIf="editCompanyForm.get('email')?.invalid && editCompanyForm.get('email')?.touched">
+                                                
+                                                    <small *ngIf="editCompanyForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                        <tr>
+                                            <td>
+                                                Contact Person *
+                                            </td>
+                                            <td>
+                                                <!-- <input type="text" id="txtContactPerson" class="input-box-3 width100 " /> -->
+                                                <div class="input-field"
+                                                    [class.error]="editCompanyForm.controls['contactperson'].dirty && editCompanyForm.hasError('required', 'contactperson')">
+                                                    <input type="text" formControlName="contactperson" class="input-box-3 width100 " />
+                                                </div>
+                                                <small *ngIf="editCompanyForm.controls['contactperson'].dirty && editCompanyForm.hasError('required', 'contactperson')"
+                                                    class="text-danger">
+                                                    Contact Person is required
+                                                </small>
+                                                </td>
+                                            <td>
+                                                Mobile No. *
+                                            </td>
+                                            <td>
+                                                <!-- <input type="file" id="txtMobile" class="input-box-3 width100 " /> -->
+                                                <div class="input-field"
+                                                    [class.error]="editCompanyForm.controls['mobile'].dirty && editCompanyForm.hasError('required', 'mobile')">
+                                                    <input type="text" formControlName="mobile" class="input-box-3 width100 " />
+                                                </div>
+                                                <small *ngIf="editCompanyForm.controls['mobile'].dirty && editCompanyForm.hasError('required', 'mobile')"
+                                                    class="text-danger">
+                                                    Phone number is required
+                                                </small>
+                                                <div *ngIf="editCompanyForm.get('mobile')?.invalid && editCompanyForm.get('mobile')?.touched">
+                                                
+                                                    <small *ngIf="editCompanyForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid mobile format.</small>
+                                                </div>
+                                                </td>
+                                                </tr>
+                                        <tr>
+                                            <td>
+                                                Address*
+                                            </td>
+                                            <td colspan="3">
+                                                <!-- <input type="text" id="txtAddress" class="input-box-3 width100"> -->
+                                                <div class="input-field"
+                                                    [class.error]="editCompanyForm.controls['address'].dirty && editCompanyForm.hasError('required', 'address')">
+                                                    <input type="text" formControlName="address" class="input-box-3 width100 " />
+                                                </div>
+                                                <small *ngIf="editCompanyForm.controls['address'].dirty && editCompanyForm.hasError('required', 'address')"
+                                                    class="text-danger">
+                                                    Address is required
+                                                </small>
+                                                </td>
+                                        </tr>
+                                        
+                                        </tbody>
+                                        </table>
+                                        </form>
+                                        <div class="clear-both-20"></div>
+                            <div align="center"><input type="button" *ngIf="allowUpdateProject" value="Update" class="btn-blck1"
+                                    (click)="onUpdate()" /></div>
                             
-                            <tr>
-                                <td>
-                                    Contact Person *
+                            <div *ngIf="message" [ngClass]="{ 'text-success': !isError, 'text-danger': isError }" style="margin-top: 10px;"
+                                align="center">
+                                {{ message }}
+                            </div>
+                            </div>
+                            </div>
+                            <div class="clear-both-5"></div>
+                    <div *ngIf="loading" class="spinner-container">
+                        <p-progressSpinner></p-progressSpinner>
+                        <p>Processing. Please wait ...</p>
+                    </div>
 
-                                </td>
-                                <td>
-                                    <!-- <input type="text" id="txtContactPerson" class="input-box-3 width100 " /> -->
-                                    <div class="input-field" [class.error]="editCompanyForm.controls['contactperson'].dirty && editCompanyForm.hasError('required', 'contactperson')">
-                                        <input type="text" formControlName="contactperson" class="input-box-3 width100 " />
-                                    </div>
-                                    <small *ngIf="editCompanyForm.controls['contactperson'].dirty && editCompanyForm.hasError('required', 'contactperson')" class="text-danger">
-                                        Contact Person is required
-                                    </small>
-                                </td>
-                               
-                                <td>
-                                   Mobile No. *
-                                </td>
-                                <td>
-                                    <!-- <input type="file" id="txtMobile" class="input-box-3 width100 " /> -->
-                                    <div class="input-field" [class.error]="editCompanyForm.controls['mobile'].dirty && editCompanyForm.hasError('required', 'mobile')">
-                                        <input type="text" formControlName="mobile" class="input-box-3 width100 " />
-                                    </div>
-                                    <small *ngIf="editCompanyForm.controls['mobile'].dirty && editCompanyForm.hasError('required', 'mobile')" class="text-danger">
-                                        Phone number is required
-                                    </small>
-                                    <div *ngIf="editCompanyForm.get('mobile')?.invalid && editCompanyForm.get('mobile')?.touched"> 
-                                    
-                                        <small *ngIf="editCompanyForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid mobile format.</small> 
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    Address*
-
-                                </td>
-                                <td colspan="3">
-                                    <!-- <input type="text" id="txtAddress" class="input-box-3 width100"> -->
-                                    <div class="input-field" [class.error]="editCompanyForm.controls['address'].dirty && editCompanyForm.hasError('required', 'address')">
-                                        <input type="text" formControlName="address" class="input-box-3 width100 " />
-                                    </div>
-                                    <small *ngIf="editCompanyForm.controls['address'].dirty && editCompanyForm.hasError('required', 'address')" class="text-danger">
-                                        Address is required
-                                    </small>
-                                </td>
-                               
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                </form>
-                    <div class="clear-both-20"></div>
-                    <div align="center"><input type="button" *ngIf="allowUpdateProject" value="Update" class="btn-blck1"  (click)="onUpdate()" /></div>
                 </div>
+
+
             </div>
-<div class="clear-both-5"></div>
 
+            <div class="clear-both"></div>
 
-</div>
-
-
-</div>
-
-<div class="clear-both"></div>
-
-</div>
-</div>
+        </div>
+        </div>
