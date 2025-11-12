@@ -22,6 +22,7 @@
                 </button>
 
                 <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject"
+                    *ngIf="companyId !== 32"
                     id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
                 </button>
@@ -683,8 +684,7 @@
                 <div class="modal fade" id="dv_assignProject" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header">
-
+                        <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Assign Project</h4>
                             </div>

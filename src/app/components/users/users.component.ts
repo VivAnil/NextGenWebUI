@@ -19,6 +19,7 @@ declare let $: any; // Import jQuery
 export class UsersComponent implements OnInit,  AfterViewInit  {
   @ViewChild('dtLbc') dtLbc: Table | undefined;
   expandedRow: any | null = null;
+  displayAssignProject = 'none';
   loadingLbc = false;
    successMessage = '';
    errorMessage = '';
@@ -123,7 +124,9 @@ selectedBlock: number | null = null;
       this.roleId=+params['roleid'];
       console.log ('companyId = ' +this.companyId + ' and Role id ' + this.roleId);
     });
-
+    if (this.companyId != undefined && this.companyId != 32) {
+      this.displayAssignProject = 'block';
+    }
     this.cols = [
    
       // {
