@@ -150,10 +150,10 @@ export class MenuService {
           break;
 
         case 'View_Project':
-          // newMenu.find(m => m.title === 'Company Details')?.links.push({
-          //   label: 'Project Master',
-          //   path: '/project'
-          // });
+          newMenu.find(m => m.title === 'Company Details')?.links.push({
+            label: 'Project Master',
+            path: '/project'
+          });
           break;
 
         case 'View_Project_Report':
