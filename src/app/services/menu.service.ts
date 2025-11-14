@@ -67,6 +67,12 @@ export class MenuService {
           //{ label: 'Process Payment', path: '/processpayment' }, 
           //{ label: 'Payment Report', path: '/paymentreport' }
         ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' }
+        ]
       }
     ]
   );
@@ -227,11 +233,6 @@ export class MenuService {
   private AddLinksBasedOnRole(menuUserConfig: MenuItems, roleId: string): void {
     let id: number = parseInt(roleId);
 
-    //[{ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' },
-    //  { label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' },
-    //  { label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' },
-    //  { label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' },
-
     switch (id) {
       case 1:
         menuUserConfig.links.push({ label: 'Application User Master', path: '/companyusermaster' });
@@ -334,7 +335,10 @@ export class MenuService {
             m.title !== 'User Configuration' &&
             m.title !== 'Report Section'
         )
-        : mi;
+        : mi.filter(
+          m =>
+          m.title !="Business Section"
+        );
 
     let newMenu = filteredMenus;
     this.menuItems.next(newMenu);
@@ -388,6 +392,12 @@ export class MenuService {
         links: [
           //{ label: 'Process Payment', path: '/processpayment' }, 
           //{ label: 'Payment Report', path: '/paymentreport' }
+        ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' }
         ]
       }
     ];

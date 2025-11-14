@@ -699,7 +699,11 @@ onServiceProductNameChange(event: any): void {
     };
     console.log(rweBusiness);
     this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
-      next: () => alert('RWE Business saved successfully!'),
+      next: () => {
+        this.rweBusinesses.push(rweBusiness);
+        this.hideSaveRWE = !this.hideSaveRWE;
+        alert('RWE Business saved successfully!');
+      },
       error: (err) => console.error('Error saving RWE Business:', err)
     });
   }

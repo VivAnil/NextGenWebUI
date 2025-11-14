@@ -74,9 +74,7 @@ export class SidebarComponent implements OnInit {
     this.companyId=userRoleSettings.companyId;
     }
 
-    console.log('companyId =' + this.companyId + ' and roleId = ' + this.roleId);
 
-   // this.menuItems = this.menuService.modifyMenuItemsBasedOnPermissions();
 
 	this.menuService.menuItems$.subscribe(items => {
 		this.menuItems = items;
@@ -84,7 +82,6 @@ export class SidebarComponent implements OnInit {
   }
 
   viewCompany(companyId: number, roleId:number): void {
-    console.log('companyId = ' +companyId +' role id = ' + roleId);
     this.router.navigate(['/user', companyId, roleId]
       //{ queryParams: { 'companyid': companyId, 'roleid': roleId } }
     );

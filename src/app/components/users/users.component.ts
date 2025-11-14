@@ -664,6 +664,12 @@ onDOBChange(event: Event): void {
         title: 'Payment Section',
         links: [
         ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' }
+        ]
       }
     ]);
   }

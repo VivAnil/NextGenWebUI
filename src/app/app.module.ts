@@ -39,6 +39,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { AuthService } from './services/auth.service';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
+import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.co
     UsersComponent,
     ResetpasswordComponent,
     BeneficiaryComponent,
-    TgtdashboardComponent
+    TgtdashboardComponent,
+    BusinessproductComponent
   ],
   imports: [
     BrowserModule,

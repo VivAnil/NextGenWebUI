@@ -125,6 +125,12 @@ export class TgtdashboardComponent implements OnInit {
         title: 'Service Section',
         links: [
         ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' }
+        ]
       }
     ]);
   }

@@ -20,6 +20,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
+import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
 
 const routes: Routes = [
   
@@ -38,7 +39,6 @@ const routes: Routes = [
       {path: 'project', component: ProjectComponent},
       {path: 'services', component: ServicesComponent},
       {path: 'home', component: HomeComponent},
-      {path: 'services', component: ServicesComponent },
       {path: 'usermanagement',component: UsermanagementComponent},
       { path: 'organisationadmin/:companyid/:roleid', component: OrganisationadminComponent, runGuardsAndResolvers: 'always', },
       { path: 'dashboard/:roleid', component: TgtdashboardComponent, runGuardsAndResolvers: 'always', },
@@ -48,6 +48,7 @@ const routes: Routes = [
       {path: 'editcompany', component: EditcompanyComponent},
       {path: 'paymentreport', component: PaymentreportComponent},
       {path: 'projectreport', component: AllprojectsComponent},
+      { path: 'businessproduct', component: BusinessproductComponent },
       {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'}
