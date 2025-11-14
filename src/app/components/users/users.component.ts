@@ -19,6 +19,7 @@ declare let $: any; // Import jQuery
 export class UsersComponent implements OnInit,  AfterViewInit  {
   @ViewChild('dtLbc') dtLbc: Table | undefined;
   expandedRow: any | null = null;
+  displayAssignProject = 'none';
   loadingLbc = false;
    successMessage = '';
    errorMessage = '';
@@ -48,6 +49,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   isColumnOpen: boolean=false;
   filters: { [key: string]: string } = {}; // Stores filter values
   lbcFilters: { [key: string]: string } = {}; // Stores filter values
+  rweFilters: { [key: string]: string } = {}; // Stores filter values
   showFilterModal = false; // Controls filter modal visibility
   addUser: string = 'dv_addSProjectOfficer';
   private genders: SexOption[] = [];
@@ -55,15 +57,18 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
-  filteredCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+  filteredCols: string[] = ["srNo", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
   ];
-  filteredLbcCols: string[] = ["profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+  filteredLbcCols: string[] = ["srNo", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
   ];
-  
+  filteredRweCols: string[] = ["srNo", "dob", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+  ];
   sexOptions: { id: number; name: string }[] = [];
   formData = {
     Id: '',
@@ -119,7 +124,9 @@ selectedBlock: number | null = null;
       this.roleId=+params['roleid'];
       console.log ('companyId = ' +this.companyId + ' and Role id ' + this.roleId);
     });
-
+    if (this.companyId != undefined && this.companyId != 32) {
+      this.displayAssignProject = 'block';
+    }
     this.cols = [
    
       // {
@@ -173,18 +180,34 @@ selectedBlock: number | null = null;
   loadData():void{
     this.serviceApi.fetchUserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId, this.dataKey).subscribe({
       next: (response) => {
-        this.data = response; // Populate the grid with fetched data
+        // this.data = response; // Populate the grid with fetched data
+        this.data = response.map((item: any, index: number) => ({
+          srNo: index + 1,
+          ...item
+        }));
         this.filteredData = [...this.data]; // Clone the full data initially
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
-         this.cols = Object.keys(this.data[0]).map((key) => ({
+          this.cols = Object.keys(this.data[0])
+            //  Filter out unwanted columns
+            .filter(key => !this.filteredCols.includes(key))
+            // Map the rest to column definitions
+            .map((key) => ({
             field: key,
             header: this.capitalizeFirstLetter(key),
             visible: this.checkVisible(key),
-           width: '200px',
+              width: '200px',
             search: this.searchable(key),
-            showInGrid:this.checkVisible(key)
+              showInGrid: this.checkVisible(key)
           }));
+          //  this.cols = Object.keys(this.data[0]).map((key) => ({
+          //     field: key,
+          //     header: this.capitalizeFirstLetter(key),
+          //     visible: this.checkVisible(key),
+          //    width: '200px',
+          //     search: this.searchable(key),
+          //     showInGrid:this.checkVisible(key)
+          //   }));
 
            // Set fields for global filtering
           this.globalFilterFields = Object.keys(this.filteredData[0]);
@@ -218,54 +241,145 @@ selectedBlock: number | null = null;
     this.expandedRow = rowData;
     rowData.lbcList = []; // Reset old data
 
-    // Call API using CLM Id
-    this.serviceApi.getLbcByClmId(rowData.id).subscribe({
-      next: (res) => {
-        if (res && res.length > 0) {
-          rowData.lbcList = res || [];
-          const first = res[0];
-          this.lbcFilteredData = [...rowData.lbcList];
+    console.log('In onClmClick. RoleId is ' + this.roleId);
+    if (this.roleId == 5) {
+      // Call API using CLM Id
+      this.serviceApi.getLbcByClmId(rowData.id).subscribe({
+        next: (res) => {
+          if (res && res.length > 0) {
+            //  Add serial number for each LBC row
+            rowData.lbcList = res.map((item: any, index: number) => ({
+              srNo: index + 1,
+              ...item
+            }));
+            //  rowData.lbcList = res || [];
+            const first = res[0];
+            this.lbcFilteredData = [...rowData.lbcList];
 
-          // rowData.lbcCols = Object.keys(first).map(key => ({
-          //   field: key,
-          //   header: this.formatHeader(key)
-          // }));
-          rowData.lbcCols = Object.keys(first).map((key) => ({
-            field: key,
-            header: this.capitalizeFirstLetter(key),
-            visible: this.checkVisible(key),
-            width: '150px',
-            // search: this.searchable(key),
-            showInGrid: this.checkVisible(key)
-          }));
+            // rowData.lbcCols = Object.keys(first).map(key => ({
+            //   field: key,
+            //   header: this.formatHeader(key)
+            // }));
+            // rowData.lbcCols = Object.keys(first).map((key) => ({
+            //   field: key,
+            //   header: this.capitalizeFirstLetter(key),
+            //   visible: this.checkVisible(key),
+            //   width: '150px',
+            //   // search: this.searchable(key),
+            //   showInGrid: this.checkVisible(key)
+            // }));
 
-          // Set fields for global filtering
-          this.globalFilterFields = Object.keys(this.lbcFilteredData[0]);
-          this.globalFilterFields = this.cols;
-          this.loading = false; // Turn off loading once data is fetched
-          console.log(this.cols);
-          // Initialize filters for each column
-          this.cols.forEach((col) => {
-            if (!this.filteredLbcCols.includes(col.field))
-              if (this.checkVisible(col.field))
-                this.lbcFilters[col.field] = '';
-          });
+            rowData.lbcCols = Object.keys(this.data[0])
+              //  Filter out unwanted columns
+              .filter(key => !this.filteredCols.includes(key))
+              // Map the rest to column definitions
+              .map((key) => ({
+                field: key,
+                header: this.capitalizeFirstLetter(key),
+                visible: this.checkVisible(key),
+                width: '200px',
+                search: this.searchable(key),
+                showInGrid: this.checkVisible(key)
+              }));
+
+            // Set fields for global filtering
+            this.globalFilterFields = Object.keys(this.lbcFilteredData[0]);
+            this.globalFilterFields = this.cols;
+            this.loading = false; // Turn off loading once data is fetched
+            console.log(this.cols);
+            // Initialize filters for each column
+            this.cols.forEach((col) => {
+              if (!this.filteredRweCols.includes(col.field))
+                if (this.checkVisible(col.field))
+                  this.lbcFilters[col.field] = '';
+            });
+            this.loadingLbc = false;
+            this.cdr.detectChanges(); // Notify Angular to update view
+          } else {
+            rowData.lbcList = [];
+            rowData.lbcCols = [];
+
+          }
           this.loadingLbc = false;
-          this.cdr.detectChanges(); // Notify Angular to update view
-        } else {
+        },
+        error: (err) => {
+          console.error("Failed to load LBC data", err);
           rowData.lbcList = [];
-          rowData.lbcCols = [];
-
+          this.loadingLbc = false;
+          this.cdr.detectChanges();
         }
-        this.loadingLbc = false;
-      },
-      error: (err) => {
-        console.error("Failed to load LBC data", err);
-        rowData.lbcList = [];
-        this.loadingLbc = false;
-        this.cdr.detectChanges();
-      }
-    });
+      });
+    }
+    else if (this.roleId == 3) {
+
+      // Call API using CLM Id
+      this.serviceApi.fetchBeneficiaries(this.userdetailsApiUrl + this.companyId + '/0/' + rowData.id, this.dataKey).subscribe({
+        next: (res) => {
+          if (res && res.length > 0) {
+            //  Add serial number for each LBC row
+            rowData.lbcList = res.map((item: any, index: number) => ({
+              //srNo: index + 1,
+              ...item
+            }));
+            //  rowData.lbcList = res || [];
+            const first = res[0];
+            this.lbcFilteredData = [...rowData.lbcList];
+
+            // rowData.lbcCols = Object.keys(first).map(key => ({
+            //   field: key,
+            //   header: this.formatHeader(key)
+            // }));
+            // rowData.lbcCols = Object.keys(first).map((key) => ({
+            //   field: key,
+            //   header: this.capitalizeFirstLetter(key),
+            //   visible: this.checkVisible(key),
+            //   width: '150px',
+            //   // search: this.searchable(key),
+            //   showInGrid: this.checkVisible(key)
+            // }));
+            rowData.lbcCols = Object.keys(this.data[0])
+              //  Filter out unwanted columns
+              .filter(key => !this.filteredRweCols.includes(key))
+              // Map the rest to column definitions
+              .map((key) => ({
+                field: key,
+                header: this.capitalizeFirstLetter(key),
+                visible: this.checkVisible(key),
+                width: '200px',
+                search: this.searchable(key),
+                showInGrid: this.checkVisible(key)
+              }));
+            // Set fields for global filtering
+            this.globalFilterFields = Object.keys(this.lbcFilteredData[0]);
+            this.globalFilterFields = this.cols;
+            this.loading = false; // Turn off loading once data is fetched
+            console.log(this.cols);
+            // Initialize filters for each column
+            this.cols.forEach((col) => {
+              if (!this.filteredRweCols.includes(col.field))
+                if (this.checkVisible(col.field))
+                  this.rweFilters[col.field] = '';
+            });
+            this.loadingLbc = false;
+            this.cdr.detectChanges(); // Notify Angular to update view
+          } else {
+            rowData.lbcList = [];
+            rowData.lbcCols = [];
+
+          }
+          this.loadingLbc = false;
+        },
+        error: (err) => {
+          console.error("Failed to load LBC data", err);
+          rowData.lbcList = [];
+          this.loadingLbc = false;
+          this.cdr.detectChanges();
+        }
+      });
+
+    }
+    this.loadingLbc = false;
+
   }
 
   // Utility - Format header

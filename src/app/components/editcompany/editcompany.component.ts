@@ -16,7 +16,11 @@ export class EditcompanyComponent implements OnInit {
   logoBase64: string | null = null;
   editCompanyForm!: FormGroup;
   companyId!: string;
+  companyName!: string;
   allowUpdateProject: boolean = false;
+  loading: boolean = false;
+  message: string = '';
+  isError: boolean = false; 
   constructor(private router: Router, private fb: FormBuilder, private cs: CompanyService, private route: ActivatedRoute, private menuService: MenuService) {
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
@@ -41,6 +45,11 @@ export class EditcompanyComponent implements OnInit {
     this.companyId = userRoleSettings.companyId;
     console.log('CompanyId = ', this.companyId);
     this.updatePath();
+
+    if (this.companyId) {
+      this.loadCompanyData();
+    }
+
   }
   updatePath(): void {
     console.log('updatepath');
@@ -95,8 +104,9 @@ export class EditcompanyComponent implements OnInit {
     console.log(this.editCompanyForm.value);
     if (this.editCompanyForm.valid) {
       //call service
-
-
+      this.loading = true;
+      this.message = '';
+      this.isError = false;
       this.editCompany();
     }
     else {
@@ -118,17 +128,56 @@ export class EditcompanyComponent implements OnInit {
     this.cs.editCompany(payload, this.companyId).subscribe({
       next: (response) => {
         console.log('resoonse = ', response);
+        this.loading = false;
+        this.isError = false;
+        this.message = 'Company updated successfully!';
         if (response == 1) {
           alert('Company updated successfully!');
         }
         else {
           console.error('Edit Company Failed:', response);
+          this.loading = false;
+          this.isError = false;
+          this.message = 'Failed to update company.';
           alert('Failed to update company.');
         }
       },
       error: (err) => {
         console.error('Edit Company Failed:', err);
+        this.loading = false;
+        this.isError = false;
+        this.message = 'Failed to update company.';
         alert('Failed to Update company.');
+      }
+    });
+  }
+
+  loadCompanyData(): void {
+    this.loading = true;
+    this.cs.getCompanyById(this.companyId).subscribe({
+      next: (data) => {
+        this.loading = false;
+        if (data) {
+          this.companyName = data.name;
+          this.editCompanyForm.patchValue({
+            companyname: data.name,
+            url: data.url,
+            email: data.email,
+            contactperson: data.contactPerson,
+            mobile: data.mobile,
+            address: data.address
+          });
+
+          if (data.logo) {
+            // this.logoPreview = `data:image/png;base64,${data.logo}`;
+          }
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        this.isError = true;
+        this.message = 'Failed to load company data.';
+        console.error('Failed to load company data', err);
       }
     });
   }

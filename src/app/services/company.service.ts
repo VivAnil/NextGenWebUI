@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineAll, Observable } from 'rxjs';
+import { catchError, combineAll, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 export interface CompanyDashboard {
@@ -45,5 +45,14 @@ export class CompanyService {
   editCompany(data: any, companyId: string): Observable<any> {
     const api = this.baseCompanyUrl + 'company/' +companyId;
     return this.http.put<any>(api, data);
+  }
+  getCompanyById(companyId: string): Observable<any> {
+    const apiUrl = `${this.baseCompanyUrl}/company/${companyId}`;
+    return this.http.get<any>(apiUrl).pipe(
+      catchError((error) => {
+        console.error('Error fetching company data:', error);
+        return of(null);
+      })
+    );
   }
 }

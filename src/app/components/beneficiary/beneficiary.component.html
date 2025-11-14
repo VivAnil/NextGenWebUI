@@ -143,7 +143,7 @@
           </div>
 
           <div>
-            <div class="position-relative">
+            <!-- <div class="position-relative">
               <button type="button" id="btn_clear_filter" class="clear-filter-btn">
                 <i class="fas fa-filter"></i>Clear Filters
               </button>
@@ -157,7 +157,7 @@
                   <option value="1250">Select All</option>
                 </select>
               </div>
-            </div>
+            </div> -->
 
             <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content"
                  style="margin-top: 10px;">
@@ -179,7 +179,7 @@
                 <div id="MappedGrid"></div>
                 <div class="datatable-container">
 
-                  <p-table #dt [value]="filteredData" [paginator]="true" [rows]="5"
+                  <p-table #dt [value]="filteredData" [paginator]="true" [rows]="20"
                            [responsiveLayout]="'scroll'" [globalFilterFields]="globalFilterFields"
                            [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
                     <ng-template pTemplate="header">

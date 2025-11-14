@@ -100,7 +100,21 @@ export class ApiService {
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
     this.companyId = userRoleSettings.companyId;
 
-    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/'+ this.companyId +'/0/0';
+    //const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/'+ this.companyId +'/0/0';
+    // Extract numeric parameters from the passed URL
+    // e.g. "https://motherappuserapi.azurewebsites.net/user/32/0/67"
+    const parts = url.split('/').filter(p => p.trim() !== '');
+    const len = parts.length;
+
+    // Get the last 3 segments if they exist: companyId, projectId, blockId
+    const companyId = parts[len - 3] || this.companyId;
+    const projectId = parts[len - 2] || '0';
+    const spId = parts[len - 1] || '0';
+
+    // ✅ Dynamically construct API URL
+    const benUrl = `https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/${companyId}/${projectId}/${spId}`;
+
+    console.log('Fetching beneficiaries from:', benUrl);
 
     return this.http.get<Beneficiary[]>(benUrl).pipe(
       catchError((error) => {

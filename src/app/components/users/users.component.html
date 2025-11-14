@@ -22,6 +22,7 @@
                 </button>
 
                 <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject"
+                    *ngIf="companyId !== 32"
                     id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
                 </button>
@@ -176,88 +177,84 @@
                                         <ng-template pTemplate="header">
                                             <tr>
                                                 <ng-container *ngFor="let col of cols">
-        <th *ngIf="col.visible" [style.textAlign]="'center'" [style.width.px]="200" [pSortableColumn]="col.field"
-            class="td-border">
-            {{ col.header }}
-        </th>
-        </ng-container>
-        </tr>
-        </ng-template>
-<ng-template pTemplate="body" let-clmRow>
-    <tr (click)="toggleRow(clmRow)" class="clickable-row">
-        <ng-container *ngFor="let col of cols">
-            <td *ngIf="col.visible" [style.textAlign]="'center'" class="td-border">
-                <ng-container *ngIf="col.field === 'firstName'; else normalCell">
-                    <span class="expand-link" (click)="onClmClick(clmRow, $event)">
-                        {{ clmRow[col.field] }}
-                    </span>
-                </ng-container>
-                <ng-template #normalCell>
-            {{ clmRow[col.field] }}
-            </ng-template>
-        </td>
-        </ng-container>
-        </tr>
-<!-- Expanded LBC row -->
-<tr *ngIf="expandedRow === clmRow">
-    <td [attr.colspan]="cols.length" style="padding:0;">
-        <div *ngIf="loadingLbc" style="text-align:center; padding: 10px;">
-            <p-progressSpinner></p-progressSpinner>
-        <p>Loading data...</p>
-        </div>
+                                                    <th *ngIf="col.visible" [style.textAlign]="'center'" [style.width.px]="200" [pSortableColumn]="col.field"
+                                                        class="td-border">
+                                                        {{ col.header }}
+                                                    </th>
+                                                    </ng-container>
+                                                    </tr>
+                                                    </ng-template>
+                                                    <ng-template pTemplate="body" let-clmRow>
+                                                        <tr (click)="toggleRow(clmRow)" class="clickable-row">
+                                                            <ng-container *ngFor="let col of cols">
+                                                                <td *ngIf="col.visible" [style.textAlign]="'center'" class="td-border">
+                                                                    <ng-container *ngIf="col.field === 'firstName'; else normalCell">
+                                                                        <span class="expand-link" (click)="onClmClick(clmRow, $event)">
+                                                                            {{ clmRow[col.field] }}
+                                                                        </span>
+                                                                    </ng-container>
+                                                                    <ng-template #normalCell>
+                                                                        {{ clmRow[col.field] }}
+                                                                    </ng-template>
+                                                                </td>
+                                                            </ng-container>
+                                                        </tr>
+                                                        <!-- Expanded LBC row -->
+                                                        <tr *ngIf="expandedRow === clmRow">
+                                                            <td [attr.colspan]="cols.length" style="padding:0;">
+                                                                <div *ngIf="loadingLbc" style="text-align:center; padding: 10px;">
+                                                                    <p-progressSpinner></p-progressSpinner>
+                                                                    <p>Loading data...</p>
+                                                                </div>
 
-        <ng-container *ngIf="!loadingLbc && clmRow.lbcList?.length">
-            <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
-                [responsiveLayout]="'scroll'">
+                                                    <ng-container *ngIf="!loadingLbc && clmRow.lbcList?.length">
+                                                        <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[5, 10, 20]"
+                                                            [responsiveLayout]="'scroll'" (click)="$event.stopPropagation()">
 
-            <!-- Header -->
-            <ng-template pTemplate="header">
-                <tr>
-                <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
-                    {{ col.header }}
-                </th>
-                </tr>
-            <!-- Filter row -->
-            <!-- <tr>
-                            <th *ngFor="let col of clmRow.lbcCols">
-                                <input pInputText type="text" (input)="filterLbc($event, dtLbc, col.field)" placeholder="Search {{col.header}}"
-                                    style="width: 100%;" />
-                            </th>
-                            </tr> -->
-            </ng-template>
-            <!-- Body -->
-            <ng-template pTemplate="body" let-lbcRow>
-                <tr>
-                    <td *ngFor="let col of clmRow.lbcCols" style="text-align:center;">
-                        {{ lbcRow[col.field] }}
-                    </td>
-                </tr>
-                </ng-template>
-                
-                <!-- Empty message -->
-                <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td [attr.colspan]="clmRow.lbcCols?.length" style="text-align:center;">
-                        No LBC data found.
-                    </td>
-                    </tr>
-            </ng-template>
-            
-            </p-table>
-            </ng-container>
-            </td>
-            </tr>
-            </ng-template>
-<!-- Loading spinner for outer table -->
-<ng-template pTemplate="loadingBody">
-    <tr>
-        <td [attr.colspan]="cols.length" style="text-align: center;">
-            <p-progressSpinner></p-progressSpinner>
-            <p>Loading data, please wait...</p>
-        </td>
-    </tr>
-</ng-template>
-</p-table>
+                                                            <!-- Header -->
+                                                            <ng-template pTemplate="header">
+                                                                <tr>
+                                                                    <th style="text-align:center; width: 80px;">Sr. No.</th>
+                                                                    <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
+                                                                        {{ col.header }}
+                                                                    </th>
+                                                                </tr>
+                                                            </ng-template>
+
+                                        <!-- Body -->
+                                        <ng-template pTemplate="body" let-lbcRow let-i="rowIndex">
+                                            <tr>
+                                                <td style="text-align:center;">{{ i + 1 }}</td>
+                                                <td *ngFor="let col of clmRow.lbcCols" style="text-align:center;">
+                                                    {{ lbcRow[col.field] }}
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        
+                                        <!-- Empty message -->
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td [attr.colspan]="clmRow.lbcCols?.length + 1" style="text-align:center;">
+                                                    No LBC data found.
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        </p-table>
+                                        </ng-container>
+
+                                    </td>
+                                    </tr>
+                                    </ng-template>
+                                    <!-- Loading spinner for outer table -->
+                                    <ng-template pTemplate="loadingBody">
+                                        <tr>
+                                            <td [attr.colspan]="cols.length" style="text-align: center;">
+                                                <p-progressSpinner></p-progressSpinner>
+                                                <p>Loading data, please wait...</p>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                    </p-table>
 
                                 </div>
                             </div>
@@ -649,7 +646,7 @@
                                                                 Aadhaar number
                                                                 is required.
                                                             </div>
-                                                            </td>
+                                                        </td>
                                                         <td>
                                                             Upload Adhaar Card
                                                             (Scanned Copy)
@@ -687,8 +684,7 @@
                 <div class="modal fade" id="dv_assignProject" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header">
-
+                        <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Assign Project</h4>
                             </div>
