@@ -715,7 +715,7 @@
                           <td>
                             <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)">
                               <option  value="" disabled selected>Select Business Type</option>
-                              <option *ngFor="let filter of rweBusinessfilters?.rweBusinessType" [value]="filter.id">
+                              <option *ngFor="let filter of rweBusinessType" [value]="filter.id">
                                 {{ filter.name }}
                               </option>
                             </select>
@@ -724,7 +724,7 @@
                           <td>
                             <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessSubCatType"   (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)">
                               <option  value="" disabled selected>Select Business</option>
-                              <option *ngFor="let type of rweBusinessfilters?.rweBusinessSubCatType " [value]="type.id">
+                              <option *ngFor="let type of rweBusinessSubCatType " [value]="type.id">
                                 {{ type.name }}
                               </option>
                             </select>
@@ -735,7 +735,7 @@
                           <td>
                             <select name="business_products" id="business_products" class="select-box-3 width100" [(ngModel)]="selectedRWEServiceOrProduct"  (change)="onFilterChange('selectedRWEServiceOrProduct', $event)">
                               <option value="" disabled selected>Select Product</option>
-                              <option *ngFor="let type of rweBusinessfilters?.rweServiceOrProduct " [value]="type.id">
+                              <option *ngFor="let type of rweServiceOrProduct " [value]="type.id">
                                 {{ type.name }}
                               </option>
                             </select>

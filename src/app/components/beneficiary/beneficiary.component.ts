@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms'
 import ValidateForm from 'src/app/helpers/validateForm';
 import { MenuService } from 'src/app/services/menu.service';
 import { Service } from 'src/app/models/service.model';
-import { RWEBusinessFilters, RweBusiness, rweBusiness } from '../../services/rweBusiness.service';
+import { RWEBusinessFilters, RweBusiness, RweBusinessProduct, RweBusinessSubCatType, RweBusinessType, rweBusiness } from '../../services/rweBusiness.service';
 declare var $: any; // Import jQuery
 
 @Component({
@@ -25,6 +25,9 @@ declare var $: any; // Import jQuery
 export class BeneficiaryComponent implements OnInit {
   rweBusinesses: RweBusiness[] = [];
   rweBusinessfilters: RWEBusinessFilters | undefined;
+  rweBusinessType: RweBusinessType[] | undefined;
+  rweBusinessSubCatType: RweBusinessSubCatType[] | undefined;
+  rweServiceOrProduct: RweBusinessProduct[] | undefined;
   selectedRwe: any = "";
   selectedRWEBusinessType: any ="";
   selectedRWEBusinessSubCatType: any ="";
@@ -323,6 +326,9 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     this.rweBusinessService.getRWEBusinessFilters().subscribe({
       next: (data) => {
         this.rweBusinessfilters = data;
+        this.rweBusinessType = this.rweBusinessfilters?.rweBusinessType;
+        this.rweBusinessSubCatType = this.rweBusinessfilters?.rweBusinessSubCatType;
+        this.rweServiceOrProduct = this.rweBusinessfilters?.rweServiceOrProduct;
         console.log('Filters:', this.rweBusinessfilters);
       },
       error: (err) => console.error('Error fetching rwe business filters:', err)
@@ -884,6 +890,17 @@ selectCaste(event: Event): void {
 
   // Dynamic display of first filtered business
   displayRweBusinessData(): void {
+
+    if (this.selectedRWEBusinessType) {
+      this.rweBusinessSubCatType = this.rweBusinessfilters?.rweBusinessSubCatType!.filter(type => type.businessTypeId === this.selectedRWEBusinessType);
+    }
+    if (this.selectedRWEBusinessSubCatType) {
+      this.rweServiceOrProduct = this.rweBusinessfilters?.rweServiceOrProduct!.filter(type => type.businessSubCatId === this.selectedRWEBusinessSubCatType)
+    }
+    if (this.selectedRWEServiceOrProduct) {
+
+    }
+
     const filtered = this.rweBusinesses.filter(business =>
       this.filterFields.every(field => {
         const filterValue = (this as any)[field];
