@@ -133,6 +133,7 @@ selectedBusinesses:Service[] | undefined;
 userName!:string;
 projectList: { projectId: number, projectName: string }[] = [];
 soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
+    businessFilter: any;
 
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient,  private fb: FormBuilder, private menuService: MenuService, private renderer: Renderer2,private rweBusinessService: rweBusiness) { }
 

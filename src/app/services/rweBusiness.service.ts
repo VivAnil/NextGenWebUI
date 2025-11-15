@@ -12,8 +12,8 @@ export class rweBusiness {
 
   constructor(private http: HttpClient) { }
 
-  getRWEBusinessFilters(): Observable<RWEBusinessFilters> {
-    return this.http.get<RWEBusinessFilters>(this.apibaseUrl +"RWEBusinessFilters");
+  getRWEBusinessFilters(): Observable<any> {
+    return this.http.get<any>(this.apibaseUrl +"RWEBusinessFilters");
   }
 
   saveRweBusiness(rweBusiness: RweBusiness): Observable<any> {
@@ -28,11 +28,39 @@ export class rweBusiness {
 }
 
 export interface RWEBusinessFilters {
-  rweBusinessType: { [key: number]: string };
-  rweBusinessSubCatType: { [key: number]: string };
-  rweServiceOrProduct: { [key: number]: string };
+  rweBusinessType: RweBusinessType[];
+  rweBusinessSubCatType: RweBusinessSubCatType[];
+  rweServiceOrProduct: RweBusinessProduct[];
 }
 
+export interface RweBusinessSubCatType {
+  id: number;
+  name: string;
+  description: string;
+  enabled: boolean;
+  businessTypeId: number;
+  // add any additional fields if present
+}
+
+export interface RweBusinessType {
+  id: number;
+  name: string;
+  description: string;
+  enabled: boolean;
+}
+
+export interface RweBusinessProduct {
+  id: number;
+  name: string;
+  enabled: boolean;
+  businessTypeId: number;
+  businessCategoty: string;     // (typo kept as provided—can fix if needed)
+  businessSubCatId: number;
+  businessSubCategoty: string;  // (typo kept as provided)
+  margin: number;
+  sellingPrice: number;
+  unit: string;
+}
 export interface RweBusiness {
   id: number;
   rweId: number;
