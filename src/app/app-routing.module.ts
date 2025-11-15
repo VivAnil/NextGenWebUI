@@ -51,7 +51,8 @@ const routes: Routes = [
       { path: 'businessproduct', component: BusinessproductComponent },
       {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
       {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'}
+      { path: 'user/:companyid/:roleid', component: UsersComponent, runGuardsAndResolvers: 'always' },
+      { path: 'businessproduct', component: BusinessproductComponent },
            
     ]
   },
@@ -70,6 +71,7 @@ const routes: Routes = [
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
       {path:'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
+  { path: 'businessproduct', component: BusinessproductComponent },
   {
     path: '**',
     redirectTo: 'login'
