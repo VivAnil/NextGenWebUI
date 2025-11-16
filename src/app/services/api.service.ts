@@ -15,7 +15,8 @@ export class ApiService {
 
  // private baseUrl : string = 'https://localhost:7052/api/Service/Get';//environment.baseServiceurl;
  private baseUrl : string = environment.baseServiceUrl;
- private baseSPurl: string = environment.baseSPUrl;
+  private baseSPurl: string = environment.baseSPUrl;
+  private tgtbaseUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard';
  private userdetailsApiUrl: string = environment.userdetailsApiUrl;
  private companyId!:string;
   constructor(private http: HttpClient) { }
@@ -133,17 +134,52 @@ export class ApiService {
   }
 
   fetchTGTDashBoardFilters(): Observable<any> {
-    const filterUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetFilters';
+    const filterUrl = this.tgtbaseUrl+ '/GetFilters';
     //const filterUrl = 'https://localhost:7122/api/TGTDashBoard/GetFilters';
     return this.http.get<any>(filterUrl);
   }
 
   fetchTGTDashBoarData(rwes: any): Observable<any> {
-    const filterUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetRWESummary';
+    const filterUrl = this.tgtbaseUrl+ '/GetRWESummary';
     //const filterUrl = 'https://localhost:7122/api/TGTDashBoard/GetRWESummary';
     return this.http.post<any>(filterUrl, rwes);
   }
 
+  createTGTBusinessType(model: TGTBusinessType): Observable<boolean> {
+    return this.http.post<boolean>(`${this.tgtbaseUrl}/CreateRWEBusinessType`, model);
+  }
+
+  updateTGTBusinessType(model: TGTBusinessType): Observable<boolean> {
+    return this.http.put<boolean>(`${this.tgtbaseUrl}/UpdateRWEBusinessType`, model);
+  }
+
+  deleteTGTBusinessType(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.tgtbaseUrl}/DeleteRWEBusinessType/${id}`);
+  }
+
+  createTGTBusinessSubCatType(model: TGTBusinessSubCatType): Observable<boolean> {
+    return this.http.post<boolean>(`${this.tgtbaseUrl}/CreateRWEBusinessSubCatType`, model);
+  }
+
+  updateTGTBusinessSubCatType(model: TGTBusinessSubCatType): Observable<boolean> {
+    return this.http.put<boolean>(`${this.tgtbaseUrl}/UpdateRWEBusinessSubCatType`, model);
+  }
+
+  deleteTGTBusinessSubCatType(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.tgtbaseUrl}/DeleteRWEBusinessSubCatType/${id}`);
+  }
+
+  createTGTServiceOrProduct(model: TGTServiceOrProduct): Observable<boolean> {
+    return this.http.post<boolean>(`${this.tgtbaseUrl}/CreateRWEServiceOrProduct`, model);
+  }
+
+  updateTGTServiceOrProduct(model: TGTServiceOrProduct): Observable<boolean> {
+    return this.http.put<boolean>(`${this.tgtbaseUrl}/UpdateRWEServiceOrProduct`, model);
+  }
+
+  deleteTGTServiceOrProduct(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${this.tgtbaseUrl}/DeleteRWEServiceOrProduct/${id}`);
+  }
   getLbcByClmId(clmId: number) {
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
@@ -155,4 +191,29 @@ export class ApiService {
   }
 
 
+}
+
+export interface TGTBusinessType {
+  id: number;
+  name: string;
+  desc?: string;
+  enabled: boolean;
+}
+
+export interface TGTBusinessSubCatType {
+  id: number;
+  businessTypeId: number;
+  name: string;
+  desc?: string;
+  enabled: boolean;
+}
+
+export interface TGTServiceOrProduct {
+  id: number;
+  name: string;
+  businessSubCatId: number;
+  enabled: boolean;
+  unit: string;
+  margin: number;
+  sellingPrice: number;
 }
