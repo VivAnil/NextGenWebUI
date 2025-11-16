@@ -818,6 +818,12 @@ onServiceProductNameChange(event: any): void {
           ]
         },
         {
+          title: 'Business Section',
+          links: [
+            { label: 'View All Products', path: '/businessproduct' }
+          ]
+        },
+        {
           title: 'Payment Section',
           links: [
           ]
