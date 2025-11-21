@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
 import { RWEBusinessFilters, rweBusiness } from '../../services/rweBusiness.service';
+import { RWEBusinessType, RWEServiceOrProduct, RWEBusinessSubCatType } from '../../models/rwe-business.model'
 declare let $: any; // Import jQuery
 
 @Component({
@@ -22,11 +23,16 @@ export class BusinessproductComponent implements OnInit {
   displayColumn: string = 'none';
   activeColumn: string = 'column-link';
   activeDefault: string = 'default-link';
-  activeTab: string = 'ui-tab ui-tabs-active ui-state-active';
+  // activeTab: string = 'ui-tab ui-tabs-active ui-state-active';
   activeTab1: string = 'ui-tab ';
   isColumnOpen: boolean = false;
   rweBusinessfilters: RWEBusinessFilters | undefined;
+  rweBusinessType: RWEBusinessType[] = [];
+  rweServiceOrProduct: RWEServiceOrProduct[] = [];
+  rweBusinessSubCatType: RWEBusinessSubCatType[] = [];
+  activeTab: string = 'business'; // default tab
 
+  isLoading: boolean = false;   // For spinner
   clients = [
   {
     "productName": "Dana Mishran",
@@ -187,20 +193,40 @@ clients3 = [
     this.companyRoleId = userRoleSettings.companyRoleId;
     this.userName = userRoleSettings.username;
 
+
     this.route.params.subscribe((params) => {
       this.companyId = +params['companyid'];
       this.roleId = +params['roleid'];
     });
 
+    this.isLoading = true;
+
     this.rweBusinessService.getRWEBusinessFilters().subscribe({
-      next: (data) => {
+      next: (data: RWEBusinessFilters) => {
         this.rweBusinessfilters = data;
-        console.log('Filters:', this.rweBusinessfilters);
+
+        this.rweBusinessType = data.rweBusinessType;
+        this.rweBusinessSubCatType = data.rweBusinessSubCatType;
+        this.rweServiceOrProduct = data.rweServiceOrProduct;
+
+
+        // Inject into jsGrid
+        $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct).jsGrid("loadData");
+        $("#MappedGrid2").jsGrid("option", "data", this.rweBusinessType).jsGrid("loadData");
+        $("#MappedGrid3").jsGrid("option", "data", this.rweBusinessSubCatType).jsGrid("loadData");
       },
-      error: (err) => console.error('Error fetching rwe business filters:', err)
+      error: (err) => {
+        console.error('Error fetching filters', err);
+      },
+      complete: () => {
+        this.isLoading = false;  // Hide spinner
+      }
     });
 
+
     this.updatePath();
+
+
     $("#MappedGrid").jsGrid({
       width: "100%",
       padding: "1%",
@@ -212,31 +238,21 @@ clients3 = [
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
-      //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
+
       pageButtonCount: 15,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
-      //pageFirstText: "First",
-      // pageLastText: "Last",
+
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
       data: this.clients,
 
       fields: [
-        { title: "Product Name", name: "productName", type: "text", validate: "required", css: "width14em" },
-        { title: "Business Category", name: "category", type: "text", css: "width14em" },
-        { title: "Business Sub-Category", name: "subCategory", type: "text", css: "text-align-center" },
-        //{ title: "Selling Price", name: "sellingPrice", type: "text", css: "text-align-center" },
-        //{ title: "Unit", name: "unit", type: "text", css: "text-align-center" },
-        //{ title: "Margin", name: "margin", type: "text", css: "text-align-center" },
-        //{ title: "Status", name: "status", type: "text", css: "text-align-center" },
-        //{
-        //  title: "Action", itemTemplate: function (value:any, item:any) {
-        //    return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addService'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
-        //  }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em text-align-center"
-        //}
+        { title: "Product Name", name: "name", type: "text" },
+        { title: "Business Category", name: "businessCategory", type: "text" },
+        { title: "Business Sub-Category", name: "businessSubCategory", type: "text" }
       ]
     });
 
@@ -251,27 +267,20 @@ clients3 = [
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
-      //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
+
       pageButtonCount: 15,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
-      //pageFirstText: "First",
-      // pageLastText: "Last",
+
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
       data: this.clients2,
 
       fields: [
-        { title: "Business Category Name", name: "type", type: "text", validate: "required", css: "width14em" },
-        { title: "Description", name: "type", type: "text", css: "width14em" },
-        //{ title: "Status", name: "status", type: "text", css: "text-align-center" }
-        //{
-        //  title: "Action", itemTemplate: function (value:any, item:any) {
-        //    return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
-        //  }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
-        //}
+        { title: "Business Category Name", name: "name", type: "text" },
+        { title: "Description", name: "description", type: "text" }
       ]
     });
 
@@ -299,20 +308,16 @@ clients3 = [
       data: this.clients3,
 
       fields: [
-        { title: "Business Sub-Category Name", name: "subcatName", type: "text", validate: "required", css: "width14em" },
-        { title: "Business Category", name: "cat", type: "text", css: "width14em" },
-        //{ title: "Status", name: "status", type: "text", css: "text-align-center" },
-        //{
-        //  title: "Action", itemTemplate: function (value:any, item:any) {
-        //    return "<div class='text-align-center'><button class='border-none' title='' type='button' data-toggle='modal' data-target='#dv_addOrg'  ><i class='fa fa-edit' title='Edit Shceme'></i></button> <button class='border-none' title='Delete Scheme' type='button' data-target='#' data-toggle='modal' ><i class='fa fa-trash' title='Delete Scheme'></i></button></div>";
-        //  }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em"
-        //}
+        { title: "Business Sub-Category Name", name: "name", type: "text" },
+        { title: "Business Category", name: "businessCategory", type: "text" }
       ]
     });
 
   }
 
-
+  setTab(tab: string) {
+    this.activeTab = tab;
+  }
   updatePath(): void {
     this.menuService.resetMenu();
     this.menuService.updateMenuItems([

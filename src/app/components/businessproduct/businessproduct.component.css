@@ -18,3 +18,23 @@
 a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicator {
   display: none;
 }
+.spinner-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-spinner {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 0.8s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

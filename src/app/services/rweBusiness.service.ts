@@ -13,7 +13,8 @@ export class rweBusiness {
   constructor(private http: HttpClient) { }
 
   getRWEBusinessFilters(): Observable<any> {
-    return this.http.get<any>(this.apibaseUrl +"RWEBusinessFilters");
+    return this.http.get<RWEBusinessFilters>(this.apibaseUrl + "RWEBusinessFilters");
+    // return this.http.get<RWEBusinessFilters>(this.apiUrl + '/GetRWEBusinessFilters');
   }
 
   saveRweBusiness(rweBusiness: RweBusiness): Observable<any> {
