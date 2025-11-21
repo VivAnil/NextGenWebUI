@@ -33,155 +33,170 @@ export class BusinessproductComponent implements OnInit {
   activeTab: string = 'business'; // default tab
 
   isLoading: boolean = false;   // For spinner
+  selectedBusinessTypeId: number | null = null;
+  selectedSubCatId: number | null = null;
+
+  filteredSubCategories: RWEBusinessSubCatType[] = [];
+
+  name: string = '';
+  sellingPrice: number = 0;
+  margin: number = 0;
+  unit: string = '';
+  enabled: boolean = true;
+
+  subCatName: string = '';
+  //selectedBusinessTypeId: number | '' = '';
+  enabledSubCat: boolean = true;
+
   clients = [
-  {
-    "productName": "Dana Mishran",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "40",
-    "unit": "Per kg",
-    "margin": "10",
-    "status": "Enable"
-  },
-  {
-    "productName": "Neem Oil",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "15",
-    "unit": "10 ml",
-    "margin": "10",
-    "status": "Enable"
-  },
-  {
-    "productName": "Pachmola",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "30",
-    "unit": "No.",
-    "margin": "10",
-    "status": "Enable"
-  },
-  {
-    "productName": "Masala Bolus",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "5",
-    "unit": "No.",
-    "margin": "10",
-    "status": "Enable"
-  },
-  {
-    "productName": "Milk Replacer",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "20",
-    "unit": "75-gram pack",
-    "margin": "10",
-    "status": "Enable"
-  },
-  {
-    "productName": "Liver Tonic",
-    "category": "Input Business",
-    "subCategory": "Herbal Formulations Medicines and supplements",
-    "sellingPrice": "160",
-    "unit": "Per Litre",
-    "margin": "10",
-    "status": "Enable"
-  }
-];
+    {
+      "productName": "Dana Mishran",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "40",
+      "unit": "Per kg",
+      "margin": "10",
+      "status": "Enable"
+    },
+    {
+      "productName": "Neem Oil",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "15",
+      "unit": "10 ml",
+      "margin": "10",
+      "status": "Enable"
+    },
+    {
+      "productName": "Pachmola",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "30",
+      "unit": "No.",
+      "margin": "10",
+      "status": "Enable"
+    },
+    {
+      "productName": "Masala Bolus",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "5",
+      "unit": "No.",
+      "margin": "10",
+      "status": "Enable"
+    },
+    {
+      "productName": "Milk Replacer",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "20",
+      "unit": "75-gram pack",
+      "margin": "10",
+      "status": "Enable"
+    },
+    {
+      "productName": "Liver Tonic",
+      "category": "Input Business",
+      "subCategory": "Herbal Formulations Medicines and supplements",
+      "sellingPrice": "160",
+      "unit": "Per Litre",
+      "margin": "10",
+      "status": "Enable"
+    }
+  ];
 
-clients2 = [
-  {
-    "type": "Input Business",
-    "desc": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "type": "Output Business",
-    "desc": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "type": "TGT Services",
-    "desc": "TGT Services",
-    "status": "Enable"
-  }
+  clients2 = [
+    {
+      "type": "Input Business",
+      "desc": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "type": "Output Business",
+      "desc": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "type": "TGT Services",
+      "desc": "TGT Services",
+      "status": "Enable"
+    }
 
-];
+  ];
 
 
-clients3 = [
-  {
-    "subcatName": "Goat Feed/ Feed Mill",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Kid Nursery",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Livestock Input Shop",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Herbal Formulations Medicines and supplements",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Cold Chain Equipment and tools",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Breeding Buck and AI Services",
-    "cat": "Input Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Commercial Goat Farming",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Bakrid Buck Farming",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Commercial Desi Poultry Farming",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Goat Dung Manure",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Goat & Chik’s Marketing",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Goat Milk byproducts",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Pashumart Retails Outlet (Input/output)",
-    "cat": "Output Business",
-    "status": "Enable"
-  },
-  {
-    "subcatName": "Hygienic Mutton and Desi Egg Shop",
-    "cat": "Output Business",
-    "status": "Enable"
-  }
-];
+  clients3 = [
+    {
+      "subcatName": "Goat Feed/ Feed Mill",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Kid Nursery",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Livestock Input Shop",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Herbal Formulations Medicines and supplements",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Cold Chain Equipment and tools",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Breeding Buck and AI Services",
+      "cat": "Input Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Commercial Goat Farming",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Bakrid Buck Farming",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Commercial Desi Poultry Farming",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Goat Dung Manure",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Goat & Chik’s Marketing",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Goat Milk byproducts",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Pashumart Retails Outlet (Input/output)",
+      "cat": "Output Business",
+      "status": "Enable"
+    },
+    {
+      "subcatName": "Hygienic Mutton and Desi Egg Shop",
+      "cat": "Output Business",
+      "status": "Enable"
+    }
+  ];
 
   constructor(private route: ActivatedRoute, private menuService: MenuService, private rweBusinessService: rweBusiness, private router: Router) { }
 
@@ -200,28 +215,28 @@ clients3 = [
     });
 
     this.isLoading = true;
+    this.loadAllBusinessFilters();
+    // this.rweBusinessService.getRWEBusinessFilters().subscribe({
+    //   next: (data: RWEBusinessFilters) => {
+    //     this.rweBusinessfilters = data;
 
-    this.rweBusinessService.getRWEBusinessFilters().subscribe({
-      next: (data: RWEBusinessFilters) => {
-        this.rweBusinessfilters = data;
-
-        this.rweBusinessType = data.rweBusinessType;
-        this.rweBusinessSubCatType = data.rweBusinessSubCatType;
-        this.rweServiceOrProduct = data.rweServiceOrProduct;
+    //     this.rweBusinessType = data.rweBusinessType;
+    //     this.rweBusinessSubCatType = data.rweBusinessSubCatType;
+    //     this.rweServiceOrProduct = data.rweServiceOrProduct;
 
 
-        // Inject into jsGrid
-        $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct).jsGrid("loadData");
-        $("#MappedGrid2").jsGrid("option", "data", this.rweBusinessType).jsGrid("loadData");
-        $("#MappedGrid3").jsGrid("option", "data", this.rweBusinessSubCatType).jsGrid("loadData");
-      },
-      error: (err) => {
-        console.error('Error fetching filters', err);
-      },
-      complete: () => {
-        this.isLoading = false;  // Hide spinner
-      }
-    });
+    //     // Inject into jsGrid
+    //     $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct).jsGrid("loadData");
+    //     $("#MappedGrid2").jsGrid("option", "data", this.rweBusinessType).jsGrid("loadData");
+    //     $("#MappedGrid3").jsGrid("option", "data", this.rweBusinessSubCatType).jsGrid("loadData");
+    //   },
+    //   error: (err) => {
+    //     console.error('Error fetching filters', err);
+    //   },
+    //   complete: () => {
+    //     this.isLoading = false;  // Hide spinner
+    //   }
+    // });
 
 
     this.updatePath();
@@ -420,4 +435,137 @@ clients3 = [
       this.activeTab1 = 'ui-tab';
     }
   }
+  onBusinessTypeChange() {
+    this.filteredSubCategories = this.rweBusinessSubCatType
+      .filter(x => x.businessTypeId == this.selectedBusinessTypeId);
+
+    this.selectedSubCatId = null; // reset sub-cat
+  }
+
+  getBusinessCategoryName() {
+    const bt = this.rweBusinessType.find(x => x.id == this.selectedBusinessTypeId);
+    return bt ? bt.name : '';
+  }
+
+  getSubCategoryName() {
+    const sc = this.filteredSubCategories.find(x => x.id == this.selectedSubCatId);
+    return sc ? sc.name : '';
+  }
+  saveProduct() {
+
+    const payload = {
+      name: this.name,
+      enabled: this.enabled,
+      businessTypeId: Number(this.selectedBusinessTypeId),
+      businessSubCatId: Number(this.selectedSubCatId),
+      businessCategory: this.getBusinessCategoryName(),
+      businessSubCategory: this.getSubCategoryName(),
+      sellingPrice: Number(this.sellingPrice),
+      margin: Number(this.margin),
+      unit: this.unit
+    };
+
+    console.log("Sending Payload:", payload);
+
+    this.rweBusinessService.addProduct(payload).subscribe({
+      next: (res) => {
+        this.loadAllBusinessFilters();
+        alert('Product saved successfully!');
+        $('#dv_addProduct').modal('hide');
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Error saving product');
+      }
+    });
+  }
+
+  saveBusinessSubCategory() {
+
+    const bt = this.rweBusinessType.find(x => x.id == this.selectedBusinessTypeId);
+
+    const payload = {
+      name: this.subCatName,
+      description: this.subCatName,  // Assuming no separate description field
+      enabled: this.enabledSubCat,
+      businessTypeId: Number(this.selectedBusinessTypeId),
+      businessCategory: bt ? bt.name : ''
+    };
+
+    console.log("Saving Sub-Category:", payload);
+
+    this.rweBusinessService.AddBusinessSubCatType(payload).subscribe({
+      next: () => {
+        alert("Business Sub-Category saved successfully!");
+        this.loadAllBusinessFilters();
+        $('#dv_addBusinessSubType').modal('hide');
+
+        // Force cleanup
+        //  $('body').removeClass('modal-open');
+        // $('.modal-backdrop').remove();
+        // $('.modal').attr('aria-hidden', 'false');
+
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Error saving Business Sub-Category");
+      }
+    });
+  }
+
+
+  saveBusinessType() {
+    const name = ($('#dv_addBusinessType input')[0] as HTMLInputElement).value;
+    const description = ($('#dv_addBusinessType input')[1] as HTMLInputElement).value;
+    const enabled = ($('#dv_addBusinessType input[type="checkbox"]')[0] as HTMLInputElement).checked;
+
+    const payload = {
+      name,
+      description,
+      enabled
+    };
+
+    this.rweBusinessService.addBusinessType(payload).subscribe({
+      next: (res) => {
+        alert('Business Type saved successfully!');
+        $('#dv_addBusinessType').modal('hide');
+
+        // Fix backdrop frozen screen
+        setTimeout(() => {
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        }, 200);
+        this.loadAllBusinessFilters();
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Failed to save Business Type.');
+      }
+    });
+  }
+
+  loadAllBusinessFilters() {
+    this.rweBusinessService.getRWEBusinessFilters().subscribe({
+      next: (data: RWEBusinessFilters) => {
+        this.rweBusinessfilters = data;
+
+        this.rweBusinessType = data.rweBusinessType;
+        this.rweBusinessSubCatType = data.rweBusinessSubCatType;
+        this.rweServiceOrProduct = data.rweServiceOrProduct;
+
+        // Reload jsGrid data
+        $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct).jsGrid("loadData");
+        $("#MappedGrid2").jsGrid("option", "data", this.rweBusinessType).jsGrid("loadData");
+        $("#MappedGrid3").jsGrid("option", "data", this.rweBusinessSubCatType).jsGrid("loadData");
+      },
+      error: (err) => {
+        console.error("Error fetching filters", err);
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+
 }

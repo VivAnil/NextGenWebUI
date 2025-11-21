@@ -38,3 +38,10 @@ a.collapsed > span.expandedIndicator, a:not(.collapsed) > span.collpasedIndicato
     transform: rotate(360deg);
   }
 }
+
+.modal-header .close {
+  font-size: 28px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}

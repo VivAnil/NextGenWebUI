@@ -26,6 +26,23 @@ export class rweBusiness {
       params: { rweId: rweId.toString() }
     });
   }
+
+  addProduct(payload: any): Observable<any> {
+    return this.http.post('https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEServiceOrProduct', payload);
+  }
+  AddBusinessSubCatType(payload: any) {
+    return this.http.post(
+      'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEBusinessSubCatType',
+      payload
+    );
+  }
+  addBusinessType(data: any) {
+    return this.http.post(
+      'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEBusinessType',
+      data
+    );
+  }
+
 }
 
 export interface RWEBusinessFilters {
