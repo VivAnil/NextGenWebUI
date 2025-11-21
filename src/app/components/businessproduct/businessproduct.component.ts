@@ -492,11 +492,11 @@ export class BusinessproductComponent implements OnInit {
       businessCategory: bt ? bt.name : ''
     };
 
-    console.log("Saving Sub-Category:", payload);
+    console.log("SavingSab-type:", payload);
 
     this.rweBusinessService.AddBusinessSubCatType(payload).subscribe({
       next: () => {
-        alert("Business Sub-Category saved successfully!");
+        alert("Business Sub-Type saved successfully!");
         this.loadAllBusinessFilters();
         $('#dv_addBusinessSubType').modal('hide');
 
@@ -508,7 +508,7 @@ export class BusinessproductComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        alert("Error saving Business Sub-Category");
+        alert("Error saving Business Sub-Type");
       }
     });
   }
