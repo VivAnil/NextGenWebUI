@@ -472,6 +472,13 @@ export class BusinessproductComponent implements OnInit {
         this.loadAllBusinessFilters();
         alert('Product saved successfully!');
         $('#dv_addProduct').modal('hide');
+
+        setTimeout(() => {
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        }, 200);
+        this.loadAllBusinessFilters();
+
       },
       error: (err) => {
         console.error(err);
@@ -501,9 +508,16 @@ export class BusinessproductComponent implements OnInit {
         $('#dv_addBusinessSubType').modal('hide');
 
         // Force cleanup
-        //  $('body').removeClass('modal-open');
-        // $('.modal-backdrop').remove();
-        // $('.modal').attr('aria-hidden', 'false');
+        //$('body').removeClass('modal-open');
+        //$('.modal-backdrop').remove();
+        //$('.modal').attr('aria-hidden', 'false');
+
+        // Fix backdrop frozen screen
+        setTimeout(() => {
+          $('body').removeClass('modal-open');
+          $('.modal-backdrop').remove();
+        }, 200);
+        this.loadAllBusinessFilters();
 
       },
       error: (err) => {
