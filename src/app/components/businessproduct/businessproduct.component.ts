@@ -253,16 +253,16 @@ export class BusinessproductComponent implements OnInit {
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
-
+      pageSize: 100,
       pageButtonCount: 15,
-      pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
+      pagerFormat: "Pages: {pages} {prev} {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
 
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-      data: this.clients,
+      data: this.rweBusinessType,
 
       fields: [
         { title: "Product Name", name: "name", type: "text" },
@@ -279,6 +279,7 @@ export class BusinessproductComponent implements OnInit {
       autoload: false,
       loadIndication: false,
       sorting: true,
+      pageSize: 100,
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
@@ -291,7 +292,7 @@ export class BusinessproductComponent implements OnInit {
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-      data: this.clients2,
+      data: this.rweBusinessSubCatType,
 
       fields: [
         { title: "Business Category Name", name: "name", type: "text" },
@@ -307,6 +308,7 @@ export class BusinessproductComponent implements OnInit {
       autoload: false,
       loadIndication: false,
       sorting: true,
+      pageSize: 100,
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
@@ -320,7 +322,7 @@ export class BusinessproductComponent implements OnInit {
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-      data: this.clients3,
+      data: this.rweServiceOrProduct,
 
       fields: [
         { title: "Business Sub-Category Name", name: "name", type: "text" },
