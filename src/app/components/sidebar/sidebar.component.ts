@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuService, MenuItems } from 'src/app/services/menu.service';
 
 @Component({
@@ -8,83 +8,43 @@ import { MenuService, MenuItems } from 'src/app/services/menu.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
-//   menuItems = [
-//     { title: 'User Configuration', 
-// 	  links: 
-// 		[{ label: 'Application User Master', path: '/companyusermaster' }, 
-// 		 { label: 'Edit Administrator Details', path: '/editadmin' }] 
-// 	},
-//      { title: 'User Details', 
-// 	  links: 
-// 		[{ label: 'Project Officer Master'}, 
-// 		 { label: 'District Coordinator Master', path: '/dc' },
-// 		 { label: 'Block Coordinator Master', path: '/bc' }, 
-// 		 { label: 'SoochnaPreneur Master', path: '/sp' },
-// 		 { label: 'Beneficiary Master', path: '/bn' }
-// 		  ] 
-// 	},
-// 	{ title: 'Company Details', 
-// 	  links: 
-// 		[{ label: 'Edit Company Details', path: '/editcompany' }, 
-// 		 { label: 'Project Master', path: '/project' }
-		 
-// 		  ] 
-// 	},
-// 	{ title: 'Report Section', 
-// 	  links: 
-// 		[{ label: 'All Project Report', path: '/projectreport' }, 
-// 		 { label: 'All Beneficiaries Report', path: '/benReport' },
-// 		 { label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
-		 
-// 		  ] 
-// 	},
-// 	{ title: 'Service Section', 
-// 	  links: 
-// 		[{ label: 'View All Services', path: '/services' }		 
-// 		  ] 
-// 	},
-// 	{ title: 'Payment Section', 
-// 	  links: 
-// 		[{ label: 'Process Payment', path: '/processpayment' }, 
-// 		 { label: 'Payment Report', path: '/paymentreport' }
-// 		 ] 
-// 	}
-//   ];
-
-  menuItems : MenuItems[] = [];
-  companyId !: number;
-  roleId !: number;
-	
-   constructor( private router: Router, private route: ActivatedRoute, private menuService: MenuService) { }
-
-
+  menuItems: MenuItems[] = [];
+  companyId!: number;
+  roleId!: number;
   activeSection: number | null = null;
+
+  constructor(
+    private router: Router,
+    private menuService: MenuService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   toggleSection(index: number) {
     this.activeSection = this.activeSection === index ? null : index;
   }
 
   ngOnInit(): void {
-    let userString = localStorage.getItem('userRoleSettings');
-    let userRoleSettings = userString ? JSON.parse(userString) : null;
-    if (userRoleSettings != null && userRoleSettings != undefined)
-    {
-    this.roleId = userRoleSettings.companyRoleId;
-    this.companyId=userRoleSettings.companyId;
+    const userString = localStorage.getItem('userRoleSettings');
+    const userRoleSettings = userString ? JSON.parse(userString) : null;
+    if (userRoleSettings) {
+      this.roleId = userRoleSettings.companyRoleId;
+      this.companyId = userRoleSettings.companyId;
     }
 
+    // Load menu once from the service (snapshot / computed)
+    if (typeof this.menuService.updateMenuItems === 'function') {
+      // prefer computed menu that applies permissions
+      // pass the static base if your service exposes it, otherwise getMenuItems()
+      // Example: this.menuItems = this.menuService.updateMenuItems(MenuService.DEFAULT_MENU);
+      this.menuItems = this.menuService.getMenuItems();
+    } else if (typeof this.menuService.getMenuItems === 'function') {
+      this.menuItems = this.menuService.getMenuItems();
+    }
 
-
-	this.menuService.menuItems$.subscribe(items => {
-		this.menuItems = items;
-	  });
+    this.cdr.markForCheck();
   }
 
-  viewCompany(companyId: number, roleId:number): void {
-    this.router.navigate(['/user', companyId, roleId]
-      //{ queryParams: { 'companyid': companyId, 'roleid': roleId } }
-    );
-
+  viewCompany(companyId: number, roleId: number): void {
+    this.router.navigate(['/user', companyId, roleId]);
   }
 }

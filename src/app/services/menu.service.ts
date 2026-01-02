@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Title } from 'chart.js';
-import { MenuItem } from 'primeng/api';
 import { BehaviorSubject } from 'rxjs';
 import { RolemasterService } from './rolemaster.service';
 
@@ -12,7 +10,6 @@ export interface Links {
   label: string;
   path: string;
 }
-
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +78,12 @@ export class MenuService {
   dcRoleDisplayName: string = 'District Coordinator';
   bcRoleDisplayName: string = 'Block Coordinator';
   benRoleDisplayName: string = 'Beneficiary';
+
+  // Public getter: returns a deep-cloned snapshot of current menu
+  public getMenuItems(): MenuItems[] {
+    return JSON.parse(JSON.stringify(this.menuItems.getValue()));
+  }
+
   async getCustomRoleDetails(): Promise<void> {
     let customeRoles: any = localStorage.getItem("customAssignedRoles");
     let customAssignedRoles = customeRoles ? JSON.parse(customeRoles) : null;
@@ -221,8 +224,6 @@ export class MenuService {
     }
     // 5️⃣ Remove any empty menu sections
     newMenu = newMenu.filter(item => item.links && item.links.length > 0);
-
-
 
     // 7️⃣ Push updates to BehaviorSubject
     this.menuItems.next(newMenu);

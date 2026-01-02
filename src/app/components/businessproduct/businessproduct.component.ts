@@ -245,7 +245,6 @@ export class BusinessproductComponent implements OnInit {
     $("#MappedGrid").jsGrid({
       width: "100%",
       padding: "1%",
-      height: "auto",
       filtering: false,
       autoload: false,
       loadIndication: false,
@@ -255,7 +254,7 @@ export class BusinessproductComponent implements OnInit {
       pageIndex: 1,
       pageSize: 100,
       pageButtonCount: 15,
-      pagerFormat: "Pages: {pages} {prev} {next}",
+      pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
 
@@ -274,7 +273,6 @@ export class BusinessproductComponent implements OnInit {
     $("#MappedGrid2").jsGrid({
       width: "100%",
       padding: "1%",
-      height: "auto",
       filtering: false,
       autoload: false,
       loadIndication: false,
@@ -303,7 +301,6 @@ export class BusinessproductComponent implements OnInit {
     $("#MappedGrid3").jsGrid({
       width: "100%",
       padding: "1%",
-      height: "auto",
       filtering: false,
       autoload: false,
       loadIndication: false,

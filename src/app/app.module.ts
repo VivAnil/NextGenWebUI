@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, RouteReuseStrategy } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop'; 
 import {MatTabsModule} from '@angular/material/tabs';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +41,7 @@ import { AuthService } from './services/auth.service';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
+import { CustomRouteReuseStrategy } from './services/custom-route-reuse.strategy';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +71,7 @@ import { BusinessproductComponent } from './components/businessproduct/businessp
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     TableModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -86,7 +89,9 @@ import { BusinessproductComponent } from './components/businessproduct/businessp
     CheckboxModule
     
   ],
-  providers: [],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
