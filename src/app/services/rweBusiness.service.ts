@@ -91,7 +91,7 @@ export interface RweBusiness {
   startYear: number;
   totalInvestment: number;
   selfInvestment: number;
-  projectLoan: number;
-  bankLoan: number;
-  collectiveLoan: number;
+  projectLoan: number | null;
+  bankLoan: number | null;
+  collectiveLoan: number | null;
 }

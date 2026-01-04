@@ -32,15 +32,15 @@ export class BeneficiaryComponent implements OnInit {
   selectedRWEBusinessType: any ="";
   selectedRWEBusinessSubCatType: any ="";
   selectedRWEServiceOrProduct: any ="";
-  selectedStartMonth: any;
-  selectedStartYear: any;
-  selectedInventoryUnit: any = "";
-  selectedInventory: any;
-  totalInvestment: any;
-  selfInvestment: any;
-  projectLoan: any;
-  bankLoan: any;
-  collectiveLoan: any;
+  selectedStartMonth: number = 0;
+  selectedStartYear: number = 2026;
+  selectedInventoryUnit: any = "Other";
+  selectedInventory: number =0;
+  totalInvestment: number = 0;
+  selfInvestment: number = 0;
+  projectLoan: number = 0;
+  bankLoan: number = 0;
+  collectiveLoan: number = 0;
   hideSaveRWE: boolean = false;
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
   private isVisible: boolean = false;
@@ -708,9 +708,9 @@ onServiceProductNameChange(event: any): void {
       inventoryUnit: this.selectedInventoryUnit,
       totalInvestment: this.totalInvestment,
       selfInvestment: this.selfInvestment,
-      bankLoan: this.bankLoan,
-      projectLoan: this.projectLoan,
-      collectiveLoan: this.collectiveLoan
+      bankLoan: Number(this.bankLoan) || 0,
+      projectLoan: Number(this.projectLoan) || 0,
+      collectiveLoan: Number(this.collectiveLoan) || 0
     };
     console.log(rweBusiness);
     this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
@@ -894,6 +894,8 @@ selectCaste(event: Event): void {
     });
   }
 
+  allowedUnits: string[] = ['Kg', 'Litre', 'Pack', 'Piece'];
+
   // Dynamic display of first filtered business
   displayRweBusinessData(): void {
 
@@ -904,7 +906,12 @@ selectCaste(event: Event): void {
       this.rweServiceOrProduct = this.rweBusinessfilters?.rweServiceOrProduct!.filter(type => type.businessSubCatId === this.selectedRWEBusinessSubCatType)
     }
     if (this.selectedRWEServiceOrProduct) {
-
+      if (this.allowedUnits.includes(this.selectedRWEServiceOrProduct.unit)) {
+        this.selectedInventoryUnit = this.selectedRWEServiceOrProduct.unit;
+      }
+      else {
+        this.selectedInventoryUnit = 'Other';
+      }
     }
 
     const filtered = this.rweBusinesses.filter(business =>
