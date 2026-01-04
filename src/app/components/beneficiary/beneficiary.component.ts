@@ -50,6 +50,8 @@ export class BeneficiaryComponent implements OnInit {
   years: any[] = [];
   filteredData: any[] = []; // Data to display in the grid
   rwes: any[] = [];
+  filteredRwes: any[] = [];  // filtered list
+  rweSearch: string = '';
   casteData: { id: number; name: string }[] = [];
   economicStatusData: { id: number; name: string }[] = [];
   selectedCaste: { id: number; name: string } | undefined;
@@ -239,6 +241,21 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     //   next: data => this.economicStatusData = data,
     //   error: err => console.error(err)
     // });
+  }
+
+  filterRwes() {
+    const value = this.rweSearch?.toLowerCase().trim();
+
+    // 🔹 If input is empty → remove filter
+    if (!value) {
+      this.filteredRwes = [...this.rwes];
+      return;
+    }
+
+    // 🔹 Apply filter
+    this.filteredRwes = this.rwes.filter(rwe =>
+      rwe.rweName.toLowerCase().includes(value)
+    );
   }
   
   getDistinctServicePillars(services: Service[]): Service[] {
@@ -712,7 +729,6 @@ onServiceProductNameChange(event: any): void {
       projectLoan: Number(this.projectLoan) || 0,
       collectiveLoan: Number(this.collectiveLoan) || 0
     };
-    console.log(rweBusiness);
     this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
       next: () => {
         this.rweBusinesses.push(rweBusiness);

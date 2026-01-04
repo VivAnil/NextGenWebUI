@@ -700,14 +700,13 @@
                           <td>Name of RWE</td>
                           <td colspan="3"><select class="select-box-3 width30 margin-right-10px" [(ngModel)]="selectedRwe" (change)="onFilterChange('selectedRwe', $event)" >
   <option value="" disabled selected>Select RWE</option>
-  <!--<option value="Goat Feed/ Feed Mill">Suman Kumari</option>
-  <option value="Kid Nursery">Dipti Kumari</option>-->
-  <option *ngFor="let rwe of rwes"
+  <option *ngFor="let rwe of filteredRwes"
           [id]="rwe.id"
           [value]="rwe.id">
     {{ rwe.rweName }}
   </option>
-</select> <input type="text" class="input-box-3 width60" placeholder="Search" /></td>
+</select> <input type="text" class="input-box-3 width60" placeholder="Search" [(ngModel)]="rweSearch"
+    (input)="filterRwes()"/></td>
         
                         </tr>
                         <tr>
