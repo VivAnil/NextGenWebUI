@@ -268,14 +268,14 @@ export class OrganisationadminComponent implements OnInit, AfterViewInit  {
   }
  ngAfterViewInit(): void {
   //alert(sessionStorage.getItem('reloaded'));
-  if (sessionStorage.getItem('reloaded') == 'false') {
-    sessionStorage.setItem('reloaded', 'true');
-    const current = window.location.href; // or this.router.url for SPA path
-     setTimeout(() => {
-       window.location.replace(current);     
-      }, 1000);
+  //if (sessionStorage.getItem('reloaded') == 'false') {
+  //  sessionStorage.setItem('reloaded', 'true');
+  //  const current = window.location.href; // or this.router.url for SPA path
+  //   setTimeout(() => {
+  //     window.location.replace(current);     
+  //    }, 1000);
    
-  }
+  //}
 }
   loadCompanyData(): void {
     // Call API to load data for the selected company using this.companyId
