@@ -23,46 +23,31 @@ export class MenuService {
       {
         title: 'User Configuration',
         links: [
-          //{label:'Application User Master', path:'/companyusermaster'},
-          //{label:'Edit Administrator Details', path:'/editadmin'}
         ]
       },
       {
         title: 'User Details',
         links: [
-          //{label:'Project Officer Master', path:'/user/'},
-          //{label:'District Coordinator Master', path:'/user/'},
-          //{label:'Block Coordinator Master', path:'/user/'},
-          //{label:'SoochnaPreneur Master', path:'/user/'},
-          //{label:'Beneficiary Master', path:'/bn/'},
         ]
       },
       {
         title: 'Company Details',
         links: [
-          //{label:'Edit Company Details', path: '/editcompany'},
-          //{label:'Project Master', path: '/project' }
         ]
       },
       {
         title: 'Report Section',
         links: [
-          //{ label: 'All Project Report', path: '/projectreport' },
-          //{ label: 'All Beneficiaries Report', path: '/benReport' },
-          //{ label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
         ]
       },
       {
         title: 'Service Section',
         links: [
-          //{ label: 'View All Services', path: '/services' }
         ]
       },
       {
         title: 'Payment Section',
         links: [
-          //{ label: 'Process Payment', path: '/processpayment' }, 
-          //{ label: 'Payment Report', path: '/paymentreport' }
         ]
       },
       {
@@ -84,23 +69,22 @@ export class MenuService {
     return JSON.parse(JSON.stringify(this.menuItems.getValue()));
   }
 
-  async getCustomRoleDetails(): Promise<void> {
-    let customeRoles: any = localStorage.getItem("customAssignedRoles");
-    let customAssignedRoles = customeRoles ? JSON.parse(customeRoles) : null;
+  getCustomRoleDetails(): void {
+    const customeRoles: any = localStorage.getItem("customAssignedRoles");
+    const customAssignedRoles = customeRoles ? JSON.parse(customeRoles) : null;
 
-    // If already cached in localStorage, no API call needed
+    // If already cached in localStorage, set names synchronously and return
     if (customAssignedRoles !== null) {
       this.setRoleDisplayNames(customAssignedRoles);
       return;
     }
 
     // Otherwise, fetch from API
-    return new Promise((resolve, reject) => {
-      this.rolemasterService.getCustomRoleForCompany().subscribe({
-        next: (customRoles) => {
-          customAssignedRoles = customRoles
-            .filter((item: any) => item.companyRoleName !== null)
-            .map((item: any) => ({
+    this.rolemasterService.getCustomRoleForCompany().subscribe({
+      next: (customRoles) => {
+        const mapped = customRoles
+          .filter((item: any) => item.companyRoleName !== null)
+          .map((item: any) => ({
             profilename: item.companyRoleName,
             systemusertype: item.systemRoleName,
             companyroleid: item.companyRoleId,
@@ -108,25 +92,24 @@ export class MenuService {
             canDeleteCustomRole: item.canDeleteCustomRole
           }));
 
-        localStorage.setItem("customAssignedRoles", JSON.stringify(customAssignedRoles));
-          this.setRoleDisplayNames(customAssignedRoles);
-          resolve();
-        },
-        error: (err) => {
-          console.error('Error loading custom roles:', err);
-          reject(err);
+        localStorage.setItem("customAssignedRoles", JSON.stringify(mapped));
+        this.setRoleDisplayNames(mapped);
+      },
+      error: (err) => {
+        console.error('Error loading custom roles:', err);
       }
-      });
     });
   }
+
   menuItems$ = this.menuItems.asObservable();
 
-  modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): MenuItems[] {
+  // make async so we can await getCustomRoleDetails()
+  async modifyMenuItemsBasedOnPermissions(menuItems: MenuItems[]): Promise<MenuItems[]> {
     console.log('modifyMenuItemsBasedOnPermissions called');
 
     // 1️⃣ Load user role settings
     const userString = localStorage.getItem('userRoleSettings');
-    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    const userRoleSettings = userString ? JSON.parse(userString) : null;
 
     if (!userRoleSettings) {
       console.warn('No userRoleSettings found in localStorage.');
@@ -145,8 +128,12 @@ export class MenuService {
       (setting: { permissionName: string; isAssigned: boolean }) => setting.isAssigned
     );
 
-    // Load custom role display names
-    this.getCustomRoleDetails();
+    // Await custom role display names so labels use correct names
+    try {
+      this.getCustomRoleDetails();
+    } catch (err) {
+      console.error('Failed to load custom role details; continuing with defaults', err);
+    }
 
     // 3️⃣ Apply menu items based on permissions
     permissionSettings.forEach((permission: any) => {
@@ -225,7 +212,7 @@ export class MenuService {
     // 5️⃣ Remove any empty menu sections
     newMenu = newMenu.filter(item => item.links && item.links.length > 0);
 
-    // 7️⃣ Push updates to BehaviorSubject
+    // 7️⃣ Push updates to BehaviorSubject (final menu)
     this.menuItems.next(newMenu);
 
     return newMenu;
@@ -267,16 +254,11 @@ export class MenuService {
   private AddUserDetailsLinksBasedOnRole(menuUserDetails: MenuItems, roleId: string): void {
     let id: number = parseInt(roleId);
 
-    //[{ label: 'Project Officer Master', path: '/user/' + this.companyId + '/2' },
-    //  { label: 'District Coordinator Master', path: '/user/' + this.companyId + '/4' },
-    //  { label: 'Block Coordinator Master', path: '/user/' + this.companyId + '/5' },
-    //  { label: 'SoochnaPreneur Master', path: '/user/' + this.companyId + '/3' },
-
     switch (id) {
       case 1:
         if (this.companyId != 32) {
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+          menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
+          menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
         }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
@@ -284,17 +266,17 @@ export class MenuService {
         break;
       case 2:
         if (this.companyId != 32) {
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-         }
+          menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
+          menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
       case 3:
         if (this.companyId != 32) {
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-         }
+          menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
@@ -304,17 +286,15 @@ export class MenuService {
         menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
-      // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 5:
         menuUserDetails?.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails?.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
         break;
-      // User doesn't see certain links like "Process Payment" and "Payment Report"
       case 6:
         if (this.companyId != 32) {
-        menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
-        menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
-         }
+          menuUserDetails.links.push({ label: this.pmRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/2' });
+          menuUserDetails.links.push({ label: this.dcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/4' });
+        }
         menuUserDetails.links.push({ label: this.bcRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/5' });
         menuUserDetails.links.push({ label: this.spRoleDisplayName + ' Master', path: '/user/' + this.companyId + '/3' });
         menuUserDetails.links.push({ label: this.benRoleDisplayName + ' Master', path: '/bn/' + this.companyId + '/0/0' });
@@ -323,11 +303,12 @@ export class MenuService {
         break;  // Default: no links available for unknown roles
     }
   }
+
   updateMenuItems(mi: MenuItems[]): void {
     const userString = localStorage.getItem('userRoleSettings');
-    let userRoleSettings = userString ? JSON.parse(userString) : null;
-    let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
-    this.companyId = userRoleSettings.companyId;
+    const userRoleSettings = userString ? JSON.parse(userString) : null;
+    this.companyId = userRoleSettings?.companyId ?? 0;
+
     const filteredMenus =
       this.companyId == 32
         ? mi.filter(
@@ -340,61 +321,49 @@ export class MenuService {
         )
         : mi.filter(
           m =>
-          m.title !="Business Section"
+            m.title !== "Business Section"
         );
 
-    let newMenu = filteredMenus;
+    const newMenu = filteredMenus;
+    // Emit trimmed base menu immediately
     this.menuItems.next(newMenu);
 
-    let items = this.modifyMenuItemsBasedOnPermissions(newMenu);
-    this.menuItems.next(items);
+    // compute permission-based additions asynchronously; final menu will be emitted from modifier
+    this.modifyMenuItemsBasedOnPermissions(newMenu).catch(err => {
+      console.error('Error computing permission-based menu', err);
+    });
   }
 
   resetMenu(): void {
-    let items = [
+    const items: MenuItems[] = [
       {
         title: 'User Configuration',
         links: [
-          //{label:'Application User Master', path:'/companyusermaster'},
-          //{label:'Edit Administrator Details', path:'/editadmin'}
         ]
       },
       {
         title: 'User Details',
         links: [
-          //{label:'Project Officer Master', path:'/user/'},
-          //{label:'District Coordinator Master', path:'/user/'},
-          //{label:'Block Coordinator Master', path:'/user/'},
-          //{label:'SoochnaPreneur Master', path:'/user/'},
-          //{label:'Beneficiary Master', path:'/bn/'},
         ]
       },
       {
         title: 'Company Details',
         links: [
-          //{label:'Edit Company Details', path: '/editcompany'},
-          //{label:'Project Master', path: '/project' }
         ]
       },
       {
         title: 'Report Section',
         links: [
-          //{ label: 'All Project Report', path: '/projectreport' },
-          //{ label: 'All Beneficiaries Report', path: '/benReport' },
-          //{ label: 'SP Wise Beneficiaries Report', path: '/spwisereport' }
         ]
       },
       {
         title: 'Service Section',
         links: [
-          //{ label: 'View All Services', path: '/services' }
         ]
       },
       {
         title: 'Payment Section',
         links: [
-          //{ label: 'Process Payment', path: '/processpayment' }, 
-          //{ label: 'Payment Report', path: '/paymentreport' }
         ]
       },
       {

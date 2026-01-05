@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { MenuService, MenuItems } from 'src/app/services/menu.service';
 
 @Component({
@@ -7,11 +8,13 @@ import { MenuService, MenuItems } from 'src/app/services/menu.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   menuItems: MenuItems[] = [];
   companyId!: number;
   roleId!: number;
   activeSection: number | null = null;
+
+  private menuSub?: Subscription;
 
   constructor(
     private router: Router,
@@ -31,17 +34,16 @@ export class SidebarComponent implements OnInit {
       this.companyId = userRoleSettings.companyId;
     }
 
-    // Load menu once from the service (snapshot / computed)
-    if (typeof this.menuService.updateMenuItems === 'function') {
-      // prefer computed menu that applies permissions
-      // pass the static base if your service exposes it, otherwise getMenuItems()
-      // Example: this.menuItems = this.menuService.updateMenuItems(MenuService.DEFAULT_MENU);
-      this.menuItems = this.menuService.getMenuItems();
-    } else if (typeof this.menuService.getMenuItems === 'function') {
-      this.menuItems = this.menuService.getMenuItems();
-    }
+    // Subscribe to the service observable so the sidebar gets the initial value
+    // and any subsequent menu updates automatically.
+    this.menuSub = this.menuService.menuItems$.subscribe(items => {
+      this.menuItems = items;
+      this.cdr.markForCheck();
+    });
+  }
 
-    this.cdr.markForCheck();
+  ngOnDestroy(): void {
+    this.menuSub?.unsubscribe();
   }
 
   viewCompany(companyId: number, roleId: number): void {

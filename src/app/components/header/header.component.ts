@@ -40,7 +40,10 @@ export class HeaderComponent implements OnInit {
     else this.displayProfile='none';
   }
   logout() {
+
     this.authService.logOut();
+    // clear all local storage on logout
+    localStorage.clear();
     this.router.navigate(['login']);
   }
   resetPassword(){
