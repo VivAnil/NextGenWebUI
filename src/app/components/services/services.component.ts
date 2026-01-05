@@ -75,7 +75,8 @@ export class ServicesComponent implements OnInit {
       noDataContent: "No Data found",
       pageIndex: 1,
       //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
-      pageButtonCount: 15,
+      pageButtonCount: 100,
+      pageSize: 100,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
       pageNextText: "&#8594;",
@@ -121,6 +122,7 @@ export class ServicesComponent implements OnInit {
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
+      pageSize: 100,
       //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
       pageButtonCount: 15,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
@@ -242,9 +244,9 @@ export class ServicesComponent implements OnInit {
           this.resetServiceForm();
           try {
             // Reload data from controller (uses servicePillarApi.getData())
-            $('#MappedGrid1').jsGrid('loadData');
+            $('#MappedGrid').jsGrid('loadData');
           } catch (err) {
-            console.error('Failed to refresh MappedGrid1', err);
+            console.error('Failed to refresh Services data', err);
           }
         },
         error: err => {
@@ -270,7 +272,7 @@ export class ServicesComponent implements OnInit {
             // Reload data from controller (uses servicePillarApi.getData())
             $('#MappedGrid2').jsGrid('loadData');
           } catch (err) {
-            console.error('Failed to refresh MappedGrid2', err);
+            console.error('Failed to refresh Service Pillars data', err);
           }
         },
         error: err => {
