@@ -320,14 +320,16 @@
 
                                         </td>
                                         <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
+                                            <input type="text" id="" class="input-box-3 width100 "  [(ngModel)]="service.serviceName"
+       name="serviceName"/>
                                         </td>
                                         <td>
                                             Service Pillar <span>*</span>
 
                                         </td>
                                         <td>
-                                            <select class="select-box-3 padding8 width100" id="serPillarDropdown" (change)="onSelectionChange($event)">
+                                            <select class="select-box-3 padding8 width100" id="serPillarDropdown" (change)="onSelectionChange($event)" [(ngModel)]="service.servicePillarId"
+        name="servicePillar">
                                                 <option *ngFor="let item of serPillarData" [value]="item.id">
                                                   {{ item.name }}
                                                 </option>
@@ -341,7 +343,8 @@
 
                                         </td>
                                         <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
+                                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="service.serviceRate"
+       name="serviceRate"/>
                                         </td>
 
                                         <td>
@@ -349,7 +352,8 @@
 
                                         </td>
                                         <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
+                                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="service.serviceWorth"
+       name="serviceWorth"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -359,7 +363,7 @@
                                         </td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox">
+                                                <input type="checkbox" [(ngModel)]="service.status" name="status">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -369,7 +373,7 @@
                                         </td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox">
+                                                <input type="checkbox" [(ngModel)]="service.singleTimeAvailability"  name="multiple">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -382,7 +386,7 @@
                                         </td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox">
+                                                <input type="checkbox" [(ngModel)]="service.spOnly"   name="onlySp">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -391,7 +395,7 @@
                                         </td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox" id="chk_advance">
+                                                <input type="checkbox" id="chk_advance" [(ngModel)]="service.advanceFields" name="Advance">
                                                 <span class="slider round"></span>
                                             </label>
 
@@ -422,7 +426,7 @@
 
                                     <tr>
                                         <td colspan="4" class="text-align-center back-white" align="center">
-                                            <input type="button" value="Save" class="btn-blck1" />
+                                            <input type="button" value="Save" class="btn-blck1"  (click)="saveService()" />
                                         </td>
 
                                     </tr>
@@ -462,14 +466,14 @@
 
                                         </td>
                                         <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
+                                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="servicePillar.Name" name="pillarName"/>
                                         </td>
                                         <td>
                                             Description
 
                                         </td>
                                         <td>
-                                            <input type="text" id="" class="input-box-3 width100 " />
+                                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="servicePillar.Description"name="pillarDesc"/>
                                         </td>
                                     </tr>
 
@@ -480,7 +484,7 @@
                                         </td>
                                         <td>
                                             <label class="switch">
-                                                <input type="checkbox">
+                                                <input type="checkbox" [(ngModel)]="servicePillar.Status" name="pillarStatus">
                                                 <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -491,7 +495,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="4" class="text-align-center back-white" align="center">
-                                            <input type="button" value="Save" class="btn-blck1" />
+                                            <input type="button" value="Save" class="btn-blck1" (click)="saveServicePillar()"/>
                                         </td>
 
                                     </tr>

@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   baseAuthApiUrl: "https://motherappauthservice.azurewebsites.net/authenticate",
-  baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service/Get",
-  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get",  
+  baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service",
+  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar",  
   baseRoleMasterApiUrl: "https://motherappserviceapi.azurewebsites.net/api/RoleMaster/Get",
   companyDashboardApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard',
   benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',

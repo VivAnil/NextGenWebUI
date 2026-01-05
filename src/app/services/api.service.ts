@@ -24,7 +24,7 @@ export class ApiService {
   private userDetails: userDetails[] = [];
 
   getData(): Observable<Service[]> {
-    return this.http.get<Service[]>(this.baseUrl).pipe(
+    return this.http.get<Service[]>(this.baseUrl +"/Get").pipe(
       catchError((error) => {
         console.error('API call failed:', error);
         // Return hardcoded fallback data
@@ -35,7 +35,7 @@ export class ApiService {
   }
 
   getSerPillarData(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseSPurl).pipe(
+    return this.http.get<any[]>(this.baseSPurl+"/Get").pipe(
       catchError((error) => {
         console.error('API call failed:', error);
         // Return hardcoded fallback data
@@ -126,6 +126,9 @@ export class ApiService {
     );
   }
 
+  saveService(data: any): Observable<any> {
+    return this.http.post<any>(this.baseUrl, data);
+  }
   
   saveBeneficiary(data: any): Observable<any> {
     const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary';

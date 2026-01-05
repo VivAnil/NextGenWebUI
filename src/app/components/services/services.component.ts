@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { Service } from '../../models/service.model';
 import { ApiServicepillar } from 'src/app/services/api.servicepillar';
+import { ServicePillar } from '../../models/servicePillar.model';
+
 declare var $: any; // Import jQuery
 @Component({
   selector: 'app-services',
@@ -23,6 +26,26 @@ export class ServicesComponent implements OnInit {
   allowNewServicePillar: boolean = false;
   serPillarData: any[] = [];
   selectedOption: any; // Holds the selected value
+  servicePillar: ServicePillar =
+    {
+      Description: '',
+      Id: 0,
+      Name: '',
+      Status: true
+    };
+  service: Service = {
+    id: 0,
+    serviceName: '',
+    servicePillarId: 0,
+    servicePillarName: '',
+    //Name: string,
+    serviceRate: 0,
+    serviceWorth: 0,
+    status: false,
+    singleTimeAvailability: false,
+    spOnly: false,
+    advanceFields: false,
+  };
 
   constructor(private serviceApi: ApiService, private servicePillarApi: ApiServicepillar) {
 
@@ -129,88 +152,6 @@ export class ServicesComponent implements OnInit {
     });
   }
 
-  getDummyData() {
-    return [
-      {
-        "type": "Digital Service",
-        "name": "PAN Card",
-        "rate": "50",
-        "value": "100",
-        "status": "Enable",
-        "time": "Single",
-        "throughSP": "Enabled"
-      },
-      {
-        "type": "Digital Service",
-        "name": "Aadhar Card Card",
-        "rate": "70",
-        "value": "200",
-        "status": "Enable",
-        "time": "Multiple",
-        "throughSP": "Enabled"
-      },
-      {
-        "type": "Financial Service",
-        "name": "Bank Loan",
-        "rate": "100",
-        "value": "300",
-        "status": "Enable",
-        "time": "Single",
-        "throughSP": "Disabled"
-      },
-      {
-        "type": "Financial Service",
-        "name": "Cash Withdrawl",
-        "rate": "20",
-        "value": "50",
-        "status": "Enable",
-        "time": "Multiple",
-        "throughSP": "Disabled"
-      },
-      {
-        "type": "Government Compliances",
-        "name": "Ration Card",
-        "rate": "70",
-        "value": "150",
-        "status": "Enable",
-        "time": "Single",
-        "throughSP": "Enabled"
-      },
-      {
-        "type": "Government Compliances",
-        "name": "Pension",
-        "rate": "250",
-        "value": "600",
-        "status": "Enable",
-        "time": "Single",
-        "throughSP": "Enabled"
-      }
-    ];
-  }
-  getDummyData2() {
-    return [
-      {
-        "type": "Digital Service",
-        "desc": "Digital Service",
-        "status": "Enable"
-    },
-    {
-        "type": "Financial Service",
-        "desc": "Financial Service",
-        "status": "Enable"
-    },
-    {
-        "type": "Govt Compliances",
-        "desc": "Govt Compliances",
-        "status": "Enable"
-    },
-    {
-        "type": "Facilitation Linkages",
-        "desc": "Facilitation Linkages",
-        "status": "Enable"
-    }
-    ];
-  }
   toggleTab(){
     if(this.displayTab=='none') 
       {
@@ -289,10 +230,85 @@ export class ServicesComponent implements OnInit {
 
   }
 
+  saveService() {
+    if (!this.service.serviceName.trim()) {
+      alert('Service Name is required');
+      return;
+    }
+    this.serviceApi.saveService(this.service)
+      .subscribe({
+        next: () => {
+          alert('Service Pillar saved successfully');
+          this.resetServiceForm();
+          try {
+            // Reload data from controller (uses servicePillarApi.getData())
+            $('#MappedGrid1').jsGrid('loadData');
+          } catch (err) {
+            console.error('Failed to refresh MappedGrid1', err);
+          }
+        },
+        error: err => {
+          console.error(err);
+          alert('Error while saving');
+        }
+      });
+
+  }
+  saveServicePillar() {
+
+    if (!this.servicePillar.Name.trim()) {
+      alert('Service Pillar Name is required');
+      return;
+    }
+
+    this.servicePillarApi.saveServicePillarData(this.servicePillar)
+      .subscribe({
+        next: () => {
+          alert('Service Pillar saved successfully');
+          this.resetForm();
+          try {
+            // Reload data from controller (uses servicePillarApi.getData())
+            $('#MappedGrid2').jsGrid('loadData');
+          } catch (err) {
+            console.error('Failed to refresh MappedGrid2', err);
+          }
+        },
+        error: err => {
+          console.error(err);
+          alert('Error while saving');
+        }
+      });
+  }
+  resetServiceForm() {
+
+    this.service = {
+      id: 0,
+      serviceName: '',
+      servicePillarId: 0,
+      servicePillarName: '',
+      //Name: string,
+      serviceRate: 0,
+      serviceWorth: 0,
+      status: false,
+      singleTimeAvailability: false,
+      spOnly: false,
+      advanceFields: false,
+    }
+  }
+  resetForm() {
+    this.servicePillar = {
+      Id: 0,
+      Name: '',
+      Description: '',
+      Status: true
+    };
+  }
+
   private loadSPData(): void {
     this.serviceApi.getSerPillarData().subscribe(
       (data) => {
         this.serPillarData = data;
+        console.log('Dropdown data loaded:', this.serPillarData);
       },
       (error) => {
         console.error('Error loading dropdown data:', error);

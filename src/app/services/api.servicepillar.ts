@@ -14,7 +14,7 @@ export class ApiServicepillar {
   constructor(private http: HttpClient) { }
 
   getData(): Observable<ServicePillar[]> {
-    return this.http.get<ServicePillar[]>(this.baseUrl).pipe(
+    return this.http.get<ServicePillar[]>(this.baseUrl +"/Get").pipe(
       catchError((error) => {
         console.error('API call failed:', error);
         // Return hardcoded fallback data
@@ -23,6 +23,11 @@ export class ApiServicepillar {
       })
     );
   }
+
+  saveServicePillarData(servicePillar: ServicePillar): Observable<any> {
+    return this.http.post<any>(this.baseUrl, servicePillar);
+  }
+
   private getFallbackData(): any[] {
     return [
       {

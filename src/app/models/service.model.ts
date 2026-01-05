@@ -9,7 +9,7 @@ export interface Service{
     status: boolean,
     singleTimeAvailability: boolean,
     spOnly: boolean,
-    advanceFields: string,
+    advanceFields: boolean,
     // ServicePillar: string
 }
 
