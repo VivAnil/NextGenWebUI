@@ -281,7 +281,7 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           id: item.id,
           rweName: item.firstName+' '+item.lastName
         }));
-
+        this.filterRwes();
         this.filteredData = [...this.data]; // Clone the full data initially
         // // Dynamically set columns based on API keys
         if (this.data.length > 0) {
