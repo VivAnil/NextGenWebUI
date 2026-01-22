@@ -1,4 +1,11 @@
 <div class="container-fluid">
+  <div class="dashboard-loader" *ngIf="isLoading">
+    <div class="loader-box">
+      <div class="spinner-border text-primary" role="status"></div>
+      <div class="mt-2 font-weight-bold">Loading Dashboard Data...</div>
+    </div>
+  </div>
+
   <div class="row display-flex">
 
     <div class="col-md-12" style="height:100%;">

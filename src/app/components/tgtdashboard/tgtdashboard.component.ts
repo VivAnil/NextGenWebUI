@@ -4,13 +4,15 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
 import { ApiService } from '../../services/api.service';
 import { filter } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: 'app-tgtdashboard',
   templateUrl: './tgtdashboard.component.html',
   styleUrls: ['./tgtdashboard.component.css']
 })
 export class TgtdashboardComponent implements OnInit {
-
+  isLoading: boolean = false; 
   states: any;
   districts: any;
   villages: any;
@@ -38,55 +40,46 @@ export class TgtdashboardComponent implements OnInit {
     private menuService: MenuService) { }
 
   ngOnInit(): void {
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    // this.router.onSameUrlNavigation = 'reload';
 
-    // this.runDashboardLogic();
-
-    // // ✅ Run again every time this route is navigated to
-    // this.router.events
-    //   .pipe(filter(event => event instanceof NavigationEnd))
-    //   .subscribe(() => {
-    //     if (this.router.url.includes('/tgtdashboard')) {
-    //       this.runDashboardLogic();
-    //     }
-    //   });
-    // this.updatePath();
-    // this.apiService.fetchTGTDashBoardFilters().subscribe(
-    //   (data) => {
-    //     this.allData = data;
-
-    //     this.states = ResetStates(data);  
-
-    //     this.districts = ResetDistricts(data);
-
-    //     this.blocks = ResetBlocks(data);  
-
-    //     this.villages = ResetVillages(data);
-
-    //     this.rweNames = ResetRWEs(data);
-
-    //   }
-    // );
   }
   ngAfterViewInit(): void {
-    // ✅ Wait until DOM and child views are fully rendered
+    // Wait until DOM and child views are fully rendered
     setTimeout(() => {
       this.runDashboardLogic();
     });
   }
   private runDashboardLogic() {
     this.updatePath();
-
-    this.apiService.fetchTGTDashBoardFilters().subscribe((data) => {
-      this.allData = data;
-      this.states = ResetStates(data);
-      this.districts = ResetDistricts(data);
-      this.blocks = ResetBlocks(data);
-      this.villages = ResetVillages(data);
-      this.rweNames = ResetRWEs(data);
-      this.lbcNames = ResetLBCs(data);
+    this.isLoading = true;
+    this.apiService.fetchTGTDashBoardFilters()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false; // ✅ STOP LOADER (success or error)
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          this.allData = data;
+          this.states = ResetStates(data);
+          this.districts = ResetDistricts(data);
+          this.blocks = ResetBlocks(data);
+          this.villages = ResetVillages(data);
+          this.rweNames = ResetRWEs(data);
+          this.lbcNames = ResetLBCs(data);
+      },
+      error: (err) => {
+        console.error('Dashboard filter load failed', err);
+      }
     });
+    // this.apiService.fetchTGTDashBoardFilters().subscribe((data) => {
+    //   this.allData = data;
+    //   this.states = ResetStates(data);
+    //   this.districts = ResetDistricts(data);
+    //   this.blocks = ResetBlocks(data);
+    //   this.villages = ResetVillages(data);
+    //   this.rweNames = ResetRWEs(data);
+    //   this.lbcNames = ResetLBCs(data);
+    // });
   }
 
   fetchRweSummary(): any {

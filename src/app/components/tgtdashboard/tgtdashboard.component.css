@@ -1973,7 +1973,7 @@ mark {
     display: inline-block;
     position: relative;
     margin-left: 0.2564102564102564% !important;
-    *margin-left: 0.25109110747408616% !important;
+    margin-left: 0.25109110747408616% !important;
     float: left;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -2340,3 +2340,23 @@ dropdown:after, .active .admin__action-dropdown:after {
     border-color: green;
   }
 
+    .dashboard-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+    .loader-box {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
