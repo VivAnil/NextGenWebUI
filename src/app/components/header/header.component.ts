@@ -20,13 +20,15 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-    let userString = localStorage.getItem('userRoleSettings');
-    let userRoleSettings = userString ? JSON.parse(userString) : null;
-    this.roleId = userRoleSettings.companyRoleId;
-    this.companyId=userRoleSettings.companyId;
-    this.userName = userRoleSettings.username;
+      let userString = localStorage.getItem('userRoleSettings');
+      let userRoleSettings = userString ? JSON.parse(userString) : null;
+      if (userRoleSettings != undefined && userRoleSettings != null) {
+        this.roleId = userRoleSettings.companyRoleId;
+        this.companyId = userRoleSettings.companyId;
+        this.userName = userRoleSettings.username;
 
-     console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
+        console.log('roleid ' + this.roleId + ' companyId = ' + this.companyId);
+      }
     });
     const logo = localStorage.getItem("companyLogo");
     if (logo) {
