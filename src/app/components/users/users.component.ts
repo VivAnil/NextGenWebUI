@@ -59,15 +59,15 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   showColumnModal = false; // Modal visibility control
   filteredCols: string[] = ["srNo", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat"
   ];
   filteredLbcCols: string[] = ["srNo", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat"
   ];
   filteredRweCols: string[] = ["srNo", "dob", "profilePicture", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat"
   ];
   sexOptions: { id: number; name: string }[] = [];
   formData = {

@@ -86,7 +86,7 @@ export class BeneficiaryComponent implements OnInit {
   projId!: number ;
   filteredCols: string[] = ["profilePicture", "dob", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat", "caste", "accountName"
   ];
   benForm!: FormGroup;
   sexOptions: { id: number; name: string }[] = [];
