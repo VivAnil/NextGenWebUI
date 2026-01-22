@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   error: string ="none";
   roleId: number | null = null;
+  isLoading: boolean = false;
   constructor(
     private fb: FormBuilder, 
     private authService: AuthService, 
@@ -41,11 +42,22 @@ export class LoginComponent implements OnInit {
 
 
   onLogin() {
+
+    if (!this.loginForm.valid) {
+      this.loginForm.reset();
+      this.error = "block";
+      ValidateForm.validateForm(this.loginForm);
+      return;
+    }
+    this.isLoading = true;
+    this.error = "none";
+    localStorage.clear();
     if (this.loginForm.valid) {
-      localStorage.clear();
-      // this.authService.login(this.loginForm.value).subscribe(isAuthenticated => {
+
+
       this.authService.authenticate(this.loginForm.value).subscribe({
         next: (roleDefn) => {
+          this.isLoading = false;
           this.roleId = roleDefn.systemRoleId;
           // Store logo in localStorage (safe because it's just base64 string)
           sessionStorage.setItem('reloaded', 'false');
@@ -72,6 +84,7 @@ export class LoginComponent implements OnInit {
 
         },
         error: () => {
+          this.isLoading = false;
           this.loginForm.reset();
           this.error = "block";
           ValidateForm.validateForm(this.loginForm);
