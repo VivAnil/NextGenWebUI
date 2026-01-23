@@ -29,7 +29,11 @@ export class BeneficiaryComponent implements OnInit {
   rweBusinessSubCatType: RweBusinessSubCatType[] | undefined;
   rweServiceOrProduct: RweBusinessProduct[] | undefined;
   selectedRwe: any = "";
-  selectedRWEBusinessType: any ="";
+
+  selectedBusinessId: number | '' = '';
+  isAddingNewBusiness: boolean = false;
+  newBusinessName: string = '';
+  selectedRWEBusinessType: any = "";
   selectedRWEBusinessSubCatType: any ="";
   selectedRWEServiceOrProduct: any ="";
   selectedStartMonth: number = 0;
@@ -279,7 +283,7 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
         }));
         this.rwes = this.data.map((item: any) => ({
           id: item.id,
-          rweName: item.firstName+' '+item.lastName
+          rweName: item.firstName + ' ' + item.lastName
         }));
         this.filterRwes();
         this.filteredData = [...this.data]; // Clone the full data initially
@@ -713,9 +717,11 @@ onServiceProductNameChange(event: any): void {
   }
 
   onSaveRweBusiness() {
-    const rweBusiness: RweBusiness = {
-      id:0,
+    const rweBusiness: any = {
+      id: (this.isAddingNewBusiness ? 0 : (Number(this.selectedBusinessId) || 0)),
       rweId: this.selectedRwe,
+
+      businessName: this.isAddingNewBusiness ? (this.newBusinessName || '').trim() : undefined,
       businessTypeId: this.selectedRWEBusinessType,
       businessSubCatTypeId: this.selectedRWEBusinessSubCatType,
       serviceOrProductId: this.selectedRWEServiceOrProduct,
@@ -731,7 +737,18 @@ onServiceProductNameChange(event: any): void {
     };
     this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
       next: () => {
-        this.rweBusinesses.push(rweBusiness);
+        if (this.isAddingNewBusiness) {
+          // add to dropdown immediately (server may return real id in API; adjust if your API returns it)
+          rweBusiness.businessName = (this.newBusinessName || '').trim();
+          this.rweBusinesses.unshift(rweBusiness);
+          this.selectedBusinessId = rweBusiness.id;
+          this.isAddingNewBusiness = false;
+          this.newBusinessName = '';
+        } else {
+          // update existing item in dropdown
+          const idx = this.rweBusinesses.findIndex((x: any) => x.id == rweBusiness.id);
+          if (idx >= 0) this.rweBusinesses[idx] = { ...this.rweBusinesses[idx], ...rweBusiness };
+        }
         this.hideSaveRWE = !this.hideSaveRWE;
         alert('RWE Business saved successfully!');
       },
@@ -880,6 +897,87 @@ selectCaste(event: Event): void {
   ];
 
   // Call this whenever any filter changes
+
+  // ✅ Called when RWE dropdown changes (loads businesses for selected RWE)
+  onRweChange(): void {
+    if (!this.selectedRwe || this.selectedRwe === '') {
+      this.rweBusinesses = [];
+      this.selectedBusinessId = '';
+      this.isAddingNewBusiness = false;
+      this.newBusinessName = '';
+      return;
+    }
+    // load businesses and reset business selection
+    this.selectedBusinessId = '';
+    this.isAddingNewBusiness = false;
+    this.newBusinessName = '';
+    this.clearRweBusinessFormFields();
+    this.loadRweBusinesses();
+  }
+
+
+  onBusinessChange(): void {
+
+    console.log("selectedBusinessId:", this.selectedBusinessId);
+
+    if (this.selectedBusinessId === -1) {
+      this.isAddingNewBusiness = true;
+      this.newBusinessName = '';
+      this.clearRweBusinessFormFields();
+      return;
+    }
+
+    this.isAddingNewBusiness = false;
+
+    const selected = this.rweBusinesses?.find((b: any) => b.id == this.selectedBusinessId);
+
+    console.log("selected business object:", selected);
+
+    if (!selected) {
+      this.clearRweBusinessFormFields();
+      return;
+    }
+
+    // ✅ Assign EXACTLY same data types as your ngModel expects
+    this.selectedRWEBusinessType = selected.businessTypeId ?? '';
+    this.selectedRWEBusinessSubCatType = selected.businessSubCatTypeId ?? '';
+    this.selectedRWEServiceOrProduct = selected.serviceOrProductId ?? '';
+
+    this.selectedInventory = selected.inventory ?? 0;
+    this.selectedInventoryUnit = selected.inventoryUnit ?? '';
+
+    this.selectedStartMonth = selected.startMonth ?? 0;
+    this.selectedStartYear = selected.startYear ?? 0;
+
+    this.totalInvestment = selected.totalInvestment ?? 0;
+    this.selfInvestment = selected.selfInvestment ?? 0;
+    this.projectLoan = selected.projectLoan ?? 0;
+    this.bankLoan = selected.bankLoan ?? 0;
+    this.collectiveLoan = selected.collectiveLoan ?? 0;
+
+    // IMPORTANT: comment this for now, it probably resets values
+    // this.displayRweBusinessData();
+  }
+
+
+  private clearRweBusinessFormFields(): void {
+    this.selectedRWEBusinessType = '';
+    this.selectedRWEBusinessSubCatType = '';
+    this.selectedRWEServiceOrProduct = '';
+
+    this.selectedInventory = 0;
+    this.selectedInventoryUnit = '';
+
+    this.selectedStartMonth = 0;
+    this.selectedStartYear = 0;
+
+    this.totalInvestment = 0;
+    this.selfInvestment = 0;
+    this.projectLoan = 0;
+    this.bankLoan = 0;
+    this.collectiveLoan = 0;
+  }
+
   onFilterChange(field: string, event: any): void {
     const value = event.target.value;
     const numberFields = ['selectedRwe', 'selectedRWEBusinessType', 'selectedRWEBusinessSubCatType', 'selectedRWEServiceOrProduct'];
@@ -888,7 +986,9 @@ selectCaste(event: Event): void {
 
     // If RWE changes, reload businesses first
     if (field === 'selectedRwe') {
-      this.loadRweBusinesses();
+      this.onRweChange();
+    } else if (field === 'selectedBusinessId') {
+      this.onBusinessChange();
     } else {
       this.displayRweBusinessData();
     }
@@ -899,7 +999,10 @@ selectCaste(event: Event): void {
     console.log(this.selectedRwe);
     this.rweBusinessService.getAllBusinessesForRwe(this.selectedRwe).subscribe({
       next: (data) => {
-        this.rweBusinesses = data;
+        this.rweBusinesses = (data || []).map((b: any) => ({
+          ...b,
+          businessName: b.businessName || ('Business #' + b.id)
+        }));
         this.displayRweBusinessData();
       },
       error: (err) => {

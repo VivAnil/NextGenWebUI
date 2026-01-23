@@ -94,4 +94,5 @@ export interface RweBusiness {
   projectLoan: number | null;
   bankLoan: number | null;
   collectiveLoan: number | null;
+  businessName: string;
 }

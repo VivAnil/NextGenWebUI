@@ -6,19 +6,20 @@
     <div class="float-right">
       <div class="float-left" style="margin-top: 4px;">
         <button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none"
-                (click)="exportToExcel()">
+          (click)="exportToExcel()">
           <i class="fa fa-file-excel-o file-icon" style="font-size: 30px;" aria-hidden="true"></i>
         </button>
 
       </div>
       <div class="display-inline">
-      
-        <button type="button" id="btn_openModal" class="btn-orange" data-bs-toggle="modal" data-bs-target="#addBen" (click)="loadModal('addBen')">
+
+        <button type="button" id="btn_openModal" class="btn-orange" data-bs-toggle="modal" data-bs-target="#addBen"
+          (click)="loadModal('addBen')">
           Add New
           RWE
-          </button> <button type="button" id="btn_openModalBusiness" class="btn-orange" data-bs-toggle="modal"
-            data-bs-target="#addBusiness" (click)="loadModal('addBusiness')">
-            Add Business
+        </button> <button type="button" id="btn_openModalBusiness" class="btn-orange" data-bs-toggle="modal"
+          data-bs-target="#addBusiness" (click)="loadModal('addBusiness')">
+          Add Business
         </button>
       </div>
 
@@ -32,22 +33,19 @@
       <div>
         <div class="position-relative padding-10-0">
           <div class="col-md-6 padding-zero float-left">
-           <input
-            type="text" #q
-            class="input-box-3 width90 padding-10"
-            placeholder="Type to search"
-            pInputText
-            (input)="onGlobalFilter(q.value)" />
- 
+            <input type="text" #q class="input-box-3 width90 padding-10" placeholder="Type to search" pInputText
+              (input)="onGlobalFilter(q.value)" />
 
-            
+
+
           </div>
           <div class="col-md-6 padding-zero text-align-right font-size1-1em float-left">
             <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
               <i class="fa fa-filter awe-filter"></i>Filters <i class="fa fa-caret-down rotate arrow awe-arrow"></i>
             </div>
             <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left">
-              <i class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i class="fa fa-caret-down rotate arrow awe-arrow"></i>
+              <i class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i
+                class="fa fa-caret-down rotate arrow awe-arrow"></i>
             </div>
             <div (click)="openColumn()" class="col-md-4 filter float-left {{activeColumn}}">
               <i class="fa fa-gear awe-filter margin-right-10px"></i><span id="col-span-box">Columns</span>
@@ -56,8 +54,7 @@
           </div>
           <div class="clear-both"></div>
 
-          <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}"
-               class="width100 filter-tab-box">
+          <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}" class="width100 filter-tab-box">
             <div id="assigned_tab_filter">
               <div class="row">
                 <ng-container *ngFor="let col of cols; let i = index">
@@ -65,9 +62,8 @@
                     <div>
                       <div class="label-text">{{ col.header }}</div>
                       <div>
-                        <input type="text" [(ngModel)]="filters[col.field]"
-                               class="input-box-3 width100"
-                               placeholder="Search {{ col.header }}" />
+                        <input type="text" [(ngModel)]="filters[col.field]" class="input-box-3 width100"
+                          placeholder="Search {{ col.header }}" />
                       </div>
                     </div>
                   </div>
@@ -107,8 +103,7 @@
               </div>
               <label id="lbl_filtercolumnscount1">5 out of 13</label>
               <div class="float-right">
-                <a href="#" class="col-reset-btn"
-                   id="lnk_resetcolumnfilter1">Reset</a>
+                <a href="#" class="col-reset-btn" id="lnk_resetcolumnfilter1">Reset</a>
               </div>
 
             </div>
@@ -120,11 +115,11 @@
                     <div *ngIf="col.showInGrid">
                       <div class="col-sm-4 float-left text-overflow-ellipsis padding8">
 
-                        <p-checkbox class="cursor-pointer" [(ngModel)]="col.visible"
-                                    [binary]="true" (onChange)="columnVisibilityChange()"></p-checkbox>
+                        <p-checkbox class="cursor-pointer" [(ngModel)]="col.visible" [binary]="true"
+                          (onChange)="columnVisibilityChange()"></p-checkbox>
                         <label class="ml-2" style="padding-left: 10px;">
                           {{
- col.header
+                          col.header
                           }}
                         </label>
                       </div>
@@ -159,14 +154,11 @@
               </div>
             </div> -->
 
-            <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content"
-                 style="margin-top: 10px;">
-              <ul role="tablist"
-                  class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+            <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content" style="margin-top: 10px;">
+              <ul role="tablist" class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
                 <li role="tab" tabindex="0"
-                    class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
-                    aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
-                    aria-expanded="true">
+                  class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
+                  aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true" aria-expanded="true">
                   <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
                     All
                     {{pageHead}}
@@ -174,19 +166,17 @@
                 </li>
               </ul>
               <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
-                   class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true"
-                   style="display:inline-block;">
+                class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true"
+                style="display:inline-block;">
                 <div id="MappedGrid"></div>
                 <div class="datatable-container">
 
-                  <p-table #dt [value]="filteredData" [paginator]="true" [rows]="20"
-                           [responsiveLayout]="'scroll'" [globalFilterFields]="globalFilterFields"
-                           [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
+                  <p-table #dt [value]="filteredData" [paginator]="true" [rows]="20" [responsiveLayout]="'scroll'"
+                    [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
                     <ng-template pTemplate="header">
                       <tr>
                         <ng-container *ngFor="let col of cols">
-                          <th *ngIf="col.visible" [style.textAlign]="'center'"
-                              [style.width]="col.width" [pSortableColumn]="col.field">
+                          <th *ngIf="col.visible" [style.textAlign]="'center'" [style.width]="col.width" [pSortableColumn]="col.field">
                             {{ col.header }}
                             <!-- <p-sortIcon [field]="col.field"></p-sortIcon> -->
                           </th>
@@ -199,9 +189,8 @@
                           <td *ngIf="column.visible" [style.textAlign]="'center'">
                             <!-- Render the profile picture if column.field is 'profilePic' -->
                             <ng-container *ngIf="column.field === 'profilePicture'; else textCell">
-                              <img [src]="'data:image/png;base64,' + rowData[column.field]"
-                                   alt=""
-                                   style="width: 50px; height: 50px; border-radius: 50%;" />
+                              <img [src]="'data:image/png;base64,' + rowData[column.field]" alt=""
+                                style="width: 50px; height: 50px; border-radius: 50%;" />
                             </ng-container>
                             <ng-template #textCell>
                               {{ rowData[column.field] }}
@@ -257,7 +246,8 @@
                               First Name <span>*</span>
                             </td>
                             <td>
-                              <div class="input-field" [class.error]="benForm.controls['firstname'].dirty && benForm.hasError('required', 'firstname')">
+                              <div class="input-field"
+                                [class.error]="benForm.controls['firstname'].dirty && benForm.hasError('required', 'firstname')">
                                 <input type="text" formControlName="firstname" class="input-box-3 width100 " placeholder="First Name" />
                               </div>
                               <small *ngIf="benForm.controls['firstname'].dirty 	&& benForm.hasError('required', 'firstname')" class="text-danger">
@@ -293,8 +283,7 @@
 
                             </td>
                             <td>
-                              <input type="date" formControlName="dob" class="input-box-3 width100"
-                                     [max]="maxDate" (change)="calculateAge($event)" />
+                              <input type="date" formControlName="dob" class="input-box-3 width100" [max]="maxDate" (change)="calculateAge($event)" />
                             </td>
                             <td>
                               <span>Age</span>
@@ -308,11 +297,7 @@
                             <td>
                               <div>
                                 <label *ngFor="let sex of sexOptions">
-                                  <input style="margin-left: 5px;"
-                                         type="radio"
-                                         [id]="'sex_' + sex.id"
-                                         formControlName="sexId"
-                                         [value]="sex.id" />
+                                  <input style="margin-left: 5px;" type="radio" [id]="'sex_' + sex.id" formControlName="sexId" [value]="sex.id" />
                                   {{ sex.name }}
                                 </label>
                               </div>
@@ -339,7 +324,8 @@
                               </small>
                               <div *ngIf="benForm.get('mobile')?.invalid && benForm.get('mobile')?.touched">
 
-                                <small *ngIf="benForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid mobile format.</small>
+                                <small *ngIf="benForm.get('mobile')?.errors?.['pattern']" class="text-danger">Invalid
+                                  mobile format.</small>
                               </div>
                             </td>
                             <td>
@@ -351,34 +337,35 @@
                               </div>
                               <div *ngIf="benForm.get('email')?.invalid && benForm.get('email')?.touched">
 
-                                <small *ngIf="benForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+                                <small *ngIf="benForm.get('email')?.errors?.['email']" class="text-danger">Invalid email
+                                  format.</small>
                               </div>
                             </td>
                           </tr>
-<tr>
-                                    <td>
-                                        Economic Status
+                          <tr>
+                            <td>
+                              Economic Status
 
-                                    </td>
-                                    <td>
-                                        <select class="select-box-3 width100" (change)="selectEconomicStatus($event)">
-											<option selected>-Select Economic Status-</option>
-                                             <option *ngFor="let option of economicStatusData" [id]="option.id" [value]="option.id">
-                                    {{ option.name }}
-                                  </option>
-                                            
-                                        </select>
-                                    </td>
-									<td>Caste </td>
-                                    <td>
-                                        <select class="select-box-3 width100" (change)="selectCaste($event)">
-											<option selected>-Select Caste-</option>
-                      <option *ngFor="let option of casteData" [id]="option.id" [value]="option.name" >
-                                    {{ option.name }}
-                                  </option>
-                                        </select>
-                                    </td>
-							</tr>
+                            </td>
+                            <td>
+                              <select class="select-box-3 width100" (change)="selectEconomicStatus($event)">
+                                <option selected>-Select Economic Status-</option>
+                                <option *ngFor="let option of economicStatusData" [id]="option.id" [value]="option.id">
+                                  {{ option.name }}
+                                </option>
+                            
+                              </select>
+                            </td>
+                            <td>Caste </td>
+                            <td>
+                              <select class="select-box-3 width100" (change)="selectCaste($event)">
+                                <option selected>-Select Caste-</option>
+                                <option *ngFor="let option of casteData" [id]="option.id" [value]="option.name">
+                                  {{ option.name }}
+                                </option>
+                                </select>
+                                </td>
+                                </tr>
                           <tr>
                             <td class="section-heading" colspan="4">PROJECT AND ADDRESS DETAILS</td>
                           </tr>
@@ -404,7 +391,8 @@
                                   {{ sp.soochnapreneur }}
                                 </option>
                               </select>
-                              <small *ngIf="benForm.controls['soochnapreurId'].dirty && benForm.hasError('required', 'soochnapreurId')" class="text-danger">
+                              <small *ngIf="benForm.controls['soochnapreurId'].dirty && benForm.hasError('required', 'soochnapreurId')"
+                                class="text-danger">
                                 Soochnapreur is required
                               </small>
                             </td>
@@ -453,13 +441,13 @@
                               Address *
 
                             </td>
-                            <td >
+                            <td>
                               <div class="input-field">
                                 <input type="text" formControlName="address" class="input-box-3 width100 " />
                               </div>
 
                             </td>
-<td>
+                            <td>
                               Gram Panchayat *
 
                             </td>
@@ -497,7 +485,9 @@
                             </td>
                           </tr>
                           <tr (click)="showAllSchemes()">
-                            <td colspan="4" align="right"><div class="btn-blck1 text-align-center" id="btn-scheme">+ Add Government Scheme</div></td>
+                            <td colspan="4" align="right">
+                              <div class="btn-blck1 text-align-center" id="btn-scheme">+ Add Government Scheme</div>
+                            </td>
                           </tr>
                           <tr class="display-none tr-scheme">
                             <td>
@@ -512,7 +502,7 @@
                               Total Grant/Loan Amount
                             </td>
                             <td>
-                              <input type="text" formControlName="grantAmount"  class="input-box-3 width100 " />
+                              <input type="text" formControlName="grantAmount" class="input-box-3 width100 " />
                             </td>
                           </tr>
                           <tr class="display-none tr-scheme">
@@ -521,16 +511,16 @@
 
                             </td>
                             <td>
-                                <input type="date" formControlName="schemeStartDate" class="input-box-3 width100"
-                                     [max]="maxDate"  />
+                              <input type="date" formControlName="schemeStartDate" class="input-box-3 width100"
+                                [max]="maxDate" />
                             </td>
 
 
                             <td>
-                               
+
                             </td>
                             <td>
-                             
+
                             </td>
                           </tr>
                           <tr class="display-none tr-scheme">
@@ -550,33 +540,34 @@
 
 
 
-                          <tr (click)="showAllUnit()"><td colspan="4" align="right"><div class="btn-blck1 text-align-center" id="btn-unit">+ Additional Fields</div></td></tr>
+                          <tr (click)="showAllUnit()">
+                            <td colspan="4" align="right">
+                              <div class="btn-blck1 text-align-center" id="btn-unit">+ Additional Fields</div>
+                            </td>
+                          </tr>
                           <tr class="display-none tr-unit">
                             <td>
                               Name of Value Chain Business
                             </td>
                             <td>
-                              <select name="business_options" id="business_options" class="select-box-3 width100" (change)="onServiceNameChange($event)">
+                              <select name="business_options" id="business_options" class="select-box-3 width100"
+                                (change)="onServiceNameChange($event)">
                                 <option selected>Select Business Type</option>
-                                 <option *ngFor="let option of servicePillarData" [id]="option.id" [value]="option.servicePillarId">
-                                    {{ option.servicePillarName }}
-                                  </option>
+                                <option *ngFor="let option of servicePillarData" [id]="option.id" [value]="option.servicePillarId">
+                                  {{ option.servicePillarName }}
+                                </option>
 
                               </select>
                             </td>
                             <td>Services/Product</td>
                             <td>
-                            <select name="business_products"
-        id="business_products"
-        class="select-box-3 width100"
-        (change)="onServiceProductNameChange($event)">
-  <option value="" selected>Select Product</option>
-  <option *ngFor="let option of serviceName"
-          [id]="option.id"
-          [value]="option.servicePillarId">
-    {{ option.serviceName }}
-  </option>
-</select>
+                              <select name="business_products" id="business_products" class="select-box-3 width100"
+                                (change)="onServiceProductNameChange($event)">
+                                <option value="" selected>Select Product</option>
+                                <option *ngFor="let option of serviceName" [id]="option.id" [value]="option.servicePillarId">
+                                  {{ option.serviceName }}
+                                </option>
+                                </select>
                             </td>
 
 
@@ -587,16 +578,16 @@
 
                             </td>
                             <td>
-                                  <input type="date" formControlName="startDate" class="input-box-3 width100"
-                                     [max]="maxDate" (change)="calculateAge($event)" />
+                              <input type="date" formControlName="startDate" class="input-box-3 width100" [max]="maxDate"
+                                (change)="calculateAge($event)" />
                             </td>
 
 
                             <td>
-                              
+
                             </td>
                             <td>
-                                
+
                             </td>
                           </tr>
                           <tr class="display-none tr-unit">
@@ -671,7 +662,7 @@
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-        
+
                 <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
                 <h4 class="modal-title">Add Business</h4>
               </div>
@@ -686,11 +677,8 @@
                         <col style="background-color: rgb(255,255,255); width: 30%;" />
                       </colgroup>
                       <tbody>
-        
-        
-        
-        
-        
+
+
                         <tr>
                           <td colspan="4" align="right">
                             <div class="section-heading text-align-left">Business Details</div>
@@ -698,22 +686,59 @@
                         </tr>
                         <tr>
                           <td>Name of RWE</td>
-                          <td colspan="3"><select class="select-box-3 width30 margin-right-10px" [(ngModel)]="selectedRwe" (change)="onFilterChange('selectedRwe', $event)" >
-  <option value="" disabled selected>Select RWE</option>
-  <option *ngFor="let rwe of filteredRwes"
-          [id]="rwe.id"
-          [value]="rwe.id">
-    {{ rwe.rweName }}
-  </option>
-</select> <input type="text" class="input-box-3 width60" placeholder="Search" [(ngModel)]="rweSearch"
-    (input)="filterRwes()"/></td>
-        
+                          <td>
+                            <!-- <select class="select-box-3 width100 margin-right-10px" [(ngModel)]="selectedRwe" id="rweList"
+                                                                                                                                                                                                                    (change)="onFilterChange('selectedRwe', $event)">
+                                                                                                                                                                                                                    <option value="" disabled selected>Select RWE</option>
+                              <option *ngFor="let rwe of filteredRwes" [id]="rwe.id" [value]="rwe.id">
+                                {{ rwe.rweName }}
+                              </option>
+                            </select> -->
+                            <select id="rweList" class="select-box-3 width100 margin-right-10px" [(ngModel)]="selectedRwe" (change)="onRweChange()"
+                              name="rweList">
+                            
+                              <option value="" disabled selected>Select RWE</option>
+                            
+                              <option *ngFor="let rwe of filteredRwes" [value]="rwe.id">
+                                {{ rwe.id }} - {{ rwe.rweName }}
+                              </option>
+                            </select>
+                            
+                            </td>
+                            <td>Business Name *</td>
+                            <td>
+                              <!-- <input type="text" id="txtName" name="txtName" value="" placeholder="Enter Business Name" required
+                                                                                                                                                                                                                                    class="input-box-3 width100 ng-pristine ng-valid ng-touched" /> -->
+                              <select id="businessNameDropdown" name="businessNameDropdown" class="select-box-3 width100"
+                                [(ngModel)]="selectedBusinessId" (change)="onBusinessChange()">
+                            
+                                <option value="" disabled selected>Select Business</option>
+                            
+                                <option *ngFor="let b of rweBusinesses" [value]="b.id">
+                                  {{ b.businessName }}
+                                </option>
+                            
+                                <option [value]="-1">➕ Add New Business</option>
+                              </select>
+                            
+                              <!-- show textbox only when Add New Business selected -->
+                              <div *ngIf="isAddingNewBusiness" style="margin-top: 8px;">
+                                <input type="text" class="input-box-3 width100" placeholder="Enter New Business Name" [(ngModel)]="newBusinessName"
+                                  name="newBusinessName" />
+                              </div>
+                            </td>
+
                         </tr>
                         <tr>
                           <td>Type of Business</td>
                           <td>
-                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)">
-                              <option  value="" disabled selected>Select Business Type</option>
+                            <!-- <select name="business_options" id="business_options" class="select-box-3 width100"
+                                                                                                                  [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)"> -->
+                            <select id="businessType" name="businessType" [(ngModel)]="selectedRWEBusinessType" class="select-box-3 width100"
+                              (change)="onFilterChange('selectedRWEBusinessType', $event)">
+                              <option [ngValue]="''" disabled>Select Business Type</option>
+                            
+                              <!-- <option value="" disabled selected>Select Business Type</option> -->
                               <option *ngFor="let filter of rweBusinessType" [value]="filter.id">
                                 {{ filter.name }}
                               </option>
@@ -721,8 +746,12 @@
                           </td>
                           <td>Business Sub-Category</td>
                           <td>
-                            <select name="business_options" id="business_options" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessSubCatType"   (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)">
-                              <option  value="" disabled selected>Select Business</option>
+                            <!-- <select name="business_options" id="business_options" class="select-box-3 width100"
+                                                                                                                  [(ngModel)]="selectedRWEBusinessSubCatType" (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)"> -->
+                            <select id="businessSubCategory" name="businessSubCategory" [(ngModel)]="selectedRWEBusinessSubCatType"
+                              class="select-box-3 width100" (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)">
+                              <option [ngValue]="''" disabled>Select Business</option>
+                              <!-- <option value="" disabled selected>Select Business</option> -->
                               <option *ngFor="let type of rweBusinessSubCatType " [value]="type.id">
                                 {{ type.name }}
                               </option>
@@ -732,8 +761,12 @@
                         <tr>
                           <td>Services/Product</td>
                           <td>
-                            <select name="business_products" id="business_products" class="select-box-3 width100" [(ngModel)]="selectedRWEServiceOrProduct"  (change)="onFilterChange('selectedRWEServiceOrProduct', $event)">
-                              <option value="" disabled selected>Select Product</option>
+                            <!-- <select name="business_products" id="business_products" class="select-box-3 width100" 
+                                                                                                                  [(ngModel)]="selectedRWEServiceOrProduct" (change)="onFilterChange('selectedRWEServiceOrProduct', $event)"> -->
+                            <select id="serviceProduct" name="serviceProduct" [(ngModel)]="selectedRWEServiceOrProduct"
+                              class="select-box-3 width100" (change)="onFilterChange('selectedRWEServiceOrProduct', $event)">
+                              <option [ngValue]="''" disabled>Select Product</option>
+                              <!-- <option value="" disabled selected>Select Product</option> -->
                               <option *ngFor="let type of rweServiceOrProduct " [value]="type.id">
                                 {{ type.name }}
                               </option>
@@ -743,24 +776,24 @@
                             Inventory (Vol./Qty)
                           </td>
                           <td>
-                            <input type="text" id="" class="input-box-3 width60 margin-right-10px" [(ngModel)]="selectedInventory"/> <select
-                              class="select-box-3 width30"  [(ngModel)]="selectedInventoryUnit">
-                              <option  value="" disabled selected>-Select Unit-</option>
+                            <input type="text" id="" class="input-box-3 width60 margin-right-10px" [(ngModel)]="selectedInventory" /> <select
+                              class="select-box-3 width30" [(ngModel)]="selectedInventoryUnit">
+                              <option value="" disabled selected>-Select Unit-</option>
                               <option value="Kg">Kg</option>
                               <option value="Litre">Litre</option>
                               <option value="Pack">Pack</option>
                               <option value="Piece">Piece</option>
-                              <option value="Other">Other</option>        
+                              <option value="Other">Other</option>
                             </select>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             Start Month
-        
+
                           </td>
                           <td>
-                            <select class="select-box-3 width100"  [(ngModel)]="selectedStartMonth">
+                            <select class="select-box-3 width100" [(ngModel)]="selectedStartMonth">
                               <option>-Select Month-</option>
                               <option value="1">January</option>
                               <option value="2">February</option>
@@ -776,8 +809,8 @@
                               <option value="12">December</option>
                             </select>
                           </td>
-        
-        
+
+
                           <td>
                             Start Year
                           </td>
@@ -792,15 +825,15 @@
                         </tr>
                         <tr>
                           <td>
-        
-        
+
+
                             Total Investment
                           </td>
                           <td>
-                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="totalInvestment"/>
+                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="totalInvestment" />
                           </td>
-        
-        
+
+
                           <td>
                             Self Investment
                           </td>
@@ -810,43 +843,44 @@
                         </tr>
                         <tr>
                           <td>
-        
+
                             Project Loan (if any)
                           </td>
                           <td>
                             <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="projectLoan" />
                           </td>
-        
-        
+
+
                           <td>
                             Bank Loan (if any)
                           </td>
                           <td>
-                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="bankLoan"/>
+                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="bankLoan" />
                           </td>
-        
-        
+
+
                         </tr>
                         <tr>
                           <td>
-        
+
                             Collective Loan (if any)
                           </td>
                           <td>
-                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="collectiveLoan"/>
+                            <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="collectiveLoan" />
                           </td>
-        
+
                         </tr>
                         <tr>
                           <td colspan="4" class="text-align-center back-white" align="center">
-                            <input *ngIf="hideSaveRWE" type="button" value="Save" class="btn-blck1" id="saveRweBusiness" (click)="onSaveRweBusiness()" />
+                            <input *ngIf="hideSaveRWE" type="button" value="Save" class="btn-blck1" id="saveRweBusiness"
+                              (click)="onSaveRweBusiness()" />
                           </td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-        
+
               </div>
               <div class="clear-both-5"></div>
             </div>
