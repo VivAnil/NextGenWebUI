@@ -29,10 +29,10 @@ export class BeneficiaryComponent implements OnInit {
   rweBusinessSubCatType: RweBusinessSubCatType[] | undefined;
   rweServiceOrProduct: RweBusinessProduct[] | undefined;
   selectedRwe: any = "";
-
+  newBusinessName: string = '';
   selectedBusinessId: number | '' = '';
   isAddingNewBusiness: boolean = false;
-  newBusinessName: string = '';
+
   selectedRWEBusinessType: any = "";
   selectedRWEBusinessSubCatType: any ="";
   selectedRWEServiceOrProduct: any ="";
@@ -717,6 +717,12 @@ onServiceProductNameChange(event: any): void {
   }
 
   onSaveRweBusiness() {
+    if (this.isAddingNewBusiness) {
+      if (!this.newBusinessName || this.newBusinessName.trim() === '') {
+        alert("Please enter Business Name");
+        return;
+      }
+    }
     const rweBusiness: any = {
       id: (this.isAddingNewBusiness ? 0 : (Number(this.selectedBusinessId) || 0)),
       rweId: this.selectedRwe,
@@ -920,16 +926,19 @@ selectCaste(event: Event): void {
 
     console.log("selectedBusinessId:", this.selectedBusinessId);
 
-    if (this.selectedBusinessId === -1) {
+    if (this.selectedBusinessId == -1) {
       this.isAddingNewBusiness = true;
       this.newBusinessName = '';
       this.clearRweBusinessFormFields();
       return;
     }
-
     this.isAddingNewBusiness = false;
 
     const selected = this.rweBusinesses?.find((b: any) => b.id == this.selectedBusinessId);
+    if (!selected) {
+      this.clearRweBusinessFormFields();
+      return;
+    }
 
     console.log("selected business object:", selected);
 

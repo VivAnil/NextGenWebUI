@@ -711,21 +711,20 @@
                                                                                                                                                                                                                                     class="input-box-3 width100 ng-pristine ng-valid ng-touched" /> -->
                               <select id="businessNameDropdown" name="businessNameDropdown" class="select-box-3 width100"
                                 [(ngModel)]="selectedBusinessId" (change)="onBusinessChange()">
+
+                                    <option value="" disabled>Select Business</option>
+                                    
+                                    <option *ngFor="let b of rweBusinesses" [value]="b.id">
+                                      {{ b.businessName }}
+                                    </option>
+                                    
+                                    <option [value]="-1">➕ Add New Business</option>
+                                    </select>
                             
-                                <option value="" disabled selected>Select Business</option>
-                            
-                                <option *ngFor="let b of rweBusinesses" [value]="b.id">
-                                  {{ b.businessName }}
-                                </option>
-                            
-                                <option [value]="-1">➕ Add New Business</option>
-                              </select>
-                            
-                              <!-- show textbox only when Add New Business selected -->
-                              <div *ngIf="isAddingNewBusiness" style="margin-top: 8px;">
-                                <input type="text" class="input-box-3 width100" placeholder="Enter New Business Name" [(ngModel)]="newBusinessName"
-                                  name="newBusinessName" />
-                              </div>
+                            <div *ngIf="isAddingNewBusiness" style="margin-top: 8px;">
+                                  <input type="text" id="txtNewBusinessName" name="txtNewBusinessName" placeholder="Enter New Business Name"
+                                    class="input-box-3 width100" [(ngModel)]="newBusinessName" />
+                                  </div>
                             </td>
 
                         </tr>
