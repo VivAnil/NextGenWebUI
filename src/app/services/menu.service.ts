@@ -59,10 +59,10 @@ export class MenuService {
     ]
   );
   pmRoleDisplayName: string = 'Project Officer';
-  spRoleDisplayName: string = 'SoochnaPreneur';
+  spRoleDisplayName: string = 'LBC';
   dcRoleDisplayName: string = 'District Coordinator';
-  bcRoleDisplayName: string = 'Block Coordinator';
-  benRoleDisplayName: string = 'Beneficiary';
+  bcRoleDisplayName: string = 'CLM';
+  benRoleDisplayName: string = 'RWE';
 
   // Public getter: returns a deep-cloned snapshot of current menu
   public getMenuItems(): MenuItems[] {

@@ -16,7 +16,7 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="" id="btn_openModal"
+                <button type="button" class="btn-orange" id="btn_openModal"
                     (click)="loadModal(this.dataKey);">
                     + New {{this.pageHead}}
                 </button>
@@ -266,7 +266,7 @@
                 <div class="col-md-12">
                     <div class="clear-both-15"></div>
                 </div>
-                <div class="modal fade" id="pc" role="dialog">
+                <div class="modal fade" id="userModal" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -276,7 +276,7 @@
                                     Add New {{this.pageHead}}
                                 </span>
                                 <span>
-                                    <button type="button" class="close-button" data-bs-dismiss="modal"
+                                    <button type="button" class="close-button" data-bs-dismiss="modal" style="float: right;"
                                         aria-label="Close">&times;</button>
                                 </span>
                             </div>

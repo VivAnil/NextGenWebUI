@@ -9,6 +9,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {SexOption} from '../../models/master.model';
 import { MenuService } from '../../services/menu.service';
 import { Router } from '@angular/router';
+import { Modal } from 'bootstrap';
+
 // import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
@@ -106,7 +108,7 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
 states: any[] = [];
 districts: any[] = [];
 blocks: any[] = [];
-
+  currentUserType = '';
 selectedState: number =0;
 selectedDistrict: number =0;
 selectedBlock: number | null = null;
@@ -601,14 +603,38 @@ selectedBlock: number | null = null;
     saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
   }
 
-  loadModal(modalId: string) {
-    const modalButton = document.getElementById('btn_openModal');
-    if (modalButton) {
-      this.fetchMasterData();
-      modalButton.setAttribute('data-bs-target', `#${modalId}`);
-      modalButton.click(); // Programmatically trigger the button to open the modal
+  // loadModal(modalId: string) {
+  //   const modalButton = document.getElementById('btn_openModal');
+  //   if (modalButton) {
+  //     this.fetchMasterData();
+  //     modalButton.setAttribute('data-bs-target', `#${modalId}`);
+  //     modalButton.click(); // Programmatically trigger the button to open the modal
+  //   }
+  // }
+  loadModal(dataKey: string) {
+    this.currentUserType = dataKey; // 'sp', 'pc', 'clm', etc.
+
+    this.fetchMasterData();
+
+    const modalEl = document.getElementById('userModal');
+    if (!modalEl) {
+      console.error('Modal not found');
+      return;
     }
+
+    const existing = Modal.getInstance(modalEl);
+    if (existing) {
+      existing.dispose();
+    }
+
+    const modal = new Modal(modalEl, {
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    modal.show();
   }
+
 
     // Form submission logic
     submitForm() {
