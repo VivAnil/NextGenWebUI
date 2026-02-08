@@ -935,18 +935,17 @@
                                                                 <td>
                                                                     <!-- <input type="text" id="txtName" name="txtName" value="" placeholder="Enter Business Name" required
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         class="input-box-3 width100 ng-pristine ng-valid ng-touched" /> -->
-                                                                    <select id="businessNameDropdown" name="businessNameDropdown"
-                                                                        class="select-box-3 width100" [(ngModel)]="selectedBusinessId"
-                                                                        (change)="onBusinessChange()">
-                            
-                                                                        <option value="" disabled>Select Business</option>
-                            
-                                                                        <option *ngFor="let b of rweBusinesses" [value]="b.id">
+                                                                <select id="businessNameDropdown" name="businessNameDropdown" class="select-box-3 width100"
+                                                                    [(ngModel)]="selectedBusinessId" (ngModelChange)="onBusinessChange()">
+                                                                    <option [ngValue]="null" disabled>Select Business</option>
+
+                                                                        <option *ngFor="let b of tgtBusinesses" [ngValue]="b.id">
                                                                             {{ b.businessName }}
                                                                         </option>
-                            
-                                                                        <option [value]="-1">➕ Add New Business</option>
-                                                                    </select>
+
+                                                                        <option [ngValue]="-1">➕ Add New Business</option>
+                                                                        </select>
+
                             
                                                                     <div *ngIf="isAddingNewBusiness" style="margin-top: 8px;">
                                                                         <input type="text" id="txtNewBusinessName" name="txtNewBusinessName"

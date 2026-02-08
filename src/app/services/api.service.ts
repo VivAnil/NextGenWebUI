@@ -8,6 +8,7 @@ import { ServicePillar } from '../models/servicePillar.model';
 import { userDetails } from '../models/userDetails.model';
 import { Beneficiary } from '../models/beneficiary.model';
 import { BusinessSubCategory, BusinessType, BusinessTypeApiResponse, RweBusinessType, ServiceOrProduct, ServiceOrProductApiResponse } from './rweBusiness.service';
+import { tgtBusiness } from '../models/rwe-business.model';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +96,11 @@ getServiceOrProductByBusinessType(
 
   return this.http.get<ServiceOrProduct[]>(url);
 }
+  getBusinessesByRweId(rweId: number) {
+    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessNameById/${rweId}/lbc`;
+
+    return this.http.get<tgtBusiness[]>(url);
+  }
 
   // getServiceOrProductByBusinessType(businessTypeId: number) {
   //   const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;

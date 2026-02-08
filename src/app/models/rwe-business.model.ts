@@ -32,3 +32,22 @@ export interface RWEBusinessFilters {
     rweBusinessSubCatType: RWEBusinessSubCatType[];
     rweServiceOrProduct: RWEServiceOrProduct[];
 }
+export interface tgtBusiness {
+    rweBusinessId: number;
+    rweId: number;
+    businessTypeId: number;
+    businessSubCatTypeId: number;
+    serviceOrProductId: number;
+    inventory: number;
+    inventoryUnit: string;
+    startMonth: number;
+    startYear: number;
+    totalInvestment: number;
+    selfInvestment: number;
+    projectLoan: number;
+    bankLoan: number;
+    collectiveLoan: number;
+    currentInventory: number;
+    businessName: string;
+    userType: string;
+}

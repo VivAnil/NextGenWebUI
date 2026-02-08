@@ -11,6 +11,7 @@ import { MenuService } from '../../services/menu.service';
 import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { BusinessProduct, BusinessSubCategory, BusinessType, DropdownOption, RWEBusinessFilters, RweBusiness, RweBusinessProduct, RweBusinessSubCatType, RweBusinessType, ServiceOrProduct, rweBusiness } from '../../services/rweBusiness.service';
+import { tgtBusiness } from 'src/app/models/rwe-business.model';
 // import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
@@ -116,6 +117,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   allServiceOrProducts: BusinessProduct[] = [];
   BusinessSubCatType: DropdownOption[] = [];
   ServiceOrProductOptions: DropdownOption[] = [];
+  isBusinessDropdownEnabled = false;
 
   ServiceOrProduct: { id: number; name: string }[] = [];
   sellingPrice: number | null = null;
@@ -158,6 +160,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
   bankLoan: number = 0;
   collectiveLoan: number = 0;
   hideSaveRWE: boolean = false;
+  tgtBusinesses: { id: number; businessName: string }[] = [];
+  allTgtBusinesses: tgtBusiness[] = [];
+  selectedBusId: number | null = null;
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -869,12 +874,15 @@ export class UsersComponent implements OnInit, AfterViewInit {
     if (!this.selectedRwe) {
       this.rweBusinessType = [];
       this.selectedRWEBusinessType = null;
+
+      this.tgtBusinesses = [];
+      this.selectedBusId = null;
       return;
     }
 
     const companyId = 32;
     const companyRoleId = 37;
-
+    const rweId = this.selectedRwe;
     this.serviceApi.getBusinessTypes(companyId, companyRoleId).subscribe({
       next: (data) => {
         this.rweBusinessType = data;
@@ -884,6 +892,23 @@ export class UsersComponent implements OnInit, AfterViewInit {
         console.error('Failed to load business types', err);
       }
     });
+
+    this.serviceApi.getBusinessesByRweId(rweId).subscribe({
+      next: (res) => {
+        this.allTgtBusinesses = res;
+
+        this.tgtBusinesses = res.map(b => ({
+          id: b.rweBusinessId,
+          businessName: b.businessName
+        }));
+
+        this.selectedBusId = null;
+        this.isBusinessDropdownEnabled = this.rweBusinesses.length > 0;
+        console.log('Businesses:', this.rweBusinesses);
+      },
+      error: (err) => console.error('Failed to load businesses', err)
+    });
+
   }
 
 
