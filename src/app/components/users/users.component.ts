@@ -6,11 +6,11 @@ import { Table } from 'primeng/table'; // Import PrimeNG Table reference
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import {SexOption} from '../../models/master.model';
+import { SexOption } from '../../models/master.model';
 import { MenuService } from '../../services/menu.service';
 import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
-
+import { BusinessProduct, BusinessSubCategory, BusinessType, DropdownOption, RWEBusinessFilters, RweBusiness, RweBusinessProduct, RweBusinessSubCatType, RweBusinessType, ServiceOrProduct, rweBusiness } from '../../services/rweBusiness.service';
 // import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
@@ -18,13 +18,13 @@ declare let $: any; // Import jQuery
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit,  AfterViewInit  {
+export class UsersComponent implements OnInit, AfterViewInit {
   @ViewChild('dtLbc') dtLbc: Table | undefined;
   expandedRow: any | null = null;
   displayAssignProject = 'none';
   loadingLbc = false;
-   successMessage = '';
-   errorMessage = '';
+  successMessage = '';
+  errorMessage = '';
   userdetailsApiUrl: string = environment.userdetailsApiUrl;
   private isVisible: boolean = false;
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
@@ -34,21 +34,21 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   lbcFilteredData: any[] = []; // Data to display in the grid
   dataKey: string = ''; // Identifies which data to fetch
   globalFilterFields: string[] = []; // Fields for global search
-  pageHead:string='Project Officer Master';
+  pageHead: string = 'Project Officer Master';
   companyId!: number;
   roleId!: number;
   companyRoleId!: number;
-  displayTab: string='block';
-  displayTab1: string='none';
-  displayFilter: string='none';
-  activeFilter: string='filter-link';
-  isFilterOpen: boolean=false;
-  displayColumn: string='none';
-  activeColumn: string='column-link';
-  activeDefault: string='default-link';
-  activeTab: string='ui-tab ui-tabs-active ui-state-active'; 
-  activeTab1: string='ui-tab ';
-  isColumnOpen: boolean=false;
+  displayTab: string = 'block';
+  displayTab1: string = 'none';
+  displayFilter: string = 'none';
+  activeFilter: string = 'filter-link';
+  isFilterOpen: boolean = false;
+  displayColumn: string = 'none';
+  activeColumn: string = 'column-link';
+  activeDefault: string = 'default-link';
+  activeTab: string = 'ui-tab ui-tabs-active ui-state-active';
+  activeTab1: string = 'ui-tab ';
+  isColumnOpen: boolean = false;
   filters: { [key: string]: string } = {}; // Stores filter values
   lbcFilters: { [key: string]: string } = {}; // Stores filter values
   rweFilters: { [key: string]: string } = {}; // Stores filter values
@@ -75,62 +75,108 @@ export class UsersComponent implements OnInit,  AfterViewInit  {
   formData = {
     Id: '',
     ProfilePicture: '',
-    FirstName:'',
-    MiddleName:'',
-    LastName:'',
-    DOB:'',
-    Sex:'',
-    Mobile:'',
-    Email:'',
-    ProjectName:'',
-    StateId:'',
-    DistrictId:'',
-    BlockId:'',
-    Village:'',
-    GramPanchayat:'',
-    PinCode:'',
-    Address:'',
-    AccountHolderName:'',
+    FirstName: '',
+    MiddleName: '',
+    LastName: '',
+    DOB: '',
+    Sex: '',
+    Mobile: '',
+    Email: '',
+    ProjectName: '',
+    StateId: '',
+    DistrictId: '',
+    BlockId: '',
+    Village: '',
+    GramPanchayat: '',
+    PinCode: '',
+    Address: '',
+    AccountHolderName: '',
     AccountNo: '',
     BankName: '',
     IFSCCode: '',
     BankBranch: '',
     CancelledCheque: '',
-    PAN:'',
+    PAN: '',
     PANImage: '',
-    Aadhar:'',
+    Aadhar: '',
     AadharImage: ''
-};
+  };
   filterLbc(event: Event, dt: Table, field: string) {
     const value = (event.target as HTMLInputElement).value;
     dt.filter(value, field, 'contains');
   }
-states: any[] = [];
-districts: any[] = [];
-blocks: any[] = [];
+  states: any[] = [];
+  districts: any[] = [];
+  blocks: any[] = [];
   currentUserType = '';
-selectedState: number =0;
-selectedDistrict: number =0;
-selectedBlock: number | null = null;
+  selectedState: number = 0;
+  selectedDistrict: number = 0;
+  selectedBlock: number | null = null;
+
+  allServiceOrProducts: BusinessProduct[] = [];
+  BusinessSubCatType: DropdownOption[] = [];
+  ServiceOrProductOptions: DropdownOption[] = [];
+
+  ServiceOrProduct: { id: number; name: string }[] = [];
+  sellingPrice: number | null = null;
+  unit: string | null = null;
+  margin: number | null = null;
+
+  // selections
+  selectedBusinessType: number | null = null;
+  selectedBusinessSubCatType: number | null = null;
+  selectedServiceOrProduct: number | null = null;
+  years: any[] = [];
+
+  rwes: any[] = [];
+  filteredRwes: any[] = [];  // filtered list
+
+  rweBusinesses: RweBusiness[] = [];
+  rweBusinessfilters: RWEBusinessFilters | undefined;
+  //rweBusinessType: RweBusinessType[] | undefined;
+  rweBusinessType: BusinessType[] = [];
+  // BusinessSubCatType: BusinessSubCategory[] = [];
+  // selectedBusinessSubCatType: number | null = null;
+
+  rweBusinessSubCatType: RweBusinessSubCatType[] | undefined;
+  rweServiceOrProduct: RweBusinessProduct[] | undefined;
+  selectedRwe: any = "";
+  newBusinessName: string = '';
+  selectedBusinessId: number | '' = '';
+  isAddingNewBusiness: boolean = false;
+
+  selectedRWEBusinessType: any = "";
+  selectedRWEBusinessSubCatType: any = "";
+  selectedRWEServiceOrProduct: any = "";
+  selectedStartMonth: number = 0;
+  selectedStartYear: number = 2026;
+  selectedInventoryUnit: any = "Other";
+  selectedInventory: number = 0;
+  totalInvestment: number = 0;
+  selfInvestment: number = 0;
+  projectLoan: number = 0;
+  bankLoan: number = 0;
+  collectiveLoan: number = 0;
+  hideSaveRWE: boolean = false;
   constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
     let userRoleSettings = userString ? JSON.parse(userString) : null;
-    this.companyId = userRoleSettings.companyId; 
-    this.formData.DOB = '1990-12-25'; 
-    this.roleId = userRoleSettings.systemRoleId; 
-    this.companyRoleId = userRoleSettings.companyRoleId; 
+    this.companyId = userRoleSettings.companyId;
+    this.formData.DOB = '1990-12-25';
+    this.roleId = userRoleSettings.systemRoleId;
+    this.companyRoleId = userRoleSettings.companyRoleId;
     this.route.params.subscribe((params) => {
       this.companyId = +params['companyid'];
-      this.roleId=+params['roleid'];
-      console.log ('companyId = ' +this.companyId + ' and Role id ' + this.roleId);
+      this.roleId = +params['roleid'];
+      console.log('companyId = ' + this.companyId + ' and Role id ' + this.roleId);
     });
     if (this.companyId != undefined && this.companyId != 32) {
       this.displayAssignProject = 'block';
     }
     this.cols = [
-   
+
       // {
       //   header: "Profile", field: function (value: any, item: any) {
       //       return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
@@ -138,49 +184,49 @@ selectedBlock: number | null = null;
       // },
       // { header: 'ID', field: 'profilePicture', type: "text", class: "text-align-center width8em word-break-all", search:true, showInGrid:true},//profilePictur
       // { header: '', field: 'id', type: "text", class: "text-align-center width8em word-break-all", search:false, showInGrid:true},//profilePicture
-     
-      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search:true, showInGrid:true },
-      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search:true, showInGrid:true },
-      { header: 'DOB', field: 'dob',  type: "text", css: "text-align-center width12em word-break-all", visible: true, search:false},
-      { header: 'Sex' , field: 'sex', type: "text", css: "text-align-center width10em word-break-all",visible: true, search:true },
-      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
-      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+
+      { header: 'First Name', field: 'firstName', type: "text", css: "text-align-center width16em word-break-all", visible: true, search: true, showInGrid: true },
+      { header: 'Last Name', field: 'lastName', type: "text", css: "text-align-center width14em word-break-all", visible: true, search: true, showInGrid: true },
+      { header: 'DOB', field: 'dob', type: "text", css: "text-align-center width12em word-break-all", visible: true, search: false },
+      { header: 'Sex', field: 'sex', type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Mobile No.", field: "mobile", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Email Id", field: "email", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
       // { header: "Project Name", field: "projectName", type: "text", css: "text-align-center width14em word-break-all" ,visible: true, search:true },
-      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em" ,visible: true, search:true },
-      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all" ,visible: true , search:true},
-      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
-      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
-      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all" ,visible: true, search:true },
-      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
-      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all" ,visible: true, search:true },
+      { header: "State", field: "stateName", type: "text", css: "text-align-center width10em", visible: true, search: true },
+      { header: "District", field: "districtame", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Block", field: "blockName", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Village", field: "village", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Pin Code", field: "pinCode", type: "text", css: "text-align-center width8em word-break-all", visible: true, search: true },
+      { header: "PAN Card", field: "pan", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
+      { header: "Aadhar", field: "aadhar", type: "text", css: "text-align-center width10em word-break-all", visible: true, search: true },
 
     ];
-        // Listen to the route to determine which dataset to load
-        this.route.url.subscribe((url) => {
-          if (url[2]?.path === '2') {
-            this.dataKey = 'pc';
-            this.pageHead='Programmer Manager';
-          } else if (url[2]?.path === '4') {
-            this.dataKey = 'dc';
-            this.pageHead='Programme Manager';
-          } else if (url[2]?.path === '5') {
-            this.dataKey = 'bc';
-            this.pageHead='CLM';
-          } else if (url[2]?.path === '3') {
-            this.dataKey = 'sp';
-            this.pageHead='LBC';
-          }
+    // Listen to the route to determine which dataset to load
+    this.route.url.subscribe((url) => {
+      if (url[2]?.path === '2') {
+        this.dataKey = 'pc';
+        this.pageHead = 'Programmer Manager';
+      } else if (url[2]?.path === '4') {
+        this.dataKey = 'dc';
+        this.pageHead = 'Programme Manager';
+      } else if (url[2]?.path === '5') {
+        this.dataKey = 'bc';
+        this.pageHead = 'CLM';
+      } else if (url[2]?.path === '3') {
+        this.dataKey = 'sp';
+        this.pageHead = 'LBC';
+      }
 
-          console.log('Data key = ' + this.dataKey);
-         // this.inituserDetailsGrid(); // Fetch data based on the dataKey
-         this.loadData();
-        });
+      console.log('Data key = ' + this.dataKey);
+      // this.inituserDetailsGrid(); // Fetch data based on the dataKey
+      this.loadData();
+    });
 
     this.updatePath();
 
   }
-  loadData():void{
-    this.serviceApi.fetchUserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId, this.dataKey).subscribe({
+  loadData(): void {
+    this.serviceApi.fetchUserDetails(this.userdetailsApiUrl + this.companyId + '/' + this.roleId, this.dataKey).subscribe({
       next: (response) => {
         // this.data = response; // Populate the grid with fetched data
         this.data = response.map((item: any, index: number) => ({
@@ -195,13 +241,13 @@ selectedBlock: number | null = null;
             .filter(key => !this.filteredCols.includes(key))
             // Map the rest to column definitions
             .map((key) => ({
-            field: key,
-            header: this.capitalizeFirstLetter(key),
-            visible: this.checkVisible(key),
+              field: key,
+              header: this.capitalizeFirstLetter(key),
+              visible: this.checkVisible(key),
               width: '200px',
-            search: this.searchable(key),
+              search: this.searchable(key),
               showInGrid: this.checkVisible(key)
-          }));
+            }));
           //  this.cols = Object.keys(this.data[0]).map((key) => ({
           //     field: key,
           //     header: this.capitalizeFirstLetter(key),
@@ -211,18 +257,18 @@ selectedBlock: number | null = null;
           //     showInGrid:this.checkVisible(key)
           //   }));
 
-           // Set fields for global filtering
+          // Set fields for global filtering
           this.globalFilterFields = Object.keys(this.filteredData[0]);
-          this.globalFilterFields=this.cols;
+          this.globalFilterFields = this.cols;
           this.loading = false; // Turn off loading once data is fetched
           console.log(this.cols);
           // Initialize filters for each column
           this.cols.forEach((col) => {
             if (!this.filteredCols.includes(col.field))
-              if(this.checkVisible(col.field))
+              if (this.checkVisible(col.field))
                 this.filters[col.field] = '';
           });
-         
+
         }
       },
       error: (err) => {
@@ -395,7 +441,7 @@ selectedBlock: number | null = null;
     console.log('AfterViewInit');
     //this.inituserDetailsGrid();
   }
-  
+
   inituserDetailsGrid() {
     $('#MappedGrid').jsGrid({
       width: "100%",
@@ -403,7 +449,7 @@ selectedBlock: number | null = null;
       inserting: false,
       height: "auto",
       filtering: false,
-      
+
       loadIndication: true,
       sorting: true,
       paging: true,
@@ -420,38 +466,38 @@ selectedBlock: number | null = null;
       pageNavigatorNextText: "...",
       pageNavigatorPrevText: "...",
 
-     // data: this.getDummyData(),
-       autoload: true,
+      // data: this.getDummyData(),
+      autoload: true,
 
-     controller: {
-       loadData: () => {
-         return this.serviceApi.getuserDetails(this.userdetailsApiUrl+this.companyId+'/'+this.roleId).toPromise();
-       },
-     },
-     fields: [
-      {
-        title: "ID", itemTemplate: function (value: any, item: any) {
-            return "<div><img src='"+item.profilePicture+"' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > "+item.id+" </div>";
-        }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em word-break-all"
+      controller: {
+        loadData: () => {
+          return this.serviceApi.getuserDetails(this.userdetailsApiUrl + this.companyId + '/' + this.roleId).toPromise();
+        },
       },
-      //{ title: "Profile Pic", name: "profilePicture", type: "text", validate: "required", css: "width10em text-align-center" },
-      //{ title: "ID", name: "id", type: "text", validate: "required", css: "width6em text-align-center" },
-      { title: "First Name", name: "firstName", type: "text", validate: "required", css: "width10em text-align-center word-break-all"  },
-      { title: "Last Name", name: "lastName", type: "text", css: "width10em word-break-all" },
-      { title: "DOB", name: "dob", type: "text", css: "width10em" },
-      { title: "Sex", name: "sex", type: "text", css: "text-align-center width10em" },
-      { title: "Mobile No.", name: "mobile", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Email Id", name: "email", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Project Name", name: "projectName", type: "text", css: "text-align-center width14em word-break-all" },
-      { title: "State", name: "stateName", type: "text", css: "text-align-center width10em" },
-      { title: "District", name: "districtame", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Block", name: "blockName", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Village", name: "village", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Pin Code", name: "pinCode", type: "text", css: "text-align-center width8em word-break-all" },
-      { title: "PAN Card", name: "pan", type: "text", css: "text-align-center width10em word-break-all" },
-      { title: "Aadhar", name: "aadhar", type: "text", css: "text-align-center width10em word-break-all" },
-     
-    ]
+      fields: [
+        {
+          title: "ID", itemTemplate: function (value: any, item: any) {
+            return "<div><img src='" + item.profilePicture + "' style='width:45px; height:45px; line-height:45px; border-radius:100%;' > " + item.id + " </div>";
+          }, type: "text", sorting: false, editing: false, filtering: false, css: "inactive width14em word-break-all"
+        },
+        //{ title: "Profile Pic", name: "profilePicture", type: "text", validate: "required", css: "width10em text-align-center" },
+        //{ title: "ID", name: "id", type: "text", validate: "required", css: "width6em text-align-center" },
+        { title: "First Name", name: "firstName", type: "text", validate: "required", css: "width10em text-align-center word-break-all" },
+        { title: "Last Name", name: "lastName", type: "text", css: "width10em word-break-all" },
+        { title: "DOB", name: "dob", type: "text", css: "width10em" },
+        { title: "Sex", name: "sex", type: "text", css: "text-align-center width10em" },
+        { title: "Mobile No.", name: "mobile", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Email Id", name: "email", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Project Name", name: "projectName", type: "text", css: "text-align-center width14em word-break-all" },
+        { title: "State", name: "stateName", type: "text", css: "text-align-center width10em" },
+        { title: "District", name: "districtame", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Block", name: "blockName", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Village", name: "village", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Pin Code", name: "pinCode", type: "text", css: "text-align-center width8em word-break-all" },
+        { title: "PAN Card", name: "pan", type: "text", css: "text-align-center width10em word-break-all" },
+        { title: "Aadhar", name: "aadhar", type: "text", css: "text-align-center width10em word-break-all" },
+
+      ]
 
     });
 
@@ -459,32 +505,28 @@ selectedBlock: number | null = null;
   }
 
   openFilter() {
-    this.isFilterOpen = !this.isFilterOpen;    
-    if(this.displayFilter=='none') 
-      {
-        this.displayFilter='block';
-        this.activeFilter = 'filter-link filter-tab-btn';
-        
+    this.isFilterOpen = !this.isFilterOpen;
+    if (this.displayFilter == 'none') {
+      this.displayFilter = 'block';
+      this.activeFilter = 'filter-link filter-tab-btn';
+
     }
-    else 
-    {
-    this.displayFilter='none';
-    this.activeFilter = 'filter-link';
+    else {
+      this.displayFilter = 'none';
+      this.activeFilter = 'filter-link';
     }
   }
   openColumn() {
     this.isColumnOpen = !this.isColumnOpen;
-    
-    if(this.displayColumn=='none') 
-      {
-        this.displayColumn ='block';
-        this.activeColumn = 'column-link filter-tab-btn';
-       
+
+    if (this.displayColumn == 'none') {
+      this.displayColumn = 'block';
+      this.activeColumn = 'column-link filter-tab-btn';
+
     }
-    else 
-    {
-    this.displayColumn ='none';
-    this.activeColumn = 'column-link';
+    else {
+      this.displayColumn = 'none';
+      this.activeColumn = 'column-link';
     }
   }
   onSelectionChange(event: Event): void {
@@ -493,71 +535,68 @@ selectedBlock: number | null = null;
     this.selectedOption = selectedId;
 
   }
-  openDefault(){
+  openDefault() {
 
-    if(this.activeDefault=='default-link') 
-      {
-        
-        this.activeDefault = 'default-link default-tab-btn';
-       
+    if (this.activeDefault == 'default-link') {
+
+      this.activeDefault = 'default-link default-tab-btn';
+
     }
-    else 
-    {
-    
-    this.activeDefault = 'default-link';
+    else {
+
+      this.activeDefault = 'default-link';
     }
 
-    
+
   }
 
-  assignProject(){
-    
+  assignProject() {
+
   }
   onGlobalFilter(event: Event) {
-    
+
     const inputValue = (event.target as HTMLInputElement).value; // Cast to HTMLInputElement
     console.log('inputValue ' + inputValue);
     this.dt?.filterGlobal(inputValue, 'contains');
   }
-    // Utility function to format headers
-    capitalizeFirstLetter(str: string): string {
-      // if (str=='profilePicture') 
-      //   return '';
-      // else
-        return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
+  // Utility function to format headers
+  capitalizeFirstLetter(str: string): string {
+    // if (str=='profilePicture') 
+    //   return '';
+    // else
+    return str.charAt(0).toUpperCase() + str.slice(1).replace(/([A-Z])/g, ' $1');
+  }
+  toggleColumn(column: any) {
+    column.visible = !column.visible; // Update visibility
+  }
+  columnVisibilityChange() {
+    // This method is triggered whenever a checkbox is checked/unchecked
+    console.log('Columns updated:', this.cols);
+  }
+  checkVisible(key: string): any {
+    console.log(key);
+    if (this.filteredCols.includes(key)) {
+      return false;
     }
-    toggleColumn(column: any) {
-      column.visible = !column.visible; // Update visibility
-    }
-    columnVisibilityChange() {
-      // This method is triggered whenever a checkbox is checked/unchecked
-      console.log('Columns updated:', this.cols);
-    }
-    checkVisible(key: string): any {
-      console.log(key);
-      if (this.filteredCols.includes(key)) {
-        return false;
-    }
-      else 
-        return true;
-    }
+    else
+      return true;
+  }
 
-    searchable(key: string): any {
-      
-      if (this.filteredCols.includes(key)) {
-        return false;
-    }
-      else if (key == 'profilePicture')
-      {
-        return false;
-      }
-      else
-        return true;
-    }
+  searchable(key: string): any {
 
-    applyFilter() {
-      console.log('Apply Filter');
-      // Always start with the original data
+    if (this.filteredCols.includes(key)) {
+      return false;
+    }
+    else if (key == 'profilePicture') {
+      return false;
+    }
+    else
+      return true;
+  }
+
+  applyFilter() {
+    console.log('Apply Filter');
+  // Always start with the original data
     this.filteredData = [...this.data];
 
     // Apply filters
@@ -575,9 +614,9 @@ selectedBlock: number | null = null;
     if (Object.values(this.filters).every((value) => value === '')) {
       this.filteredData = [...this.data];
     }
-      this.openFilter();
-    }
-    // Reset filters
+    this.openFilter();
+  }
+  // Reset filters
   resetFilters() {
     this.filters = {}; // Clear filter values
     this.filteredData = [...this.data]; // Reset to full data
@@ -636,76 +675,76 @@ selectedBlock: number | null = null;
   }
 
 
-    // Form submission logic
-    submitForm() {
-      if (!this.formData.FirstName || !this.formData.LastName) {
-        return; // Prevent submission if mandatory fields are empty
-      }
-      const apiUrl = environment.userdetailsApiUrl;
-      console.log(apiUrl);
-      // const payload = {
-      //   ...this.formData
-      // };
-      this.formData.Id = '0';
-      this.http.post(apiUrl, this.formData).subscribe({
+  // Form submission logic
+  submitForm() {
+    if (!this.formData.FirstName || !this.formData.LastName) {
+      return; // Prevent submission if mandatory fields are empty
+    }
+    const apiUrl = environment.userdetailsApiUrl;
+    console.log(apiUrl);
+    // const payload = {
+    //   ...this.formData
+    // };
+    this.formData.Id = '0';
+    this.http.post(apiUrl, this.formData).subscribe({
       next: (response) => {
         this.successMessage = 'User Added';
         alert(this.successMessage)
       },
       error: (error) => {
         this.errorMessage = error;
-        
-        
+
+
         console.error('Error Add new officer', JSON.stringify(error));
       },
       complete: () => {
-         console.log(' Request completed.');
+        console.log(' Request completed.');
       }
     });
-      // Handle form submission logic (e.g., post to an API)
-      console.log('Submitting form data:', this.formData);
+    // Handle form submission logic (e.g., post to an API)
+    console.log('Submitting form data:', this.formData);
 
-      
-    }
-    readFileAsBase64(file: File): Promise<string> {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = error => reject(error);
-        reader.readAsDataURL(file);
-      });
-}
-    fetchMasterData() {
-      this.http.get<SexOption[]>('https://motherappmasterapi.azurewebsites.net/api/Gender/GetAllGender').subscribe(
-        (response: SexOption []) => {
-          console.log('response = ' + response);
-          this.sexOptions = response;
-          console.log('SexOptions = ' + this.sexOptions);
 
-          this.getStates();
-        },
-        (error: HttpErrorResponse) => {
-          console.error('Failed to fetch sex options', error);
+  }
+  readFileAsBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+      reader.readAsDataURL(file);
+    });
+  }
+  fetchMasterData() {
+    this.http.get<SexOption[]>('https://motherappmasterapi.azurewebsites.net/api/Gender/GetAllGender').subscribe(
+      (response: SexOption[]) => {
+        console.log('response = ' + response);
+        this.sexOptions = response;
+        console.log('SexOptions = ' + this.sexOptions);
+
+        this.getStates();
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Failed to fetch sex options', error);
+      }
+    );
+  }
+  getStates() {
+    this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/State/GetAllStates').subscribe(
+      (response) => {
+        this.states = response;
+        if (this.states.length > 0) {
+          this.selectedState = this.states[0].id; // Select first state by default
+          console.log('this.selectedState = ' + this.selectedState);
+          if (this.selectedState > 0)
+            this.getDistricts(this.selectedState);
         }
-      );
-    }
-    getStates() {
-      this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/State/GetAllStates').subscribe(
-        (response) => {
-          this.states = response;
-          if (this.states.length > 0) {
-            this.selectedState = this.states[0].id; // Select first state by default
-            console.log('this.selectedState = ' + this.selectedState);
-            if (this.selectedState > 0)
-              this.getDistricts(this.selectedState);
-          }
-        },
-        (error) => {
-          console.error('Error fetching states:', error.message);
-        }
-      );
-    }
-    // Fetch districts based on selected state
+      },
+      (error) => {
+        console.error('Error fetching states:', error.message);
+      }
+    );
+  }
+  // Fetch districts based on selected state
   getDistricts(stateId: number) {
     this.http.get<any[]>(`https://motherappmasterapi.azurewebsites.net/api/District/GetAllDistrictsByStateId?stateId=${stateId}`).subscribe(
       (response) => {
@@ -714,8 +753,7 @@ selectedBlock: number | null = null;
         this.blocks = []; // Reset block dropdown
         this.selectedDistrict = this.districts[0].id; // Select first state by default
         console.log('this.selectedDistrict = ' + this.selectedDistrict);
-        if (this.districts.length > 0)
-        {
+        if (this.districts.length > 0) {
           this.selectedDistrict = this.districts[0].id;
           if (this.selectedDistrict > 0)
             this.getBlocks(this.selectedDistrict);
@@ -742,8 +780,8 @@ selectedBlock: number | null = null;
     );
   }
 
-   // On state selection change
-   onStateChange(event: Event) {
+  // On state selection change
+  onStateChange(event: Event) {
     this.selectedState = Number((event.target as HTMLSelectElement).value);
     if (this.selectedState) {
       this.getDistricts(this.selectedState);
@@ -751,25 +789,25 @@ selectedBlock: number | null = null;
   }
 
   // On district selection change
-  onDistrictChange(event: Event){ 
-  this.selectedDistrict = Number((event.target as HTMLSelectElement).value);
+  onDistrictChange(event: Event) {
+    this.selectedDistrict = Number((event.target as HTMLSelectElement).value);
     if (this.selectedDistrict) {
       this.getBlocks(this.selectedDistrict);
     }
   }
-onFileChange(event: Event, field: string) {
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (file) {
-    this.readFileAsBase64(file).then(base64 => {
-   (this.formData as any)[field] = base64;
-    });
+  onFileChange(event: Event, field: string) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.readFileAsBase64(file).then(base64 => {
+        (this.formData as any)[field] = base64;
+      });
+    }
   }
-}
-onDOBChange(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  this.formData.DOB = input.value; // Format will be yyyy-MM-dd
-  console.log('DOB changed to:', this.formData.DOB);
-}
+  onDOBChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.formData.DOB = input.value; // Format will be yyyy-MM-dd
+    console.log('DOB changed to:', this.formData.DOB);
+  }
 
   updatePath(): void {
     console.log('updatepath');
@@ -826,6 +864,167 @@ onDOBChange(event: Event): void {
       this.expandedRow = rowData; // expand this row
     }
   }
+
+  onLBCChange() {
+    if (!this.selectedRwe) {
+      this.rweBusinessType = [];
+      this.selectedRWEBusinessType = null;
+      return;
+    }
+
+    const companyId = 32;
+    const companyRoleId = 37;
+
+    this.serviceApi.getBusinessTypes(companyId, companyRoleId).subscribe({
+      next: (data) => {
+        this.rweBusinessType = data;
+        this.selectedRWEBusinessType = null;
+      },
+      error: (err) => {
+        console.error('Failed to load business types', err);
+      }
+    });
+  }
+
+
+  onBusinessChange(): void {
+
+
+  }
+  loadLbcList() {
+    this.serviceApi.fetchUserDetails(this.userdetailsApiUrl + this.companyId + '/' + this.roleId, this.dataKey).subscribe({
+      next: (data) => {
+        this.filteredRwes = data;
+      },
+      error: (err) => {
+        console.error('Error loading LBC users', err);
+      }
+    });
+  }
+  loadBusinessModal() {
+    this.selectedRwe = null;
+    this.loadLbcList();
+
+    const modalEl = document.getElementById('addBusiness');
+    if (!modalEl) {
+      console.error('Business modal not found');
+      return;
+    }
+
+    // Dispose old instance if exists
+    const existing = Modal.getInstance(modalEl);
+    if (existing) {
+      existing.dispose();
+    }
+
+    const modal = new Modal(modalEl, {
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    modal.show();
+  }
+  onSaveBusiness() {
+
+  }
+  onFilterChange(type: string, event: any) {
+    if (type === 'selectedRWEBusinessType') {
+      const businessTypeId = this.selectedRWEBusinessType;
+      if (!businessTypeId) return;
+
+      this.serviceApi
+        .getServiceOrProductByBusinessType(businessTypeId)
+        .subscribe({
+          next: (res) => {
+            this.allServiceOrProducts = res;
+
+            // 🔥 THIS IS THE KEY PART 🔥
+            this.BusinessSubCatType = Array.from(
+              new Map(
+                res.map(item => [
+                  item.businessSubCatId,
+                  {
+                    id: item.businessSubCatId,
+                    name: item.subCatName
+                  }
+                ])
+              ).values()
+            );
+
+            // reset downstream
+            this.selectedBusinessSubCatType = null;
+            this.rweServiceOrProduct = [];
+
+            console.log('Sub Categories:', this.BusinessSubCatType);
+          },
+          error: err => console.error(err)
+        });
+    }
+  }
+  onSubCategoryChange(subCatId: number) {
+    this.selectedServiceOrProduct = null;
+
+    this.ServiceOrProductOptions = this.allServiceOrProducts
+      .filter(p => p.businessSubCatId === subCatId)
+      .map(p => ({
+        id: p.serviceOrProductId,
+        name: p.serviceOrProductName
+      }));
+  }
+  onProductChange(productId: number) {
+    const product = this.allServiceOrProducts.find(
+      p => p.serviceOrProductId === productId
+    );
+
+    if (!product) return;
+
+    this.sellingPrice = product.sellingPrice;
+    this.unit = product.unit;
+    this.margin = product.margin;
+  }
+
+
+  resetProductDetails() {
+    this.sellingPrice = null;
+    this.unit = null;
+    this.margin = null;
+  }
+  onBusinessTypeChange(event: Event) {
+    const businessTypeId = Number(
+      (event.target as HTMLSelectElement).value
+    );
+
+    // reset everything below
+    this.BusinessSubCatType = [];
+    this.rweServiceOrProduct = [];
+    this.selectedBusinessSubCatType = null;
+    this.selectedServiceOrProduct = null;
+    this.resetProductDetails();
+
+    if (!businessTypeId) return;
+
+    this.serviceApi
+      .getServiceOrProductByBusinessType(businessTypeId)
+      .subscribe({
+        next: data => {
+          this.allServiceOrProducts = data;
+
+          // UNIQUE sub categories
+          const map = new Map<number, string>();
+          data.forEach(item => {
+            if (!map.has(item.businessSubCatId)) {
+              map.set(item.businessSubCatId, item.subCatName);
+            }
+          });
+
+          this.BusinessSubCatType = Array.from(map.entries()).map(
+            ([id, name]) => ({ id, name })
+          );
+        },
+        error: err => console.error(err)
+      });
+  }
+
 }
 
 

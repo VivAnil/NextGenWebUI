@@ -739,7 +739,8 @@ onServiceProductNameChange(event: any): void {
       selfInvestment: this.selfInvestment,
       bankLoan: Number(this.bankLoan) || 0,
       projectLoan: Number(this.projectLoan) || 0,
-      collectiveLoan: Number(this.collectiveLoan) || 0
+      collectiveLoan: Number(this.collectiveLoan) || 0,
+      userType: 'RWE'
     };
     this.rweBusinessService.saveRweBusiness(rweBusiness).subscribe({
       next: () => {
@@ -902,9 +903,7 @@ selectCaste(event: Event): void {
     'selectedRWEServiceOrProduct'
   ];
 
-  // Call this whenever any filter changes
 
-  // ✅ Called when RWE dropdown changes (loads businesses for selected RWE)
   onRweChange(): void {
     if (!this.selectedRwe || this.selectedRwe === '') {
       this.rweBusinesses = [];
@@ -947,7 +946,7 @@ selectCaste(event: Event): void {
       return;
     }
 
-    // ✅ Assign EXACTLY same data types as your ngModel expects
+    // Assign EXACTLY same data types as your ngModel expects
     this.selectedRWEBusinessType = selected.businessTypeId ?? '';
     this.selectedRWEBusinessSubCatType = selected.businessSubCatTypeId ?? '';
     this.selectedRWEServiceOrProduct = selected.serviceOrProductId ?? '';

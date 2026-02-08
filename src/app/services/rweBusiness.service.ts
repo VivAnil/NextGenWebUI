@@ -43,6 +43,7 @@ export class rweBusiness {
     );
   }
 
+
 }
 
 export interface RWEBusinessFilters {
@@ -65,6 +66,56 @@ export interface RweBusinessType {
   name: string;
   description: string;
   enabled: boolean;
+}
+export interface BusinessType {
+  id: number;
+  name: string;
+
+}
+export interface BusinessTypeApiResponse {
+  businessTypeId: number;
+  businessTypeName: string;
+}
+export interface ServiceOrProductApiResponse {
+  businessTypeId: number;
+  businessType: string;
+  serviceOrProductId: number;
+  serviceOrProductName: string;
+  businessSubCatId: number;
+  subCatName: string;
+  sellingPrice: number;
+  unit: string;
+  margin: number;
+}
+export interface BusinessSubCategory {
+  id: number;
+  name: string;
+}
+export interface ServiceOrProduct {
+  businessTypeId: number;
+  businessType: string;
+  serviceOrProductId: number;
+  serviceOrProductName: string;
+  businessSubCatId: number;
+  sellingPrice: number;
+  unit: string;
+  margin: number;
+  subCatName: string;
+}
+export interface BusinessProduct {
+  businessTypeId: number;
+  businessType: string;
+  serviceOrProductId: number;
+  serviceOrProductName: string;
+  businessSubCatId: number;
+  subCatName: string;
+  sellingPrice: number;
+  unit: string;
+  margin: number;
+}
+export interface DropdownOption {
+  id: number;
+  name: string;
 }
 
 export interface RweBusinessProduct {

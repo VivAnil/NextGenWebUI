@@ -16,14 +16,14 @@
 
             </div>
             <div class="display-inline">
-                <button type="button" class="btn-orange" id="btn_openModal"
-                    (click)="loadModal(this.dataKey);">
+                <button type="button" class="btn-orange" id="btn_openModal" (click)="loadModal(this.dataKey);">
                     + New {{this.pageHead}}
                 </button>
-
+                <button type="button" id="btn_openModalBusiness" class="btn-orange" (click)="loadBusinessModal()">
+                    Add Business
+                </button>
                 <button type="button" class="btn-orange" data-bs-toggle="modal" data-bs-target="#dv_assignProject"
-                    *ngIf="companyId !== 32"
-                    id="btn_assignProject" (click)="assignProject();">
+                    *ngIf="companyId !== 32" id="btn_assignProject" (click)="assignProject();">
                     + Assign Project
                 </button>
             </div>
@@ -181,31 +181,31 @@
                                                         class="td-border">
                                                         {{ col.header }}
                                                     </th>
-                                                    </ng-container>
-                                                    </tr>
-                                                    </ng-template>
-                                                    <ng-template pTemplate="body" let-clmRow>
-                                                        <tr (click)="toggleRow(clmRow)" class="clickable-row">
-                                                            <ng-container *ngFor="let col of cols">
-                                                                <td *ngIf="col.visible" [style.textAlign]="'center'" class="td-border">
-                                                                    <ng-container *ngIf="col.field === 'firstName'; else normalCell">
-                                                                        <span class="expand-link" (click)="onClmClick(clmRow, $event)">
-                                                                            {{ clmRow[col.field] }}
-                                                                        </span>
-                                                                    </ng-container>
-                                                                    <ng-template #normalCell>
+                                                </ng-container>
+                                                </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-clmRow>
+                                                    <tr (click)="toggleRow(clmRow)" class="clickable-row">
+                                                        <ng-container *ngFor="let col of cols">
+                                                            <td *ngIf="col.visible" [style.textAlign]="'center'" class="td-border">
+                                                                <ng-container *ngIf="col.field === 'firstName'; else normalCell">
+                                                                    <span class="expand-link" (click)="onClmClick(clmRow, $event)">
                                                                         {{ clmRow[col.field] }}
-                                                                    </ng-template>
-                                                                </td>
-                                                            </ng-container>
-                                                        </tr>
-                                                        <!-- Expanded LBC row -->
-                                                        <tr *ngIf="expandedRow === clmRow">
-                                                            <td [attr.colspan]="cols.length" style="padding:0;">
-                                                                <div *ngIf="loadingLbc" style="text-align:center; padding: 10px;">
-                                                                    <p-progressSpinner></p-progressSpinner>
-                                                                    <p>Loading data...</p>
-                                                                </div>
+                                                                    </span>
+                                                                </ng-container>
+                                                                <ng-template #normalCell>
+                                                                    {{ clmRow[col.field] }}
+                                                                </ng-template>
+                                                            </td>
+                                                        </ng-container>
+                                                    </tr>
+                                                    <!-- Expanded LBC row -->
+                                                    <tr *ngIf="expandedRow === clmRow">
+                                                        <td [attr.colspan]="cols.length" style="padding:0;">
+                                                            <div *ngIf="loadingLbc" style="text-align:center; padding: 10px;">
+                                                                <p-progressSpinner></p-progressSpinner>
+                                                                <p>Loading data...</p>
+                                                            </div>
 
                                                     <ng-container *ngIf="!loadingLbc && clmRow.lbcList?.length">
                                                         <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[5, 10, 20]"
@@ -213,13 +213,13 @@
 
                                                             <!-- Header -->
                                                             <ng-template pTemplate="header">
-                                                                <tr>
-                                                                    <th style="text-align:center; width: 80px;">Sr. No.</th>
-                                                                    <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
-                                                                        {{ col.header }}
-                                                                    </th>
-                                                                </tr>
-                                                            </ng-template>
+                                            <tr>
+                                                <th style="text-align:center; width: 80px;">Sr. No.</th>
+                                                <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
+                                                    {{ col.header }}
+                                                </th>
+                                            </tr>
+                                            </ng-template>
 
                                         <!-- Body -->
                                         <ng-template pTemplate="body" let-lbcRow let-i="rowIndex">
@@ -230,7 +230,7 @@
                                                 </td>
                                             </tr>
                                         </ng-template>
-                                        
+
                                         <!-- Empty message -->
                                         <ng-template pTemplate="emptymessage">
                                             <tr>
@@ -239,8 +239,8 @@
                                                 </td>
                                             </tr>
                                         </ng-template>
-                                        </p-table>
-                                        </ng-container>
+                                    </p-table>
+                                    </ng-container>
 
                                     </td>
                                     </tr>
@@ -684,7 +684,7 @@
                 <div class="modal fade" id="dv_assignProject" role="dialog">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                        <div class="modal-header">
+                            <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Assign Project</h4>
                             </div>
@@ -883,6 +883,243 @@
                                         </table>
                                     </div>
                                 </div>
+
+                            </div>
+                            <div class="clear-both-5"></div>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="modal fade" id="addBusiness" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                            
+                                            <button type="button" class="btn-close float-right" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h4 class="modal-title">Add Business</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="">
+                                                <div class="no-more-tables">
+                                                    <table class="col-sm-12 table-bordered table-condensed " cellpadding="5">
+                                                        <colgroup>
+                                                            <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                                            <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                                            <col style="background-color: rgb(243,243,243); width: 20%;" />
+                                                            <col style="background-color: rgb(255,255,255); width: 30%;" />
+                                                        </colgroup>
+                                                        <tbody>
+                            
+                            
+                                                            <tr>
+                                                                <td colspan="4" align="right">
+                                                                    <div class="section-heading text-align-left">Business Details
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Name of LBC</td>
+                                                                <td>
+                            
+                                                                    <select id="rweList" class="select-box-3 width100 margin-right-10px"
+                                                                        [(ngModel)]="selectedRwe" (change)="onLBCChange()" name="rweList">
+                            
+                                                                        <option [ngValue]="null" disabled>Select LBC</option>
+                            
+                                                                        <option *ngFor="let rwe of filteredRwes" [value]="rwe.id">
+                                                                            {{ rwe.firstName }} {{rwe.lastName}}
+                                                                        </option>
+                                                                    </select>
+                            
+                                                                </td>
+                                                                <td>Business Name *</td>
+                                                                <td>
+                                                                    <!-- <input type="text" id="txtName" name="txtName" value="" placeholder="Enter Business Name" required
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        class="input-box-3 width100 ng-pristine ng-valid ng-touched" /> -->
+                                                                    <select id="businessNameDropdown" name="businessNameDropdown"
+                                                                        class="select-box-3 width100" [(ngModel)]="selectedBusinessId"
+                                                                        (change)="onBusinessChange()">
+                            
+                                                                        <option value="" disabled>Select Business</option>
+                            
+                                                                        <option *ngFor="let b of rweBusinesses" [value]="b.id">
+                                                                            {{ b.businessName }}
+                                                                        </option>
+                            
+                                                                        <option [value]="-1">➕ Add New Business</option>
+                                                                    </select>
+                            
+                                                                    <div *ngIf="isAddingNewBusiness" style="margin-top: 8px;">
+                                                                        <input type="text" id="txtNewBusinessName" name="txtNewBusinessName"
+                                                                            placeholder="Enter New Business Name" class="input-box-3 width100"
+                                                                            [(ngModel)]="newBusinessName" />
+                                                                    </div>
+                                                                </td>
+                            
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Type of Business</td>
+                                                                <td>
+                                                                    <!-- <select name="business_options" id="business_options" class="select-box-3 width100"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)"> -->
+                                                                    <select id="businessType" name="businessType" class="select-box-3 width100"
+                                                                        [(ngModel)]="selectedRWEBusinessType"
+                                                                        (change)="onFilterChange('selectedRWEBusinessType', $event)">
+                            
+                                                                        <option [ngValue]="null" disabled>Select Business Type</option>
+                            
+                                                                        <option *ngFor="let filter of rweBusinessType" [value]="filter.id">
+                                                                            {{ filter.name }}
+                                                                        </option>
+                                                                    </select>
+                            
+                                                                </td>
+                                                                <td>Business Sub-Category</td>
+                                                                <td>
+                                                                    <!-- <select name="business_options" id="business_options" class="select-box-3 width100"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      [(ngModel)]="selectedRWEBusinessSubCatType" (change)="onFilterChange('selectedRWEBusinessSubCatType', $event)"> -->
+                                                                    <select id="businessSubCategory" name="businessSubCategory"
+                                                                        [(ngModel)]="selectedBusinessSubCatType" class="select-box-3 width100"
+                                                                        [disabled]="!BusinessSubCatType.length"
+                                                                        (ngModelChange)="onSubCategoryChange($event)">
+                                                                        <option [ngValue]="null" disabled>Select Business</option>
+                            
+                                                                        <option *ngFor="let type of BusinessSubCatType" [ngValue]="type.id">
+                                                                            {{ type.name }}
+                                                                        </option>
+                                                                    </select>
+                            
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Services/Product</td>
+                                                                <td>
+                                                                    <!-- <select name="business_products" id="business_products" class="select-box-3 width100" 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      [(ngModel)]="selectedRWEServiceOrProduct" (change)="onFilterChange('selectedRWEServiceOrProduct', $event)"> -->
+                                                                    <select id="serviceProduct" name="serviceProduct"
+                                                                        [(ngModel)]="selectedRWEServiceOrProduct" class="select-box-3 width100"
+                                                                        [disabled]="!selectedBusinessSubCatType"
+                                                                        (change)="onFilterChange('selectedRWEServiceOrProduct', $event)">
+                                                                        <option [ngValue]="''" disabled>Select Product</option>
+                                                                        <!-- <option value="" disabled selected>Select Product</option> -->
+                                                                        <option *ngFor="let type of ServiceOrProductOptions" [ngValue]="type.id">
+                                                                            {{ type.name }}
+                                                                        </option>
+                            
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    Inventory (Vol./Qty)
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width60 margin-right-10px"
+                                                                        [(ngModel)]="selectedInventory" /> <select class="select-box-3 width30"
+                                                                        [(ngModel)]="selectedInventoryUnit">
+                                                                        <option value="" disabled selected>-Select Unit-</option>
+                                                                        <option value="Kg">Kg</option>
+                                                                        <option value="Litre">Litre</option>
+                                                                        <option value="Pack">Pack</option>
+                                                                        <option value="Piece">Piece</option>
+                                                                        <option value="Other">Other</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Start Month
+                            
+                                                                </td>
+                                                                <td>
+                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartMonth">
+                                                                        <option>-Select Month-</option>
+                                                                        <option value="1">January</option>
+                                                                        <option value="2">February</option>
+                                                                        <option value="3">March</option>
+                                                                        <option value="4">April</option>
+                                                                        <option value="5">May</option>
+                                                                        <option value="6">June</option>
+                                                                        <option value="7">July</option>
+                                                                        <option value="8">August</option>
+                                                                        <option value="9">September</option>
+                                                                        <option value="10">October</option>
+                                                                        <option value="11">November</option>
+                                                                        <option value="12">December</option>
+                                                                    </select>
+                                                                </td>
+                            
+                            
+                                                                <td>
+                                                                    Start Year
+                                                                </td>
+                                                                <td>
+                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartYear">
+                                                                        <option>-Select Year-</option>
+                                                                        <option *ngFor="let yr of years" [value]="yr">
+                                                                            {{ yr }}
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                            
+                            
+                                                                    Total Investment
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width100 "
+                                                                        [(ngModel)]="totalInvestment" />
+                                                                </td>
+                            
+                            
+                                                                <td>
+                                                                    Self Investment
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width100 "
+                                                                        [(ngModel)]="selfInvestment" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                            
+                                                                    Project Loan (if any)
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width100 "
+                                                                        [(ngModel)]="projectLoan" />
+                                                                </td>
+                            
+                            
+                                                                <td>
+                                                                    Bank Loan (if any)
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width100 " [(ngModel)]="bankLoan" />
+                                                                </td>
+                            
+                            
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                            
+                                                                    Collective Loan (if any)
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="" class="input-box-3 width100 "
+                                                                        [(ngModel)]="collectiveLoan" />
+                                                                </td>
+                            
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4" class="text-align-center back-white" align="center">
+                                                                    <input *ngIf="hideSaveRWE" type="button" value="Save" class="btn-blck1"
+                                                                        id="saveBusiness" (click)="onSaveBusiness()" />
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
 
                             </div>
                             <div class="clear-both-5"></div>

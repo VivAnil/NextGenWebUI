@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Service } from '../models/service.model';
 import { catchError, Observable, of } from 'rxjs';
-import { map } from 'jquery';
+import { map } from 'rxjs/operators';
 import { ServicePillar } from '../models/servicePillar.model';
 import { userDetails } from '../models/userDetails.model';
 import { Beneficiary } from '../models/beneficiary.model';
+import { BusinessSubCategory, BusinessType, BusinessTypeApiResponse, RweBusinessType, ServiceOrProduct, ServiceOrProductApiResponse } from './rweBusiness.service';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,52 @@ export class ApiService {
       //  }
     ];
   }
+
+  getBusinessTypes(companyId: number, companyRoleId: number) {
+    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&companyRoleId=${companyRoleId}`;
+
+    return this.http
+      .get<BusinessTypeApiResponse[]>(url)
+      .pipe(
+        map(res =>
+          res.map(bt => ({
+            id: bt.businessTypeId,
+            name: bt.businessTypeName
+          }))
+        )
+      );
+  }
+getServiceOrProductByBusinessType(
+  businessTypeId: number
+) {
+  const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
+
+  return this.http.get<ServiceOrProduct[]>(url);
+}
+
+  // getServiceOrProductByBusinessType(businessTypeId: number) {
+  //   const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
+
+  //   return this.http
+  //     .get<ServiceOrProductApiResponse[]>(url)
+  //     .pipe(
+  //       map(res => {
+  //         //Deduplicate by businessSubCatId
+  //         const uniqueMap = new Map<number, BusinessSubCategory>();
+          
+  //         res.forEach(item => {
+  //           if (!uniqueMap.has(item.businessSubCatId)) {
+  //             uniqueMap.set(item.businessSubCatId, {
+  //               id: item.businessSubCatId,
+  //               name: item.subCatName
+  //             });
+  //           }
+  //         });
+
+  //         return Array.from(uniqueMap.values());
+  //       })
+  //     );
+  // }
 
   getuserDetails(url:string): Observable<userDetails[]> {
 
