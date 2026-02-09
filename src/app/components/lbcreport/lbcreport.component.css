@@ -1,0 +1,67 @@
+ .jsgrid-pager {
+     right: 100px;
+     top: 18px;
+ }
+
+ .jsgrid-pager-container {
+     display: block !important;
+ }
+
+ .jsgrid {
+     position: static !important;
+ }
+
+ #dv_fcfiltercolumns,
+ #lbl_filtercolumnscount1,
+ #lnk_resetcolumnfilter1,
+ #btn_clear_filter {
+     display: none;
+ }
+
+ a.collapsed>span.expandedIndicator,
+ a:not(.collapsed)>span.collpasedIndicator {
+     display: none;
+ }
+
+ .jsgrid-grid-header th {
+     text-align: center;
+     vertical-align: middle;
+ }
+
+ .group-header th {
+     background: #f2f2f2;
+     font-weight: bold;
+     border: 1px solid #ccc;
+ }
+
+ #MappedGrid {
+     width: 100%;
+ }
+
+ /* Scroll container */
+ .jsgrid-grid-header,
+ .jsgrid-grid-body {
+     overflow-x: hidden;
+ }
+
+ /* Only body scrolls horizontally */
+ .jsgrid-grid-body {
+     overflow-x: auto;
+ }
+
+ /* Fixed layout keeps columns aligned */
+ .jsgrid-grid-header table,
+ .jsgrid-grid-body table {
+     table-layout: fixed;
+     width: max-content;
+     /* important */
+     min-width: 100%;
+ }
+
+ /* Header styling */
+ .group-header th {
+
+     text-align: center;
+     vertical-align: middle;
+     box-sizing: border-box;
+ }
