@@ -347,7 +347,11 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     this.rweBusinessService.getRWEBusinessFilters().subscribe({
       next: (data) => {
         this.rweBusinessfilters = data;
-        this.rweBusinessType = this.rweBusinessfilters?.rweBusinessType;
+        // this.rweBusinessType = this.rweBusinessfilters?.rweBusinessType;
+        this.rweBusinessType =
+          this.rweBusinessfilters?.rweBusinessType
+            ?.filter(bt => bt.id === 4) || [];
+
         this.rweBusinessSubCatType = this.rweBusinessfilters?.rweBusinessSubCatType;
         this.rweServiceOrProduct = this.rweBusinessfilters?.rweServiceOrProduct;
         console.log('Filters:', this.rweBusinessfilters);
@@ -1021,7 +1025,7 @@ selectCaste(event: Event): void {
     });
   }
 
-  allowedUnits: string[] = ['Kg', 'Litre', 'Pack', 'Piece'];
+  allowedUnits: string[] = ['Kg', 'Litre', 'Pack', 'Piece', 'Unit'];
 
   // Dynamic display of first filtered business
   displayRweBusinessData(): void {
