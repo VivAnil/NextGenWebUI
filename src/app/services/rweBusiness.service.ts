@@ -1,5 +1,5 @@
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { RWEBusinessFilters } from './rwe-business-filters.model';
 import { Observable } from 'rxjs';
@@ -41,6 +41,22 @@ export class rweBusiness {
       'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEBusinessType',
       data
     );
+  }
+
+  getLBCSalesSummary(
+    fromDate: string,
+    toDate: string,
+    spId?: number
+  ): Observable<SalesSummaryResponse[]> {
+
+    let params = new HttpParams()
+      .set('fromDate', fromDate)
+      .set('toDate', toDate);
+
+    if (spId && spId > 0) {
+      params = params.set('spId', spId);
+    }
+    return this.http.get<SalesSummaryResponse[]>(this.apibaseUrl+'GetLBCReport/', { params });
   }
 
 
@@ -147,4 +163,15 @@ export interface RweBusiness {
   collectiveLoan: number | null;
   businessName: string;
   userType: string;
+}
+
+export interface SalesSummaryResponse {
+  spName: string;
+  rweName: string;
+  businessTypeName: string;
+  serviceOrProductName: string;
+  unitsSold: number;
+  revenue: number;
+  margin: number;
+  netProfit: number;
 }
