@@ -146,4 +146,5 @@ export interface RweBusiness {
   bankLoan: number | null;
   collectiveLoan: number | null;
   businessName: string;
+  userType: string;
 }

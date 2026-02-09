@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
 import { BusinessProduct, BusinessSubCategory, BusinessType, DropdownOption, RWEBusinessFilters, RweBusiness, RweBusinessProduct, RweBusinessSubCatType, RweBusinessType, ServiceOrProduct, rweBusiness } from '../../services/rweBusiness.service';
 import { tgtBusiness } from 'src/app/models/rwe-business.model';
+// import { rweBusiness} from '../../services/rweBusiness.service';
 // import { UserProfile } from 'src/app/models/IUserProfile';
 declare let $: any; // Import jQuery
 @Component({
@@ -128,7 +129,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   selectedBusinessType: number | null = null;
   selectedBusinessSubCatType: number | null = null;
   selectedServiceOrProduct: number | null = null;
-  years: any[] = [];
+  years: number[] = [];
 
   rwes: any[] = [];
   filteredRwes: any[] = [];  // filtered list
@@ -144,8 +145,10 @@ export class UsersComponent implements OnInit, AfterViewInit {
   rweServiceOrProduct: RweBusinessProduct[] | undefined;
   selectedRwe: any = "";
   newBusinessName: string = '';
-  selectedBusinessId: number | '' = '';
+  selectedBusinessId: number | null = null;
+
   isAddingNewBusiness: boolean = false;
+
 
   selectedRWEBusinessType: any = "";
   selectedRWEBusinessSubCatType: any = "";
@@ -163,7 +166,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
   tgtBusinesses: { id: number; businessName: string }[] = [];
   allTgtBusinesses: tgtBusiness[] = [];
   selectedBusId: number | null = null;
-  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(private route: ActivatedRoute, private serviceApi: ApiService, private http: HttpClient, private menuService: MenuService, private router: Router,
+    private cdr: ChangeDetectorRef, private rweBusinessService: rweBusiness) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -228,7 +232,13 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
 
     this.updatePath();
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 10;
+    const endYear = currentYear;
 
+    for (let y = startYear; y <= endYear; y++) {
+      this.years.push(y);
+    }
   }
   loadData(): void {
     this.serviceApi.fetchUserDetails(this.userdetailsApiUrl + this.companyId + '/' + this.roleId, this.dataKey).subscribe({
@@ -883,7 +893,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     const companyId = 32;
     const companyRoleId = 37;
     const rweId = this.selectedRwe;
-    this.serviceApi.getBusinessTypes(companyId, companyRoleId).subscribe({
+    this.serviceApi.getBusinessTypesByUserId(companyId, rweId, 'LBC').subscribe({
       next: (data) => {
         this.rweBusinessType = data;
         this.selectedRWEBusinessType = null;
@@ -912,10 +922,135 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
 
-  onBusinessChange(): void {
+  onBusinessChange() {
+    // ➕ ADD NEW BUSINESS
+    if (this.selectedBusinessId === -1) {
+      this.isAddingNewBusiness = true;
+      this.resetBusinessFormExceptLBC();
+      return;
+    }
+
+    // NOTHING SELECTED
+    if (!this.selectedBusinessId) {
+      this.isAddingNewBusiness = false;
+      this.resetBusinessFormExceptLBC();
+      return;
+    }
+
+    this.isAddingNewBusiness = false;
+
+    const selectedBusiness = this.allTgtBusinesses.find(
+      b => b.rweBusinessId === this.selectedBusinessId
+    );
+
+    if (!selectedBusiness) return;
+
+    /* -----------------------------
+       STEP 1: LOAD BUSINESS TYPES
+    ------------------------------*/
+    var companyId = 32;
+    var userId = selectedBusiness.rweId;
+    const userString = localStorage.getItem('userRoleSettings');
+    let userRoleSettings = userString ? JSON.parse(userString) : null;
+    if (userString && userRoleSettings) {
+      companyId = userRoleSettings.companyId;
+    }
 
 
+    this.serviceApi.getBusinessTypesByUserId(companyId, userId, 'LBC').subscribe({
+      next: (types) => {
+        this.rweBusinessType = types;
+
+        /* -----------------------------
+           STEP 2: SET BUSINESS TYPE
+        ------------------------------*/
+        this.selectedRWEBusinessType = selectedBusiness.businessTypeId;
+
+        /* -----------------------------
+           STEP 3: LOAD SERVICES/PRODUCTS
+        ------------------------------*/
+        this.loadServiceProductsAndPopulate(selectedBusiness);
+      }
+    });
+
+    /* -----------------------------
+       OTHER SIMPLE FIELDS
+    ------------------------------*/
+    this.selectedInventory = selectedBusiness.inventory;
+    this.selectedInventoryUnit = selectedBusiness.inventoryUnit;
+    this.selectedStartMonth = selectedBusiness.startMonth;
+    this.selectedStartYear = selectedBusiness.startYear;
+
+    this.totalInvestment = selectedBusiness.totalInvestment;
+    this.selfInvestment = selectedBusiness.selfInvestment;
+    this.projectLoan = selectedBusiness.projectLoan;
+    this.bankLoan = selectedBusiness.bankLoan;
+    this.collectiveLoan = selectedBusiness.collectiveLoan;
+    this.hideSaveRWE = true;
   }
+  loadServiceProductsAndPopulate(selectedBusiness: any) {
+    this.serviceApi
+      .getServiceOrProductByBusinessType(selectedBusiness.businessTypeId)
+      .subscribe(res => {
+
+        this.allServiceOrProducts = res;
+
+        /* -----------------------------
+           BUILD UNIQUE SUB CATEGORIES
+        ------------------------------*/
+        this.BusinessSubCatType = Array.from(
+          new Map(
+            res.map(p => [
+              p.businessSubCatId,
+              { id: p.businessSubCatId, name: p.subCatName }
+            ])
+          ).values()
+        );
+
+        /* -----------------------------
+           STEP 4: SET SUB CATEGORY
+        ------------------------------*/
+        this.selectedBusinessSubCatType = selectedBusiness.businessSubCatTypeId;
+
+        /* -----------------------------
+           STEP 5: LOAD PRODUCTS
+        ------------------------------*/
+        this.ServiceOrProductOptions = res
+          .filter(p => p.businessSubCatId === this.selectedBusinessSubCatType)
+          .map(p => ({
+            id: p.serviceOrProductId,
+            name: p.serviceOrProductName
+          }));
+
+        /* -----------------------------
+           STEP 6: SET PRODUCT
+        ------------------------------*/
+        this.selectedRWEServiceOrProduct = selectedBusiness.serviceOrProductId;
+      });
+  }
+
+  resetBusinessFormExceptLBC() {
+    this.selectedRWEBusinessType = null;
+    this.selectedBusinessSubCatType = null;
+    this.selectedRWEServiceOrProduct = null;
+
+    this.BusinessSubCatType = [];
+    this.ServiceOrProductOptions = [];
+
+    this.selectedInventory = 0;
+    this.selectedInventoryUnit = null;
+
+    this.selectedStartMonth = 0;
+    this.selectedStartYear = 0;
+
+    this.totalInvestment = 0;
+    this.selfInvestment = 0;
+    this.projectLoan = 0;
+    this.bankLoan = 0;
+    this.collectiveLoan = 0;
+    this.hideSaveRWE = true;
+  }
+
   loadLbcList() {
     this.serviceApi.fetchUserDetails(this.userdetailsApiUrl + this.companyId + '/' + this.roleId, this.dataKey).subscribe({
       next: (data) => {
@@ -949,9 +1084,88 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
     modal.show();
   }
-  onSaveBusiness() {
+  onSaveBusiness(): void {
 
+    // Basic validation
+    if (!this.selectedRwe) {
+      alert('Please select LBC');
+      return;
+    }
+
+    const businessName =
+      this.isAddingNewBusiness
+        ? this.newBusinessName?.trim()
+        : this.tgtBusinesses.find(b => b.id === this.selectedBusinessId)?.businessName;
+
+    if (!businessName) {
+      alert('Please enter or select Business Name');
+      return;
+    }
+
+    const payload: RweBusiness = {
+      id: this.isAddingNewBusiness ? 0 : (this.selectedBusinessId ?? 0),
+      rweId: this.selectedRwe,
+
+      businessTypeId: this.selectedRWEBusinessType,
+      businessSubCatTypeId: this.selectedBusinessSubCatType == null ? 0 : this.selectedBusinessSubCatType,
+      serviceOrProductId: this.selectedRWEServiceOrProduct,
+
+      inventory: Number(this.selectedInventory),
+      inventoryUnit: this.selectedInventoryUnit,
+
+      startMonth: this.selectedStartMonth,
+      startYear: this.selectedStartYear,
+
+      totalInvestment: Number(this.totalInvestment),
+      selfInvestment: Number(this.selfInvestment),
+
+      projectLoan: this.projectLoan ?? 0,
+      bankLoan: this.bankLoan ?? 0,
+      collectiveLoan: this.collectiveLoan ?? 0,
+
+      businessName: businessName,
+      userType: 'LBC'
+    };
+
+    console.log('Saving payload:', payload);
+
+    this.rweBusinessService.saveRweBusiness(payload).subscribe({
+      next: (res) => {
+
+        alert('Business added successfully');
+
+        this.resetBusinessForm();
+        this.onLBCChange(); // reload business list
+
+      },
+      error: (err) => {
+        console.error('Save failed', err);
+        alert('Error while saving business');
+      }
+    });
   }
+  resetBusinessForm(): void {
+    this.selectedBusinessId = 0;
+    this.newBusinessName = '';
+    this.isAddingNewBusiness = false;
+
+    this.selectedRWEBusinessType = null as any;
+    this.selectedBusinessSubCatType = null as any;
+    this.selectedRWEServiceOrProduct = null as any;
+
+    this.selectedInventory = null as any;
+    this.selectedInventoryUnit = '';
+
+    this.selectedStartMonth = null as any;
+    this.selectedStartYear = null as any;
+
+    this.totalInvestment = null as any;
+    this.selfInvestment = null as any;
+    this.projectLoan = 0;
+    this.bankLoan = 0;
+    this.collectiveLoan = 0;
+  }
+
   onFilterChange(type: string, event: any) {
     if (type === 'selectedRWEBusinessType') {
       const businessTypeId = this.selectedRWEBusinessType;

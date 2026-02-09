@@ -74,7 +74,20 @@ export class ApiService {
       //  }
     ];
   }
+  getBusinessTypesByUserId(companyId: number, userId: number, userType: string) {
+    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&userId=${userId}&userType=${userType}`;
 
+    return this.http
+      .get<BusinessTypeApiResponse[]>(url)
+      .pipe(
+        map(res =>
+          res.map(bt => ({
+            id: bt.businessTypeId,
+            name: bt.businessTypeName
+          }))
+        )
+      );
+  }
   getBusinessTypes(companyId: number, companyRoleId: number) {
     const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&companyRoleId=${companyRoleId}`;
 

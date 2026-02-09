@@ -960,15 +960,14 @@
                                                                 <td>
                                                                     <!-- <select name="business_options" id="business_options" class="select-box-3 width100"
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       [(ngModel)]="selectedRWEBusinessType" (change)="onFilterChange('selectedRWEBusinessType', $event)"> -->
-                                                                    <select id="businessType" name="businessType" class="select-box-3 width100"
-                                                                        [(ngModel)]="selectedRWEBusinessType"
-                                                                        (change)="onFilterChange('selectedRWEBusinessType', $event)">
-                            
+                                                                    <select id="businessType" name="businessType" class="select-box-3 width100" [(ngModel)]="selectedRWEBusinessType"
+                                                                        (ngModelChange)="onFilterChange('selectedRWEBusinessType', $event)">
+                                                                    
                                                                         <option [ngValue]="null" disabled>Select Business Type</option>
-                            
-                                                                        <option *ngFor="let filter of rweBusinessType" [value]="filter.id">
-                                                                            {{ filter.name }}
-                                                                        </option>
+
+                                                                    <option *ngFor="let filter of rweBusinessType" [ngValue]="filter.id">
+                                                                        {{ filter.name }}
+                                                                    </option>
                                                                     </select>
                             
                                                                 </td>
@@ -1010,7 +1009,7 @@
                                                                     Inventory (Vol./Qty)
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" id="" class="input-box-3 width60 margin-right-10px"
+                                                                    <input type="text" id="inventoryDropDown" class="input-box-3 width60 margin-right-10px"
                                                                         [(ngModel)]="selectedInventory" /> <select class="select-box-3 width30"
                                                                         [(ngModel)]="selectedInventoryUnit">
                                                                         <option value="" disabled selected>-Select Unit-</option>
@@ -1028,7 +1027,7 @@
                             
                                                                 </td>
                                                                 <td>
-                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartMonth">
+                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartMonth" id="monthDropDown">
                                                                         <option>-Select Month-</option>
                                                                         <option value="1">January</option>
                                                                         <option value="2">February</option>
@@ -1050,9 +1049,9 @@
                                                                     Start Year
                                                                 </td>
                                                                 <td>
-                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartYear">
+                                                                    <select class="select-box-3 width100" [(ngModel)]="selectedStartYear" id="yearDropdown">
                                                                         <option>-Select Year-</option>
-                                                                        <option *ngFor="let yr of years" [value]="yr">
+                                                                        <option *ngFor="let yr of years" [ngValue]="yr">
                                                                             {{ yr }}
                                                                         </option>
                                                                     </select>
