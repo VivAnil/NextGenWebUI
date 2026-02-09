@@ -14,13 +14,13 @@ import { EditadminComponent } from './components/editadmin/editadmin.component';
 import { PaymentreportComponent } from './components/paymentreport/paymentreport.component';
 import { EditcompanyComponent } from './components/editcompany/editcompany.component';
 import { AllprojectsComponent } from './components/allprojects/allprojects.component';
-import { AllbeneficiariesComponent } from './components/allbeneficiaries/allbeneficiaries.component';
 import { SpbeneficiariesComponent } from './components/spbeneficiaries/spbeneficiaries.component';
 import { UsersComponent } from './components/users/users.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { BeneficiaryComponent } from './components/beneficiary/beneficiary.component';
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
+import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
 
 const routes: Routes = [
   
@@ -53,7 +53,7 @@ const routes: Routes = [
       {path: 'spwisereport', component: SpbeneficiariesComponent},
       { path: 'user/:companyid/:roleid', component: UsersComponent, runGuardsAndResolvers: 'always' },
       { path: 'businessproduct', component: BusinessproductComponent },
-           
+      { path: 'lbcreport', component: LBCReportComponent },
     ]
   },
       {path: 'project', component: ProjectComponent},
@@ -72,6 +72,7 @@ const routes: Routes = [
       {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
       {path:'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
   { path: 'businessproduct', component: BusinessproductComponent },
+  { path: 'lbcreport', component: LBCReportComponent },
   {
     path: '**',
     redirectTo: 'login'

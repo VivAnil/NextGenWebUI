@@ -53,7 +53,14 @@ export class MenuService {
       {
         title: 'Business Section',
         links: [
+          { label: 'LBC Reports', path: '/lbcreports' },
           { label: 'View All Products', path: '/businessproduct' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreports' }
         ]
       }
     ]
@@ -153,9 +160,15 @@ export class MenuService {
           break;
 
         case 'View_Project_Report':
+          //newMenu.find(m => m.title === 'Report Section')?.links.push({
+          //  label: 'All Project Report',
+          //  path: '/projectreport'
+          //});
+          //break;
           newMenu.find(m => m.title === 'Report Section')?.links.push({
-            label: 'All Project Report',
-            path: '/projectreport'
+            label:
+              "LBC Report",
+            path: '/lbcreport'
           });
           break;
 
@@ -167,10 +180,15 @@ export class MenuService {
           break;
 
         case 'View_Sp_Beneficiary_Report':
+          //newMenu.find(m => m.title === 'Report Section')?.links.push({
+          //  label:
+          //    this.spRoleDisplayName + ' Wise ' + this.benRoleDisplayName + ' Report',
+          //  path: '/spwisereport'
+          //});
           newMenu.find(m => m.title === 'Report Section')?.links.push({
             label:
-              this.spRoleDisplayName + ' Wise ' + this.benRoleDisplayName + ' Report',
-            path: '/spwisereport'
+              "LBC Report",
+            path: '/lbcreport'
           });
           break;
 
@@ -321,7 +339,8 @@ export class MenuService {
         )
         : mi.filter(
           m =>
-            m.title !== "Business Section"
+            m.title !== "Business Section" && 
+            m.title !== "Reports Section"
         );
 
     const newMenu = filteredMenus;
@@ -369,7 +388,14 @@ export class MenuService {
       {
         title: 'Business Section',
         links: [
-          { label: 'View All Products', path: '/businessproduct' }
+          { label: 'View All Products', path: '/businessproduct' },
+          { label: 'LBC Reports', path: '/lbcreports' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreports' }
         ]
       }
     ];

@@ -1,0 +1,172 @@
+<div class="container-fluid">
+  <div>
+    <div class="position-relative padding-10-0">
+
+      <div class="col-sm-6 padding-zero">
+        <input type="text" class="input-box-3 width100 padding-10" placeholder="Type to search" id="txt_globalsearch" autocomplete="off">
+      </div>
+      <div class="col-sm-6 padding-zero text-align-right font-size1-1em">
+        <div id="filter_btn" class="filter filter-link"><i class="fa fa-filter awe-filter"></i>Filters <i class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
+        <div id="default_btn" class="filter default-link"><i class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
+        <div id="column_btn" class="filter column-link"><i class="fa fa-gear awe-filter margin-right-10px"></i><span id="col-span-box">Columns</span> <i class="fa fa-caret-down rotate arrow awe-arrow"></i></div>
+      </div>
+      <div class="clear-both"></div>
+      <div id="filter_tab" class="display-none width100 filter-tab-box">
+        <div id="assigned_tab_filter">
+          <div class="row">
+
+            <div class="col-sm-3 form-group">
+              <div class="label-text">LBC Name</div>
+              <div>
+                <input type="text" id="#" class="input-box-3 width100">
+              </div>
+            </div>
+            <div class="col-sm-3 form-group">
+              <div class="label-text">Input Sales</div>
+              <div>
+                <select name="" id="" class="select-box-3 width100" multiple>
+                  <option value="1">-Select Sales Pruducts--</option>
+                  <option value="1">Dana Mishran</option>
+                  <option value="2">Neem Oil</option>
+                  <option value="3">Pachmola</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3 form-group">
+              <div class="label-text">Services</div>
+              <div>
+                <select name="" id="" class="select-box-3 width100" multiple>
+                  <option value="1">-Select Services--</option>
+                  <option value="1">Deworming</option>
+                  <option value="2">Vaccination</option>
+                  <option value="3">Treatment</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3 form-group">
+              <div class="label-text">District</div>
+              <div>
+                <select name="" id="" class="select-box-3 width100" multiple>
+                  <option value="1">-Select District--</option>
+                  <option value="1">Azamgarh</option>
+                  <option value="2">Baliya</option>
+                  <option value="3">Chhapra</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3 form-group">
+              <div class="label-text">Block</div>
+              <div>
+                <select name="" id="" class="select-box-3 width100" multiple>
+                  <option value="1">-Select Block--</option>
+                  <option value="1">East Block</option>
+                  <option value="2">West Block</option>
+                  <option value="3">South Block</option>
+
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-3 form-group">
+              <div class="label-text">Village</div>
+              <div>
+                <input type="text" id="#" class="input-box-3 width100">
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row text-align-center">
+            <a href="#" style="color: #258ee8; font-size: 1.3em; margin: 0 10px;" id="btn_cancelfilter">Cancel</a>
+            <input type="button" class="btn-blck1" id="btn_search" value="Apply Filter">
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <div id="column_tab" class="display-none filter width50 column-tab-box">
+        <div>
+          <label id="lbl_filtercolumnscount">6 out of 15</label>
+
+        </div>
+        <div class="column-tab1">
+          <div id="dv_nfcfiltercolumns"><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" disabled="disabled" checked="checked" id="0" class="cursor-pointer"><label for="0" class="cursor-pointer">Serial No.</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" disabled="disabled" checked="checked" id="1" class="cursor-pointer"><label for="1" class="cursor-pointer">Name of Donor</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="2" onclick="checkGridColumn(2,this)" id="2" checked="checked" class="cursor-pointer"><label for="2" class="cursor-pointer">Transaction Date</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="3" onclick="checkGridColumn(3,this)" id="3" checked="checked" class="cursor-pointer"><label for="3" class="cursor-pointer">Donated Amount</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="4" onclick="checkGridColumn(4,this)" id="4" class="cursor-pointer"><label for="4" class="cursor-pointer">Transaction No.</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="5" onclick="checkGridColumn(5,this)" id="5" class="cursor-pointer"><label for="5" class="cursor-pointer">Cheque No.</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="6" onclick="checkGridColumn(6,this)" id="6" class="cursor-pointer"><label for="6" class="cursor-pointer">Donation Nature</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="7" onclick="checkGridColumn(7,this)" id="7" class="cursor-pointer"><label for="7" class="cursor-pointer">Payment Mode</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="8" onclick="checkGridColumn(8,this)" id="8" class="cursor-pointer"><label for="8" class="cursor-pointer">Financial Year</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="9" onclick="checkGridColumn(9,this)" id="9" class="cursor-pointer"><label for="9" class="cursor-pointer">Contact No</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="10" onclick="checkGridColumn(10,this)" id="10" class="cursor-pointer"><label for="10" class="cursor-pointer">Address</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="11" onclick="checkGridColumn(11,this)" id="11" class="cursor-pointer"><label for="11" class="cursor-pointer">Type of ID</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="12" onclick="checkGridColumn(12,this)" id="12" checked="checked" class="cursor-pointer"><label for="12" class="cursor-pointer">PAN/Aadhaar No.</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" data-value="13" onclick="checkGridColumn(13,this)" id="13" class="cursor-pointer"><label for="13" class="cursor-pointer">Email Id</label></div><div class="col-sm-4 text-overflow-ellipsis padding8"><input type="checkbox" disabled="disabled" checked="checked" id="14" class="cursor-pointer"><label for="14" class="cursor-pointer">Action</label></div></div>
+
+          <div class="clear-both"></div>
+        </div>
+
+        <div class="col-sm-6 padding-zero">
+          <a href="#" class="col-reset-btn" id="lnk_resetcolumnfilter">Reset</a>
+
+
+        </div>
+        <div class="col-sm-6 text-align-right padding-zero">
+          <a href="#" class="col-cancel-btn" id="lnk_cancelcolumnfilter">Cancel</a>
+        </div>
+        <div class="clear-both"></div>
+        <div class="clear-both"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <div class="position-relative">
+      <button type="button" id="btn_clear_filter" class="clear-filter-btn"><i class="fas fa-filter"></i>Clear Filters</button>
+      <div class="month-year-filter" style="left:31%;">
+        <div style="margin-top:-12px;">
+
+          <div class="float-left" style="margin-right:10px;">
+            <div class="font-weight-bold">From</div>
+            <div><input type="date" class="input-box-3" /></div>
+          </div>
+          <div class="float-left" style="margin-right:10px;">
+            <div class="font-weight-bold">To</div>
+            <div><input type="date" class="input-box-3" /></div>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="page-filter">
+
+        <select class="padding8">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="200">200</option>
+          <option value="1250">Select All</option>
+
+        </select>
+      </div>
+    </div>
+    <div id="tabs">
+
+      <ul>
+        <li><a href="#tabs-1">LBC Report</a></li>
+
+      </ul>
+      <div id="tabs-1">
+        <div id="MappedGrid"></div>
+
+        <div class="clear-both-20"></div>
+      </div>
+
+
+    </div>
+    <div class="clear-both-5"></div>
+
+
+
+
+
+  </div>
+
+  <div class="clear-both"></div>
+
+</div>

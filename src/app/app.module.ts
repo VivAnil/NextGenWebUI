@@ -42,6 +42,7 @@ import { BeneficiaryComponent } from './components/beneficiary/beneficiary.compo
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
 import { CustomRouteReuseStrategy } from './services/custom-route-reuse.strategy';
+import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,8 @@ import { CustomRouteReuseStrategy } from './services/custom-route-reuse.strategy
     ResetpasswordComponent,
     BeneficiaryComponent,
     TgtdashboardComponent,
-    BusinessproductComponent
+    BusinessproductComponent,
+    LBCReportComponent
   ],
   imports: [
     BrowserModule,
