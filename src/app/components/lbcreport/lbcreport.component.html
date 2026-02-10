@@ -1,5 +1,3 @@
-
-
 <div class="col-md-12 float-left">
   <div class="back-internal-page width100">
     <div class="heading-title">LBC Report</div>
@@ -47,7 +45,7 @@
                       <input type="text" [(ngModel)]="filters[col.field]" class="input-box-3 width100"
                         placeholder="Search {{ col.header }}" />
                     </div>
-                    </div>
+                  </div>
                 </div>
               </ng-container>
             </div>
@@ -62,7 +60,7 @@
                 <input type="button" class="btn-blck1" value="Apply Filter" (click)="applyFilter()">
               </div>
             </div>
-            </div>
+          </div>
         </div>
         <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">
           <div>
@@ -73,7 +71,7 @@
             <div class="float-right">
               <a href="#" class="col-reset-btn" id="lnk_resetcolumnfilter1">Reset</a>
             </div>
-            </div>
+          </div>
           <div class="column-tab1">
             <div id="dv_nfcfiltercolumns">
               <!-- <p-dialog [(visible)]="showColumnModal" header="Filter Columns" [modal]="true" [closable]="true" [dismissableMask]="true"> -->
@@ -89,31 +87,212 @@
                         col.header
                         }}
                       </label>
-                      </div>
+                    </div>
                   </div>
 
                 </ng-container>
               </div>
             </div>
             <div class="clear-both"></div>
-            </div>
-            </div>
-            <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content" style="margin-top: 10px;">
+          </div>
+          </div>
+          <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content" style="margin-top: 10px;">
 
-              <ul role="tablist" class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
-                <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
-                  aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true" aria-expanded="true">
-                  <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
-                    LBC Report
-                  </a>
-                </li>
-              </ul>
+          <ul role="tablist" class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+            <li role="tab" tabindex="0" class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
+              aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true" aria-expanded="true">
+              <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
+                LBC Report
+              </a>
+            </li>
+          </ul>
             <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
-              class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true" style="display:inline-block;">
-              <div id="MappedGrid"></div>
+            class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true"
+            style="display:inline-block;">
+            <div id="MappedGrid"></div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm text-center" style="border: 4px;">
+            
+                <thead>
+                  <!-- HEADER ROW 1 -->
+                  <tr>
+                    <th rowspan="4">Id</th>
+                    <th rowspan="4">Pashu Sakhi</th>
+                    <th rowspan="4">Village</th>
+                    <th rowspan="4">Block</th>
+                    <th rowspan="4">District</th>
+            
+                    <th colspan="18">INPUT SALES</th>
+                    <th colspan="21">SERVICES</th>
+            
+                    <th rowspan="4">Total Business Turnover</th>
+            
+                    <th rowspan="4">Turnover by Service</th>
+                    <th rowspan="4">Turnover by Input Sales</th>
+                    <th rowspan="4">Total Profit</th>
+                  </tr>
+            
+                  <!-- HEADER ROW 2 -->
+                  <tr>
+                    <th colspan="3">Dana Mishran</th>
+                    <th colspan="3">Neem Oil</th>
+                    <th colspan="3">Pachmola</th>
+                    <th colspan="3">Masala Bolus</th>
+                    <th colspan="3">Milk Replacer</th>
+                    <th colspan="3">Liver Tonic</th>
+            
+                    <th colspan="3">Deworming</th>
+                    <th colspan="3">Vaccination</th>
+                    <th colspan="3">Castration</th>
+                    <th colspan="3">Treatment</th>
+                    <th colspan="3">Medicine</th>
+                    <th colspan="3">Hoof Cutting</th>
+                    <th colspan="3">Hair Cutting</th>
+                  </tr>
+            
+                  <!-- HEADER ROW 3 -->
+                  <tr>
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+            
+                    <th>No. Of Goats</th>
+                    <th>Revenue</th>
+                    <th>Profit</th>
+                  </tr>
+                </thead>
+            
+                <tbody>
+                  <tr *ngFor="let r of reportData">
+                    <td>{{ r.spId }}</td>
+                    <td>{{ r.spName }}</td>
+                    <td>{{ r.village }}</td>
+                    <td>{{ r.blockName }}</td>
+                    <td>{{ r.districtName }}</td>
+            
+                    <!-- Dana Mishran -->
+                    <td>{{ r.danaMishran_UnitsSold }}</td>
+                    <td>{{ r.danaMishran_Revenue }}</td>
+                    <td>{{ r.danaMishran_NetProfit }}</td>
+            
+                    <!-- Neem Oil -->
+                    <td>{{ r.neemOil_UnitsSold }}</td>
+                    <td>{{ r.neemOil_Revenue }}</td>
+                    <td>{{ r.neemOil_NetProfit }}</td>
+            
+                    <!-- Pachmola -->
+                    <td>{{ r.pachmol_UnitsSold }}</td>
+                    <td>{{ r.pachmol_Revenue }}</td>
+                    <td>{{ r.pachmol_NetProfit }}</td>
+            
+                    <!-- Masala Bolus -->
+                    <td>{{ r.bolus_UnitsSold }}</td>
+                    <td>{{ r.bolus_Revenue }}</td>
+                    <td>{{ r.bolus_NetProfit }}</td>
+            
+            
+                    <!-- Milk Replacer -->
+                    <td>{{ r.mR_UnitsSold }}</td>
+                    <td>{{ r.mR_Revenue }}</td>
+                    <td>{{ r.mR_NetProfit }}</td>
+            
+                    <!-- Liver Tonic -->
+                    <td>{{ r.tonic_UnitsSold }}</td>
+                    <td>{{ r.tonic_Revenue }}</td>
+                    <td>{{ r.tonic_NetProfit }}</td>
+            
+                    <!-- Deworming -->
+                    <td>{{ r.deworming_UnitsSold }}</td>
+                    <td>{{ r.deworming_Revenue }}</td>
+                    <td>{{ r.deworming_NetProfit }}</td>
+            
+                    <!-- Vaccination -->
+                    <td>{{ r.vaccin_UnitsSold }}</td>
+                    <td>{{ r.vaccin_Revenue }}</td>
+                    <td>{{ r.vaccin_NetProfit }}</td>
+            
+                    <!-- Castration -->
+                    <td>{{ r.castrate_UnitsSold }}</td>
+                    <td>{{ r.castrate_Revenue }}</td>
+                    <td>{{ r.castrate_NetProfit }}</td>
+            
+                    <!-- Treatment -->
+                    <td>{{ r.treatment_UnitsSold }}</td>
+                    <td>{{ r.treatment_Revenue }}</td>
+                    <td>{{ r.treatment_NetProfit }}</td>
+            
+                    <!-- Medicine -->
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+            
+                    <!-- Hoof Cutting -->
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+            
+                    <!-- Hair Cutting -->
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+            
+                    <td>{{ r.businessRevenue }}</td>
+                    <td>{{ r.margin }}</td>
+                    <td>{{ r.overAllRevenue }}</td>
+                    <td>{{ r.sericeRevenue }}</td>
+            
+                  </tr>
+                </tbody>
+            
+              </table>
+            </div>
 
             <div class="clear-both-20"></div>
-            </div>
+          </div>
 
 
         </div>

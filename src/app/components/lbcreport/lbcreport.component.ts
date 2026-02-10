@@ -38,14 +38,36 @@ export class LBCReportComponent implements OnInit {
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat", "caste", "accountName"
   ];
 
+  //FOR Report
+  reportData: any[] = [];
+  loading = false;
 
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.initJsGrid();
+    //this.initJsGrid();
+    this.loadReport();
   }
+  loadReport() {
+    this.loading = true;
 
+    this.apiService
+      .getLBCReport('2000-01-01', '2026-02-10', 0)
+      .subscribe({
+        next: (res) => {
+          this.reportData = res.map((item, index) => ({
+            slNo: index + 1,
+            ...item
+          }));
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error loading LBC report', err);
+          this.loading = false;
+        }
+      });
+  }
   onGlobalFilter(query: string): void {
     const q = (query ?? '').toLowerCase();
     this.filteredData = this.data.filter(x =>
@@ -417,10 +439,7 @@ function syncHeaderWidths() {
 
   if (!$bodyTds.length) return;
 
-  // $headerThs.each(function (index) {
-  //   const bodyWidth = $bodyTds.eq(index).outerWidth();
-  //   $(this).outerWidth(bodyWidth);
-  // });
+
 }
 function buildMultiLevelHeader() {
   const headerTable = $("#MappedGrid .jsgrid-grid-header table");

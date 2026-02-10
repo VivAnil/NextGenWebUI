@@ -258,7 +258,11 @@ getServiceOrProductByBusinessType(
     const userUrl = 'https://motherappuserapi.azurewebsites.net/User/byManager/' + this.companyId + '/' + clmId;
     return this.http.get<any[]>(userUrl);
   }
-
+  getLBCReport(fromDate: string, toDate: string, spId: number): Observable<any[]> {
+    const baseLBCUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary';
+    const url = `${baseLBCUrl}/GetLBCReport/${fromDate}/${toDate}/${spId}`;
+    return this.http.get<any[]>(url);
+  }
 
 }
 
