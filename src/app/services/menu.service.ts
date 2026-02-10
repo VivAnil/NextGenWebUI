@@ -53,7 +53,6 @@ export class MenuService {
       {
         title: 'Business Section',
         links: [
-          { label: 'LBC Reports', path: '/lbcreports' },
           { label: 'View All Products', path: '/businessproduct' }
         ]
       },
@@ -388,8 +387,7 @@ export class MenuService {
       {
         title: 'Business Section',
         links: [
-          { label: 'View All Products', path: '/businessproduct' },
-          { label: 'LBC Reports', path: '/lbcreports' }
+          { label: 'View All Products', path: '/businessproduct' }
         ]
       },
       {

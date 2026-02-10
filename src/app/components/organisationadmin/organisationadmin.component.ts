@@ -369,6 +369,18 @@ export class OrganisationadminComponent implements OnInit, AfterViewInit  {
         title: 'Payment Section',
         links: [
         ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreport' }
+        ]
       }
     ]);
   }
