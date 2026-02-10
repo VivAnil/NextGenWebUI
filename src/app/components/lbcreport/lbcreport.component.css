@@ -28,11 +28,7 @@
      vertical-align: middle;
  }
 
- .group-header th {
-     background: #f2f2f2;
-     font-weight: bold;
-     border: 1px solid #ccc;
- }
+
 
  #MappedGrid {
      width: 100%;
@@ -48,20 +44,27 @@
  .jsgrid-grid-body {
      overflow-x: auto;
  }
-
+::ng-deep .jsgrid-table.jsgrid-table {
+    table-layout: fixed;
+    width: max-content !important;
+    /* important */
+    min-width: 100%;
+}
  /* Fixed layout keeps columns aligned */
  .jsgrid-grid-header table,
  .jsgrid-grid-body table {
      table-layout: fixed;
-     width: max-content;
+    width: max-content !important;
      /* important */
-     min-width: 100%;
+    min-width: 100% !important;
  }
 
  /* Header styling */
  .group-header th {
-
-     text-align: center;
-     vertical-align: middle;
-     box-sizing: border-box;
+    text-align: center;
+        vertical-align: middle;
+        box-sizing: border-box;
+    background: #f2f2f2;
+        font-weight: bold;
+        border: 1px solid #ccc;
  }
