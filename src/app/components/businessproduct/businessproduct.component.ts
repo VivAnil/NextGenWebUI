@@ -370,6 +370,12 @@ export class BusinessproductComponent implements OnInit {
         links: [
           { label: 'View All Products', path: '/businessproduct' }
         ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreport' }
+        ]
       }
     ]);
   }

@@ -43,11 +43,53 @@ export class LBCReportComponent implements OnInit {
   loading = false;
 
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+    private menuService: MenuService) { }
 
   ngOnInit(): void {
     //this.initJsGrid();
     this.loadReport();
+  }
+  ngAfterViewInit(): void {
+    // Wait until DOM and child views are fully rendered
+    setTimeout(() => {
+      this.updatePath();
+    });
+  }
+
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' },
+          { label: 'LBC Reports', path: '/lbcreports' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreport' }
+        ]
+      }
+    ]);
   }
   loadReport() {
     this.loading = true;

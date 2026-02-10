@@ -871,6 +871,12 @@ onServiceProductNameChange(event: any): void {
           title: 'Payment Section',
           links: [
           ]
+        },
+        {
+          title: 'Reports Section',
+          links: [
+            { label: 'LBC Reports', path: '/lbcreport' }
+          ]
         }
       ]);
     }
