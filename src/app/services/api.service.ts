@@ -260,7 +260,7 @@ getServiceOrProductByBusinessType(
   }
   getLBCReport(fromDate: string, toDate: string, spId: number): Observable<any[]> {
     const baseLBCUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary';
-    const url = `${baseLBCUrl}/GetLBCReport/${fromDate}/${toDate}/${spId}`;
+    const url = `${baseLBCUrl}/GetLBCReport?fromDate=${fromDate}&toDate=${toDate}&soochnapreneurId=${spId}`;
     return this.http.get<any[]>(url);
   }
 
