@@ -164,11 +164,22 @@ export class MenuService {
           //  path: '/projectreport'
           //});
           //break;
-          newMenu.find(m => m.title === 'Report Section')?.links.push({
+          newMenu.find(m => m.title === 'Report Section')?.links.push(
+            {
             label:
               "LBC Report",
             path: '/lbcreport'
-          });
+            },
+            {
+              label:
+                "LBC Business Analysis",
+              path: '/lbcba'
+            },
+            {
+              label: "LBC Trend Anaylsis",
+              path: '/lbctrend'
+            }
+          );
           break;
 
         case 'View_Beneficiary_Report':
@@ -184,11 +195,17 @@ export class MenuService {
           //    this.spRoleDisplayName + ' Wise ' + this.benRoleDisplayName + ' Report',
           //  path: '/spwisereport'
           //});
-          newMenu.find(m => m.title === 'Report Section')?.links.push({
+          newMenu.find(m => m.title === 'Report Section')?.links.push(
+            {
             label:
               "LBC Report",
             path: '/lbcreport'
-          });
+            },
+            {
+              label: "LBC Trend Analysis", path: '/lbctrend'
+            }
+
+          );
           break;
 
         case 'View_Service':
@@ -393,7 +410,9 @@ export class MenuService {
       {
         title: 'Reports Section',
         links: [
-          { label: 'LBC Reports', path: '/lbcreports' }
+          { label: 'LBC Reports', path: '/lbcreports' },
+          { label: 'LBC Business Analysis', path: '/lbcba' },
+          { label: 'LBC Trend Analysis', path: '/lbctrend' }
         ]
       }
     ];

@@ -43,6 +43,8 @@ import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.co
 import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
 import { CustomRouteReuseStrategy } from './services/custom-route-reuse.strategy';
 import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
+import { LbcbaComponent } from './components/lbcba/lbcba.component';
+import { LbctrendComponent } from './components/lbctrend/lbctrend.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +71,9 @@ import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
     BeneficiaryComponent,
     TgtdashboardComponent,
     BusinessproductComponent,
-    LBCReportComponent
+    LBCReportComponent,
+    LbcbaComponent,
+    LbctrendComponent
   ],
   imports: [
     BrowserModule,

@@ -875,7 +875,9 @@ onServiceProductNameChange(event: any): void {
         {
           title: 'Reports Section',
           links: [
-            { label: 'LBC Reports', path: '/lbcreport' }
+            { label: 'LBC Reports', path: '/lbcreport' },
+            { label: 'LBC Business Analysis', path: '/lbcba' },
+            { label: 'LBC Trend Analysis', path: '/lbctrend' }
           ]
         }
       ]);

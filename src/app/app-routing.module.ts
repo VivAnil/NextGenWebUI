@@ -21,12 +21,13 @@ import { BeneficiaryComponent } from './components/beneficiary/beneficiary.compo
 import { TgtdashboardComponent } from './components/tgtdashboard/tgtdashboard.component';
 import { BusinessproductComponent } from './components/businessproduct/businessproduct.component';
 import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
-
+import { LbcbaComponent } from './components/lbcba/lbcba.component';
+import { LbctrendComponent } from './components/lbctrend/lbctrend.component';
 const routes: Routes = [
-  
+
   {
     path: 'login',
-    component:LoginComponent
+    component: LoginComponent
   },
   {
     path: 'organisation/:roleid',
@@ -34,50 +35,54 @@ const routes: Routes = [
   },
   {
     path: '',
-    component:LayoutComponent,
-    children:[
-      {path: 'project', component: ProjectComponent},
-      {path: 'services', component: ServicesComponent},
-      {path: 'home', component: HomeComponent},
-      {path: 'usermanagement',component: UsermanagementComponent},
+    component: LayoutComponent,
+    children: [
+      { path: 'project', component: ProjectComponent },
+      { path: 'services', component: ServicesComponent },
+      { path: 'home', component: HomeComponent },
+      { path: 'usermanagement', component: UsermanagementComponent },
       { path: 'organisationadmin/:companyid/:roleid', component: OrganisationadminComponent, runGuardsAndResolvers: 'always', },
       { path: 'dashboard/:roleid', component: TgtdashboardComponent, runGuardsAndResolvers: 'always', },
-      {path: 'processpayment', component: PaymentComponent},
-      {path: 'companyusermaster', component: CompanyusermasterComponent},
-      {path: 'editadmin', component: EditadminComponent},
-      {path: 'editcompany', component: EditcompanyComponent},
-      {path: 'paymentreport', component: PaymentreportComponent},
-      {path: 'projectreport', component: AllprojectsComponent},
+      { path: 'processpayment', component: PaymentComponent },
+      { path: 'companyusermaster', component: CompanyusermasterComponent },
+      { path: 'editadmin', component: EditadminComponent },
+      { path: 'editcompany', component: EditcompanyComponent },
+      { path: 'paymentreport', component: PaymentreportComponent },
+      { path: 'projectreport', component: AllprojectsComponent },
       { path: 'businessproduct', component: BusinessproductComponent },
-      {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
-      {path: 'spwisereport', component: SpbeneficiariesComponent},
+      { path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent },
+      { path: 'spwisereport', component: SpbeneficiariesComponent },
       { path: 'user/:companyid/:roleid', component: UsersComponent, runGuardsAndResolvers: 'always' },
       { path: 'businessproduct', component: BusinessproductComponent },
       { path: 'lbcreport', component: LBCReportComponent },
+      { path: 'lbcba', component: LbcbaComponent },
+      { path: 'lbctrend', component: LbctrendComponent }
     ]
   },
-      {path: 'project', component: ProjectComponent},
-      {path: 'services', component: ServicesComponent},
-      {path: 'home', component: HomeComponent},
-      {path: 'services', component: ServicesComponent },
-      {path: 'usermanagement',component: UsermanagementComponent},
+  { path: 'project', component: ProjectComponent },
+  { path: 'services', component: ServicesComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'services', component: ServicesComponent },
+  { path: 'usermanagement', component: UsermanagementComponent },
   { path: 'organisationadmin/:companyid/:roleid', component: OrganisationadminComponent, runGuardsAndResolvers: 'always', },
-      {path: 'processpayment', component: PaymentComponent},
-      {path: 'companyusermaster', component: CompanyusermasterComponent},
-      {path: 'editadmin', component: EditadminComponent},
-      {path: 'editcompany', component: EditcompanyComponent},
-      {path: 'projectreport', component: AllprojectsComponent},
-      {path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent},
-      {path: 'spwisereport', component: SpbeneficiariesComponent},
-      {path: 'user/:companyid/:roleid', component: UsersComponent,  runGuardsAndResolvers: 'always'},
-      {path:'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers:'always'},
+  { path: 'processpayment', component: PaymentComponent },
+  { path: 'companyusermaster', component: CompanyusermasterComponent },
+  { path: 'editadmin', component: EditadminComponent },
+  { path: 'editcompany', component: EditcompanyComponent },
+  { path: 'projectreport', component: AllprojectsComponent },
+  { path: 'bn/:companyid/:projectid/:soochnapreneurId', component: BeneficiaryComponent },
+  { path: 'spwisereport', component: SpbeneficiariesComponent },
+  { path: 'user/:companyid/:roleid', component: UsersComponent, runGuardsAndResolvers: 'always' },
+  { path: 'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers: 'always' },
   { path: 'businessproduct', component: BusinessproductComponent },
   { path: 'lbcreport', component: LBCReportComponent },
+  { path: 'lbcba', component: LbcbaComponent },
+  { path: 'lbctrend', component: LbctrendComponent },
   {
     path: '**',
     redirectTo: 'login'
   }
-  
+
 ];
 
 @NgModule({
