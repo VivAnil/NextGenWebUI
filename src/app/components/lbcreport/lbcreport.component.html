@@ -118,33 +118,33 @@
                 
                   <!-- ================= HEADER ROW 1 ================= -->
                   <tr>
-                    <th rowspan="3">ID</th>
-                    <th rowspan="3">Pashu Sakhi</th>
-                    <th rowspan="3">Village</th>
-                    <th rowspan="3">Block</th>
-                    <th rowspan="3">District</th>
+                    <th rowspan="3" style="background-color: darkgray;">ID</th>
+                    <th rowspan="3" style="background-color: darkgray;">Pashu Sakhi</th>
+                    <th rowspan="3" style="background-color: darkgray;">Village</th>
+                    <th rowspan="3" style="background-color: darkgray;">Block</th>
+                    <th rowspan="3" style="background-color: darkgray;">District</th>
 
-                    <th colspan="18" class="text-center">INPUT SALES</th>
-                    <th colspan="21" class="text-center">SERVICES</th>
+                    <th colspan="18" class="text-center" style="background-color: darkgray;">INPUT SALES</th>
+                    <th colspan="21" class="text-center" style="background-color: darkgray;">SERVICES</th>
 
-                    <th rowspan="3" pSortableColumn="businessRevenue">
+                    <th rowspan="3" pSortableColumn="totalRevenue" style="background-color: darkgray;">
                       Total Turnover
-                      <p-sortIcon field="businessRevenue"></p-sortIcon>
+                      <p-sortIcon field="totalRevenue"></p-sortIcon>
                     </th>
 
-                    <th rowspan="3" pSortableColumn="sericeRevenue">
+                    <th rowspan="3" pSortableColumn="sericeRevenue" style="background-color: darkgray;">
                       Turnover From Services
                       <p-sortIcon field="sericeRevenue"></p-sortIcon>
                     </th>
                     
-                    <th rowspan="3" pSortableColumn="salesRevenue">
+                    <th rowspan="3" pSortableColumn="businessRevenue" style="background-color: darkgray;">
                       Turnover From Sales
-                      <p-sortIcon field="salesRevenue"></p-sortIcon>
+                      <p-sortIcon field="businessRevenue"></p-sortIcon>
                     </th>
                     
-                    <th rowspan="3" pSortableColumn="overAllRevenue">
+                    <th rowspan="3" pSortableColumn="totalNetProfit" style="background-color: darkgray;">
                       Total Income / Profit
-                      <p-sortIcon field="overAllRevenue"></p-sortIcon>
+                      <p-sortIcon field="totalNetProfit"></p-sortIcon>
                     </th>
                   </tr>
 
@@ -297,10 +297,10 @@
                     <td style="text-align: center;">-</td>
                     <td style="text-align: center;">-</td>
                     
-                    <td style="text-align: center;">{{ row.businessRevenue }}</td>
+                    <td style="text-align: center;">{{ row.totalRevenue }}</td>
                     <td style="text-align: center;">{{ row.sericeRevenue }}</td>
-                    <td style="text-align: center;">0</td>
-                    <td style="text-align: center;">{{ row.overAllRevenue }}</td>
+                    <td style="text-align: center;">{{ row.businessRevenue }}</td>
+                    <td style="text-align: center;">{{ row.totalNetProfit }}</td>
                     </tr>
                     </ng-template>
 
