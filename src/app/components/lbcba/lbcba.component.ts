@@ -7,6 +7,7 @@ import { Table } from 'primeng/table'; // Import PrimeNG Table reference
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-lbcba',
@@ -28,9 +29,16 @@ export class LbcbaComponent implements OnInit {
   reportData: any[] = [];
   loading = false;
 
-  constructor() { }
+  constructor(private apiService: ApiService,
+    private menuService: MenuService) { }
 
   ngOnInit(): void {
+  }
+  ngAfterViewInit(): void {
+    // Wait until DOM and child views are fully rendered
+    setTimeout(() => {
+      this.updatePath();
+    });
   }
   onGlobalFilter(query: string): void {
     const q = (query ?? '').toLowerCase();
@@ -88,6 +96,43 @@ export class LbcbaComponent implements OnInit {
     // This method is triggered whenever a checkbox is checked/unchecked
     console.log('Columns updated:', this.cols);
   }
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' },
+          { label: 'LBC Reports', path: '/lbcreports' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreport' },
+          { label: 'LBC Business Analysis', path: '/lbcba' },
+          { label: 'LBC Trend Analysis', path: '/lbctrend' }
+        ]
+      }
+    ]);
+  }
+
   applyFilter() {
     // console.log('Apply Filter');
     // Always start with the original data
