@@ -38,9 +38,14 @@ export class LbcbaComponent implements OnInit {
   }
   loadReport() {
     this.loading = true;
+    const fromdt = document.getElementById('fromDate') as HTMLInputElement | null;
+    var fromDate = fromdt?.value || null;
+
+    const toDt = document.getElementById('toDate') as HTMLInputElement | null;
+    var toDate = toDt?.value || null;
 
     this.apiService
-      .getLBCAnalysisReport('2025-01-01', '2026-02-10', 0)
+      .getLBCAnalysisReport('2024-01-01', '2026-12-01', 0)
       .subscribe({
         next: (res) => {
           this.reportData = res.map((item, index) => ({

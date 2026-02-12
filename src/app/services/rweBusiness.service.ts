@@ -61,14 +61,14 @@ export class rweBusiness {
   }
 
   getLBCAnalysisReport(
-    fromDate: string,
-    toDate: string,
+    fromDate?: string,
+    toDate?: string,
     spId?: number 
   ): Observable<LbcAnalysisResponse[]> {
 
     let params = new HttpParams()
-      .set('fromDate', fromDate)
-      .set('toDate', toDate);
+      .set('fromDate', fromDate == null ? '' : fromDate)
+      .set('toDate', toDate == null ? '' : toDate);
 
     if (spId && spId > 0) {
       params = params.set('spId', spId);
@@ -193,39 +193,46 @@ export interface SalesSummaryResponse {
 }
 
 export interface LbcAnalysisResponse {
-  lbcName: string;
+  rweId: number;
+  spId: number;
+  lBCName: string;
+  village: string;
   blockName: string;
   districtName: string;
-  village: string;
-
-  rweId: number;
   businessName: string;
-  serviceOrProduct: string;
-
-  volume: number;
+  inception: number;
   totalInvestment: number;
   selfInvestment: number;
-  inception: string;
-  financeSource: string;
+  projectLoan: number;
+  bankLoan: number;
+  volume: number;
 
-  spId: number;
-  rweBusinessId: number;
-
-  totalTurnover: number;
-  totalVolume: number;
+  subCatId: number;
+  subCatName: string;
+  serviceOrProductId: number;
+  serviceOrProductName: string;
 
   turnover_Q1: number;
   turnover_Q2: number;
   turnover_Q3: number;
   turnover_Q4: number;
-  qtr_to_Qtr: number;
 
-  input_Winter_Qty: number;
-  input_Summer_Qty: number;
-  input_Rainy_Qty: number;
-  output_Winter_Qty: number;
-  output_Summer_Qty: number;
-  output_Rainy_Qty: number;
+  q2_Q1_Diff: number;
+  q3_Q2_Diff: number;
+  q4_Q3_Diff: number;
+  q2_Q1_Percentage: number;
+  q3_Q2_Percentage: number;
+  q4_Q3_Percentage: number;
+
+  rWEBusinessId: number;
+  totalSales: number;
+  productWinterSales: number;
+  productSummerSales: number;
+  productRainySales: number;
+
+  serviceWinterSales: number;
+  serviceSummerSales: number;
+  serviceRainySales: number;
 }
 
 
