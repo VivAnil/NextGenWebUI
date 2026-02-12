@@ -1,9 +1,13 @@
 import { AfterViewInit, Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import { ActivatedRoute, Event as RouterEvent } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
-import { MenuService } from 'src/app/services/menu.service';
-import * as XLSX from 'xlsx';
+
+import { environment } from 'src/environments/environment';
 import { Table } from 'primeng/table'; // Import PrimeNG Table reference
+import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { MenuService } from 'src/app/services/menu.service';
 import { rweBusiness } from '../../services/rweBusiness.service';
 
 @Component({
@@ -13,9 +17,7 @@ import { rweBusiness } from '../../services/rweBusiness.service';
 })
 export class LbctrendComponent implements OnInit {
 
-  filteredData: any[] = []; // Data to display in the grid
-  @ViewChild('dt') dt: Table | undefined; // Access the table reference
-  data: any[] = [];
+  cols: any[] = []; // Table columns
   isFilterOpen: boolean = false;
   displayColumn: string = 'none';
   displayFilter: string = 'none';
@@ -23,82 +25,47 @@ export class LbctrendComponent implements OnInit {
   activeColumn: string = 'column-link';
   activeDefault: string = 'default-link';
   isColumnOpen: boolean = false;
-  filters: { [key: string]: string } = {}; // Stores filter values
-  showFilterModal = false; // Controls filter modal visibility
-  filteredCols: string[] = ["profilePicture", "dob", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
-    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
-    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat", "caste", "accountName"
-  ];
-
-  //FOR Report
+  filteredData: any[] = [];
+  filters: { [key: string]: string } = {};
+  data: any[] = [];
   reportData: any[] = [];
   loading = false;
+
   constructor(private apiService: rweBusiness,
     private menuService: MenuService) { }
 
   ngOnInit(): void {
     this.loadReport();
   }
+  loadReport() {
+    this.loading = true;
+    const fromdt = document.getElementById('fromDate') as HTMLInputElement | null;
+    var fromDate = fromdt?.value || null;
+
+    const toDt = document.getElementById('toDate') as HTMLInputElement | null;
+    var toDate = toDt?.value || null;
+
+    this.apiService
+        .getLBCTrendReport('2024-01-01', '2026-12-01', 0)
+        .subscribe({
+          next: (res) => {
+            this.reportData = res.map((item, index) => ({
+              slNo: index + 1,
+              ...item
+            }));
+            this.loading = false;
+          },
+          error: (err) => {
+            console.error('Error loading LBC Trend analysis report', err);
+            this.loading = false;
+          }
+        });
+  }
   ngAfterViewInit(): void {
     // Wait until DOM and child views are fully rendered
     setTimeout(() => {
       this.updatePath();
     });
-  }
-
-  updatePath(): void {
-    console.log('updatepath');
-    this.menuService.resetMenu();
-    this.menuService.updateMenuItems([
-      {
-        title: 'User Details',
-        links: [
-        ]
-      },
-      {
-        title: 'Company Details',
-        links: [
-        ]
-      },
-      {
-        title: 'Service Section',
-        links: [
-        ]
-      },
-      {
-        title: 'Business Section',
-        links: [
-          { label: 'View All Products', path: '/businessproduct' }
-        ]
-      },
-      {
-        title: 'Reports Section',
-        links: [
-          { label: 'LBC Reports', path: '/lbcreport' },
-          { label: 'LBC Business Analysis', path: '/lbcba' },
-          { label: 'LBC Trend Analysis', path: '/lbctrend' }
-        ]
-      }
-    ]);
-  }
-  loadReport() {
-    this.loading = true;
-
-    this.apiService
-      .getLBCAnalysisReport('2025-01-01', '2026-03-10', 0)
-      .subscribe({
-        next: (res) => {
-          this.reportData = res.map((item, index) => ({
-            slNo: index + 1,
-            ...item
-          }));
-          this.loading = false;
-        },
-        error: (err) => {
-          console.error('Error loading LBC business analysis report', err);
-          this.loading = false;
-        }
-      });
   }
   onGlobalFilter(query: string): void {
     const q = (query ?? '').toLowerCase();
@@ -156,19 +123,41 @@ export class LbctrendComponent implements OnInit {
     // This method is triggered whenever a checkbox is checked/unchecked
     console.log('Columns updated:', this.cols);
   }
-    cols(arg0: string, cols: any) {
-        throw new Error('Method not implemented.');
-    }
-  searchable(key: string): any {
-
-    if (this.filteredCols.includes(key)) {
-      return false;
-    }
-    else if (key == 'profilePicture') {
-      return false;
-    }
-    else
-      return true;
+  updatePath(): void {
+    console.log('updatepath');
+    this.menuService.resetMenu();
+    this.menuService.updateMenuItems([
+      {
+        title: 'User Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Company Details',
+        links: [
+        ]
+      },
+      {
+        title: 'Service Section',
+        links: [
+        ]
+      },
+      {
+        title: 'Business Section',
+        links: [
+          { label: 'View All Products', path: '/businessproduct' },
+          { label: 'LBC Reports', path: '/lbcreports' }
+        ]
+      },
+      {
+        title: 'Reports Section',
+        links: [
+          { label: 'LBC Reports', path: '/lbcreport' },
+          { label: 'LBC Business Analysis', path: '/lbcba' },
+          { label: 'LBC Trend Analysis', path: '/lbctrend' }
+        ]
+      }
+    ]);
   }
 
   applyFilter() {

@@ -1,1 +1,196 @@
-<p>lbctrend works!</p>
+<div class="col-md-12 float-left">
+    <div class="back-internal-page width100">
+        <div class="heading-title">LBC Trend Analysis Report</div>
+        <div class="clear-both-20"></div>
+        <div class="float-right">
+            <div class="float-left" style="margin-top: 4px;">
+                <button type="button" title="Download Report in XLS" id="btn_exporttoexcel" class="border-none"
+                    (click)="exportToExcel()">
+                    <i class="fa fa-file-excel-o file-icon" style="font-size: 30px;" aria-hidden="true"></i>
+                </button>
+
+            </div>
+        </div>
+        <div class="clear-both-20"></div>
+
+        <div>
+            <div class="position-relative padding-10-0">
+                <div class="col-md-6 padding-zero float-left">
+                    <input type="text" #q class="input-box-3 width90 padding-10" placeholder="Type to search" pInputText
+                        (input)="onGlobalFilter(q.value)" />
+                </div>
+                <div class="col-md-6 padding-zero text-align-right font-size1-1em float-left">
+                    <div (click)="openFilter()" class="col-md-4 filter float-left {{activeFilter}}" align="center">
+                        <i class="fa fa-filter awe-filter"></i>Filters <i
+                            class="fa fa-caret-down rotate arrow awe-arrow"></i>
+                    </div>
+                    <div (click)="openDefault()" class="col-md-4 filter {{activeDefault}} float-left">
+                        <i class="fa fa-eye awe-filter margin-right-10px"></i>Default View <i
+                            class="fa fa-caret-down rotate arrow awe-arrow"></i>
+                    </div>
+                    <div (click)="openColumn()" class="col-md-4 filter float-left {{activeColumn}}">
+                        <i class="fa fa-gear awe-filter margin-right-10px"></i><span id="col-span-box">Columns</span>
+                        <i class="fa fa-caret-down rotate arrow awe-arrow"></i>
+                    </div>
+                </div>
+                <div class="clear-both"></div>
+
+                <div *ngIf="isFilterOpen" id="filter_tab" style="display:{{displayFilter}}"
+                    class="width100 filter-tab-box">
+                    <div id="assigned_tab_filter">
+                        <div class="row">
+                            <ng-container *ngFor="let col of cols; let i = index">
+                                <div class="col-sm-3 form-group" *ngIf="col.search">
+                                    <div>
+                                        <div class="label-text">{{ col.header }}</div>
+                                        <div>
+                                            <input type="text" [(ngModel)]="filters[col.field]"
+                                                class="input-box-3 width100" placeholder="Search {{ col.header }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+
+                        <div style="margin-top: 20px;"></div>
+                        <div class="row text-align-center">
+
+                            <div class="col-md-6 float-left text-align-right">
+                                <a style="color: #258ee8; font-size: 1.3em; margin: 0 10px;" id="btn_cancelfilter">
+                                    Cancel
+                                </a>
+                                <input type="button" class="btn-blck1" value="Apply Filter" (click)="applyFilter()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isColumnOpen" class="filter width50 column-tab-box" style="display:{{displayColumn}}">
+                    <div>
+                        <label id="lbl_filtercolumnscount">6 out of 15</label> Column <div class="float-right">
+                            <a href="#" class="col-reset-btn" id="lnk_resetcolumnfilter">Reset</a>
+                        </div>
+                        <label id="lbl_filtercolumnscount1">5 out of 13</label>
+                        <div class="float-right">
+                            <a href="#" class="col-reset-btn" id="lnk_resetcolumnfilter1">Reset</a>
+                        </div>
+                    </div>
+                    <div class="column-tab1">
+                        <div id="dv_nfcfiltercolumns">
+                            <div *ngIf="cols">
+                                <ng-container *ngFor="let col of cols; let i = index">
+                                    <div *ngIf="col.showInGrid">
+                                        <div class="col-sm-4 float-left text-overflow-ellipsis padding8">
+
+                                            <p-checkbox class="cursor-pointer" [(ngModel)]="col.visible" [binary]="true"
+                                                (onChange)="columnVisibilityChange()"></p-checkbox>
+                                            <label class="ml-2" style="padding-left: 10px;">
+                                                {{
+                                                col.header
+                                                }}
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="clear-both"></div>
+                    </div>
+                </div>
+                <div id="tabs" class="ui-tabs ui-corner-all ui-widget ui-widget-content" style="margin-top: 10px;">
+
+                    <ul role="tablist"
+                        class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+                        <li role="tab" tabindex="0"
+                            class="ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active"
+                            aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
+                            aria-expanded="true">
+                            <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
+                                LBC Business Analysis Report
+                            </a>
+                        </li>
+                        <div class="month-year-filter" style="left:31%; margin-top: .3%;">
+                            <div>
+
+                                <div class="float-left" style="margin-right:10px;">
+                                    <div class="font-weight-bold">From</div>
+                                    <div><input type="date" class="input-box-3" id="fromDate"></div>
+                                </div>
+                                <div class="float-left" style="margin-right:10px;">
+                                    <div class="font-weight-bold">To</div>
+                                    <div><input type="date" class="input-box-3" id="toDate"></div>
+                                </div>
+                                <div class="float-left" style="margin-right:10px;">
+                                    <div> <button type="button" class="btn-orange" id="btnFilter"
+                                            style="margin-top: 15px; width: 100px;">
+                                            Filter </button> </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </ul>
+                    <div id="tabs-1" aria-labelledby="tab_serviceType" role="tabpanel"
+                        class="ui-tabs-panel ui-corner-bottom ui-widget-content width100" aria-hidden="true"
+                        style="display:inline-block;">
+                        <div id="MappedGrid"></div>
+                        <div class="table-responsive">
+                            <p-table [value]="reportData" [scrollable]="true" scrollHeight="calc(100vh - 260px)"
+                                [resizableColumns]="true" columnResizeMode="expand" sortMode="multiple"
+                                styleClass="p-datatable-gridlines p-datatable-sm">
+
+                                <ng-template pTemplate="header">
+
+                                    <!-- ================= HEADER ROW 1 ================= -->
+                                    <tr>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">ID</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Pashu Sakhi</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Village</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Block</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">District</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Turnover - Upto Last Month
+                                        </th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Turnover - Previous Month
+                                        </th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Turnover - Current Montht
+                                        </th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Change From Previous Month
+                                        </th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Change Upto Lst Month</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Growth From Previous Month
+                                        </th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Growth Upto Last Month</th>
+                                        <th rowspan="3" style="background-color: #dfd9d9;">Volume/Qty</th>
+                                    </tr>
+
+                                </ng-template>
+
+                                <!-- ================= BODY ================= -->
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td style="text-align: center;">{{row.spId}}</td>
+                                        <td>{{row.lbcName }}</td>
+                                        <td>{{row.village}}</td>
+                                        <td>{{row.blockName}}</td>
+                                        <td>{{row.districtName}}</td>
+                                        <td>
+                                            {{row.salesUptoLastMonth}}
+                                        </td>
+                                        <td>{{row.salesPrevMonth}}</td>
+                                        <td>{{row.salesCurrentMonth}}</td>
+                                        <td style="text-align: center;">{{row.changeFromPrevMonth}}</td>
+                                        <td style="text-align: center;">{{row.changeUptoLastMonth}}</td>
+                                        <td style="text-align: center;">{{row.growthFromPrevMonth}}%</td>
+                                        <td style="text-align: center;">{{row.growthUptoLastMonth}}%</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                        <div class="clear-both-20"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear-both-5"></div>
+        </div>
+        <div class="clear-both"></div>
+    </div>
+</div>

@@ -60,12 +60,7 @@ export class rweBusiness {
     return this.http.get<SalesSummaryResponse[]>(this.apibaseUrl+'GetLBCReport/', { params });
   }
 
-  getLBCAnalysisReport(
-    fromDate?: string,
-    toDate?: string,
-    spId?: number 
-  ): Observable<LbcAnalysisResponse[]> {
-
+  getLBCAnalysisReport(fromDate?: string, toDate?: string, spId?: number): Observable<LbcAnalysisResponse[]> {
     let params = new HttpParams()
       .set('fromDate', fromDate == null ? '' : fromDate)
       .set('toDate', toDate == null ? '' : toDate);
@@ -74,7 +69,19 @@ export class rweBusiness {
       params = params.set('spId', spId);
     }
 
-    return this.http.get<LbcAnalysisResponse[]>(this.apitgtbaseUrl +"lbcaggregationreport", { params });
+    return this.http.get<LbcAnalysisResponse[]>(this.apitgtbaseUrl + "lbcaggregationreport", { params });
+  }
+
+  getLBCTrendReport(fromDate?: string, toDate?: string, spId?: number): Observable<LbcTrendResponse[]> {
+    let params = new HttpParams()
+      .set('fromDate', fromDate == null ? '' : fromDate)
+      .set('toDate', toDate == null ? '' : toDate);
+
+    if (spId && spId > 0) {
+      params = params.set('spId', spId);
+    }
+
+    return this.http.get<LbcTrendResponse[]>(this.apitgtbaseUrl + "GetLBCTrend", { params });
   }
 }
 
@@ -234,5 +241,23 @@ export interface LbcAnalysisResponse {
   serviceSummerSales: number;
   serviceRainySales: number;
 }
+
+export interface LbcTrendResponse {
+  rweId: number;
+  spId: number;
+  lBCName: string;
+  village: string;
+  blockName: string;
+  districtName: string;
+  salesUptoLastMonth: number;
+  salesPrevMonth: number;
+  salesCurrentMonth: number;
+  changeFromPrevMonth: number;
+  changeUptoLastMonth: number;
+  growthFromPrevMonth: number;
+  growthUptoLastMonth: number;
+
+}
+
 
 
