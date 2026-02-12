@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class rweBusiness {
   private apibaseUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary/';
+  private apitgtbaseUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/';
 
   constructor(private http: HttpClient) { }
 
@@ -59,7 +60,22 @@ export class rweBusiness {
     return this.http.get<SalesSummaryResponse[]>(this.apibaseUrl+'GetLBCReport/', { params });
   }
 
+  getLBCAnalysisReport(
+    fromDate: string,
+    toDate: string,
+    spId?: number 
+  ): Observable<LbcAnalysisResponse[]> {
 
+    let params = new HttpParams()
+      .set('fromDate', fromDate)
+      .set('toDate', toDate);
+
+    if (spId && spId > 0) {
+      params = params.set('spId', spId);
+    }
+
+    return this.http.get<LbcAnalysisResponse[]>(this.apitgtbaseUrl +"lbcaggregationreport", { params });
+  }
 }
 
 export interface RWEBusinessFilters {
@@ -175,3 +191,41 @@ export interface SalesSummaryResponse {
   margin: number;
   netProfit: number;
 }
+
+export interface LbcAnalysisResponse {
+  lbcName: string;
+  blockName: string;
+  districtName: string;
+  village: string;
+
+  rweId: number;
+  businessName: string;
+  serviceOrProduct: string;
+
+  volume: number;
+  totalInvestment: number;
+  selfInvestment: number;
+  inception: string;
+  financeSource: string;
+
+  spId: number;
+  rweBusinessId: number;
+
+  totalTurnover: number;
+  totalVolume: number;
+
+  turnover_Q1: number;
+  turnover_Q2: number;
+  turnover_Q3: number;
+  turnover_Q4: number;
+  qtr_to_Qtr: number;
+
+  input_Winter_Qty: number;
+  input_Summer_Qty: number;
+  input_Rainy_Qty: number;
+  output_Winter_Qty: number;
+  output_Summer_Qty: number;
+  output_Rainy_Qty: number;
+}
+
+

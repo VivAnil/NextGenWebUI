@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MenuService } from 'src/app/services/menu.service';
+import { rweBusiness } from '../../services/rweBusiness.service';
 
 @Component({
   selector: 'app-lbcba',
@@ -29,10 +30,30 @@ export class LbcbaComponent implements OnInit {
   reportData: any[] = [];
   loading = false;
 
-  constructor(private apiService: ApiService,
+  constructor(private apiService: rweBusiness,
     private menuService: MenuService) { }
 
   ngOnInit(): void {
+    this.loadReport();
+  }
+  loadReport() {
+    this.loading = true;
+
+    this.apiService
+      .getLBCAnalysisReport('2025-01-01', '2026-02-10', 0)
+      .subscribe({
+        next: (res) => {
+          this.reportData = res.map((item, index) => ({
+            slNo: index + 1,
+            ...item
+          }));
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error loading LBC business analysis report', err);
+          this.loading = false;
+        }
+      });
   }
   ngAfterViewInit(): void {
     // Wait until DOM and child views are fully rendered

@@ -217,59 +217,46 @@
 
                                 <!-- ================= BODY ================= -->
                                 <ng-template pTemplate="body" let-row let-i="rowIndex">
-                                    <tr>
-                                        <td style="text-align: center;">spId</td>
-                                        <td>spName</td>
-                                        <td>village</td>
-                                        <td>Block</td>
-                                        <td>District</td>
-                                        <td>Value Chain Business</td>
-                                        <td>Inception</td>
-
-                                        <td style="text-align: center;">Total Inverstment</td>
-                                        <td style="text-align: center;">Self Investment</td>
-                                        <td style="text-align: center;">Project Loan</td>
-                                        <td style="text-align: center;">Volume</td>
-
-                                        <!-- Growth Tracking -->
-                                        <td style="text-align: center;">Turnover Q1</td>
-                                        <td style="text-align: center;">Turnover Q2</td>
-                                        <td style="text-align: center;">Turnover Q3</td>
-                                        <td style="text-align: center;">Turnover Q4</td>
-                                        <td style="text-align: center;">Comparative Turnover Qtr to Qtr</td>
-                                        <td style="text-align: center;">Comparative Turnover Overall</td>
-                                        <td style="text-align: center;">Seasonal Effects</td>
-
-
-
-                                        <!-- Seasonal Analysis Services -->
-                                        <td style="text-align: center;">Winter</td>
-                                        <td style="text-align: center;">Summer</td>
-                                        <td style="text-align: center;">Rainy</td>
-
-                                        <!-- Seasonal Analysis Input Products -->
-                                        <td style="text-align: center;">Winter</td>
-                                        <td style="text-align: center;">Summer</td>
-                                        <td style="text-align: center;">Rainy</td>
-
-
-                                    </tr>
+                                  <tr>
+                                    <td style="text-align: center;">{{row.spId}}</td>
+                                    <td>{{row.lbcName }}</td>
+                                    <td>{{row.village}}</td>
+                                    <td>{{row.blockName}}</td>
+                                    <td>{{row.districtName}}</td>
+                                    <td>
+                                      {{row.serviceOrProduct}}
+                                    </td>
+                                    <td>{{row.inception}}</td>
+                                    <td style="text-align: center;">{{row.totalInvestment}}</td>
+                                    <td style="text-align: center;">{{row.selfInvestment}}</td>
+                                    <td style="text-align: center;">{{row.financeSource}}</td>
+                                    <td style="text-align: center;">{{row.volume}}</td>
+                                    <!-- Growth Tracking -->
+                                    <td style="text-align: center;">{{row.turnover_Q1}}</td>
+                                    <td style="text-align: center;">{{row.turnover_Q2}}</td>
+                                    <td style="text-align: center;">{{row.turnover_Q3}}</td>
+                                    <td style="text-align: center;">{{row.turnover_Q4}}</td>
+                                    <td style="text-align: center;">{{row.qtr_to_Qtr}}</td>
+                                    <td style="text-align: center;">Comparative Turnover Overall</td>
+                                    <td style="text-align: center;">Yes</td>
+                                    <!-- Seasonal Analysis Services -->
+                                    <td style="text-align: center;">{{row.output_Winter_Qty}}</td>
+                                    <td style="text-align: center;">{{row.output_Summer_Qty}}</td>
+                                    <td style="text-align: center;">{{row.output_Rainy_Qty}}</td>
+                                    <!-- Seasonal Analysis Input Products -->
+                                    <td style="text-align: center;">{{row.input_Winter_Qty}}</td>
+                                    <td style="text-align: center;">{{row.input_Summer_Qty}}</td>
+                                    <td style="text-align: center;">{{row.input_Rainy_Qty}}</td>
+                                  </tr>
                                 </ng-template>
-
-
                             </p-table>
-
                         </div>
-
                         <div class="clear-both-20"></div>
                     </div>
-
-
                 </div>
             </div>
             <div class="clear-both-5"></div>
         </div>
-
     <div class="clear-both"></div>
     </div>
     </div>

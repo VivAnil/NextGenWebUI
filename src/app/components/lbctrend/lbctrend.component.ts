@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { MenuService } from 'src/app/services/menu.service';
+import * as XLSX from 'xlsx';
+import { Table } from 'primeng/table'; // Import PrimeNG Table reference
+import { saveAs } from 'file-saver';
+import { rweBusiness } from '../../services/rweBusiness.service';
 
 @Component({
   selector: 'app-lbctrend',
@@ -9,10 +13,31 @@ import { MenuService } from 'src/app/services/menu.service';
 })
 export class LbctrendComponent implements OnInit {
 
-  constructor(private apiService: ApiService,
+  filteredData: any[] = []; // Data to display in the grid
+  @ViewChild('dt') dt: Table | undefined; // Access the table reference
+  data: any[] = [];
+  isFilterOpen: boolean = false;
+  displayColumn: string = 'none';
+  displayFilter: string = 'none';
+  activeFilter: string = 'filter-link';
+  activeColumn: string = 'column-link';
+  activeDefault: string = 'default-link';
+  isColumnOpen: boolean = false;
+  filters: { [key: string]: string } = {}; // Stores filter values
+  showFilterModal = false; // Controls filter modal visibility
+  filteredCols: string[] = ["profilePicture", "dob", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
+    "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
+    "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus", "gramPanchayat", "caste", "accountName"
+  ];
+
+  //FOR Report
+  reportData: any[] = [];
+  loading = false;
+  constructor(private apiService: rweBusiness,
     private menuService: MenuService) { }
 
   ngOnInit(): void {
+    this.loadReport();
   }
   ngAfterViewInit(): void {
     // Wait until DOM and child views are fully rendered
@@ -43,8 +68,7 @@ export class LbctrendComponent implements OnInit {
       {
         title: 'Business Section',
         links: [
-          { label: 'View All Products', path: '/businessproduct' },
-          { label: 'LBC Reports', path: '/lbcreports' }
+          { label: 'View All Products', path: '/businessproduct' }
         ]
       },
       {
@@ -57,5 +81,135 @@ export class LbctrendComponent implements OnInit {
       }
     ]);
   }
+  loadReport() {
+    this.loading = true;
 
+    this.apiService
+      .getLBCAnalysisReport('2025-01-01', '2026-03-10', 0)
+      .subscribe({
+        next: (res) => {
+          this.reportData = res.map((item, index) => ({
+            slNo: index + 1,
+            ...item
+          }));
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error loading LBC business analysis report', err);
+          this.loading = false;
+        }
+      });
+  }
+  onGlobalFilter(query: string): void {
+    const q = (query ?? '').toLowerCase();
+    this.filteredData = this.data.filter(x =>
+      JSON.stringify(x).toLowerCase().includes(q)
+    );
+  }
+  exportToExcel() {
+    // Convert data to worksheet
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredData);
+
+    // Create a new workbook and append the worksheet
+    const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'GridData');
+
+    // Generate an Excel file and trigger download
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'GridData');
+  }
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8',
+    });
+    saveAs(data, fileName + '_export_' + new Date().getTime() + '.xlsx');
+  }
+  openFilter() {
+    this.isFilterOpen = !this.isFilterOpen;
+    if (this.displayFilter == 'none') {
+      this.displayFilter = 'block';
+      this.activeFilter = 'filter-link filter-tab-btn';
+
+    }
+    else {
+      this.displayFilter = 'none';
+      this.activeFilter = 'filter-link';
+    }
+  }
+  openColumn() {
+    this.isColumnOpen = !this.isColumnOpen;
+
+    if (this.displayColumn == 'none') {
+      this.displayColumn = 'block';
+      this.activeColumn = 'column-link filter-tab-btn';
+
+    }
+    else {
+      this.displayColumn = 'none';
+      this.activeColumn = 'column-link';
+    }
+  }
+  toggleColumn(column: any) {
+    column.visible = !column.visible; // Update visibility
+  }
+  columnVisibilityChange() {
+    // This method is triggered whenever a checkbox is checked/unchecked
+    console.log('Columns updated:', this.cols);
+  }
+    cols(arg0: string, cols: any) {
+        throw new Error('Method not implemented.');
+    }
+  searchable(key: string): any {
+
+    if (this.filteredCols.includes(key)) {
+      return false;
+    }
+    else if (key == 'profilePicture') {
+      return false;
+    }
+    else
+      return true;
+  }
+
+  applyFilter() {
+    // console.log('Apply Filter');
+    // Always start with the original data
+    this.filteredData = [...this.data];
+
+    // Apply filters
+    for (const key in this.filters) {
+      if (this.filters[key]) {
+        this.filteredData = this.filteredData.filter((item) =>
+          item[key]
+            ?.toString()
+            .toLowerCase()
+            .includes(this.filters[key].toLowerCase())
+        );
+      }
+    }
+    // If no filters are applied, show the full data
+    if (Object.values(this.filters).every((value) => value === '')) {
+      this.filteredData = [...this.data];
+    }
+    this.openFilter();
+  }
+  // Reset filters
+  resetFilters() {
+    this.filters = {}; // Clear filter values
+    this.filteredData = [...this.data]; // Reset to full data
+  }
+  openDefault() {
+
+    if (this.activeDefault == 'default-link') {
+
+      this.activeDefault = 'default-link default-tab-btn';
+
+    }
+    else {
+
+      this.activeDefault = 'default-link';
+    }
+
+
+  }
 }
