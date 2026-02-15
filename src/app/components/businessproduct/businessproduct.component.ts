@@ -252,7 +252,7 @@ export class BusinessproductComponent implements OnInit {
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
-      pageSize: 100,
+      pageSize: 50,
       pageButtonCount: 15,
       pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
       pagePrevText: "&larr;",
@@ -265,6 +265,9 @@ export class BusinessproductComponent implements OnInit {
 
       fields: [
         { title: "Product Name", name: "name", type: "text" },
+        { title: "Selling Price", name: "sellingPrice", type: "text", align: "center" },
+        { title: "Unit", name: "unit", type: "text", align: "center" },
+        { title: "Margin", name: "margin", type: "text", align: "center" },
         { title: "Business Category", name: "businessCategory", type: "text" },
         { title: "Business Sub-Category", name: "businessSubCategory", type: "text" }
       ]
