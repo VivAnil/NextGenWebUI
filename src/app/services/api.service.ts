@@ -57,19 +57,7 @@ export class ApiService {
         spOnly: true,
         advanceFields: '',
         servicePillar: ''
-       },
-      //  {
-      //   Id: 2,
-      //   ServicePillarId: 2,
-      //   Name: 'Printout',
-      //   ServiceRate: 5,
-      //   ServiceWorth: 5,
-      //   Status: true,
-      //   SingleTimeAvailability: false,
-      //   SpOnly: true,
-      //   AdvanceFields: '',
-      //   ServicePillar: ''
-      //  }
+       }
     ];
   }
 
@@ -194,6 +182,19 @@ export class ApiService {
   }
 
 
+  getFatherDetails(name: string, mobile: string): Observable<FamilyDetailsResponse[]> {
+
+    const body = {
+      fathersName: name,
+      mobile: mobile
+    };
+
+    return this.http.post<FamilyDetailsResponse[]>(
+      `https://motherappuserapi.azurewebsites.net/api/Beneficiary/getfathersbenfId`,
+      body
+    );
+  }
+
 }
 
 export interface TGTBusinessType {
@@ -219,4 +220,12 @@ export interface TGTServiceOrProduct {
   unit: string;
   margin: number;
   sellingPrice: number;
+}
+export interface FamilyDetailsResponse {
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  village: string;
+  gramPanchayat: string;
+  dob: Date;
 }

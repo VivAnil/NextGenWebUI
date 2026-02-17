@@ -283,9 +283,42 @@
 
                             </td>
                             <td>
-                              <input type="text" formControlName="fathersname" class="input-box-3 width100" placeholder="Father's Name">
+                              <input type="text" formControlName="fathersname" class="input-box-3 width100" placeholder="Father's Name" (change)="findFatherDetails()">
 
                             </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Father's mobile number'
+                            </td>
+                            <td>
+                              <input type="number" formControlName="fathersmobile" class="input-box-3 width100" placeholder="Father's mobile'" (change)="findFatherDetails()">
+                            </td>
+
+                            <td>
+                              Relationship with father <span>*</span>
+
+                            </td>
+                            <td>
+                              <input type="text" formControlName="relationship" class="input-box-3 width100" placeholder="Relationship with father">
+
+                            </td>
+                          </tr>
+                          <tr>
+                            <td >
+                              Father's details
+                            </td>
+                            <td colspan="3">
+                              <select class="select-box-3 width100" >
+                                <option selected>-Select Father's details'-</option>
+                                <option *ngFor="let option of familydetails" [id]="option.id" [value]="option.desc">
+                                  {{ option.desc }}
+                                </option>
+
+                              </select>
+                            </td>
+
+                            
                           </tr>
                           <tr>
                             <td>
@@ -355,30 +388,30 @@
                               </div>
                             </td>
                           </tr>
-<tr>
-                                    <td>
-                                        Economic Status
+                          <tr>
+                            <td>
+                              Economic Status
 
-                                    </td>
-                                    <td>
-                                        <select class="select-box-3 width100" (change)="selectEconomicStatus($event)">
-											<option selected>-Select Economic Status-</option>
-                                             <option *ngFor="let option of economicStatusData" [id]="option.id" [value]="option.id">
-                                    {{ option.name }}
-                                  </option>
-                                            
-                                        </select>
-                                    </td>
-									<td>Caste </td>
-                                    <td>
-                                        <select class="select-box-3 width100" (change)="selectCaste($event)">
-											<option selected>-Select Caste-</option>
-                      <option *ngFor="let option of casteData" [id]="option.id" [value]="option.name" >
-                                    {{ option.name }}
-                                  </option>
-                                        </select>
-                                    </td>
-							</tr>
+                            </td>
+                            <td>
+                              <select class="select-box-3 width100" (change)="selectEconomicStatus($event)">
+                                <option selected>-Select Economic Status-</option>
+                                <option *ngFor="let option of economicStatusData" [id]="option.id" [value]="option.id">
+                                  {{ option.name }}
+                                </option>
+
+                              </select>
+                            </td>
+                            <td>Caste </td>
+                            <td>
+                              <select class="select-box-3 width100" (change)="selectCaste($event)">
+                                <option selected>-Select Caste-</option>
+                                <option *ngFor="let option of casteData" [id]="option.id" [value]="option.name">
+                                  {{ option.name }}
+                                </option>
+                              </select>
+                            </td>
+                          </tr>
                           <tr>
                             <td class="section-heading" colspan="4">PROJECT AND ADDRESS DETAILS</td>
                           </tr>
@@ -453,13 +486,13 @@
                               Address *
 
                             </td>
-                            <td >
+                            <td>
                               <div class="input-field">
                                 <input type="text" formControlName="address" class="input-box-3 width100 " />
                               </div>
 
                             </td>
-<td>
+                            <td>
                               Gram Panchayat *
 
                             </td>
@@ -512,7 +545,7 @@
                               Total Grant/Loan Amount
                             </td>
                             <td>
-                              <input type="text" formControlName="grantAmount"  class="input-box-3 width100 " />
+                              <input type="text" formControlName="grantAmount" class="input-box-3 width100 " />
                             </td>
                           </tr>
                           <tr class="display-none tr-scheme">
@@ -521,16 +554,14 @@
 
                             </td>
                             <td>
-                                <input type="date" formControlName="schemeStartDate" class="input-box-3 width100"
-                                     [max]="maxDate"  />
+                              <input type="date" formControlName="schemeStartDate" class="input-box-3 width100"
+                                     [max]="maxDate" />
                             </td>
 
 
                             <td>
-                               
                             </td>
                             <td>
-                             
                             </td>
                           </tr>
                           <tr class="display-none tr-scheme">
@@ -558,25 +589,25 @@
                             <td>
                               <select name="business_options" id="business_options" class="select-box-3 width100" (change)="onServiceNameChange($event)">
                                 <option selected>Select Business Type</option>
-                                 <option *ngFor="let option of servicePillarData" [id]="option.id" [value]="option.servicePillarId">
-                                    {{ option.servicePillarName }}
-                                  </option>
+                                <option *ngFor="let option of servicePillarData" [id]="option.id" [value]="option.servicePillarId">
+                                  {{ option.servicePillarName }}
+                                </option>
 
                               </select>
                             </td>
                             <td>Services/Product</td>
                             <td>
-                            <select name="business_products"
-        id="business_products"
-        class="select-box-3 width100"
-        (change)="onServiceProductNameChange($event)">
-  <option value="" selected>Select Product</option>
-  <option *ngFor="let option of serviceName"
-          [id]="option.id"
-          [value]="option.servicePillarId">
-    {{ option.serviceName }}
-  </option>
-</select>
+                              <select name="business_products"
+                                      id="business_products"
+                                      class="select-box-3 width100"
+                                      (change)="onServiceProductNameChange($event)">
+                                <option value="" selected>Select Product</option>
+                                <option *ngFor="let option of serviceName"
+                                        [id]="option.id"
+                                        [value]="option.servicePillarId">
+                                  {{ option.serviceName }}
+                                </option>
+                              </select>
                             </td>
 
 
@@ -587,16 +618,14 @@
 
                             </td>
                             <td>
-                                  <input type="date" formControlName="startDate" class="input-box-3 width100"
+                              <input type="date" formControlName="startDate" class="input-box-3 width100"
                                      [max]="maxDate" (change)="calculateAge($event)" />
                             </td>
 
 
                             <td>
-                              
                             </td>
                             <td>
-                                
                             </td>
                           </tr>
                           <tr class="display-none tr-unit">

@@ -197,6 +197,8 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           middlename:[''],
           lastname:[''],
           fathersname:[''],
+          fathersmobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+          relationship:[''],
           dob: ['', Validators.required],
           age: [{ value: '', disabled: false }],
           //sex
@@ -757,6 +759,8 @@ onServiceProductNameChange(event: any): void {
   middlename: formData.middlename,
   lastname: formData.lastname,
   fathersname: formData.fathersname,
+  fathersmobile: formData.fathersmobile,
+  relationship: formData.relationship,
   dob: formData.dob + 'T00:00:00Z',
   email: formData.email,
   mobile: formData.mobile,
@@ -802,7 +806,13 @@ onServiceProductNameChange(event: any): void {
         alert('Failed to Add Beneficiary.');
       }
     });
-    }
+  }
+
+  findFatherDetails(): any {
+    const fatherName = this.benForm.get('fathersname')?.value;
+    const fatherMobile = this.benForm.get('fathersmobile')?.value;
+
+  }
 
     updatePath(): void {
       console.log('updatepath');
