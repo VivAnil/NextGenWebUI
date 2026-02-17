@@ -83,7 +83,8 @@ export class BeneficiaryComponent implements OnInit {
   selectedOption: any; // Holds the selected value
   loading: boolean = true; // Set initial loading state
   showColumnModal = false; // Modal visibility control
-  projId!: number ;
+  projId!: number;
+  familydetails: any;
   filteredCols: string[] = ["profilePicture", "dob", "fathersName", "middleName", "address", "panImage", "aadharImage", "role", "companyName", "managerId", "sexId", "stateId", "districtId", "blockId", "bankDetailsId", "userName", "password", "companyRoleId", "active", "companyId", "projectId", "projectName", "pan", "pinCode", "aadhar", "soochnapreneurId", "bankName",
     "ifsc", "totalBeneficiaries", "totalRevenue", "totalRevenueByIncentives", "totalRevenueByServices", "totalServices", "dateOfRegistration", "economicStatusId", "educationId",
     "email", "soochnapreneur", "totalServices", "casteId", "services", "economicStatus"
@@ -811,7 +812,28 @@ onServiceProductNameChange(event: any): void {
   findFatherDetails(): any {
     const fatherName = this.benForm.get('fathersname')?.value;
     const fatherMobile = this.benForm.get('fathersmobile')?.value;
+    this.serviceApi.getFatherDetails(fatherName, fatherMobile)
+      .subscribe({
+        next: (res) => {
+          if (res && res.length > 0) {
 
+            this.familydetails = res.map(f => ({
+              id: f.id,
+              displayText: `${f.firstName} ${f.lastName} | 
+                        ${f.mobile} | 
+                        ${f.dob} | 
+                        ${f.village} | 
+                        ${f.gramPanchayat}`
+            }));
+
+          } else {
+            this.familydetails = [];
+          }
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
   }
 
     updatePath(): void {

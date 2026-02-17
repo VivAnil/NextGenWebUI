@@ -222,6 +222,7 @@ export interface TGTServiceOrProduct {
   sellingPrice: number;
 }
 export interface FamilyDetailsResponse {
+  id:number,
   firstName: string;
   lastName: string;
   mobile: string;
