@@ -100,7 +100,7 @@ export class ApiService {
     const projectId = parts[len - 2] || '0';
     const spId = parts[len - 1] || '0';
 
-    // ✅ Dynamically construct API URL
+    // Dynamically construct API URL
     const benUrl = `https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/${companyId}/${projectId}/${spId}`;
 
     console.log('Fetching beneficiaries from:', benUrl);
@@ -189,9 +189,9 @@ export class ApiService {
       mobile: mobile
     };
 
-    return this.http.post<FamilyDetailsResponse[]>(
-      `https://motherappuserapi.azurewebsites.net/api/Beneficiary/getfathersbenfId`,
-      body
+    return this.http.get<FamilyDetailsResponse[]>(
+      'https://motherappuserapi.azurewebsites.net/api/Beneficiary/getfathersbenfId?fathersName=' + name + '&mobile=' + mobile
+
     );
   }
 

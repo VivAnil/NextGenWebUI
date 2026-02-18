@@ -106,7 +106,7 @@ export class BeneficiaryComponent implements OnInit {
     DistrictId:'',
     BlockId:'',
     Village:'',
-    GramPanchayat:'',
+    gp: '',
     PinCode:'',
     Address:'',
     AccountHolderName:'',
@@ -124,6 +124,10 @@ maxDate: string = ''; // for limiting future dates in DOB
 states: any[] = [];
 districts: any[] = [];
 blocks: any[] = [];
+  casts: any[] = [];
+  eStatuses: any[] = [];
+  //selectedCaste: number = 0;
+
 selectedProfile: File | null = null;
 profileBase64: string | null = null;
 selectedPan: File | null = null;
@@ -199,6 +203,7 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
           lastname:[''],
           fathersname:[''],
           fathersmobile: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
+       fatherId: [{ value: null, disabled: true }],
           relationship:[''],
           dob: ['', Validators.required],
           age: [{ value: '', disabled: false }],
@@ -231,16 +236,19 @@ soochnapreurList: { soochnapreneurId: number, soochnapreneur: string }[] = [];
     // Business unit
         startDate: ['']
         });
+
+    this.familydetails = [];
+    this.benForm.patchValue({ fatherId: null });
          this.loadData();
          this.updatePath();
          this.setMaxDate();
 
-    //  this.serviceApi.getCastes().subscribe({
+    // this.serviceApi.getCastes().subscribe({
     //   next: data => this.casteData = data,
     //   error: err => console.error(err)
     // });
 
-    //  this.serviceApi.getEconomicStatus().subscribe({
+    // this.serviceApi.getEconomicStatus().subscribe({
     //   next: data => this.economicStatusData = data,
     //   error: err => console.error(err)
     // });
@@ -536,6 +544,8 @@ openFilter() {
     const modalButtonBusiness = document.getElementById('btn_openModalBusiness');
     if (modalButton) {
       this.fetchMasterData();
+      this.getEconomicStatus();
+      this.getCaste();
       modalButton.setAttribute('data-bs-target', `#${modalId}`);
       modalButton.click(); // Programmatically trigger the button to open the modal
     }
@@ -575,6 +585,42 @@ openFilter() {
         }
       );
     }
+
+  getCaste() {
+    this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/Master/GetCaste').subscribe(
+      (response) => {
+        this.casteData = response;
+        if (this.casteData.length > 0) {
+          this.selectedCaste = this.casteData[0] ? { id: this.casteData[0].id, name: this.casteData[0].name } : undefined;
+
+          console.log('this.selectedCaste = ' + this.selectedCaste);
+
+        }
+      },
+      (error) => {
+        console.error('Error fetching Caste:', error.message);
+      }
+    );
+  }
+
+  getEconomicStatus() {
+    this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/Master/GetEconomicStatus').subscribe(
+      (response) => {
+        this.economicStatusData = response;
+        if (this.economicStatusData.length > 0) {
+          this.selectedEconomicStatus = this.economicStatusData[0] ? { id: this.economicStatusData[0].id, name: this.economicStatusData[0].name } : undefined;
+
+          console.log('this.selectedEconomicStatus = ' + this.selectedEconomicStatus);
+
+        }
+      },
+      (error) => {
+        console.error('Error fetching EconomicStatus:', error.message);
+      }
+    );
+  }
+
+
     getStates() {
       this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/State/GetAllStates').subscribe(
         (response) => {
@@ -743,18 +789,28 @@ onServiceProductNameChange(event: any): void {
   }
     addBeneficiary() {
       const formData = this.benForm.value;
-     const schemeData = {
-    id: 0,
-    spId: Number(formData.soochnapreurId),
-    nameOfScheme: formData.schemeName,
-    grantOrLoanAmount: Number(formData.grantAmount),
-    startDate: formData.schemeStartDate + 'T00:00:00Z', // ISO format
-    subsidyAmount: Number(formData.schemeSubsidyAmount)
-  };
-      console.log(schemeData);
-      console.log(this.selectedBusinesses);
       let schemes: any[] = [];
-      schemes.push(schemeData);
+      if (!this.isRealFatherSelected) {
+        return;
+      }
+
+      if (formData.schemeName != undefined && formData.schemeName.length > 0) {
+        var schemeData = {
+          id: 0,
+          spId: Number(formData.soochnapreurId),
+          nameOfScheme: formData.schemeName,
+          grantOrLoanAmount: Number(formData.grantAmount),
+          startDate: formData.schemeStartDate, //+ 'T00:00:00Z', // ISO format
+          subsidyAmount: Number(formData.schemeSubsidyAmount)
+
+        };
+        schemes.push(schemeData);
+        console.log(schemeData);
+      }
+
+      console.log(this.selectedBusinesses);
+
+
      const payload = {
   firstname: formData.firstname,
   middlename: formData.middlename,
@@ -783,9 +839,9 @@ onServiceProductNameChange(event: any): void {
   CompanyId: this.companyId,
   projectName: this.projectName,
   LastUpdateBy: this.userName,
-  gramPanchayat: formData.gramPanchayat,
-  schemes: schemes,              // ✅ use the array you built
-  businesses: this.selectedBusinesses ?? [], // ✅ or whatever you collect
+       gramPanchayat: formData.grampanchayat,
+       schemes: schemes,              // use the array you built
+       businesses: this.selectedBusinesses ?? [], // or whatever you collect
   casteId: this.selectedCaste?.id,
   economicStatusId: this.selectedEconomicStatus?.id,
   casteName: this.selectedCaste?.name,
@@ -809,31 +865,82 @@ onServiceProductNameChange(event: any): void {
     });
   }
 
-  findFatherDetails(): any {
+  findFatherDetails(): void {
+
     const fatherName = this.benForm.get('fathersname')?.value;
     const fatherMobile = this.benForm.get('fathersmobile')?.value;
+
+    // Enable dropdown before API call
+    this.benForm.get('fatherId')?.enable();
+
     this.serviceApi.getFatherDetails(fatherName, fatherMobile)
       .subscribe({
         next: (res) => {
+
           if (res && res.length > 0) {
 
             this.familydetails = res.map(f => ({
               id: f.id,
               displayText: `${f.firstName} ${f.lastName} | 
-                        ${f.mobile} | 
-                        ${f.dob} | 
-                        ${f.village} | 
-                        ${f.gramPanchayat}`
+                          ${f.mobile} | 
+                          ${f.dob} | 
+                          ${f.village} | 
+                          ${f.gramPanchayat}`
             }));
 
+            // Only one result → auto select
+            if (this.familydetails.length === 1) {
+              this.benForm.patchValue({
+                fatherId: this.familydetails[0].id
+              });
+            }
+            // Multiple results → user must select
+            else {
+              this.benForm.patchValue({ fatherId: null });
+            }
+
           } else {
-            this.familydetails = [];
+
+            // No data found
+            this.familydetails = [{
+              id: -1,
+              displayText: 'No data found'
+            }];
+
+            this.benForm.patchValue({ fatherId: -1 });
+
+            // Optional: disable dropdown again
+            this.benForm.get('fatherId')?.disable();
           }
         },
+
         error: (err) => {
           console.error(err);
+
+          this.familydetails = [{
+            id: -1,
+            displayText: 'No data found'
+          }];
+
+          this.benForm.patchValue({ fatherId: -1 });
+          this.benForm.get('fatherId')?.disable();
         }
       });
+  }
+
+  get fatherId(): number | null {
+    return this.benForm.get('fatherId')?.value;
+  }
+  get selectedFatherId(): number | null {
+    return this.benForm.get('fatherId')?.value;
+  }
+
+  get isRealFatherSelected(): boolean {
+    return this.fatherId !== null && this.fatherId > 0;
+  }
+
+  get isNoDataSelected(): boolean {
+    return this.fatherId === -1;
   }
 
     updatePath(): void {

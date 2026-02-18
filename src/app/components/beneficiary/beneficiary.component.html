@@ -1,4 +1,4 @@
-<div class="col-md-10 float-left">
+<div class="col-md-12 float-left">
 
   <div class="back-internal-page width100">
     <div class="heading-title">RWE</div>
@@ -168,8 +168,7 @@
                     aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
                     aria-expanded="true">
                   <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
-                    All
-                    {{pageHead}}
+                    All Beneficiaries
                   </a>
                 </li>
               </ul>
@@ -283,7 +282,7 @@
 
                             </td>
                             <td>
-                              <input type="text" formControlName="fathersname" class="input-box-3 width100" placeholder="Father's Name" (change)="findFatherDetails()">
+                              <input type="text" formControlName="fathersname" class="input-box-3 width100" placeholder="Father's Name">
 
                             </td>
                           </tr>
@@ -292,8 +291,16 @@
                               Father's mobile number'
                             </td>
                             <td>
-                              <input type="number" formControlName="fathersmobile" class="input-box-3 width100" placeholder="Father's mobile'" (change)="findFatherDetails()">
+                                <input type="number" formControlName="fathersmobile" class="input-box-3 width100" placeholder="Father's mobile'">
                             </td>
+                            <td>
+                              Get Family Information
+                            </td>
+                            <td>
+                              <button id="btnFindFather" (click)="findFatherDetails()"> Find </button>
+                            </td>
+                            </tr>
+                            <tr>
 
                             <td>
                               Relationship with father <span>*</span>
@@ -303,22 +310,22 @@
                               <input type="text" formControlName="relationship" class="input-box-3 width100" placeholder="Relationship with father">
 
                             </td>
-                          </tr>
-                          <tr>
+                          
                             <td >
                               Father's details
                             </td>
                             <td colspan="3">
-                              <select class="select-box-3 width100" >
-                                <option selected>-Select Father's details'-</option>
-                                <option *ngFor="let option of familydetails" [id]="option.id" [value]="option.desc">
-                                  {{ option.desc }}
-                                </option>
+                          <select class="select-box-3 width100" formControlName="fatherId">
+                            <option [ngValue]="null" disabled>
+                              -- Select Father --
+                            </option>
+                          
+                            <option *ngFor="let option of familydetails" [ngValue]="option.id">
+                              {{ option.displayText }}
+                            </option>
 
-                              </select>
+                          </select>
                             </td>
-
-                            
                           </tr>
                           <tr>
                             <td>
@@ -498,7 +505,7 @@
                             </td>
                             <td>
                               <div class="input-field">
-                                <input type="text" formControlName="gramPanchayat" class="input-box-3 width100 " />
+                                <input type="text" formControlName="grampanchayat" class="input-box-3 width100 " />
                               </div>
 
                             </td>
@@ -682,7 +689,21 @@
                           </tr>
                           <tr>
                             <td colspan="4" align="center" class="back-white">
-                              <button type="button" (click)="onSave()" class="btn-blck1">Save</button>
+                              <!-- <button type="button" (click)="onSave()" class="btn-blck1">Save</button> -->
+                              <input type="button" value="Save" class="btn-blck1" id="addBen" (click)="onSave()" [hidden]="fatherId === null"
+                                [disabled]="!isRealFatherSelected" />
+                              
+                              <div *ngIf="fatherId !== null" class="info-text">
+                              
+                                <span *ngIf="isRealFatherSelected" style="color: green;">
+                                  Father selected successfully.
+                                </span>
+                              
+                                <span *ngIf="isNoDataSelected" style="color: red;">
+                                  No matching father found. You may proceed manually.
+                                </span>
+                              
+                              </div>
                             </td>
                           </tr>
                         </tbody>
@@ -868,11 +889,15 @@
                         </tr>
                         <tr>
                           <td colspan="4" class="text-align-center back-white" align="center">
-                            <input *ngIf="hideSaveRWE" type="button" value="Save" class="btn-blck1" id="saveRweBusiness" (click)="onSaveRweBusiness()" />
+                            <input type="button" value="Save" class="btn-blck1" id="saveRweBusiness" (click)="onSaveRweBusiness()" />
+
                           </td>
+                  
                         </tr>
                       </tbody>
                     </table>
+                    
+
                   </div>
                 </div>
         
