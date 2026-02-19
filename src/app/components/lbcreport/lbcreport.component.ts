@@ -95,9 +95,14 @@ export class LBCReportComponent implements OnInit {
   }
   loadReport() {
     this.loading = true;
+    const fromdt = document.getElementById('lbcFromDate') as HTMLInputElement | null;
+
+    const toDt = document.getElementById('lbcToDate') as HTMLInputElement | null;
+    const fromDate = fromdt?.value;
+    const toDate = toDt?.value;
 
     this.apiService
-      .getLBCReport('2000-01-01', '2030-02-20', 0)
+      .getLBCReport(fromDate, toDate, 0)
       .subscribe({
         next: (res) => {
           this.reportData = res.map((item, index) => ({

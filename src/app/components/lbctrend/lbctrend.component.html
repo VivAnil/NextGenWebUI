@@ -106,7 +106,7 @@
                             aria-controls="tabs-2" aria-labelledby="tab_service" aria-selected="true"
                             aria-expanded="true">
                             <a id="tab_service" role="presentation" tabindex="-1" class="ui-tabs-anchor">
-                                LBC Business Analysis Report
+                                LBC Trend Analysis Report
                             </a>
                         </li>
                         <div class="month-year-filter" style="left:31%; margin-top: .3%;">
@@ -114,14 +114,14 @@
 
                                 <div class="float-left" style="margin-right:10px;">
                                     <div class="font-weight-bold">From</div>
-                                    <div><input type="date" class="input-box-3" id="fromDate"></div>
+                                    <div><input type="date" class="input-box-3" id="trendFromDate"></div>
                                 </div>
                                 <div class="float-left" style="margin-right:10px;">
                                     <div class="font-weight-bold">To</div>
-                                    <div><input type="date" class="input-box-3" id="toDate"></div>
+                                    <div><input type="date" class="input-box-3" id="trendToDate"></div>
                                 </div>
                                 <div class="float-left" style="margin-right:10px;">
-                                    <div> <button type="button" class="btn-orange" id="btnFilter"
+                                    <div> <button type="button" class="btn-orange" id="btnFilter" (click)="loadReport()"
                                             style="margin-top: 15px; width: 100px;">
                                             Filter </button> </div>
                                 </div>

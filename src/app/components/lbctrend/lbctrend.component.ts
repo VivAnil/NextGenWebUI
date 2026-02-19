@@ -39,14 +39,16 @@ export class LbctrendComponent implements OnInit {
   }
   loadReport() {
     this.loading = true;
-    const fromdt = document.getElementById('fromDate') as HTMLInputElement | null;
-    var fromDate = fromdt?.value || null;
+    const fromdt = document.getElementById('trendFromDate') as HTMLInputElement | null;
 
-    const toDt = document.getElementById('toDate') as HTMLInputElement | null;
-    var toDate = toDt?.value || null;
+    const toDt = document.getElementById('trendToDate') as HTMLInputElement | null;
+    const fromDate = fromdt?.value;
+    const toDate = toDt?.value;
+
+
 
     this.apiService
-      .getLBCTrendReport('2000-01-01', '2030-12-01', 0)
+      .getLBCTrendReport(fromDate, toDate, 0)
         .subscribe({
           next: (res) => {
             this.reportData = res.map((item, index) => ({

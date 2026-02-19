@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Service } from '../models/service.model';
@@ -258,13 +258,29 @@ getServiceOrProductByBusinessType(
     const userUrl = 'https://motherappuserapi.azurewebsites.net/User/byManager/' + this.companyId + '/' + clmId;
     return this.http.get<any[]>(userUrl);
   }
-  getLBCReport(fromDate: string, toDate: string, spId: number): Observable<any[]> {
-    const baseLBCUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary';
-    const url = `${baseLBCUrl}/GetLBCReport?fromDate=${fromDate}&toDate=${toDate}&soochnapreneurId=${spId}`;
-    return this.http.get<any[]>(url);
-  }
+  // getLBCReport(fromDate?: string, toDate?: string, spId?: number): Observable<any[]> {
+  //   let params = new HttpParams()
+  //     .set('fromDate', fromDate == null ? '' : fromDate)
+  //     .set('toDate', toDate == null ? '' : toDate);
+  //   const baseLBCUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary';
+  //   const url = `${baseLBCUrl}/GetLBCReport?fromDate=${fromDate}&toDate=${toDate}&soochnapreneurId=${spId}`;
+  //   return this.http.get<any[]>(url);
+  // }
 
+  getLBCReport(fromDate?: string, toDate?: string, spId?: number): Observable<any[]> {
+    let params = new HttpParams()
+      .set('fromDate', fromDate == null ? '' : fromDate)
+      .set('toDate', toDate == null ? '' : toDate);
+
+    if (spId && spId > 0) {
+      params = params.set('spId', spId);
+    }
+
+      return this.http.get<any[]>('https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetLBCReport', { params });
+    }
 }
+
+
 
 export interface TGTBusinessType {
   id: number;
