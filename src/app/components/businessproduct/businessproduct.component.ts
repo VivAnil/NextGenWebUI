@@ -311,7 +311,7 @@ export class BusinessproductComponent implements OnInit {
       ]
     });
 
-    $("#MappedGrid").jsGrid({
+    $("#MappedGrid3").jsGrid({
       width: "100%",
       padding: "1%",
       filtering: false,
@@ -323,32 +323,13 @@ export class BusinessproductComponent implements OnInit {
       pageIndex: 1,
       pageSize: 50,
 
-      data: this.rweServiceOrProduct,
+      data: this.rweBusinessSubCatType,
 
       fields: [
-        { title: "Product Name", name: "name", type: "text" },
-        { title: "Selling Price", name: "sellingPrice", type: "text", align: "center" },
-        { title: "Unit", name: "unit", type: "text", align: "center" },
-        { title: "Margin", name: "margin", type: "text", align: "center" },
-        { title: "Business Category", name: "businessCategory", type: "text" },
-        { title: "Business Sub-Category", name: "businessSubCategory", type: "text" },
+        { title: "Business Sub-Category Name", name: "name", type: "text" },
+        { title: "Business Category", name: "businessCategory", type: "text" }
 
-        {
-          title: "Edit",
-          width: 60,
-          align: "center",
-          itemTemplate: (value: any, item: RWEBusinessType) => {
-            const button = $("<button>")
-              .text("Edit")
-              .addClass("btn-edit")
-              .on("click", () => {
-                this.openEditModal(item);
-              });
 
-            return button;
-            return button;
-          }
-        }
       ]
     });
 
