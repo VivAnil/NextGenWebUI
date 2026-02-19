@@ -45,7 +45,7 @@ export class LbcbaComponent implements OnInit {
     var toDate = toDt?.value || null;
 
     this.apiService
-      .getLBCAnalysisReport('2024-01-01', '2026-12-01', 0)
+      .getLBCAnalysisReport('2000-01-01', '2030-12-01', 0)
       .subscribe({
         next: (res) => {
           this.reportData = res.map((item, index) => ({

@@ -97,7 +97,7 @@ export class LBCReportComponent implements OnInit {
     this.loading = true;
 
     this.apiService
-      .getLBCReport('2000-01-01', '2026-02-10', 0)
+      .getLBCReport('2000-01-01', '2030-02-20', 0)
       .subscribe({
         next: (res) => {
           this.reportData = res.map((item, index) => ({

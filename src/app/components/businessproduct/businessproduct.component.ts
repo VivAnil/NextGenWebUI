@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../../services/menu.service';
 import { RWEBusinessFilters, rweBusiness } from '../../services/rweBusiness.service';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { RWEBusinessType, RWEServiceOrProduct, RWEBusinessSubCatType } from '../../models/rwe-business.model'
 declare let $: any; // Import jQuery
 
@@ -47,7 +48,15 @@ export class BusinessproductComponent implements OnInit {
   subCatName: string = '';
   //selectedBusinessTypeId: number | '' = '';
   enabledSubCat: boolean = true;
-
+  isEditModalOpen = false;
+  editForm = this.fb.group({
+    id: [0],
+    name: [''],
+    sellingPrice: [0],
+    unit: [''],
+    margin: [0]
+  });
+  selectedItem: any;
   clients = [
     {
       "productName": "Dana Mishran",
@@ -198,7 +207,7 @@ export class BusinessproductComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute, private menuService: MenuService, private rweBusinessService: rweBusiness, private router: Router) { }
+  constructor(private route: ActivatedRoute, private menuService: MenuService, private rweBusinessService: rweBusiness, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const userString = localStorage.getItem('userRoleSettings');
@@ -215,6 +224,7 @@ export class BusinessproductComponent implements OnInit {
     });
 
     this.isLoading = true;
+
     this.loadAllBusinessFilters();
     // this.rweBusinessService.getRWEBusinessFilters().subscribe({
     //   next: (data: RWEBusinessFilters) => {
@@ -301,34 +311,47 @@ export class BusinessproductComponent implements OnInit {
       ]
     });
 
-    $("#MappedGrid3").jsGrid({
+    $("#MappedGrid").jsGrid({
       width: "100%",
       padding: "1%",
       filtering: false,
       autoload: false,
       loadIndication: false,
       sorting: true,
-      pageSize: 100,
       paging: true,
       noDataContent: "No Data found",
       pageIndex: 1,
-      //pageSize: $('#<%=ddl_pagesize.ClientID%>').val(),
-      pageButtonCount: 15,
-      pagerFormat: "{prev}   {pageIndex}  of  {pageCount}   {next}",
-      pagePrevText: "&larr;",
-      pageNextText: "&#8594;",
-      //pageFirstText: "First",
-      // pageLastText: "Last",
-      pageNavigatorNextText: "...",
-      pageNavigatorPrevText: "...",
+      pageSize: 50,
 
       data: this.rweServiceOrProduct,
 
       fields: [
-        { title: "Business Sub-Category Name", name: "name", type: "text" },
-        { title: "Business Category", name: "businessCategory", type: "text" }
+        { title: "Product Name", name: "name", type: "text" },
+        { title: "Selling Price", name: "sellingPrice", type: "text", align: "center" },
+        { title: "Unit", name: "unit", type: "text", align: "center" },
+        { title: "Margin", name: "margin", type: "text", align: "center" },
+        { title: "Business Category", name: "businessCategory", type: "text" },
+        { title: "Business Sub-Category", name: "businessSubCategory", type: "text" },
+
+        {
+          title: "Edit",
+          width: 60,
+          align: "center",
+          itemTemplate: (value: any, item: RWEBusinessType) => {
+            const button = $("<button>")
+              .text("Edit")
+              .addClass("btn-edit")
+              .on("click", () => {
+                this.openEditModal(item);
+              });
+
+            return button;
+            return button;
+          }
+        }
       ]
     });
+
 
   }
 
@@ -589,6 +612,42 @@ export class BusinessproductComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+  openEditModal(item: any): void {
+    this.selectedItem = item;
+
+    this.editForm.patchValue({
+      id: item.id,
+      name: item.name,
+      sellingPrice: item.sellingPrice,
+      unit: item.unit,
+      margin: item.margin
+    });
+
+    this.isEditModalOpen = true;
+  }
+  closeModal(): void {
+    this.isEditModalOpen = false;
+  }
+  saveEdit(): void {
+
+    const updated = this.editForm.value;
+
+    // Call API here if needed
+    // this.service.updateProduct(updated).subscribe(...)
+
+    // Update local grid data
+    const index = this.rweServiceOrProduct.findIndex(x => x.id === updated.id);
+
+    // if (index !== -1) {
+    //   this.rweServiceOrProduct[index] = updated;
+    // }
+
+    // 🔹 Refresh jsGrid
+    $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct);
+    $("#MappedGrid").jsGrid("loadData");
+
+    this.closeModal();
   }
 
 
