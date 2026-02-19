@@ -817,6 +817,7 @@ onServiceProductNameChange(event: any): void {
   lastname: formData.lastname,
   fathersname: formData.fathersname,
   fathersmobile: formData.fathersmobile,
+  fatherId:formData.fatherId,
   relationship: formData.relationship,
   dob: formData.dob + 'T00:00:00Z',
   email: formData.email,
