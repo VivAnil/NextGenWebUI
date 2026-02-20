@@ -176,6 +176,7 @@
                                         [globalFilterFields]="globalFilterFields" [rowsPerPageOptions]="[5, 10, 20]" [loading]="loading">
                                         <ng-template pTemplate="header">
                                             <tr>
+                                                <th style="text-align:center; width:80px; border: 1px solid #ccc !important;">Sr. No.</th>
                                                 <ng-container *ngFor="let col of cols">
                                                     <th *ngIf="col.visible" [style.textAlign]="'center'" [style.width.px]="200" [pSortableColumn]="col.field"
                                                         class="td-border">
@@ -184,16 +185,22 @@
                                                 </ng-container>
                                                 </tr>
                                                 </ng-template>
-                                                <ng-template pTemplate="body" let-clmRow>
+                                                <ng-template pTemplate="body" let-clmRow let-x="rowIndex">
                                                     <tr (click)="toggleRow(clmRow)" class="clickable-row">
-                                                        <ng-container *ngFor="let col of cols">
+                                                        <td style="text-align:center;" class="td-border">
+                                                            {{ x + 1 }}
+                                                        </td>
+                                                                <ng-container *ngFor="let col of cols">
                                                             <td *ngIf="col.visible" [style.textAlign]="'center'" class="td-border">
+                                                            
                                                                 <ng-container *ngIf="col.field === 'firstName'; else normalCell">
                                                                     <span class="expand-link" (click)="onClmClick(clmRow, $event)">
                                                                         {{ clmRow[col.field] }}
+                                                                    
                                                                     </span>
                                                                 </ng-container>
                                                                 <ng-template #normalCell>
+                                                                
                                                                     {{ clmRow[col.field] }}
                                                                 </ng-template>
                                                             </td>
@@ -208,14 +215,15 @@
                                                             </div>
 
                                                     <ng-container *ngIf="!loadingLbc && clmRow.lbcList?.length">
-                                                        <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="20" [rowsPerPageOptions]="[5, 10, 20]"
+                                                        <p-table #dtLbc [value]="clmRow.lbcList" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 20]"
                                                             [responsiveLayout]="'scroll'" (click)="$event.stopPropagation()">
 
                                                             <!-- Header -->
                                                             <ng-template pTemplate="header">
                                             <tr>
-                                                <th style="text-align:center; width: 80px;">Sr. No.</th>
-                                                <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field" style="text-align:center; width: 200px;">
+                                                <th style="text-align:center; width: 80px; border: 1px solid #ccc !important;">Sr. No.</th>
+                                                <th *ngFor="let col of clmRow.lbcCols" [pSortableColumn]="col.field"
+                                                    style="text-align:center; width: 200px; border: 1px solid #ccc !important;">
                                                     {{ col.header }}
                                                 </th>
                                             </tr>
@@ -224,8 +232,8 @@
                                         <!-- Body -->
                                         <ng-template pTemplate="body" let-lbcRow let-i="rowIndex">
                                             <tr>
-                                                <td style="text-align:center;">{{ i + 1 }}</td>
-                                                <td *ngFor="let col of clmRow.lbcCols" style="text-align:center;">
+                                                <td style="text-align:center; border: 1px solid #ccc !important;">{{ i + 1 }}</td>
+                                                <td *ngFor="let col of clmRow.lbcCols" style="text-align:center; border: 1px solid #ccc !important;">
                                                     {{ lbcRow[col.field] }}
                                                 </td>
                                             </tr>
@@ -234,7 +242,7 @@
                                         <!-- Empty message -->
                                         <ng-template pTemplate="emptymessage">
                                             <tr>
-                                                <td [attr.colspan]="clmRow.lbcCols?.length + 1" style="text-align:center;">
+                                                <td [attr.colspan]="clmRow.lbcCols?.length + 1" style="text-align:center; border: 1px solid #ccc !important;">
                                                     No LBC data found.
                                                 </td>
                                             </tr>

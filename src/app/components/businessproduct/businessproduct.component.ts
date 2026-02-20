@@ -353,7 +353,22 @@ export class BusinessproductComponent implements OnInit {
 
   setTab(tab: string) {
     this.activeTab = tab;
+
+  setTimeout(() => {
+    if (tab === 'product') {
+      $("#MappedGrid").jsGrid("refresh");
+    }
+
+    if (tab === 'business') {
+      $("#MappedGrid2").jsGrid("refresh");
+    }
+
+    if (tab === 'subtype') {
+      $("#MappedGrid3").jsGrid("refresh");
+    }
+  }, 100);
   }
+
   updatePath(): void {
     this.menuService.resetMenu();
     this.menuService.updateMenuItems([
