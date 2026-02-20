@@ -49,13 +49,8 @@ export class BusinessproductComponent implements OnInit {
   //selectedBusinessTypeId: number | '' = '';
   enabledSubCat: boolean = true;
   isEditModalOpen = false;
-  editForm = this.fb.group({
-    id: [0],
-    name: [''],
-    sellingPrice: [0],
-    unit: [''],
-    margin: [0]
-  });
+  editForm!: FormGroup;
+  selectedRow: any;
   selectedItem: any;
   clients = [
     {
@@ -217,7 +212,12 @@ export class BusinessproductComponent implements OnInit {
     this.companyRoleId = userRoleSettings.companyRoleId;
     this.userName = userRoleSettings.username;
 
-
+    this.editForm = this.fb.group({
+      name: [''],
+      sellingPrice: [''],
+      unit: [''],
+      margin: ['']
+    });
     this.route.params.subscribe((params) => {
       this.companyId = +params['companyid'];
       this.roleId = +params['roleid'];
@@ -279,7 +279,19 @@ export class BusinessproductComponent implements OnInit {
         { title: "Unit", name: "unit", type: "text", align: "center" },
         { title: "Margin", name: "margin", type: "text", align: "center" },
         { title: "Business Category", name: "businessCategory", type: "text" },
-        { title: "Business Sub-Category", name: "businessSubCategory", type: "text" }
+        { title: "Business Sub-Category", name: "businessSubCategory", type: "text" },
+        {
+          title: "Action",
+          align: "center",
+          width: 80,
+          itemTemplate: (value: any, item: any) => {
+            return $("<button>")
+              .text("Edit")
+              .addClass("btn btn-sm btn-primary")
+              .on("click", () => this.openEditModal(item));
+          }
+
+        }
       ]
     });
 
@@ -334,6 +346,9 @@ export class BusinessproductComponent implements OnInit {
     });
 
 
+  }
+  onEditRow(rowData: any) {
+    console.log("Row clicked:", rowData);
   }
 
   setTab(tab: string) {
@@ -594,42 +609,49 @@ export class BusinessproductComponent implements OnInit {
       }
     });
   }
-  openEditModal(item: any): void {
-    this.selectedItem = item;
+
+  openEditModal(row: any) {
+
+    this.selectedRow = row;
 
     this.editForm.patchValue({
-      id: item.id,
-      name: item.name,
-      sellingPrice: item.sellingPrice,
-      unit: item.unit,
-      margin: item.margin
-    });
+    name: row.name,
+    sellingPrice: row.sellingPrice,
+    unit: row.unit,
+    margin: row.margin
+  });
 
-    this.isEditModalOpen = true;
+    // Open Bootstrap Modal
+    const modal = new (window as any).bootstrap.Modal(
+      document.getElementById('dv_editProduct')
+    );
+
+    modal.show();
   }
-  closeModal(): void {
-    this.isEditModalOpen = false;
-  }
-  saveEdit(): void {
 
-    const updated = this.editForm.value;
+  saveEdit() {
 
-    // Call API here if needed
-    // this.service.updateProduct(updated).subscribe(...)
+    if (!this.selectedRow) return;
 
-    // Update local grid data
-    const index = this.rweServiceOrProduct.findIndex(x => x.id === updated.id);
+    const updatedData = this.editForm.value;
 
-    // if (index !== -1) {
-    //   this.rweServiceOrProduct[index] = updated;
-    // }
+    // Update grid data locally
+    Object.assign(this.selectedRow, updatedData);
 
-    // 🔹 Refresh jsGrid
-    $("#MappedGrid").jsGrid("option", "data", this.rweServiceOrProduct);
+    // Refresh jsGrid
     $("#MappedGrid").jsGrid("loadData");
 
     this.closeModal();
   }
+
+  closeModal() {
+
+    const modalEl = document.getElementById('dv_editProduct');
+    const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
+
+    modal.hide();
+  }
+
 
 
 }
