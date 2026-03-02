@@ -277,8 +277,20 @@ getServiceOrProductByBusinessType(
     }
 
       return this.http.get<any[]>('https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetLBCReport', { params });
+  }
+
+  getProductReport(fromDate?: string, toDate?: string, spId?: number): Observable<any[]> {
+    let params = new HttpParams()
+      .set('fromDate', fromDate == null ? '' : fromDate)
+      .set('toDate', toDate == null ? '' : toDate);
+
+    if (spId && spId > 0) {
+      params = params.set('spId', spId);
     }
+    return this.http.get<any[]>('https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetProductReport', { params });
+  }
 }
+
 
 
 

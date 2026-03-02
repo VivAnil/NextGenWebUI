@@ -59,7 +59,10 @@ export class MenuService {
       {
         title: 'Reports Section',
         links: [
-          { label: 'LBC Reports', path: '/lbcreports' }
+          { label: 'LBC Reports', path: '/lbcreports' },
+          { label: 'Product Reports', path: '/productreport' }, 
+          { label: 'LBC Business Analysis', path: '/lbcba' },
+          { label: 'LBC Trend Analysis', path: '/lbctrend' }
         ]
       }
     ]
@@ -411,6 +414,7 @@ export class MenuService {
         title: 'Reports Section',
         links: [
           { label: 'LBC Reports', path: '/lbcreports' },
+          { label: 'Product Reports', path: '/productreport' },
           { label: 'LBC Business Analysis', path: '/lbcba' },
           { label: 'LBC Trend Analysis', path: '/lbctrend' }
         ]

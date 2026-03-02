@@ -412,6 +412,7 @@ export class BusinessproductComponent implements OnInit {
         title: 'Reports Section',
         links: [
           { label: 'LBC Reports', path: '/lbcreport' },
+          { label: 'Product Reports', path: '/productreport' },
           { label: 'LBC Business Analysis', path: '/lbcba' },
           { label: 'LBC Trend Analysis', path: '/lbctrend' }
         ]

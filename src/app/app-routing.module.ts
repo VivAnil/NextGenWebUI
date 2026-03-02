@@ -23,6 +23,7 @@ import { BusinessproductComponent } from './components/businessproduct/businessp
 import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
 import { LbcbaComponent } from './components/lbcba/lbcba.component';
 import { LbctrendComponent } from './components/lbctrend/lbctrend.component';
+import { ProductreportComponent } from './components/productreport/productreport.component';
 const routes: Routes = [
 
   {
@@ -55,6 +56,7 @@ const routes: Routes = [
       { path: 'user/:companyid/:roleid', component: UsersComponent, runGuardsAndResolvers: 'always' },
       { path: 'businessproduct', component: BusinessproductComponent },
       { path: 'lbcreport', component: LBCReportComponent },
+      { path: 'productreport', component: ProductreportComponent },
       { path: 'lbcba', component: LbcbaComponent },
       { path: 'lbctrend', component: LbctrendComponent }
     ]
@@ -76,6 +78,7 @@ const routes: Routes = [
   { path: 'resetpassword', component: ResetpasswordComponent, runGuardsAndResolvers: 'always' },
   { path: 'businessproduct', component: BusinessproductComponent },
   { path: 'lbcreport', component: LBCReportComponent },
+  { path: 'productreport', component: ProductreportComponent },
   { path: 'lbcba', component: LbcbaComponent },
   { path: 'lbctrend', component: LbctrendComponent },
   {

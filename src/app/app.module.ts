@@ -45,6 +45,7 @@ import { CustomRouteReuseStrategy } from './services/custom-route-reuse.strategy
 import { LBCReportComponent } from './components/lbcreport/lbcreport.component';
 import { LbcbaComponent } from './components/lbcba/lbcba.component';
 import { LbctrendComponent } from './components/lbctrend/lbctrend.component';
+import { ProductreportComponent } from './components/productreport/productreport.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +74,8 @@ import { LbctrendComponent } from './components/lbctrend/lbctrend.component';
     BusinessproductComponent,
     LBCReportComponent,
     LbcbaComponent,
-    LbctrendComponent
+    LbctrendComponent,
+    ProductreportComponent
   ],
   imports: [
     BrowserModule,

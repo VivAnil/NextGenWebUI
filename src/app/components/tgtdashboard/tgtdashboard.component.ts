@@ -122,14 +122,14 @@ export class TgtdashboardComponent implements OnInit {
       {
         title: 'Business Section',
         links: [
-          { label: 'View All Products', path: '/businessproduct' },
-          { label: 'LBC Reports', path: '/lbcreports' }
+          { label: 'View All Products', path: '/businessproduct' }
         ]
       },
       {
         title: 'Reports Section',
         links: [
           { label: 'LBC Reports', path: '/lbcreport' },
+          { label: 'Product Reports', path: '/productreport' },
           { label: 'LBC Business Analysis', path: '/lbcba' },
           { label: 'LBC Trend Analysis', path: '/lbctrend' }
         ]

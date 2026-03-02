@@ -8,12 +8,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { MenuService } from 'src/app/services/menu.service';
 declare var $: any; // Import jQuery
+
 @Component({
-  selector: 'app-lbcreport',
-  templateUrl: './lbcreport.component.html',
-  styleUrls: ['./lbcreport.component.css']
+  selector: 'app-productreport',
+  templateUrl: './productreport.component.html',
+  styleUrls: ['./productreport.component.css']
 })
-export class LBCReportComponent implements OnInit {
+export class ProductreportComponent implements OnInit {
   filteredData: any[] = []; // Data to display in the grid
   @ViewChild('dt') dt: Table | undefined; // Access the table reference
   data: any[] = [];
@@ -96,7 +97,7 @@ export class LBCReportComponent implements OnInit {
     const toDate = toDt?.value;
 
     this.apiService
-      .getLBCReport(fromDate, toDate, 0)
+      .getProductReport(fromDate, toDate, 0)
       .subscribe({
         next: (res) => {
           this.reportData = res.map((item, index) => ({
@@ -571,4 +572,3 @@ function buildMultiLevelHeader() {
 
   headerTable.prepend(row3).prepend(row2).prepend(row1);
 }
-
