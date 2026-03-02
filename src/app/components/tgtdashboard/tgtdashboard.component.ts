@@ -144,26 +144,45 @@ export class TgtdashboardComponent implements OnInit {
       .filter((d: any) => d.isSelected && d.stateId !== 0)
     .map((d: any) => d.stateId);
 
-    this.districts = ResetDistricts(this.allData).
-      filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
-        selectedStates.includes(d.stateId));
+    this.districts = ResetDistricts(this.allData)
+      .filter((d: any) =>
+        !selectedStates || selectedStates.length === 0
+          ? true
+          : selectedStates.includes(d.stateId)
+      )
+      .map((d: any) => ({
+        ...d,
+        isSelected: true
+      }));
 
     this.blocks = ResetBlocks(this.allData)
       .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
-        selectedStates.includes(d.stateId));
+        selectedStates.includes(d.stateId)).map((d: any) => ({
+          ...d,
+          isSelected: true
+        }));
 
     this.villages = ResetVillages(this.allData)
       .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
-        selectedStates.includes(d.stateId));
+        selectedStates.includes(d.stateId)).map((d: any) => ({
+          ...d,
+          isSelected: true
+        }));
 
     this.lbcNames = ResetLBCs(this.allData)
       .filter((d: any) => !selectedStates || selectedStates.length === 0 ? true :
-        selectedStates.includes(d.stateId));
+        selectedStates.includes(d.stateId)).map((d: any) => ({
+          ...d,
+          isSelected: true
+        }));
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
         !selectedStates || selectedStates.length ===0? true :
-        selectedStates.includes(d.stateId));
+          selectedStates.includes(d.stateId)).map((d: any) => ({
+            ...d,
+            isSelected: true
+          }));
 
 
 }
@@ -178,21 +197,30 @@ export class TgtdashboardComponent implements OnInit {
         !selectedDistricts || selectedDistricts.length === 0
           ? true
           : selectedDistricts.includes(d.districtId)
-        );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));;
 
     this.villages = ResetVillages(this.allData)
       .filter((d: any) =>
         !selectedDistricts || selectedDistricts.length === 0
           ? true
           : selectedDistricts.includes(d.districtId)
-    );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));;
 
     this.lbcNames = ResetLBCs(this.allData)
       .filter((d: any) =>
         !selectedDistricts || selectedDistricts.length === 0
           ? true
           : selectedDistricts.includes(d.districtId)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));;
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
@@ -200,7 +228,10 @@ export class TgtdashboardComponent implements OnInit {
           ? true
           : selectedDistricts.includes(d.districtId)
 
-        );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));;
   }
 
   onBlockChange() {
@@ -213,21 +244,30 @@ export class TgtdashboardComponent implements OnInit {
         !selectedBlocks || selectedBlocks.length === 0
           ? true
           : selectedBlocks.includes(d.blockId)
-    );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
 
     this.lbcNames = ResetLBCs(this.allData)
       .filter((d: any) =>
         !selectedBlocks || selectedBlocks.length === 0
           ? true
           : selectedBlocks.includes(d.blockId)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
         !selectedBlocks || selectedBlocks.length === 0
           ? true
           : selectedBlocks.includes(d.blockId)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
   }
 
   onVillageChange() {
@@ -240,14 +280,20 @@ export class TgtdashboardComponent implements OnInit {
         !selectedVillages || selectedVillages.length === 0
           ? true
           : selectedVillages.includes(d.village)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
 
     this.rweNames = ResetRWEs(this.allData)
       .filter((d: any) =>
         !selectedVillages || selectedVillages.length === 0
           ? true
           :selectedVillages.includes(d.village)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
   }
 
   onLBCChange() {
@@ -260,7 +306,10 @@ export class TgtdashboardComponent implements OnInit {
         !selectedLCB || selectedLCB.length === 0
           ? true
           : selectedLCB.includes(d.lbcId)
-      );
+    ).map((d: any) => ({
+      ...d,
+      isSelected: true
+    }));
   }
 }
 
