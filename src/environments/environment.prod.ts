@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseAuthApiUrl: "https://motherappauthservice.azurewebsites.net/authenticate",
+  baseAuthApiUrl: "https://motherappuserapi.defindia.org/User/authenticate",
   baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service",
   baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar",
   //baseSPUrl: "https://motherappserviceapi.azurewebsites.net/api/ServicePillar/Get",
@@ -9,8 +9,8 @@ export const environment = {
    companyDashboardApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard',
      benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',
   companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster',
-  userdetailsApiUrl:'https://motherappuserapi.azurewebsites.net/user/',
+  userdetailsApiUrl: 'https://motherappuserapi.defindia.org/user/',
   baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
-  resetPasswordUrl: 'https://motherappuserapi.azurewebsites.net/User/ResetPassword',
+  resetPasswordUrl: 'https://motherappuserapi.defindia.org/User/ResetPassword',
   baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/" 
 };

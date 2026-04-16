@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class rweBusiness {
-  private apibaseUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary/';
-  private apitgtbaseUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/';
+  private apibaseUrl = 'https://motherappuserapi.defindia.org/api/Beneficiary/';
+  private apitgtbaseUrl = 'https://motherappuserapi.defindia.org/api/TGTDashBoard/';
 
   constructor(private http: HttpClient) { }
 
@@ -29,17 +29,17 @@ export class rweBusiness {
   }
 
   addProduct(payload: any): Observable<any> {
-    return this.http.post('https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEServiceOrProduct', payload);
+    return this.http.post('https://motherappuserapi.defindia.org/api/TGTDashBoard/CreateRWEServiceOrProduct', payload);
   }
   AddBusinessSubCatType(payload: any) {
     return this.http.post(
-      'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEBusinessSubCatType',
+      'https://motherappuserapi.defindia.org/api/TGTDashBoard/CreateRWEBusinessSubCatType',
       payload
     );
   }
   addBusinessType(data: any) {
     return this.http.post(
-      'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/CreateRWEBusinessType',
+      'https://motherappuserapi.defindia.org/api/TGTDashBoard/CreateRWEBusinessType',
       data
     );
   }

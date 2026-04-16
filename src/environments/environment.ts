@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  baseAuthApiUrl: "https://motherappauthservice.azurewebsites.net/authenticate",
+  baseAuthApiUrl: "https://motherappuserapi.defindia.org/User/authenticate",
   baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service",
   baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar",  
   baseRoleMasterApiUrl: "https://motherappserviceapi.azurewebsites.net/api/RoleMaster/Get",
   companyDashboardApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard',
   benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',
   companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster',
-  userdetailsApiUrl:'https://motherappuserapi.azurewebsites.net/user/',
-  resetPasswordUrl: 'https://motherappuserapi.azurewebsites.net/User/ResetPassword',
+  userdetailsApiUrl: 'https://motherappuserapi.defindia.org/user/',
+  resetPasswordUrl: 'https://motherappuserapi.defindia.org/User/ResetPassword',
   baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
   baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
   baseCasteUrl: "https://motherappmasterapi.azurewebsites.net/api/Master/GetCaste",

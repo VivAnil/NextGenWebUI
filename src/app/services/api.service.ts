@@ -18,7 +18,7 @@ export class ApiService {
  // private baseUrl : string = 'https://localhost:7052/api/Service/Get';//environment.baseServiceurl;
  private baseUrl : string = environment.baseServiceUrl;
   private baseSPurl: string = environment.baseSPUrl;
-  private tgtbaseUrl = 'https://motherappuserapi.azurewebsites.net/api/TGTDashBoard';
+  private tgtbaseUrl = 'https://motherappuserapi.defindia.org/api/TGTDashBoard';
  private userdetailsApiUrl: string = environment.userdetailsApiUrl;
  private companyId!:string;
   constructor(private http: HttpClient) { }
@@ -75,7 +75,7 @@ export class ApiService {
     ];
   }
   getBusinessTypesByUserId(companyId: number, userId: number, userType: string) {
-    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&userId=${userId}&userType=${userType}`;
+    const url = `https://motherappuserapi.defindia.org/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&userId=${userId}&userType=${userType}`;
 
     return this.http
       .get<BusinessTypeApiResponse[]>(url)
@@ -89,7 +89,7 @@ export class ApiService {
       );
   }
   getBusinessTypes(companyId: number, companyRoleId: number) {
-    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&companyRoleId=${companyRoleId}`;
+    const url = `https://motherappuserapi.defindia.org/api/TGTDashBoard/GetBusinessType?companyId=${companyId}&companyRoleId=${companyRoleId}`;
 
     return this.http
       .get<BusinessTypeApiResponse[]>(url)
@@ -105,18 +105,18 @@ export class ApiService {
 getServiceOrProductByBusinessType(
   businessTypeId: number
 ) {
-  const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
+  const url = `https://motherappuserapi.defindia.org/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
 
   return this.http.get<ServiceOrProduct[]>(url);
 }
   getBusinessesByRweId(rweId: number) {
-    const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetBusinessNameById/${rweId}/lbc`;
+    const url = `https://motherappuserapi.defindia.org/api/TGTDashBoard/GetBusinessNameById/${rweId}/lbc`;
 
     return this.http.get<tgtBusiness[]>(url);
   }
 
   // getServiceOrProductByBusinessType(businessTypeId: number) {
-  //   const url = `https://motherappuserapi.azurewebsites.net/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
+  //   const url = `https://motherappuserapi.defindia.org/api/TGTDashBoard/GetServiceOrProductByBusinessType/${businessTypeId}`;
 
   //   return this.http
   //     .get<ServiceOrProductApiResponse[]>(url)
@@ -167,9 +167,9 @@ getServiceOrProductByBusinessType(
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
     this.companyId = userRoleSettings.companyId;
 
-    //const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/'+ this.companyId +'/0/0';
+    //const benUrl='https://motherappuserapi.defindia.org/api/Beneficiary/GetAllBeneficiaries/'+ this.companyId +'/0/0';
     // Extract numeric parameters from the passed URL
-    // e.g. "https://motherappuserapi.azurewebsites.net/user/32/0/67"
+    // e.g. "https://motherappuserapi.defindia.org/user/32/0/67"
     const parts = url.split('/').filter(p => p.trim() !== '');
     const len = parts.length;
 
@@ -179,7 +179,7 @@ getServiceOrProductByBusinessType(
     const spId = parts[len - 1] || '0';
 
     // ✅ Dynamically construct API URL
-    const benUrl = `https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetAllBeneficiaries/${companyId}/${projectId}/${spId}`;
+    const benUrl = `https://motherappuserapi.defindia.org/api/Beneficiary/GetAllBeneficiaries/${companyId}/${projectId}/${spId}`;
 
     console.log('Fetching beneficiaries from:', benUrl);
 
@@ -197,7 +197,7 @@ getServiceOrProductByBusinessType(
   }
   
   saveBeneficiary(data: any): Observable<any> {
-    const benUrl='https://motherappuserapi.azurewebsites.net/api/Beneficiary';
+    const benUrl = 'https://motherappuserapi.defindia.org/api/Beneficiary';
     const api = benUrl;
     return this.http.post<any>(api, data);
   }
@@ -255,14 +255,14 @@ getServiceOrProductByBusinessType(
     let permissionSettings = userRoleSettings ? userRoleSettings.permissionSettings : [];
     this.companyId = userRoleSettings.companyId;
 
-    const userUrl = 'https://motherappuserapi.azurewebsites.net/User/byManager/' + this.companyId + '/' + clmId;
+    const userUrl = 'https://motherappuserapi.defindia.org/User/byManager/' + this.companyId + '/' + clmId;
     return this.http.get<any[]>(userUrl);
   }
   // getLBCReport(fromDate?: string, toDate?: string, spId?: number): Observable<any[]> {
   //   let params = new HttpParams()
   //     .set('fromDate', fromDate == null ? '' : fromDate)
   //     .set('toDate', toDate == null ? '' : toDate);
-  //   const baseLBCUrl = 'https://motherappuserapi.azurewebsites.net/api/Beneficiary';
+  //   const baseLBCUrl = 'https://motherappuserapi.defindia.org/api/Beneficiary';
   //   const url = `${baseLBCUrl}/GetLBCReport?fromDate=${fromDate}&toDate=${toDate}&soochnapreneurId=${spId}`;
   //   return this.http.get<any[]>(url);
   // }
@@ -276,7 +276,7 @@ getServiceOrProductByBusinessType(
       params = params.set('spId', spId);
     }
 
-      return this.http.get<any[]>('https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetLBCReport', { params });
+    return this.http.get<any[]>('https://motherappuserapi.defindia.org/api/Beneficiary/GetLBCReport', { params });
   }
 
   getProductReport(fromDate?: string, toDate?: string, spId?: number): Observable<any[]> {
@@ -287,7 +287,7 @@ getServiceOrProductByBusinessType(
     if (spId && spId > 0) {
       params = params.set('spId', spId);
     }
-    return this.http.get<any[]>('https://motherappuserapi.azurewebsites.net/api/Beneficiary/GetProductReport', { params });
+    return this.http.get<any[]>('https://motherappuserapi.defindia.org/api/Beneficiary/GetProductReport', { params });
   }
 }
 
