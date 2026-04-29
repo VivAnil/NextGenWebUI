@@ -5,18 +5,18 @@
 export const environment = {
   production: false,
   baseAuthApiUrl: "https://motherappuserapi.defindia.org/User/authenticate",
-  baseServiceUrl: "https://motherappserviceapi.azurewebsites.net/api/Service",
-  baseSPUrl:"https://motherappserviceapi.azurewebsites.net/api/ServicePillar",  
-  baseRoleMasterApiUrl: "https://motherappserviceapi.azurewebsites.net/api/RoleMaster/Get",
-  companyDashboardApiUrl : 'https://motherappcompanyapi.azurewebsites.net/api/Company/GetCompanyDashboard',
-  benStatsApiUrl: 'https://motherappcompanyapi.azurewebsites.net/api/Project/GetBeneficiaryStats',
-  companyUserRoleMasterBaseUrl:'https://motherappcompanyapi.azurewebsites.net/api/CompanyUserRoleMaster',
+  baseServiceUrl: "https://motherappserviceapi.defindia.org/api/Service",
+  baseSPUrl: "https://motherappserviceapi.defindia.org/api/ServicePillar",
+  baseRoleMasterApiUrl: "https://motherappserviceapi.defindia.org/api/RoleMaster/Get",
+  companyDashboardApiUrl: 'https://motherappcompanyapi.defindia.org/api/Company/GetCompanyDashboard',
+  benStatsApiUrl: 'https://motherappcompanyapi.defindia.org/api/Project/GetBeneficiaryStats',
+  companyUserRoleMasterBaseUrl: 'https://motherappcompanyapi.defindia.org/api/CompanyUserRoleMaster',
   userdetailsApiUrl: 'https://motherappuserapi.defindia.org/user/',
   resetPasswordUrl: 'https://motherappuserapi.defindia.org/User/ResetPassword',
-  baseCompanyUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
-  baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.azurewebsites.net/api/",
-  baseCasteUrl: "https://motherappmasterapi.azurewebsites.net/api/Master/GetCaste",
-  baseEconomicStatusUrl: "https://motherappmasterapi.azurewebsites.net/api/Master/GetEconomicStatus"
+  baseCompanyUrl: "https://motherappcompanyapi.defindia.org/api/",
+  baseProjectSpWiseRevenueApiUrl: "https://motherappcompanyapi.defindia.org/api/",
+  baseCasteUrl: "https://motherappmasterapi.defindia.org/api/Master/GetCaste",
+  baseEconomicStatusUrl: "https://motherappmasterapi.defindia.org/api/Master/GetEconomicStatus"
 };
 
 

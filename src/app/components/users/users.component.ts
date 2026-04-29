@@ -730,7 +730,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     });
   }
   fetchMasterData() {
-    this.http.get<SexOption[]>('https://motherappmasterapi.azurewebsites.net/api/Gender/GetAllGender').subscribe(
+    this.http.get<SexOption[]>('https://motherappmasterapi.defindia.org/api/Gender/GetAllGender').subscribe(
       (response: SexOption[]) => {
         console.log('response = ' + response);
         this.sexOptions = response;
@@ -744,7 +744,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     );
   }
   getStates() {
-    this.http.get<any[]>('https://motherappmasterapi.azurewebsites.net/api/State/GetAllStates').subscribe(
+    this.http.get<any[]>('https://motherappmasterapi.defindia.org/api/State/GetAllStates').subscribe(
       (response) => {
         this.states = response;
         if (this.states.length > 0) {
@@ -761,7 +761,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
   // Fetch districts based on selected state
   getDistricts(stateId: number) {
-    this.http.get<any[]>(`https://motherappmasterapi.azurewebsites.net/api/District/GetAllDistrictsByStateId?stateId=${stateId}`).subscribe(
+    this.http.get<any[]>(`https://motherappmasterapi.defindia.org/api/District/GetAllDistrictsByStateId?stateId=${stateId}`).subscribe(
       (response) => {
         this.districts = response;
         this.selectedDistrict = 0; // Reset district dropdown
@@ -782,7 +782,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
 
   // Fetch blocks based on selected district
   getBlocks(districtId: number) {
-    this.http.get<any[]>(`https://motherappmasterapi.azurewebsites.net/api/Block/GetAllBlocksByDistrictId?districtId=${districtId}`).subscribe(
+    this.http.get<any[]>(`https://motherappmasterapi.defindia.org/api/Block/GetAllBlocksByDistrictId?districtId=${districtId}`).subscribe(
       (response) => {
         this.blocks = response;
         this.selectedBlock = null; // Reset block dropdown
